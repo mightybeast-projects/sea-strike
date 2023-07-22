@@ -2,8 +2,9 @@ namespace SeaStrike.Core;
 
 internal class Tile
 {
-    internal int i;
-    internal int j;
+    internal readonly int i;
+    internal readonly int j;
+    internal string notation => (char)(j + 65) + (i + 1).ToString();
 
     public Tile(int i, int j)
     {
