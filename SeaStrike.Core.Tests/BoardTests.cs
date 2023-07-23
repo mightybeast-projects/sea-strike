@@ -6,11 +6,14 @@ namespace SeaStrike.Core.Tests;
 [TestFixture]
 public class BoardTests
 {
+    private Board board;
+
+    [SetUp]
+    public void SetUp() => board = new Board();
+
     [Test]
     public void BoardInitialization_IsCorrect()
     {
-        Board board = new Board();
-
         board.oceanGrid.Should().NotBeNull();
         board.targetGrid.Should().NotBeNull();
         board.ships.Should().NotBeNull().And.BeEmpty();
@@ -19,7 +22,6 @@ public class BoardTests
     [Test]
     public void Board_CanAdd_NewHorizontalShip()
     {
-        Board board = new Board();
         Ship ship = new Ship(3);
         List<Tile> occupiedTiles = new List<Tile>()
         {
@@ -38,20 +40,24 @@ public class BoardTests
     [Test]
     public void Board_CannotAdd_NewHorizontalShip()
     {
-        Board board = new Board();
         Ship ship = new Ship(4);
+        List<Tile> nonOccupiedTiles = new List<Tile>()
+        {
+            board.oceanGrid.GetTile("A8"),
+            board.oceanGrid.GetTile("A9"),
+            board.oceanGrid.GetTile("A10")
+        };
 
         board.AddHorizontalShip(ship, "A8");
 
         board.ships.Should().NotContain(ship);
-        board.oceanGrid.GetTile("A8").isOccupied.Should().BeFalse();
+        nonOccupiedTiles.ForEach(tile => TileShouldNotBeOccupied(tile));
         ship.occupiedTiles.Should().OnlyContain(tile => tile == null);
     }
 
     [Test]
     public void Board_CanAdd_NewVerticalShip()
     {
-        Board board = new Board();
         Ship ship = new Ship(3);
         List<Tile> occupiedTiles = new List<Tile>()
         {
@@ -70,13 +76,18 @@ public class BoardTests
     [Test]
     public void Board_CannotAdd_NewVerticalShip()
     {
-        Board board = new Board();
         Ship ship = new Ship(4);
+        List<Tile> nonOccupiedTiles = new List<Tile>()
+        {
+            board.oceanGrid.GetTile("H1"),
+            board.oceanGrid.GetTile("I1"),
+            board.oceanGrid.GetTile("J1")
+        };
 
         board.AddVerticalShip(ship, "H1");
 
         board.ships.Should().NotContain(ship);
-        board.oceanGrid.GetTile("H1").isOccupied.Should().BeFalse();
+        nonOccupiedTiles.ForEach(tile => TileShouldNotBeOccupied(tile));
         ship.occupiedTiles.Should().OnlyContain(tile => tile == null);
     }
 
@@ -85,4 +96,7 @@ public class BoardTests
         tile.isOccupied.Should().BeTrue();
         tile.occupiedBy.Should().BeEquivalentTo(ship);
     }
+
+    private void TileShouldNotBeOccupied(Tile tile) =>
+        tile.isOccupied.Should().BeFalse();
 }
