@@ -7,10 +7,7 @@ namespace SeaStrike.Core.Tests;
 public class GridTests
 {
     [Test]
-    public void GridInitialization() => new Grid();
-
-    [Test]
-    public void Grid_IsTilesMatrix()
+    public void GridInitialization_IsCorrect()
     {
         Grid grid = new Grid();
 

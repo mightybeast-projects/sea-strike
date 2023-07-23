@@ -6,9 +6,6 @@ namespace SeaStrike.Core.Tests;
 [TestFixture]
 public class TileTests
 {
-    [Test]
-    public void TileInitialization() => new Tile(0, 0);
-
     [TestCaseSource(nameof(tileCoordinatesCases))]
     public void TileCoordinates_AreCorrect(int i, int j)
     {

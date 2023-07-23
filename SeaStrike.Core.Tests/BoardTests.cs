@@ -7,7 +7,7 @@ namespace SeaStrike.Core.Tests;
 public class BoardTests
 {
     [Test]
-    public void BoardInitialization()
+    public void BoardInitialization_IsCorrect()
     {
         Board board = new Board();
 
