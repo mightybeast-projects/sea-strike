@@ -1,3 +1,4 @@
+using FluentAssertions;
 using NUnit.Framework;
 
 namespace SeaStrike.Core.Tests;
@@ -13,8 +14,8 @@ public class TileTests
     {
         Tile tile = new Tile(i, j);
 
-        Assert.AreEqual(i, tile.i);
-        Assert.AreEqual(j, tile.j);
+        tile.i.Should().Be(i);
+        tile.j.Should().Be(j);
     }
 
     [TestCaseSource(nameof(tileNotationCases))]

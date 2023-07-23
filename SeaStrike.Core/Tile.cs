@@ -1,6 +1,6 @@
 namespace SeaStrike.Core;
 
-internal class Tile
+public class Tile
 {
     internal readonly int i;
     internal readonly int j;

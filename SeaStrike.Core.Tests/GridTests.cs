@@ -1,3 +1,4 @@
+using FluentAssertions;
 using NUnit.Framework;
 
 namespace SeaStrike.Core.Tests;
@@ -12,24 +13,24 @@ public class GridTests
     public void Grid_IsTilesMatrix()
     {
         Grid grid = new Grid();
-        Tile tile = new Tile(0, 3);
 
-        Assert.AreEqual(10, grid.tiles.GetLength(0));
-        Assert.AreEqual(10, grid.tiles.GetLength(1));
-        Assert.AreEqual(tile.notation, grid.tiles[0, 3].notation);
+        grid.tiles.GetLength(0).Should().Be(10);
+        grid.tiles.GetLength(1).Should().Be(10);
+        grid.tiles[0, 3].Should().BeEquivalentTo(new Tile(0, 3), options =>
+            options.IncludingInternalFields()
+        );
     }
 
-    [Test]
-    public void Grid_CanGetTile_ByNotation()
-    {
-        Grid grid = new Grid();
-        Tile tile = new Tile(0, 3);
-
-        Assert.AreEqual(tile.notation, grid.GetTile("D1").notation);
-    }
+    [TestCaseSource(nameof(gridTileNotationCases))]
+    public void Grid_CanGetTile_ByNotation(string notation, Tile tile) =>
+        new Grid().GetTile(notation).Should().BeEquivalentTo(tile,
+            options => options.IncludingInternalFields()
+        );
 
     private static TestCaseData[] gridTileNotationCases =
     {
-        new TestCaseData("D1").Returns(new Tile(0, 3))
+        new TestCaseData("A1", new Tile(0, 0)),
+        new TestCaseData("D1", new Tile(0, 3)),
+        new TestCaseData("E8", new Tile(7, 4)),
     };
 }
