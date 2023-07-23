@@ -3,7 +3,7 @@ namespace SeaStrike.Core;
 public class Ship
 {
     public int width => occupiedTiles.Length;
-    public Tile[] occupiedTiles;
+    public readonly Tile[] occupiedTiles;
 
     public Ship(int width) => occupiedTiles = new Tile[width];
 }

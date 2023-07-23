@@ -6,7 +6,7 @@ public class Board
     public readonly Grid targetGrid;
     public readonly List<Ship> ships;
 
-    public Board()
+    internal Board()
     {
         oceanGrid = new Grid();
         targetGrid = new Grid();

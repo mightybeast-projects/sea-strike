@@ -4,7 +4,7 @@ public class Grid
 {
     internal readonly Tile[,] tiles;
 
-    public Grid()
+    internal Grid()
     {
         tiles = new Tile[10, 10];
 

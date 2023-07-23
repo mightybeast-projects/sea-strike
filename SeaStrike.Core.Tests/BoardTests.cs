@@ -33,8 +33,8 @@ public class BoardTests
         board.AddHorizontalShip(ship, "A1");
 
         board.ships.Should().Contain(ship);
-        occupiedTiles.ForEach(tile => TileShouldBeOccupiedBy(tile, ship));
         ship.occupiedTiles.Should().BeEquivalentTo(occupiedTiles);
+        occupiedTiles.Should().OnlyContain(tile => tile.occupiedBy == ship);
     }
 
     [Test]
@@ -51,8 +51,8 @@ public class BoardTests
         board.AddHorizontalShip(ship, "A8");
 
         board.ships.Should().NotContain(ship);
-        nonOccupiedTiles.ForEach(tile => TileShouldNotBeOccupied(tile));
         ship.occupiedTiles.Should().OnlyContain(tile => tile == null);
+        nonOccupiedTiles.Should().OnlyContain(tile => tile.isOccupied == false);
     }
 
     [Test]
@@ -69,8 +69,8 @@ public class BoardTests
         board.AddVerticalShip(ship, "A1");
 
         board.ships.Should().Contain(ship);
-        occupiedTiles.ForEach(tile => TileShouldBeOccupiedBy(tile, ship));
         ship.occupiedTiles.Should().BeEquivalentTo(occupiedTiles);
+        occupiedTiles.Should().OnlyContain(tile => tile.occupiedBy == ship);
     }
 
     [Test]
@@ -87,16 +87,7 @@ public class BoardTests
         board.AddVerticalShip(ship, "H1");
 
         board.ships.Should().NotContain(ship);
-        nonOccupiedTiles.ForEach(tile => TileShouldNotBeOccupied(tile));
         ship.occupiedTiles.Should().OnlyContain(tile => tile == null);
+        nonOccupiedTiles.Should().OnlyContain(tile => tile.isOccupied == false);
     }
-
-    private void TileShouldBeOccupiedBy(Tile tile, Ship ship)
-    {
-        tile.isOccupied.Should().BeTrue();
-        tile.occupiedBy.Should().BeEquivalentTo(ship);
-    }
-
-    private void TileShouldNotBeOccupied(Tile tile) =>
-        tile.isOccupied.Should().BeFalse();
 }
