@@ -29,4 +29,21 @@ public class Board
             ship.occupiedTiles[i] = tile;
         }
     }
+
+    internal void AddVerticalShip(Ship ship, string startTileStr)
+    {
+        Tile startTile = oceanGrid.GetTile(startTileStr);
+
+        if (oceanGrid.tiles.GetLength(1) - (startTile.j + ship.width) < 0)
+            return;
+
+        ships.Add(ship);
+
+        for (int j = 0; j < ship.width; j++)
+        {
+            Tile tile = oceanGrid.tiles[startTile.i, startTile.j + j];
+            tile.occupiedBy = ship;
+            ship.occupiedTiles[j] = tile;
+        }
+    }
 }

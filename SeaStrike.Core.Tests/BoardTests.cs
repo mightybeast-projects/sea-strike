@@ -48,6 +48,38 @@ public class BoardTests
         ship.occupiedTiles.Should().OnlyContain(tile => tile == null);
     }
 
+    [Test]
+    public void Board_CanAdd_NewVerticalShip()
+    {
+        Board board = new Board();
+        Ship ship = new Ship(3);
+        List<Tile> occupiedTiles = new List<Tile>()
+        {
+            board.oceanGrid.GetTile("A1"),
+            board.oceanGrid.GetTile("B1"),
+            board.oceanGrid.GetTile("C1")
+        };
+
+        board.AddVerticalShip(ship, "A1");
+
+        board.ships.Should().Contain(ship);
+        occupiedTiles.ForEach(tile => TileShouldBeOccupiedBy(tile, ship));
+        ship.occupiedTiles.Should().BeEquivalentTo(occupiedTiles);
+    }
+
+    [Test]
+    public void Board_CannotAdd_NewVerticalShip()
+    {
+        Board board = new Board();
+        Ship ship = new Ship(4);
+
+        board.AddVerticalShip(ship, "H1");
+
+        board.ships.Should().NotContain(ship);
+        board.oceanGrid.GetTile("H1").isOccupied.Should().BeFalse();
+        ship.occupiedTiles.Should().OnlyContain(tile => tile == null);
+    }
+
     private void TileShouldBeOccupiedBy(Tile tile, Ship ship)
     {
         tile.isOccupied.Should().BeTrue();
