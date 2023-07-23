@@ -13,8 +13,13 @@ public class Board
         ships = new List<Ship>();
     }
 
-    internal void AddHorizontalShip(Ship ship, Tile startTile)
+    internal void AddHorizontalShip(Ship ship, string startTileStr)
     {
+        Tile startTile = oceanGrid.GetTile(startTileStr);
+
+        if (oceanGrid.tiles.GetLength(0) - (startTile.i + ship.width) < 0)
+            return;
+
         ships.Add(ship);
 
         for (int i = 0; i < ship.width; i++)

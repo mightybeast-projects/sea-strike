@@ -28,11 +28,24 @@ public class BoardTests
             board.oceanGrid.GetTile("A3")
         };
 
-        board.AddHorizontalShip(ship, occupiedTiles[0]);
+        board.AddHorizontalShip(ship, "A1");
 
         board.ships.Should().Contain(ship);
         occupiedTiles.ForEach(tile => TileShouldBeOccupiedBy(tile, ship));
         ship.occupiedTiles.Should().BeEquivalentTo(occupiedTiles);
+    }
+
+    [Test]
+    public void Board_CannotAdd_NewHorizontalShip()
+    {
+        Board board = new Board();
+        Ship ship = new Ship(4);
+
+        board.AddHorizontalShip(ship, "A8");
+
+        board.ships.Should().NotContain(ship);
+        board.oceanGrid.GetTile("A8").isOccupied.Should().BeFalse();
+        ship.occupiedTiles.Should().OnlyContain(tile => tile == null);
     }
 
     private void TileShouldBeOccupiedBy(Tile tile, Ship ship)
