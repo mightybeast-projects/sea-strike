@@ -13,6 +13,8 @@ public class TileTests
 
         tile.i.Should().Be(i);
         tile.j.Should().Be(j);
+        tile.occupiedBy.Should().BeNull();
+        tile.isOccupied.Should().BeFalse();
     }
 
     [TestCaseSource(nameof(tileNotationCases))]
