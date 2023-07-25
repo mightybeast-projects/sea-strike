@@ -1,3 +1,5 @@
+using SeaStrike.Core.Exceptions;
+
 namespace SeaStrike.Core.Entity;
 
 public class Grid
@@ -13,8 +15,7 @@ public class Grid
                 tiles[i, j] = new Tile(i, j);
     }
 
-    internal Tile GetTile(string notation) =>
-        tiles.Cast<Tile>()
-            .Where(tile => tile.notation == notation)
-            .FirstOrDefault();
+    internal Tile GetTile(string tileNotation) =>
+        tiles.Cast<Tile>().FirstOrDefault(tile => tile.notation == tileNotation)
+        ?? throw new CannotFindSpecifiedTileException(tileNotation);
 }
