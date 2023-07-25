@@ -1,7 +1,8 @@
 using FluentAssertions;
 using NUnit.Framework;
+using SeaStrike.Core.Entity;
 
-namespace SeaStrike.Core.Tests;
+namespace SeaStrike.Core.Tests.EntityTests;
 
 [TestFixture]
 public class TileTests

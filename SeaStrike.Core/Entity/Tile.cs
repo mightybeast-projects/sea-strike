@@ -1,4 +1,4 @@
-namespace SeaStrike.Core;
+namespace SeaStrike.Core.Entity;
 
 public class Tile
 {
