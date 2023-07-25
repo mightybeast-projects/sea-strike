@@ -30,6 +30,8 @@ public class BoardBuilder
     public BoardBuilder AtPosition(string tileStr)
     {
         additionMethod(shipToAdd, tileStr);
+        shipToAdd = null;
+        additionMethod = null;
 
         return this;
     }
