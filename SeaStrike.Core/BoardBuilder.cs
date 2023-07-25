@@ -2,25 +2,34 @@ namespace SeaStrike.Core;
 
 public class BoardBuilder
 {
-    public Board board;
+    internal Board board;
 
-    public BoardBuilder Init()
+    private Ship shipToAdd;
+    private Action<Ship, string> additionMethod;
+
+    public BoardBuilder() => board = new Board();
+
+    public Board Build() => board;
+
+    public BoardBuilder AddHorizontalShip(Ship ship)
     {
-        board = new Board();
+        shipToAdd = ship;
+        additionMethod = board.AddHorizontalShip;
 
         return this;
     }
 
-    public BoardBuilder AddHorizontalShip(Ship ship, string tileStr)
+    public BoardBuilder AddVerticalShip(Ship ship)
     {
-        board.AddHorizontalShip(ship, tileStr);
+        shipToAdd = ship;
+        additionMethod = board.AddVerticalShip;
 
         return this;
     }
 
-    public BoardBuilder AddVerticalShip(Ship ship, string tileStr)
+    public BoardBuilder AtPosition(string tileStr)
     {
-        board.AddVerticalShip(ship, tileStr);
+        additionMethod(shipToAdd, tileStr);
 
         return this;
     }
