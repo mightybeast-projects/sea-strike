@@ -19,7 +19,7 @@ public class BoardBuilderTests
             .AddHorizontalShip(new Ship(3))
                 .AtPosition("A1")
             .AddHorizontalShip(new Ship(5))
-                .AtPosition("J1")
+                .AtPosition("B1")
             .Build();
 
         board.ships.Count.Should().Be(2);

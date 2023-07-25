@@ -65,4 +65,15 @@ public class BoardTests
         board.Invoking(b => b.AddVerticalShip(new Ship(4), "H1"))
             .Should().Throw<CannotFitShipException>();
     }
+
+    [Test]
+    public void Board_Throws_TileIsOccupiedByOtherShipException()
+    {
+        board.AddHorizontalShip(new Ship(3), "A1");
+
+        board.Invoking(b => b.AddHorizontalShip(new Ship(4), "A1"))
+            .Should().Throw<TileIsOccupiedByOtherShipException>();
+        board.Invoking(b => b.AddVerticalShip(new Ship(4), "A1"))
+            .Should().Throw<TileIsOccupiedByOtherShipException>();
+    }
 }
