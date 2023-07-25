@@ -1,3 +1,5 @@
+using SeaStrike.Core.Exceptions;
+
 namespace SeaStrike.Core.Entity;
 
 public class Board
@@ -18,7 +20,7 @@ public class Board
         Tile startTile = oceanGrid.GetTile(startTileStr);
 
         if (oceanGrid.tiles.GetLength(0) - (startTile.i + ship.width) < 0)
-            return;
+            throw new CannotFitShipException(startTileStr);
 
         ships.Add(ship);
 
@@ -35,7 +37,7 @@ public class Board
         Tile startTile = oceanGrid.GetTile(startTileStr);
 
         if (oceanGrid.tiles.GetLength(1) - (startTile.j + ship.width) < 0)
-            return;
+            throw new CannotFitShipException(startTileStr);
 
         ships.Add(ship);
 
