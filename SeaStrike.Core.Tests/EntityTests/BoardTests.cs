@@ -25,7 +25,7 @@ public class BoardTests
     [Test]
     public void Board_CanAdd_NewHorizontalShip()
     {
-        Ship ship = new Ship(3);
+        Ship ship = new Cruiser();
         List<Tile> occupiedTiles = new List<Tile>()
         {
             board.oceanGrid.GetTile("A1"),
@@ -43,7 +43,7 @@ public class BoardTests
     [Test]
     public void Board_CanAdd_NewVerticalShip()
     {
-        Ship ship = new Ship(3);
+        Ship ship = new Cruiser();
         List<Tile> occupiedTiles = new List<Tile>()
         {
             board.oceanGrid.GetTile("A1"),
@@ -61,20 +61,20 @@ public class BoardTests
     [Test]
     public void Board_Throws_CannotFitShipException()
     {
-        board.Invoking(b => b.AddHorizontalShip(new Ship(4), "A8"))
+        board.Invoking(b => b.AddHorizontalShip(new Battleship(), "A8"))
             .Should().Throw<CannotFitShipException>();
-        board.Invoking(b => b.AddVerticalShip(new Ship(4), "H1"))
+        board.Invoking(b => b.AddVerticalShip(new Battleship(), "H1"))
             .Should().Throw<CannotFitShipException>();
     }
 
     [Test]
     public void Board_Throws_TileIsOccupiedByOtherShipException()
     {
-        board.AddHorizontalShip(new Ship(3), "A1");
+        board.AddHorizontalShip(new Cruiser(), "A1");
 
-        board.Invoking(b => b.AddHorizontalShip(new Ship(4), "A1"))
+        board.Invoking(b => b.AddHorizontalShip(new Battleship(), "A1"))
             .Should().Throw<TileIsOccupiedByOtherShipException>();
-        board.Invoking(b => b.AddVerticalShip(new Ship(4), "A1"))
+        board.Invoking(b => b.AddVerticalShip(new Battleship(), "A1"))
             .Should().Throw<TileIsOccupiedByOtherShipException>();
     }
 
