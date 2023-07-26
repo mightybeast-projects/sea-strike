@@ -17,6 +17,7 @@ public class BoardTests
     public void BoardInitialization_IsCorrect()
     {
         board.oceanGrid.Should().NotBeNull();
+        board.opponentBoard.Should().BeNull();
         board.targetGrid.Should().BeNull();
         board.ships.Should().NotBeNull().And.BeEmpty();
     }
@@ -85,7 +86,9 @@ public class BoardTests
 
         player1Board.Bind(player2Board);
 
+        player1Board.opponentBoard.Should().BeEquivalentTo(player2Board);
         player1Board.targetGrid.Should().BeEquivalentTo(player2Board.oceanGrid);
+        player2Board.opponentBoard.Should().BeEquivalentTo(player1Board);
         player2Board.targetGrid.Should().BeEquivalentTo(player1Board.oceanGrid);
     }
 }

@@ -48,7 +48,7 @@ public class BoardBuilderTests
             .BindOpponentBoard(opponentBoard)
             .Build();
 
-        board.targetGrid.Should().BeEquivalentTo(opponentBoard.oceanGrid);
-        opponentBoard.targetGrid.Should().BeEquivalentTo(board.oceanGrid);
+        board.opponentBoard.Should().BeEquivalentTo(opponentBoard);
+        opponentBoard.opponentBoard.Should().BeEquivalentTo(board);
     }
 }

@@ -6,7 +6,8 @@ public class Board
 {
     public readonly Grid oceanGrid;
     public readonly List<Ship> ships;
-    public Grid targetGrid { get; private set; }
+    public Board opponentBoard { get; private set; }
+    public Grid targetGrid => opponentBoard?.oceanGrid;
 
     internal Board()
     {
@@ -46,10 +47,10 @@ public class Board
         AddShip(ship, tilesToOccupy);
     }
 
-    internal void Bind(Board board)
+    internal void Bind(Board opponentBoard)
     {
-        targetGrid = board.oceanGrid;
-        board.targetGrid = oceanGrid;
+        this.opponentBoard = opponentBoard;
+        opponentBoard.opponentBoard = this;
     }
 
     private void AddShip(Ship ship, Tile[] tilesToOccupy)
