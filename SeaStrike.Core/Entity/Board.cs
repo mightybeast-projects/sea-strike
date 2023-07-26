@@ -5,13 +5,12 @@ namespace SeaStrike.Core.Entity;
 public class Board
 {
     public readonly Grid oceanGrid;
-    public readonly Grid targetGrid;
     public readonly List<Ship> ships;
+    public Grid targetGrid { get; private set; }
 
     internal Board()
     {
         oceanGrid = new Grid();
-        targetGrid = new Grid();
         ships = new List<Ship>();
     }
 
@@ -45,6 +44,12 @@ public class Board
         ValidateTilesToOccupy(tilesToOccupy);
 
         AddShip(ship, tilesToOccupy);
+    }
+
+    internal void Bind(Board board)
+    {
+        targetGrid = board.oceanGrid;
+        board.targetGrid = oceanGrid;
     }
 
     private void AddShip(Ship ship, Tile[] tilesToOccupy)

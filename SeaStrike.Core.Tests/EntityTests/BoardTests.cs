@@ -17,7 +17,7 @@ public class BoardTests
     public void BoardInitialization_IsCorrect()
     {
         board.oceanGrid.Should().NotBeNull();
-        board.targetGrid.Should().NotBeNull();
+        board.targetGrid.Should().BeNull();
         board.ships.Should().NotBeNull().And.BeEmpty();
     }
 
@@ -75,5 +75,17 @@ public class BoardTests
             .Should().Throw<TileIsOccupiedByOtherShipException>();
         board.Invoking(b => b.AddVerticalShip(new Ship(4), "A1"))
             .Should().Throw<TileIsOccupiedByOtherShipException>();
+    }
+
+    [Test]
+    public void Board_CanBindOpponentBoard()
+    {
+        Board player1Board = new Board();
+        Board player2Board = new Board();
+
+        player1Board.Bind(player2Board);
+
+        player1Board.targetGrid.Should().BeEquivalentTo(player2Board.oceanGrid);
+        player2Board.targetGrid.Should().BeEquivalentTo(player1Board.oceanGrid);
     }
 }

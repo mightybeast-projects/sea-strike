@@ -38,4 +38,17 @@ public class BoardBuilderTests
 
         board.ships.Count.Should().Be(2);
     }
+
+    [Test]
+    public void Builder_CanBind_OpponentBoard()
+    {
+        Board opponentBoard = new BoardBuilder().Build();
+        Board board =
+            new BoardBuilder()
+            .BindOpponentBoard(opponentBoard)
+            .Build();
+
+        board.targetGrid.Should().BeEquivalentTo(opponentBoard.oceanGrid);
+        opponentBoard.targetGrid.Should().BeEquivalentTo(board.oceanGrid);
+    }
 }
