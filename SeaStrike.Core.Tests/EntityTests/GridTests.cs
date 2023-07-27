@@ -22,7 +22,8 @@ public class GridTests
 
     [TestCaseSource(nameof(correctGridTileNotationCases))]
     public void Grid_CanGetTile_ByNotation(string notation, Tile tile) =>
-        new Grid().GetTile(notation).Should().BeEquivalentTo(tile,
+        new Grid().GetTile(notation)
+        .Should().BeEquivalentTo(tile,
             options => options.IncludingInternalFields()
         );
 
