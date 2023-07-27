@@ -13,8 +13,8 @@ public class GridTests
     {
         Grid grid = new Grid();
 
-        grid.tiles.GetLength(0).Should().Be(10);
-        grid.tiles.GetLength(1).Should().Be(10);
+        grid.width.Should().Be(10);
+        grid.height.Should().Be(10);
         grid.tiles[0, 3].Should().BeEquivalentTo(new Tile(0, 3), options =>
             options.IncludingInternalFields()
         );
@@ -22,10 +22,7 @@ public class GridTests
 
     [TestCaseSource(nameof(correctGridTileNotationCases))]
     public void Grid_CanGetTile_ByNotation(string notation, Tile tile) =>
-        new Grid().GetTile(notation)
-        .Should().BeEquivalentTo(tile,
-            options => options.IncludingInternalFields()
-        );
+        new Grid().GetTile(notation).Should().BeEquivalentTo(tile);
 
     [TestCaseSource(nameof(incorrectGridTileNotationCases))]
     public void Grid_Throws_CannotFindSpecifiedTileException(string notation) =>

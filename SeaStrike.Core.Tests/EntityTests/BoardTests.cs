@@ -16,10 +16,10 @@ public class BoardTests
     [Test]
     public void BoardInitialization_IsCorrect()
     {
-        board.oceanGrid.Should().NotBeNull();
         board.opponentBoard.Should().BeNull();
         board.targetGrid.Should().BeNull();
-        board.ships.Should().NotBeNull().And.BeEmpty();
+        board.ships.Should().BeEquivalentTo(new List<Ship>());
+        board.oceanGrid.Should().BeEquivalentTo(new Grid());
     }
 
     [Test]
@@ -28,11 +28,12 @@ public class BoardTests
         board.RandomizeShips();
 
         board.ships.Count.Should().Be(5);
-        board.ships.Should().ContainSingle(x => x.GetType() == typeof(Destroyer));
-        board.ships.Should().ContainSingle(x => x.GetType() == typeof(Cruiser));
-        board.ships.Should().ContainSingle(x => x.GetType() == typeof(Submarine));
-        board.ships.Should().ContainSingle(x => x.GetType() == typeof(Battleship));
-        board.ships.Should().ContainSingle(x => x.GetType() == typeof(Carrier));
+        board.ships.Should()
+            .ContainSingle(ship => ship.GetType() == typeof(Destroyer)).And
+            .ContainSingle(ship => ship.GetType() == typeof(Cruiser)).And
+            .ContainSingle(ship => ship.GetType() == typeof(Submarine)).And
+            .ContainSingle(ship => ship.GetType() == typeof(Battleship)).And
+            .ContainSingle(ship => ship.GetType() == typeof(Carrier));
     }
 
     [Test]
@@ -92,7 +93,17 @@ public class BoardTests
     }
 
     [Test]
-    public void Board_CanRemoveShip()
+    public void Board_CanClearOceanGrid()
+    {
+        board.AddHorizontalShip(new Cruiser(), "A1");
+        board.ClearOceanGrid();
+
+        board.ships.Should().BeEquivalentTo(new List<Ship>());
+        board.oceanGrid.Should().BeEquivalentTo(new Grid());
+    }
+
+    [Test]
+    public void Board_CanRemoveShipAtPosition()
     {
         Ship ship = new Cruiser();
 

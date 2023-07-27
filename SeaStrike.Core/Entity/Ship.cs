@@ -7,7 +7,7 @@ public abstract class Ship
     public string name => GetType().Name;
     public int width => occupiedTiles.Length;
 
-    public Ship(int width) => occupiedTiles = new Tile[width];
+    protected Ship(int width) => occupiedTiles = new Tile[width];
 }
 
 public class Destroyer : Ship

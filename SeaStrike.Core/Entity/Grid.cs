@@ -4,7 +4,9 @@ namespace SeaStrike.Core.Entity;
 
 public class Grid
 {
-    internal readonly Tile[,] tiles;
+    public readonly Tile[,] tiles;
+    public int width => tiles.GetLength(0);
+    public int height => tiles.GetLength(1);
 
     internal Grid()
     {

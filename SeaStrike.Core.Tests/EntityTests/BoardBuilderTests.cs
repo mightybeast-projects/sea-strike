@@ -9,13 +9,12 @@ public class BoardBuilderTests
 {
     [Test]
     public void BuilderInitialization_IsCorrect() =>
-        new BoardBuilder().board.Should().NotBeNull();
+        new BoardBuilder().Build().Should().BeEquivalentTo(new Board());
 
     [Test]
     public void Builder_CanRandomizeShipsPosition()
     {
-        Board board =
-            new BoardBuilder()
+        Board board = new BoardBuilder()
             .RandomizeShipsStartingPosition()
             .Build();
 
@@ -25,8 +24,7 @@ public class BoardBuilderTests
     [Test]
     public void Builder_CanAdd_NewHorizontalShips()
     {
-        Board board =
-            new BoardBuilder()
+        Board board = new BoardBuilder()
             .AddHorizontalShip(new Destroyer())
                 .AtPosition("A1")
             .AddHorizontalShip(new Destroyer())
@@ -39,8 +37,7 @@ public class BoardBuilderTests
     [Test]
     public void Builder_CanAdd_NewVerticalShips()
     {
-        Board board =
-            new BoardBuilder()
+        Board board = new BoardBuilder()
             .AddVerticalShip(new Destroyer())
                 .AtPosition("A1")
             .AddVerticalShip(new Destroyer())
@@ -51,10 +48,9 @@ public class BoardBuilderTests
     }
 
     [Test]
-    public void Builder_CanRemoveShip()
+    public void Builder_CanRemoveShipAtPosition()
     {
-        Board board =
-            new BoardBuilder()
+        Board board = new BoardBuilder()
             .AddHorizontalShip(new Cruiser())
                 .AtPosition("A1")
             .RemoveShipAt("A2")
@@ -67,8 +63,7 @@ public class BoardBuilderTests
     public void Builder_CanBind_OpponentBoard()
     {
         Board opponentBoard = new BoardBuilder().Build();
-        Board board =
-            new BoardBuilder()
+        Board board = new BoardBuilder()
             .BindOpponentBoard(opponentBoard)
             .Build();
 

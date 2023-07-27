@@ -8,32 +8,24 @@ public class Board
     public List<Ship> ships { get; private set; }
     public Board opponentBoard { get; private set; }
     public Grid targetGrid => opponentBoard?.oceanGrid;
-    private int oceanWidth => oceanGrid.tiles.GetLength(0);
-    private int oceanHeight => oceanGrid.tiles.GetLength(1);
+
+    private Ship[] shipPool = new Ship[]
+    {
+        new Destroyer(),
+        new Cruiser(),
+        new Submarine(),
+        new Battleship(),
+        new Carrier()
+    };
 
     internal Board() => InitializeBoard();
 
-    private void InitializeBoard()
-    {
-        oceanGrid = new Grid();
-        ships = new List<Ship>();
-    }
-
     internal void RandomizeShips()
     {
-        InitializeBoard();
+        ClearOceanGrid();
 
-        Ship[] ships = new Ship[]
-        {
-            new Destroyer(),
-            new Cruiser(),
-            new Submarine(),
-            new Battleship(),
-            new Carrier()
-        };
-
-        foreach (Ship ship in ships)
-            while (!this.ships.Contains(ship))
+        foreach (Ship ship in shipPool)
+            while (!ships.Contains(ship))
                 TryToAddShipRandomly(ship);
     }
 
@@ -69,6 +61,8 @@ public class Board
         AddShip(ship, tilesToOccupy);
     }
 
+    internal void ClearOceanGrid() => InitializeBoard();
+
     internal void RemoveShipAt(string occupiedTileStr)
     {
         Tile occupiedTile = oceanGrid.GetTile(occupiedTileStr);
@@ -89,10 +83,16 @@ public class Board
         opponentBoard.opponentBoard = this;
     }
 
+    private void InitializeBoard()
+    {
+        oceanGrid = new Grid();
+        ships = new List<Ship>();
+    }
+
     private void TryToAddShipRandomly(Ship ship)
     {
-        int tileI = new Random().Next(0, oceanWidth);
-        int tileJ = new Random().Next(0, oceanHeight);
+        int tileI = new Random().Next(0, oceanGrid.width);
+        int tileJ = new Random().Next(0, oceanGrid.height);
         Tile startTile = oceanGrid.tiles[tileI, tileJ];
 
         try
