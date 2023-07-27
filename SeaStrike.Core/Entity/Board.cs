@@ -4,14 +4,16 @@ namespace SeaStrike.Core.Entity;
 
 public class Board
 {
-    public readonly Grid oceanGrid;
-    public readonly List<Ship> ships;
+    public Grid oceanGrid { get; private set; }
+    public List<Ship> ships { get; private set; }
     public Board opponentBoard { get; private set; }
     public Grid targetGrid => opponentBoard?.oceanGrid;
     private int oceanWidth => oceanGrid.tiles.GetLength(0);
     private int oceanHeight => oceanGrid.tiles.GetLength(1);
 
-    internal Board()
+    internal Board() => InitializeBoard();
+
+    private void InitializeBoard()
     {
         oceanGrid = new Grid();
         ships = new List<Ship>();
@@ -19,6 +21,8 @@ public class Board
 
     internal void RandomizeShips()
     {
+        InitializeBoard();
+
         Ship[] ships = new Ship[]
         {
             new Destroyer(),

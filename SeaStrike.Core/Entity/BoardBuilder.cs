@@ -11,6 +11,13 @@ public class BoardBuilder
 
     public Board Build() => board;
 
+    public BoardBuilder RandomizeShipsStartingPosition()
+    {
+        board.RandomizeShips();
+
+        return this;
+    }
+
     public BoardBuilder AddHorizontalShip(Ship ship)
     {
         shipToAdd = ship;

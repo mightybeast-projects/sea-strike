@@ -12,6 +12,17 @@ public class BoardBuilderTests
         new BoardBuilder().board.Should().NotBeNull();
 
     [Test]
+    public void Builder_CanRandomizeShipsPosition()
+    {
+        Board board =
+            new BoardBuilder()
+            .RandomizeShipsStartingPosition()
+            .Build();
+
+        board.ships.Count.Should().Be(5);
+    }
+
+    [Test]
     public void Builder_CanAdd_NewHorizontalShips()
     {
         Board board =
