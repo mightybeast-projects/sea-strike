@@ -47,6 +47,17 @@ public class Board
         AddShip(ship, tilesToOccupy);
     }
 
+    internal void RemoveShipAt(string occupiedTileStr)
+    {
+        Tile occupiedTile = oceanGrid.GetTile(occupiedTileStr);
+        Ship ship = occupiedTile.occupiedBy;
+
+        foreach (Tile tile in ship.occupiedTiles)
+            tile.occupiedBy = null;
+
+        ships.Remove(ship);
+    }
+
     internal void Bind(Board opponentBoard)
     {
         this.opponentBoard = opponentBoard;

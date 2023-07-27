@@ -79,6 +79,21 @@ public class BoardTests
     }
 
     [Test]
+    public void Board_CanRemoveShip()
+    {
+        Ship ship = new Cruiser();
+
+        board.AddHorizontalShip(ship, "A1");
+
+        Tile[] occupiedTiles = ship.occupiedTiles;
+
+        board.RemoveShipAt("A3");
+
+        board.ships.Should().BeEmpty();
+        occupiedTiles.Should().OnlyContain(tile => !tile.isOccupied);
+    }
+
+    [Test]
     public void Board_CanBindOpponentBoard()
     {
         Board player1Board = new Board();
