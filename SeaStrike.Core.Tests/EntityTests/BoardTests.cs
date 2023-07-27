@@ -23,6 +23,19 @@ public class BoardTests
     }
 
     [Test]
+    public void Board_CanRandomizeShipsPostion()
+    {
+        board.RandomizeShips();
+
+        board.ships.Count.Should().Be(5);
+        board.ships.Should().ContainSingle(x => x.GetType() == typeof(Destroyer));
+        board.ships.Should().ContainSingle(x => x.GetType() == typeof(Cruiser));
+        board.ships.Should().ContainSingle(x => x.GetType() == typeof(Submarine));
+        board.ships.Should().ContainSingle(x => x.GetType() == typeof(Battleship));
+        board.ships.Should().ContainSingle(x => x.GetType() == typeof(Carrier));
+    }
+
+    [Test]
     public void Board_CanAdd_NewHorizontalShip()
     {
         Ship ship = new Cruiser();

@@ -8,11 +8,29 @@ public class Board
     public readonly List<Ship> ships;
     public Board opponentBoard { get; private set; }
     public Grid targetGrid => opponentBoard?.oceanGrid;
+    private int oceanWidth => oceanGrid.tiles.GetLength(0);
+    private int oceanHeight => oceanGrid.tiles.GetLength(1);
 
     internal Board()
     {
         oceanGrid = new Grid();
         ships = new List<Ship>();
+    }
+
+    internal void RandomizeShips()
+    {
+        Ship[] ships = new Ship[]
+        {
+            new Destroyer(),
+            new Cruiser(),
+            new Submarine(),
+            new Battleship(),
+            new Carrier()
+        };
+
+        foreach (Ship ship in ships)
+            while (!this.ships.Contains(ship))
+                TryToAddShipRandomly(ship);
     }
 
     internal void AddHorizontalShip(Ship ship, string startTileStr)
@@ -65,6 +83,22 @@ public class Board
     {
         this.opponentBoard = opponentBoard;
         opponentBoard.opponentBoard = this;
+    }
+
+    private void TryToAddShipRandomly(Ship ship)
+    {
+        int tileI = new Random().Next(0, oceanWidth);
+        int tileJ = new Random().Next(0, oceanHeight);
+        Tile startTile = oceanGrid.tiles[tileI, tileJ];
+
+        try
+        {
+            if (new Random().Next(2) == 0)
+                AddHorizontalShip(ship, startTile.notation);
+            else
+                AddVerticalShip(ship, startTile.notation);
+        }
+        catch (SeaStrikeCoreException) { return; }
     }
 
     private void AddShip(Ship ship, Tile[] tilesToOccupy)
