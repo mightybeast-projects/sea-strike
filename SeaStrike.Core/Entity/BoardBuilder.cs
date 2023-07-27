@@ -36,6 +36,13 @@ public class BoardBuilder
         return this;
     }
 
+    public BoardBuilder RemoveShipAt(string tileStr)
+    {
+        board.RemoveShipAt(tileStr);
+
+        return this;
+    }
+
     public BoardBuilder BindOpponentBoard(Board opponenetBoard)
     {
         board.Bind(opponenetBoard);

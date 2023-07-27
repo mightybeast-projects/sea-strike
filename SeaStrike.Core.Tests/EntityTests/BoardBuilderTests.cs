@@ -40,6 +40,19 @@ public class BoardBuilderTests
     }
 
     [Test]
+    public void Builder_CanRemoveShip()
+    {
+        Board board =
+            new BoardBuilder()
+            .AddHorizontalShip(new Cruiser())
+                .AtPosition("A1")
+            .RemoveShipAt("A2")
+            .Build();
+
+        board.ships.Should().BeEmpty();
+    }
+
+    [Test]
     public void Builder_CanBind_OpponentBoard()
     {
         Board opponentBoard = new BoardBuilder().Build();
