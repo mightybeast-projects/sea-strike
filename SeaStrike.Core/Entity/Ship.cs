@@ -2,9 +2,10 @@ namespace SeaStrike.Core.Entity;
 
 public abstract class Ship
 {
-    public int width => occupiedTiles.Length;
     public readonly Tile[] occupiedTiles;
+
     public string name => GetType().Name;
+    public int width => occupiedTiles.Length;
 
     public Ship(int width) => occupiedTiles = new Tile[width];
 }

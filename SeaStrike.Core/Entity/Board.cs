@@ -52,6 +52,9 @@ public class Board
         Tile occupiedTile = oceanGrid.GetTile(occupiedTileStr);
         Ship ship = occupiedTile.occupiedBy;
 
+        if (ship is null)
+            return;
+
         foreach (Tile tile in ship.occupiedTiles)
             tile.occupiedBy = null;
 

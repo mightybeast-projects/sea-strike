@@ -94,6 +94,10 @@ public class BoardTests
     }
 
     [Test]
+    public void Board_DoesNotThrow_OnRemoveShip_IfTileIsNotOccupied() =>
+        board.Invoking(b => b.RemoveShipAt("A2")).Should().NotThrow();
+
+    [Test]
     public void Board_CanBindOpponentBoard()
     {
         Board player1Board = new Board();
