@@ -6,6 +6,28 @@ public class Player
 
     internal Player(Board board) => this.board = board;
 
-    public void Shoot(string tileStr) =>
-        board.targetGrid.GetTile(tileStr).hasBeenHit = true;
+    public ShootResult Shoot(string tileStr)
+    {
+        Tile tile = board.targetGrid.GetTile(tileStr);
+
+        if (tile.hasBeenHit)
+            return null;
+
+        tile.hasBeenHit = true;
+
+        ShootResult result = new ShootResult
+        {
+            hit = tile.isOccupied,
+            ship = tile.occupiedBy
+        };
+
+        return result;
+    }
+}
+
+public class ShootResult
+{
+    public bool hit;
+    public Ship ship;
+    public bool? sunk => ship?.isSunk;
 }

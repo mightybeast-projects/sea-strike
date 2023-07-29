@@ -7,29 +7,70 @@ namespace SeaStrike.Core.Tests.EntityTests;
 [TestFixture]
 public class PlayerTests
 {
-    [Test]
-    public void PlayerInitialization_IsCorrect()
+    private Board player1Board;
+    private Board player2Board;
+    private Player player1;
+    private Player player2;
+
+    [SetUp]
+    public void SetUp()
     {
-        Board board = new BoardBuilder().Build();
+        player1Board = new BoardBuilder().Build();
+        player2Board = new BoardBuilder()
+            .AddHorizontalShip(new Destroyer())
+            .AtPosition("A2")
+            .Build();
 
-        Player player = new Player(board);
+        player1Board.Bind(player2Board);
 
-        player.board.Should().Be(board);
+        player1 = new Player(player1Board);
+        player2 = new Player(player2Board);
     }
+
+    [Test]
+    public void PlayerInitialization_IsCorrect() =>
+        player1.board.Should().Be(player1Board);
 
     [Test]
     public void Player_CanShoot()
     {
-        Board player1Board = new BoardBuilder().Build();
-        Board player2Board = new BoardBuilder().Build();
-
-        player1Board.Bind(player2Board);
-
-        Player player1 = new Player(player1Board);
-        Player player2 = new Player(player2Board);
-
-        player1.Shoot("A1");
+        ShootResult result = player1.Shoot("A1");
 
         player2Board.oceanGrid.GetTile("A1").hasBeenHit.Should().BeTrue();
+        result.hit.Should().BeFalse();
+        result.ship.Should().BeNull();
+        result.sunk.Should().BeNull();
+    }
+
+    [Test]
+    public void PlayerShot_ReturnsNull_OnAlreadyShotTile()
+    {
+        player1.Shoot("A1");
+
+        player1.Shoot("A1").Should().BeNull();
+    }
+
+    [Test]
+    public void Player_HitAShip()
+    {
+        ShootResult result = player1.Shoot("A2");
+
+        player2Board.oceanGrid.GetTile("A2").hasBeenHit.Should().BeTrue();
+        result.hit.Should().BeTrue();
+        result.ship.Should().Be(player2Board.ships[0]);
+        result.sunk.Should().BeFalse();
+    }
+
+    [Test]
+    public void Player_SunkAShip()
+    {
+        player1.Shoot("A2");
+        ShootResult result = player1.Shoot("A3");
+
+        player2Board.oceanGrid.GetTile("A2").hasBeenHit.Should().BeTrue();
+        player2Board.oceanGrid.GetTile("A3").hasBeenHit.Should().BeTrue();
+        result.hit.Should().BeTrue();
+        result.ship.Should().Be(player2Board.ships[0]);
+        result.sunk.Should().BeTrue();
     }
 }

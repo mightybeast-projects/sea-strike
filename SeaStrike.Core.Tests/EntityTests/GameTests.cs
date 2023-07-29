@@ -38,9 +38,9 @@ public class GameTests
     [Test]
     public void Game_CanHandle_CurrentPlayerShot()
     {
-        game.HandleShot("A1");
+        ShootResult result = game.HandleShot("A1");
 
-        player2Board.oceanGrid.GetTile("A1").hasBeenHit.Should().BeTrue();
+        result.hit.Should().BeTrue();
         game.currentPlayer.Should().Be(game.player2);
     }
 
@@ -52,5 +52,15 @@ public class GameTests
         game.HandleShot("A2");
 
         game.isOver.Should().BeTrue();
+    }
+
+    [Test]
+    public void Game_ReturnsNullOnShot_IfGameIsOver()
+    {
+        game.HandleShot("A1");
+        game.HandleShot("A1");
+        game.HandleShot("A2");
+
+        game.HandleShot("A3").Should().BeNull();
     }
 }

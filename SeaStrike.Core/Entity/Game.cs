@@ -16,15 +16,17 @@ public class Game
         currentPlayer = player1;
     }
 
-    public void HandleShot(string tileStr)
+    public ShootResult HandleShot(string tileStr)
     {
         if (isOver)
-            return;
+            return null;
 
-        currentPlayer.Shoot(tileStr);
+        ShootResult result = currentPlayer.Shoot(tileStr);
 
         if (!isOver)
             SwitchPlayer();
+
+        return result;
     }
 
     private void SwitchPlayer()
