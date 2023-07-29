@@ -48,11 +48,4 @@ public class BoardBuilder
 
         return this;
     }
-
-    public BoardBuilder BindOpponentBoard(Board opponenetBoard)
-    {
-        board.Bind(opponenetBoard);
-
-        return this;
-    }
 }

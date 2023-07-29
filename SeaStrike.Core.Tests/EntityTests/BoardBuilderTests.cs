@@ -58,16 +58,4 @@ public class BoardBuilderTests
 
         board.ships.Should().BeEmpty();
     }
-
-    [Test]
-    public void Builder_CanBind_OpponentBoard()
-    {
-        Board opponentBoard = new BoardBuilder().Build();
-        Board board = new BoardBuilder()
-            .BindOpponentBoard(opponentBoard)
-            .Build();
-
-        board.opponentBoard.Should().BeEquivalentTo(opponentBoard);
-        opponentBoard.opponentBoard.Should().BeEquivalentTo(board);
-    }
 }

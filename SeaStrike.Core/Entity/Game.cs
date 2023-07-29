@@ -8,6 +8,8 @@ public class Game
 
     public Game(Board player1Board, Board player2Board)
     {
+        player1Board.Bind(player2Board);
+
         player1 = new Player(player1Board);
         player2 = new Player(player2Board);
         currentPlayer = player1;
