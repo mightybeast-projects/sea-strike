@@ -14,4 +14,14 @@ public class Game
         player2 = new Player(player2Board);
         currentPlayer = player1;
     }
+
+    public void HandleShot(string tileStr)
+    {
+        currentPlayer.Shoot(tileStr);
+
+        if (currentPlayer == player1)
+            currentPlayer = player2;
+        else
+            currentPlayer = player1;
+    }
 }
