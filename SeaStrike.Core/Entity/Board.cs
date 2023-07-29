@@ -9,6 +9,8 @@ public class Board
     public Board opponentBoard { get; private set; }
     public Grid targetGrid => opponentBoard?.oceanGrid;
 
+    internal bool shipsAreSunk => ships.All(ship => ship.isSunk);
+
     private Ship[] shipPool = new Ship[]
     {
         new Destroyer(),

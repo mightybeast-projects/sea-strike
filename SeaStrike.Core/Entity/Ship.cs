@@ -4,6 +4,8 @@ public abstract class Ship
 {
     public readonly Tile[] occupiedTiles;
 
+    internal bool isSunk => occupiedTiles.All(tile => tile.hasBeenHit)!;
+
     public string name => GetType().Name;
     public int width => occupiedTiles.Length;
 

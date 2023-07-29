@@ -14,8 +14,14 @@ public class GameTests
     [SetUp]
     public void SetUp()
     {
-        player1Board = new BoardBuilder().Build();
-        player2Board = new BoardBuilder().Build();
+        player1Board = new BoardBuilder()
+            .AddHorizontalShip(new Destroyer())
+                .AtPosition("A1")
+            .Build();
+        player2Board = new BoardBuilder()
+            .AddHorizontalShip(new Destroyer())
+                .AtPosition("A1")
+            .Build();
         game = new Game(player1Board, player2Board);
     }
 
@@ -26,6 +32,7 @@ public class GameTests
         game.player1.board.Should().Be(player1Board);
         game.player2.board.Should().Be(player2Board);
         game.currentPlayer.Should().Be(game.player1);
+        game.isOver.Should().BeFalse();
     }
 
     [Test]
@@ -35,5 +42,15 @@ public class GameTests
 
         player2Board.oceanGrid.GetTile("A1").hasBeenHit.Should().BeTrue();
         game.currentPlayer.Should().Be(game.player2);
+    }
+
+    [Test]
+    public void Game_IsOver_WhenOneOfThePlayers_SunkAllShips()
+    {
+        game.HandleShot("A1");
+        game.HandleShot("A1");
+        game.HandleShot("A2");
+
+        game.isOver.Should().BeTrue();
     }
 }

@@ -51,6 +51,7 @@ public class BoardTests
 
         board.ships.Should().Contain(ship);
         ship.occupiedTiles.Should().BeEquivalentTo(occupiedTiles);
+        ship.isSunk.Should().BeFalse();
         occupiedTiles.Should().OnlyContain(tile => tile.occupiedBy == ship);
     }
 
@@ -69,6 +70,7 @@ public class BoardTests
 
         board.ships.Should().Contain(ship);
         ship.occupiedTiles.Should().BeEquivalentTo(occupiedTiles);
+        ship.isSunk.Should().BeFalse();
         occupiedTiles.Should().OnlyContain(tile => tile.occupiedBy == ship);
     }
 
