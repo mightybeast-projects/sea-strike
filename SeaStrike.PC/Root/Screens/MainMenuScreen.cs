@@ -1,5 +1,7 @@
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended.BitmapFonts;
 using MonoGame.Extended.Screens;
 
@@ -39,5 +41,11 @@ public class MainMenuScreen : GameScreen
         game.spriteBatch.End();
     }
 
-    public override void Update(GameTime gameTime) { }
+    public override void Update(GameTime gameTime)
+    {
+        KeyboardState state = Keyboard.GetState();
+
+        if (state.GetPressedKeyCount() > 0)
+            game.screenManager.LoadScreen(new SeaStrikeGameScreen(game));
+    }
 }

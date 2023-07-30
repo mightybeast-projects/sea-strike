@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended.Screens;
 using SeaStrike.PC.Root.Screens;
 
@@ -8,9 +9,9 @@ namespace SeaStrike.PC.Root;
 
 public class SeaStrike : Game
 {
+    internal ScreenManager screenManager;
     internal SpriteBatch spriteBatch;
     private GraphicsDeviceManager graphics;
-    private ScreenManager screenManager;
 
     public SeaStrike()
     {
