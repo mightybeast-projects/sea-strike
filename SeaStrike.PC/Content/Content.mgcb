@@ -21,10 +21,10 @@
 /processorParam:TextureFormat=Compressed
 /build:font/font18.spritefont
 
-#begin font/font32.spritefont
+#begin font/font48.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
-/build:font/font32.spritefont
+/build:font/font48.spritefont
 
