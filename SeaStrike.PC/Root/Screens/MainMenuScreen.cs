@@ -1,4 +1,3 @@
-using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -10,8 +9,6 @@ namespace SeaStrike.PC.Root.Screens;
 public class MainMenuScreen : GameScreen
 {
     private SeaStrike game;
-    private SpriteFont font48;
-    private SpriteFont font18;
     private Label logo;
     private FadeInFadeOutLabel hint;
 
@@ -21,20 +18,16 @@ public class MainMenuScreen : GameScreen
     {
         base.LoadContent();
 
-        font48 = Content.Load<SpriteFont>("font/font48");
-        font18 = Content.Load<SpriteFont>("font/font18");
-
         Rectangle bounds = game.Window.ClientBounds;
 
-        logo = new Label("Sea strike", font48);
-        hint = new FadeInFadeOutLabel("Press any button to start", font18);
+        logo = new Label("Sea strike", FontManager.font48);
+        hint = new FadeInFadeOutLabel("Press any button to start", FontManager.font18);
 
-        logo.SetPosition(new Vector2(bounds.Width / 2 - logo.origin.X / 2, 100))
+        logo.SetPosition(new Vector2(bounds.Width / 2 - logo.width / 2, 100))
             .SetColor(Color.White);
         hint.SetPosition(
-                new Vector2(bounds.Width / 2 - hint.origin.X / 2,
-                    bounds.Height - hint.origin.Y * 3)
-                )
+                new Vector2(bounds.Width / 2 - hint.width / 2,
+                    bounds.Height - hint.height * 3))
             .SetColor(Color.White);
     }
 

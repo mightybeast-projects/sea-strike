@@ -8,14 +8,18 @@ public class Label
     public string str { get; private set; }
     public SpriteFont font { get; private set; }
     public Vector2 position { get; private set; }
-    public Vector2 origin { get; private set; }
+    public Vector2 size { get; private set; }
     public Color color { get; protected set; }
+
+    public float width => size.X;
+    public float height => size.Y;
 
     public Label(string str, SpriteFont font)
     {
         this.str = str;
         this.font = font;
-        origin = font.MeasureString(str);
+
+        size = font.MeasureString(str);
     }
 
     public virtual void Draw(SpriteBatch sb) =>

@@ -26,6 +26,9 @@ public class SeaStrike : Game
         base.LoadContent();
 
         spriteBatch = new SpriteBatch(GraphicsDevice);
+
+        FontManager.font48 = Content.Load<SpriteFont>("font/font48");
+        FontManager.font18 = Content.Load<SpriteFont>("font/font18");
     }
 
     protected override void Initialize()

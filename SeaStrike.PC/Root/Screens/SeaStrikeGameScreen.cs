@@ -11,7 +11,7 @@ public class SeaStrikeGameScreen : GameScreen
 
     public override void Draw(GameTime gameTime)
     {
-        game.GraphicsDevice.Clear(Color.SkyBlue);
+        game.GraphicsDevice.Clear(Color.RoyalBlue);
     }
 
     public override void Update(GameTime gameTime)
