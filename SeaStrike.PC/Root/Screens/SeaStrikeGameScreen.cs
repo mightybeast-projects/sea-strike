@@ -5,7 +5,7 @@ namespace SeaStrike.PC.Root.Screens;
 
 public class SeaStrikeGameScreen : GameScreen
 {
-    private SeaStrike game;
+    private readonly SeaStrike game;
 
     public SeaStrikeGameScreen(SeaStrike game) : base(game) => this.game = game;
 

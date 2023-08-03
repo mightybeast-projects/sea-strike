@@ -1,5 +1,3 @@
-using System.IO;
-using FontStashSharp;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -10,10 +8,7 @@ namespace SeaStrike.PC.Root.Screens;
 
 public class MainMenuScreen : GameScreen
 {
-    private SeaStrike game;
-    private Panel panel;
-    private Label logo;
-    private Label hint;
+    private readonly SeaStrike game;
 
     public MainMenuScreen(SeaStrike game) : base(game) => this.game = game;
 
@@ -21,19 +16,21 @@ public class MainMenuScreen : GameScreen
     {
         base.LoadContent();
 
-        panel = new Panel();
+        Panel panel = new();
 
-        logo = new Label()
+        Label logo = new()
         {
-            Text = "Sea strike",
+            Text = "SEA STRIKE",
+            TextColor = Color.LawnGreen,
             Font = game.fontSystem.GetFont(56),
             HorizontalAlignment = HorizontalAlignment.Center,
             VerticalAlignment = VerticalAlignment.Top,
             Top = 100,
         };
-        hint = new Label()
+        Label hint = new()
         {
             Text = "Press any key to start...",
+            TextColor = Color.LawnGreen,
             Font = game.fontSystem.GetFont(32),
             HorizontalAlignment = HorizontalAlignment.Center,
             VerticalAlignment = VerticalAlignment.Bottom,

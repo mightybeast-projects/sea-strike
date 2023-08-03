@@ -15,11 +15,10 @@ public class SeaStrike : Game
     internal ScreenManager screenManager;
     internal SpriteBatch spriteBatch;
     internal FontSystem fontSystem;
-    private GraphicsDeviceManager graphics;
+
 
     public SeaStrike()
     {
-        graphics = new GraphicsDeviceManager(this);
         screenManager = new ScreenManager();
 
         Content.RootDirectory = "Content";
@@ -36,7 +35,8 @@ public class SeaStrike : Game
         spriteBatch = new SpriteBatch(GraphicsDevice);
         desktop = new Desktop();
 
-        byte[] ttf = File.ReadAllBytes("SeaStrike.PC/Content/Font/DroidSans.ttf");
+        string path = "SeaStrike.PC/Content/Font/ComicSans.ttf";
+        byte[] ttf = File.ReadAllBytes(path);
         fontSystem = new FontSystem();
         fontSystem.AddFont(ttf);
     }
