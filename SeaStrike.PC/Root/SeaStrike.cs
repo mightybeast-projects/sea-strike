@@ -1,14 +1,20 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.IO;
+using FontStashSharp;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended.Screens;
+using Myra;
+using Myra.Graphics2D.UI;
 using SeaStrike.PC.Root.Screens;
 
 namespace SeaStrike.PC.Root;
 
 public class SeaStrike : Game
 {
+    internal Desktop desktop;
     internal ScreenManager screenManager;
     internal SpriteBatch spriteBatch;
+    internal FontSystem fontSystem;
     private GraphicsDeviceManager graphics;
 
     public SeaStrike()
@@ -18,6 +24,8 @@ public class SeaStrike : Game
 
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
+        MyraEnvironment.Game = this;
+
         Components.Add(screenManager);
     }
 
@@ -26,9 +34,11 @@ public class SeaStrike : Game
         base.LoadContent();
 
         spriteBatch = new SpriteBatch(GraphicsDevice);
+        desktop = new Desktop();
 
-        FontManager.font48 = Content.Load<SpriteFont>("font/font48");
-        FontManager.font18 = Content.Load<SpriteFont>("font/font18");
+        byte[] ttf = File.ReadAllBytes("SeaStrike.PC/Content/Font/DroidSans.ttf");
+        fontSystem = new FontSystem();
+        fontSystem.AddFont(ttf);
     }
 
     protected override void Initialize()

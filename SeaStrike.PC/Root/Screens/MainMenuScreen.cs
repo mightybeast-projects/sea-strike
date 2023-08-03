@@ -1,16 +1,19 @@
+using System.IO;
+using FontStashSharp;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended.Screens;
-using SeaStrike.PC.UI;
+using Myra.Graphics2D.UI;
 
 namespace SeaStrike.PC.Root.Screens;
 
 public class MainMenuScreen : GameScreen
 {
     private SeaStrike game;
+    private Panel panel;
     private Label logo;
-    private FadeInFadeOutLabel hint;
+    private Label hint;
 
     public MainMenuScreen(SeaStrike game) : base(game) => this.game = game;
 
@@ -18,34 +21,41 @@ public class MainMenuScreen : GameScreen
     {
         base.LoadContent();
 
-        Rectangle bounds = game.Window.ClientBounds;
+        panel = new Panel();
 
-        logo = new Label("Sea strike", FontManager.font48);
-        hint = new FadeInFadeOutLabel("Press any button to start", FontManager.font18);
+        logo = new Label()
+        {
+            Text = "Sea strike",
+            Font = game.fontSystem.GetFont(56),
+            HorizontalAlignment = HorizontalAlignment.Center,
+            VerticalAlignment = VerticalAlignment.Top,
+            Top = 100,
+        };
+        hint = new Label()
+        {
+            Text = "Press any key to start...",
+            Font = game.fontSystem.GetFont(32),
+            HorizontalAlignment = HorizontalAlignment.Center,
+            VerticalAlignment = VerticalAlignment.Bottom,
+            Top = -100
+        };
 
-        logo.SetPosition(new Vector2(bounds.Width / 2 - logo.width / 2, 100))
-            .SetColor(Color.White);
-        hint.SetPosition(
-                new Vector2(bounds.Width / 2 - hint.width / 2,
-                    bounds.Height - hint.height * 3))
-            .SetColor(Color.White);
+        panel.Widgets.Add(logo);
+        panel.Widgets.Add(hint);
+
+        game.desktop.Root = panel;
     }
 
     public override void Draw(GameTime gameTime)
     {
-        game.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied);
+        GraphicsDevice.Clear(Color.Black);
 
-        logo.Draw(game.spriteBatch);
-        hint.Draw(game.spriteBatch);
-
-        game.spriteBatch.End();
+        game.desktop.Render();
     }
 
     public override void Update(GameTime gameTime)
     {
         if (Keyboard.GetState().GetPressedKeyCount() > 0)
             game.screenManager.LoadScreen(new SeaStrikeGameScreen(game));
-
-        hint.Update();
     }
 }
