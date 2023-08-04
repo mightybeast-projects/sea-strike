@@ -36,7 +36,11 @@ public class SeaStrikeGameScreen : GameScreen
             HorizontalAlignment = HorizontalAlignment.Center
         });
 
-        AddShipsPanel();
+        mainGrid.Widgets.Add(new ShipsPanel(game)
+        {
+            GridRow = 1,
+            VerticalAlignment = VerticalAlignment.Center
+        });
 
         mainGrid.AddChild(new BoardPanel(game)
         {
@@ -57,19 +61,4 @@ public class SeaStrikeGameScreen : GameScreen
     }
 
     public override void Update(GameTime gameTime) { }
-
-    private void AddShipsPanel()
-    {
-        Panel shipsPanel = new Panel()
-        {
-            Width = 200,
-            Height = 300,
-            GridRow = 1,
-            Border = new SolidBrush(Color.LawnGreen),
-            BorderThickness = new Thickness(0, 1, 1, 1),
-            VerticalAlignment = VerticalAlignment.Center
-        };
-
-        mainGrid.Widgets.Add(shipsPanel);
-    }
 }
