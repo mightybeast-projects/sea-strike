@@ -52,23 +52,32 @@ public class BoardPanel : Panel
     {
         for (int i = 1; i < 11; i++)
         {
-            grid.Widgets.Add(new Label()
-            {
-                Text = i.ToString(),
-                Font = game.fontSystem.GetFont(24),
-                GridColumn = i,
-                HorizontalAlignment = HorizontalAlignment.Center,
-                VerticalAlignment = VerticalAlignment.Center
-            });
-
-            grid.Widgets.Add(new Label()
-            {
-                Text = ((char)(i + 64)).ToString(),
-                Font = game.fontSystem.GetFont(24),
-                GridRow = i,
-                HorizontalAlignment = HorizontalAlignment.Center,
-                VerticalAlignment = VerticalAlignment.Center
-            });
+            AddNumberLabel(i);
+            AddLetterLabel(i);
         }
+    }
+
+    private void AddNumberLabel(int i)
+    {
+        grid.Widgets.Add(new Label()
+        {
+            Text = i.ToString(),
+            Font = game.fontSystem.GetFont(24),
+            GridColumn = i,
+            HorizontalAlignment = HorizontalAlignment.Center,
+            VerticalAlignment = VerticalAlignment.Center
+        });
+    }
+
+    private void AddLetterLabel(int i)
+    {
+        grid.Widgets.Add(new Label()
+        {
+            Text = ((char)(i + 64)).ToString(),
+            Font = game.fontSystem.GetFont(24),
+            GridRow = i,
+            HorizontalAlignment = HorizontalAlignment.Center,
+            VerticalAlignment = VerticalAlignment.Center
+        });
     }
 }
