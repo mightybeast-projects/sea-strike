@@ -21,7 +21,6 @@ public class ShipsPanel : Panel
         Widgets.Add(new Label()
         {
             Text = "Ships :",
-            TextColor = Color.LawnGreen,
             Font = game.fontSystem.GetFont(36),
             HorizontalAlignment = HorizontalAlignment.Center
         });

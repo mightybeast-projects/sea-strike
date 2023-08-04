@@ -25,14 +25,15 @@ public class SeaStrikeGameScreen : GameScreen
         };
 
         mainGrid.RowsProportions.Add(new Proportion(ProportionType.Auto));
-        mainGrid.ColumnsProportions.Add(new Proportion(ProportionType.Pixels, 300));
+        mainGrid.ColumnsProportions.Add(new Proportion(ProportionType.Pixels, 280));
+        mainGrid.ColumnsProportions.Add(new Proportion(ProportionType.Auto));
 
         mainGrid.Widgets.Add(new Label()
         {
             Text = "Deployment phase",
             TextColor = Color.LawnGreen,
             Font = game.fontSystem.GetFont(40),
-            GridColumnSpan = 2,
+            GridColumnSpan = 3,
             HorizontalAlignment = HorizontalAlignment.Center
         });
 
@@ -42,10 +43,20 @@ public class SeaStrikeGameScreen : GameScreen
             VerticalAlignment = VerticalAlignment.Center
         });
 
+        mainGrid.Widgets.Add(new Label()
+        {
+            Text = "==>",
+            Font = game.fontSystem.GetFont(56),
+            GridRow = 1,
+            GridColumn = 1,
+            HorizontalAlignment = HorizontalAlignment.Center,
+            VerticalAlignment = VerticalAlignment.Center
+        });
+
         mainGrid.AddChild(new BoardPanel(game)
         {
             GridRow = 1,
-            GridColumn = 1,
+            GridColumn = 2,
             HorizontalAlignment = HorizontalAlignment.Center,
             VerticalAlignment = VerticalAlignment.Center
         });
