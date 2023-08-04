@@ -18,7 +18,7 @@ public class MainMenuScreen : GameScreen
 
         Panel panel = new Panel();
 
-        Label logo = new Label()
+        panel.Widgets.Add(new Label()
         {
             Text = "SEA STRIKE",
             TextColor = Color.LawnGreen,
@@ -26,8 +26,9 @@ public class MainMenuScreen : GameScreen
             HorizontalAlignment = HorizontalAlignment.Center,
             VerticalAlignment = VerticalAlignment.Top,
             Top = 100,
-        };
-        Label hint = new Label()
+        });
+
+        panel.Widgets.Add(new Label()
         {
             Text = "Press any key to start...",
             TextColor = Color.LawnGreen,
@@ -35,10 +36,7 @@ public class MainMenuScreen : GameScreen
             HorizontalAlignment = HorizontalAlignment.Center,
             VerticalAlignment = VerticalAlignment.Bottom,
             Top = -100
-        };
-
-        panel.Widgets.Add(logo);
-        panel.Widgets.Add(hint);
+        });
 
         game.desktop.Root = panel;
     }

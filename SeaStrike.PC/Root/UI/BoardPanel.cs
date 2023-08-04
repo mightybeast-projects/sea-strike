@@ -28,7 +28,7 @@ public class BoardPanel : Panel
         AddGridProportions();
         AddBoardGridLabels();
 
-        AddChild(grid);
+        Widgets.Add(grid);
     }
 
     private void AddGridProportions()

@@ -36,7 +36,7 @@ public class SeaStrike : Game
         spriteBatch = new SpriteBatch(GraphicsDevice);
         desktop = new Desktop();
 
-        string path = "SeaStrike.PC/Content/Font/ComicSans.ttf";
+        string path = "SeaStrike.PC/Content/Font/Tektur.ttf";
         byte[] ttf = File.ReadAllBytes(path);
         fontSystem = new FontSystem();
         fontSystem.AddFont(ttf);
