@@ -15,10 +15,11 @@ public class SeaStrike : Game
     internal ScreenManager screenManager;
     internal SpriteBatch spriteBatch;
     internal FontSystem fontSystem;
-
+    private GraphicsDeviceManager graphics;
 
     public SeaStrike()
     {
+        graphics = new GraphicsDeviceManager(this);
         screenManager = new ScreenManager();
 
         Content.RootDirectory = "Content";

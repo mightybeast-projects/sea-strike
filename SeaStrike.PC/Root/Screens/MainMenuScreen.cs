@@ -16,9 +16,9 @@ public class MainMenuScreen : GameScreen
     {
         base.LoadContent();
 
-        Panel panel = new();
+        Panel panel = new Panel();
 
-        Label logo = new()
+        Label logo = new Label()
         {
             Text = "SEA STRIKE",
             TextColor = Color.LawnGreen,
@@ -27,7 +27,7 @@ public class MainMenuScreen : GameScreen
             VerticalAlignment = VerticalAlignment.Top,
             Top = 100,
         };
-        Label hint = new()
+        Label hint = new Label()
         {
             Text = "Press any key to start...",
             TextColor = Color.LawnGreen,
