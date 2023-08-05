@@ -2,17 +2,17 @@ using Microsoft.Xna.Framework;
 using Myra.Graphics2D;
 using Myra.Graphics2D.Brushes;
 using Myra.Graphics2D.UI;
-using SeaStrikeGrid = SeaStrike.Core.Entity.Grid;
+using OceanGrid = SeaStrike.Core.Entity.Grid;
 
 namespace SeaStrike.PC.Root.UI;
 
 public class GridPanel : Panel
 {
     private readonly SeaStrike game;
-    private readonly SeaStrikeGrid seaStrikeGrid;
+    private readonly OceanGrid oceanGrid;
     private readonly Grid grid;
 
-    public GridPanel(SeaStrike game, SeaStrikeGrid seaStrikeGrid)
+    public GridPanel(SeaStrike game, OceanGrid oceanGrid)
     {
         Width = 343;
         Height = 343;
@@ -20,7 +20,7 @@ public class GridPanel : Panel
         BorderThickness = new Thickness(1);
 
         this.game = game;
-        this.seaStrikeGrid = seaStrikeGrid;
+        this.oceanGrid = oceanGrid;
 
         grid = new Grid()
         {
@@ -30,33 +30,54 @@ public class GridPanel : Panel
 
         AddGridProportions();
         AddBoardGridLabels();
+        AddGridTiles();
 
         Widgets.Add(grid);
     }
 
     private void AddGridProportions()
     {
-        for (int i = 0; i < 11; i++)
+        for (int i = 0; i < oceanGrid.width + 1; i++)
         {
             grid.RowsProportions.Add(new Proportion()
             {
                 Type = ProportionType.Pixels,
-                Value = (float)Width / 11
+                Value = (float)Width / (oceanGrid.width + 1)
             });
             grid.ColumnsProportions.Add(new Proportion()
             {
                 Type = ProportionType.Pixels,
-                Value = (float)Height / 11
+                Value = (float)Height / (oceanGrid.height + 1)
             });
         }
     }
 
     private void AddBoardGridLabels()
     {
-        for (int i = 1; i < 11; i++)
+        for (int i = 1; i < oceanGrid.width + 1; i++)
         {
             AddNumberLabel(i);
             AddLetterLabel(i);
+        }
+    }
+
+    private void AddGridTiles()
+    {
+        for (int i = 1; i < oceanGrid.width + 1; i++)
+        {
+            for (int j = 1; j < oceanGrid.height + 1; j++)
+            {
+                grid.Widgets.Add(new Label()
+                {
+                    Text = oceanGrid.tiles[i - 1, j - 1].notation,
+                    Opacity = 0.1f,
+                    Font = game.fontSystem.GetFont(24),
+                    GridColumn = i,
+                    GridRow = j,
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    VerticalAlignment = VerticalAlignment.Center
+                });
+            }
         }
     }
 
