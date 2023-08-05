@@ -1,9 +1,9 @@
 using Microsoft.Xna.Framework;
 using MonoGame.Extended.Screens;
-using Myra.Graphics2D;
-using Myra.Graphics2D.Brushes;
 using Myra.Graphics2D.UI;
+using SeaStrike.Core.Entity;
 using SeaStrike.PC.Root.UI;
+using Grid = Myra.Graphics2D.UI.Grid;
 
 namespace SeaStrike.PC.Root.Screens;
 
@@ -17,6 +17,8 @@ public class SeaStrikeGameScreen : GameScreen
     public override void LoadContent()
     {
         base.LoadContent();
+
+        Board board = new BoardBuilder().Build();
 
         mainGrid = new Grid()
         {
@@ -42,7 +44,7 @@ public class SeaStrikeGameScreen : GameScreen
             VerticalAlignment = VerticalAlignment.Center
         });
 
-        mainGrid.Widgets.Add(new BoardPanel(game)
+        mainGrid.Widgets.Add(new GridPanel(game, board.oceanGrid)
         {
             GridRow = 1,
             GridColumn = 1,

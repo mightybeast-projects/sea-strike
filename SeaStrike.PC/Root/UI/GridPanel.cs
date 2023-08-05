@@ -2,15 +2,17 @@ using Microsoft.Xna.Framework;
 using Myra.Graphics2D;
 using Myra.Graphics2D.Brushes;
 using Myra.Graphics2D.UI;
+using SeaStrikeGrid = SeaStrike.Core.Entity.Grid;
 
 namespace SeaStrike.PC.Root.UI;
 
-public class BoardPanel : Panel
+public class GridPanel : Panel
 {
     private readonly SeaStrike game;
+    private readonly SeaStrikeGrid seaStrikeGrid;
     private readonly Grid grid;
 
-    public BoardPanel(SeaStrike game)
+    public GridPanel(SeaStrike game, SeaStrikeGrid seaStrikeGrid)
     {
         Width = 343;
         Height = 343;
@@ -18,6 +20,7 @@ public class BoardPanel : Panel
         BorderThickness = new Thickness(1);
 
         this.game = game;
+        this.seaStrikeGrid = seaStrikeGrid;
 
         grid = new Grid()
         {
