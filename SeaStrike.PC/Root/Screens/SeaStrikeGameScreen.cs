@@ -3,6 +3,7 @@ using MonoGame.Extended.Screens;
 using Myra.Graphics2D.UI;
 using SeaStrike.Core.Entity;
 using SeaStrike.PC.Root.UI;
+using SeaStrikeGame = SeaStrike.Core.Entity.Game;
 using Grid = Myra.Graphics2D.UI.Grid;
 
 namespace SeaStrike.PC.Root.Screens;
@@ -18,9 +19,23 @@ public class SeaStrikeGameScreen : GameScreen
     {
         base.LoadContent();
 
-        Board board = new BoardBuilder()
+        Board board1 = new BoardBuilder()
+            .AddVerticalShip(new Carrier())
+                .AtPosition("A2")
+            .Build();
+
+        Board board2 = new BoardBuilder()
             .RandomizeShipsStartingPosition()
             .Build();
+
+        SeaStrikeGame ssGame = new SeaStrikeGame(board1, board2);
+
+        ssGame.HandleShot("A1");
+        ssGame.HandleShot("A1");
+        ssGame.HandleShot("A2");
+        ssGame.HandleShot("A2");
+        ssGame.HandleShot("A3");
+        ssGame.HandleShot("A3");
 
         mainGrid = new Grid()
         {
@@ -46,7 +61,7 @@ public class SeaStrikeGameScreen : GameScreen
             VerticalAlignment = VerticalAlignment.Center
         });
 
-        mainGrid.Widgets.Add(new GridPanel(game, board.oceanGrid)
+        mainGrid.Widgets.Add(new GridPanel(game, board1.oceanGrid)
         {
             GridRow = 1,
             GridColumn = 1,

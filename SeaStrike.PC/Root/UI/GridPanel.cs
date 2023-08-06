@@ -1,6 +1,8 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Myra.Graphics2D;
 using Myra.Graphics2D.Brushes;
+using Myra.Graphics2D.TextureAtlases;
 using Myra.Graphics2D.UI;
 using SeaStrike.Core.Entity;
 using Grid = Myra.Graphics2D.UI.Grid;
@@ -71,10 +73,14 @@ public class GridPanel : Panel
             {
                 Tile tile = oceanGrid.tiles[i - 1, j - 1];
 
-                if (!tile.isOccupied)
-                    AddEmptyTile(tile);
+                if (!tile.isOccupied && tile.hasBeenHit)
+                    AddHitTile(tile);
+                else if (tile.isOccupied && tile.hasBeenHit)
+                    AddHitShipTile(tile);
+                else if (tile.isOccupied && !tile.hasBeenHit)
+                    AddShipTile(tile);
                 else
-                    AddOccupiedTile(tile);
+                    AddEmptyTile(tile);
             }
         }
     }
@@ -117,13 +123,44 @@ public class GridPanel : Panel
         });
     }
 
-    private void AddOccupiedTile(Tile tile)
+    private void AddHitTile(Tile tile)
     {
-        uiGrid.Widgets.Add(new Label()
+        Texture2D miss = new Texture2D(game.GraphicsDevice, 1, 1);
+        miss.SetData(new[] { Color.White });
+
+        uiGrid.Widgets.Add(new Image()
         {
-            Text = "O",
-            Opacity = 0.1f,
-            Font = game.fontSystem.GetFont(24),
+            Renderable = new TextureRegion(miss, new Rectangle(0, 0, 15, 15)),
+            GridColumn = tile.i + 1,
+            GridRow = tile.j + 1,
+            HorizontalAlignment = HorizontalAlignment.Center,
+            VerticalAlignment = VerticalAlignment.Center
+        });
+    }
+
+    private void AddShipTile(Tile tile)
+    {
+        Texture2D ship = new Texture2D(game.GraphicsDevice, 1, 1);
+        ship.SetData(new[] { Color.LawnGreen });
+
+        uiGrid.Widgets.Add(new Image()
+        {
+            Renderable = new TextureRegion(ship, new Rectangle(0, 0, 15, 15)),
+            GridColumn = tile.i + 1,
+            GridRow = tile.j + 1,
+            HorizontalAlignment = HorizontalAlignment.Center,
+            VerticalAlignment = VerticalAlignment.Center
+        });
+    }
+
+    private void AddHitShipTile(Tile tile)
+    {
+        Texture2D damagedShip = new Texture2D(game.GraphicsDevice, 1, 1);
+        damagedShip.SetData(new[] { Color.Red });
+
+        uiGrid.Widgets.Add(new Image()
+        {
+            Renderable = new TextureRegion(damagedShip, new Rectangle(0, 0, 15, 15)),
             GridColumn = tile.i + 1,
             GridRow = tile.j + 1,
             HorizontalAlignment = HorizontalAlignment.Center,
