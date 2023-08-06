@@ -18,7 +18,9 @@ public class SeaStrikeGameScreen : GameScreen
     {
         base.LoadContent();
 
-        Board board = new BoardBuilder().Build();
+        Board board = new BoardBuilder()
+            .RandomizeShipsStartingPosition()
+            .Build();
 
         mainGrid = new Grid()
         {
