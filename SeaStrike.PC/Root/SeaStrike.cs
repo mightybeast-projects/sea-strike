@@ -15,7 +15,8 @@ public class SeaStrike : Game
     internal ScreenManager screenManager;
     internal SpriteBatch spriteBatch;
     internal FontSystem fontSystem;
-    private GraphicsDeviceManager graphics;
+
+    private readonly GraphicsDeviceManager graphics;
 
     public SeaStrike()
     {
