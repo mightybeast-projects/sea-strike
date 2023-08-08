@@ -8,10 +8,7 @@ public class Board
     public List<Ship> ships { get; private set; }
     public Board opponentBoard { get; private set; }
     public Grid targetGrid => opponentBoard?.oceanGrid;
-
-    internal bool shipsAreSunk => ships.All(ship => ship.isSunk);
-
-    private Ship[] shipPool = new Ship[]
+    public Ship[] shipPool = new Ship[]
     {
         new Destroyer(),
         new Cruiser(),
@@ -19,6 +16,8 @@ public class Board
         new Battleship(),
         new Carrier()
     };
+
+    internal bool shipsAreSunk => ships.All(ship => ship.isSunk);
 
     internal Board() => InitializeBoard();
 
