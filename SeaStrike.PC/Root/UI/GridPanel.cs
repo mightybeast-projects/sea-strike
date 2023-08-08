@@ -1,3 +1,4 @@
+using System;
 using Microsoft.Xna.Framework;
 using Myra.Graphics2D;
 using Myra.Graphics2D.Brushes;
@@ -35,6 +36,12 @@ public class GridPanel : Panel
         AddGridTiles();
 
         Widgets.Add(uiGrid);
+    }
+
+    private void InitializeShipAdditionDialog(object sender, EventArgs args)
+    {
+        var messageBox = Dialog.CreateMessageBox("Message", ((TextButton)sender).Text);
+        messageBox.ShowModal(game.desktop);
     }
 
     private void AddGridProportions()
@@ -75,7 +82,7 @@ public class GridPanel : Panel
         if (tile.isOccupied || tile.hasBeenHit)
             AddAllyGridTileImage(tile);
         else
-            AddEmptyGridTileLabel(tile);
+            AddEmptyGridTileButton(tile);
     }
 
     private void AddNumberLabel(int i)
@@ -102,9 +109,9 @@ public class GridPanel : Panel
         });
     }
 
-    private void AddEmptyGridTileLabel(Tile tile)
+    private void AddEmptyGridTileButton(Tile tile)
     {
-        uiGrid.Widgets.Add(new Label()
+        TextButton tileButton = new TextButton()
         {
             Text = tile.notation,
             Opacity = 0.1f,
@@ -113,7 +120,11 @@ public class GridPanel : Panel
             GridRow = tile.j + 1,
             HorizontalAlignment = HorizontalAlignment.Center,
             VerticalAlignment = VerticalAlignment.Center
-        });
+        };
+        tileButton.TouchDown += (s, a) =>
+            InitializeShipAdditionDialog(s, a);
+
+        uiGrid.Widgets.Add(tileButton);
     }
 
     private void AddAllyGridTileImage(Tile tile) =>
