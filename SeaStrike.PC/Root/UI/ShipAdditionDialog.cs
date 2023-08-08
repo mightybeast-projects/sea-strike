@@ -1,4 +1,7 @@
+using Microsoft.Xna.Framework;
+using Myra.Graphics2D.Brushes;
 using Myra.Graphics2D.UI;
+using Myra.Graphics2D.UI.Styles;
 using SeaStrike.Core.Entity;
 using Grid = Myra.Graphics2D.UI.Grid;
 
@@ -19,7 +22,7 @@ public class ShipAdditionDialog : Dialog
     {
         Grid optionsGrid = new Grid()
         {
-            ShowGridLines = true
+            RowSpacing = 8
         };
 
         optionsGrid.Widgets.Add(new Label()
@@ -38,14 +41,17 @@ public class ShipAdditionDialog : Dialog
         {
             GridRow = 1,
             GridColumn = 1,
-            HorizontalAlignment = HorizontalAlignment.Right
+            HorizontalAlignment = HorizontalAlignment.Right,
         };
         foreach (Ship ship in shipPool)
-            shipsType.Items.Add(new ListItem(ship.GetType().Name));
+            shipsType.Items.Add(
+                new ListItem(ship.GetType().Name +
+                " (Width : " + ship.width + ")"));
         shipsType.SelectedIndex = 0;
         optionsGrid.Widgets.Add(shipsType);
 
         Title = "Select ship properties";
+        FocusedBorder = new SolidBrush(Color.LawnGreen);
         Content = optionsGrid;
     }
 }

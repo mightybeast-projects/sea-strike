@@ -45,27 +45,18 @@ public class SeaStrikeGameScreen : GameScreen
         };
 
         mainGrid.RowsProportions.Add(new Proportion(ProportionType.Auto));
-        mainGrid.ColumnsProportions.Add(new Proportion(ProportionType.Pixels, 280));
 
         mainGrid.Widgets.Add(new Label()
         {
             Text = "Deployment phase",
             TextColor = Color.LawnGreen,
             Font = game.fontSystem.GetFont(40),
-            GridColumnSpan = 2,
             HorizontalAlignment = HorizontalAlignment.Center
-        });
-
-        mainGrid.Widgets.Add(new ShipsPanel(game)
-        {
-            GridRow = 1,
-            VerticalAlignment = VerticalAlignment.Center
         });
 
         mainGrid.Widgets.Add(new GridPanel(game, board1.oceanGrid)
         {
             GridRow = 1,
-            GridColumn = 1,
             HorizontalAlignment = HorizontalAlignment.Center,
             VerticalAlignment = VerticalAlignment.Center,
             OnEmptyTileClicked = InitializeShipAdditionDialog

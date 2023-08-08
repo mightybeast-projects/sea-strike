@@ -111,7 +111,7 @@ public class GridPanel : Panel
         {
             Text = tile.notation,
             Opacity = 0.1f,
-            Font = game.fontSystem.GetFont(24),
+            Font = game.fontSystem.GetFont(18),
             GridColumn = tile.i + 1,
             GridRow = tile.j + 1,
             HorizontalAlignment = HorizontalAlignment.Center,
