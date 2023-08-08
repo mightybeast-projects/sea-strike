@@ -1,4 +1,6 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
+using Myra.Graphics2D;
 using Myra.Graphics2D.Brushes;
 using Myra.Graphics2D.UI;
 using Myra.Graphics2D.UI.Styles;
@@ -20,38 +22,63 @@ public class ShipAdditionDialog : Dialog
 
     public ShipAdditionDialog(SeaStrike game, TextButton emptyTileButton)
     {
-        Grid optionsGrid = new Grid()
+        Grid shipOptionsGrid = new Grid()
         {
-            RowSpacing = 8
+            RowSpacing = 8,
+            ColumnSpacing = 8
         };
 
-        optionsGrid.Widgets.Add(new Label()
+        shipOptionsGrid.Widgets.Add(new Label()
         {
             Text = "Selected position : " + emptyTileButton.Text,
             HorizontalAlignment = HorizontalAlignment.Center,
             GridColumnSpan = 2
         });
-        optionsGrid.Widgets.Add(new Label()
+
+        shipOptionsGrid.Widgets.Add(new Label()
         {
-            Text = "Select ship to add : ",
+            Text = "Ship type : ",
             GridRow = 1
         });
 
-        ComboBox shipsType = new ComboBox()
+        ComboBox shipsTypeBox = new ComboBox()
         {
             GridRow = 1,
             GridColumn = 1,
             HorizontalAlignment = HorizontalAlignment.Right,
         };
         foreach (Ship ship in shipPool)
-            shipsType.Items.Add(
+            shipsTypeBox.Items.Add(
                 new ListItem(ship.GetType().Name +
                 " (Width : " + ship.width + ")"));
-        shipsType.SelectedIndex = 0;
-        optionsGrid.Widgets.Add(shipsType);
+        shipsTypeBox.SelectedIndex = 0;
+        shipOptionsGrid.Widgets.Add(shipsTypeBox);
+
+        shipOptionsGrid.Widgets.Add(new Label()
+        {
+            Text = "Ship orientation : ",
+            GridRow = 2,
+        });
+
+        ComboBox shipOrientationBox = new ComboBox()
+        {
+            GridRow = 2,
+            GridColumn = 1,
+            HorizontalAlignment = HorizontalAlignment.Right
+        };
+        shipOrientationBox.Items.Add(new ListItem("Horizontal"));
+        shipOrientationBox.Items.Add(new ListItem("Vertical"));
+        shipOrientationBox.SelectedIndex = 0;
+        shipOptionsGrid.Widgets.Add(shipOrientationBox);
 
         Title = "Select ship properties";
-        FocusedBorder = new SolidBrush(Color.LawnGreen);
-        Content = optionsGrid;
+        Background = new SolidBrush(Color.Black);
+        Border = new SolidBrush(Color.LawnGreen);
+        BorderThickness = new Thickness(1);
+        Content = shipOptionsGrid;
+        ButtonOk.Text = "Create new ship";
+        ButtonCancel.Visible = false;
+        ConfirmKey = Keys.Enter;
+        CloseKey = Keys.Escape;
     }
 }
