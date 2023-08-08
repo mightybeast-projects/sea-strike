@@ -11,6 +11,8 @@ namespace SeaStrike.PC.Root.UI;
 
 public class GridPanel : Panel
 {
+    public Action<object, EventArgs> OnEmptyTileClicked;
+
     private readonly SeaStrike game;
     private readonly OceanGrid oceanGrid;
     private readonly Grid uiGrid;
@@ -36,12 +38,6 @@ public class GridPanel : Panel
         AddGridTiles();
 
         Widgets.Add(uiGrid);
-    }
-
-    private void InitializeShipAdditionDialog(object sender, EventArgs args)
-    {
-        var messageBox = Dialog.CreateMessageBox("Message", ((TextButton)sender).Text);
-        messageBox.ShowModal(game.desktop);
     }
 
     private void AddGridProportions()
@@ -121,8 +117,7 @@ public class GridPanel : Panel
             HorizontalAlignment = HorizontalAlignment.Center,
             VerticalAlignment = VerticalAlignment.Center
         };
-        tileButton.TouchDown += (s, a) =>
-            InitializeShipAdditionDialog(s, a);
+        tileButton.TouchDown += (s, a) => OnEmptyTileClicked(s, a);
 
         uiGrid.Widgets.Add(tileButton);
     }

@@ -5,6 +5,7 @@ using SeaStrike.Core.Entity;
 using SeaStrike.PC.Root.UI;
 using SeaStrikeGame = SeaStrike.Core.Entity.Game;
 using Grid = Myra.Graphics2D.UI.Grid;
+using System;
 
 namespace SeaStrike.PC.Root.Screens;
 
@@ -67,6 +68,7 @@ public class SeaStrikeGameScreen : GameScreen
             GridColumn = 1,
             HorizontalAlignment = HorizontalAlignment.Center,
             VerticalAlignment = VerticalAlignment.Center,
+            OnEmptyTileClicked = InitializeShipAdditionDialog
         });
 
         game.desktop.Root = mainGrid;
@@ -80,4 +82,8 @@ public class SeaStrikeGameScreen : GameScreen
     }
 
     public override void Update(GameTime gameTime) { }
+
+    private void InitializeShipAdditionDialog(object sender, EventArgs args) =>
+        new ShipAdditionDialog(game, (TextButton)sender)
+        .ShowModal(game.desktop);
 }
