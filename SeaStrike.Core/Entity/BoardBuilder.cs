@@ -2,11 +2,12 @@ namespace SeaStrike.Core.Entity;
 
 public class BoardBuilder
 {
-    private Board board;
+    internal Board board;
     private Ship shipToAdd;
     private Action<Ship, string> additionMethod;
 
     public BoardBuilder() => board = new Board();
+    public BoardBuilder(Board board) => this.board = board;
 
     public Board Build() => board;
 

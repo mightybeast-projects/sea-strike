@@ -12,6 +12,13 @@ public class BoardBuilderTests
         new BoardBuilder().Build().Should().BeEquivalentTo(new Board());
 
     [Test]
+    public void Builder_CanBeInitialized_WithExistingBoard()
+    {
+        Board board = new BoardBuilder().Build();
+        new BoardBuilder(board).board.Should().BeEquivalentTo(board);
+    }
+
+    [Test]
     public void Builder_CanRandomizeShipsPosition()
     {
         Board board = new BoardBuilder()
