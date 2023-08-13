@@ -5,7 +5,6 @@ using Microsoft.Xna.Framework.Input;
 using Myra.Graphics2D;
 using Myra.Graphics2D.Brushes;
 using Myra.Graphics2D.UI;
-using Myra.Graphics2D.UI.Styles;
 using SeaStrike.Core.Entity;
 using Grid = Myra.Graphics2D.UI.Grid;
 
@@ -13,17 +12,23 @@ namespace SeaStrike.PC.Root.UI;
 
 public class ShipAdditionDialog : Dialog
 {
+    public static List<Ship> shipPool = new List<Ship>
+    {
+        new Destroyer(),
+        new Cruiser(),
+        new Submarine(),
+        new Battleship(),
+        new Carrier()
+    };
     private readonly string position;
-    private readonly List<Ship> shipPool;
     private readonly BoardBuilder boardBuilder;
     private Grid shipOptionsGrid;
     private ComboBox shipsTypeBox;
     private ComboBox shipOrientationBox;
 
-    public ShipAdditionDialog(TextButton emptyTileButton, List<Ship> shipPool, BoardBuilder boardBuilder)
+    public ShipAdditionDialog(TextButton emptyTileButton, BoardBuilder boardBuilder)
     {
         position = emptyTileButton.Text;
-        this.shipPool = shipPool;
         this.boardBuilder = boardBuilder;
 
         shipOptionsGrid = new Grid()
@@ -111,7 +116,6 @@ public class ShipAdditionDialog : Dialog
         int shipTypeIndex = shipsTypeBox.SelectedIndex ?? 0;
         Ship ship = shipPool[shipTypeIndex];
         int shipOrientationIndex = shipOrientationBox.SelectedIndex ?? 0;
-
         Func<Ship, BoardBuilder> additionMethod;
 
         if (shipOrientationIndex == 0)
@@ -119,14 +123,7 @@ public class ShipAdditionDialog : Dialog
         else
             additionMethod = boardBuilder.AddVerticalShip;
 
-        try
-        {
-            additionMethod(ship).AtPosition(position);
-            shipPool.Remove(ship);
-        }
-        catch (Exception e)
-        {
-            System.Console.WriteLine(e.Message);
-        }
+        additionMethod(ship).AtPosition(position);
+        shipPool.Remove(ship);
     }
 }

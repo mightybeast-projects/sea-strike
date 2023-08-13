@@ -6,6 +6,8 @@ using SeaStrike.PC.Root.UI;
 using Grid = Myra.Graphics2D.UI.Grid;
 using System;
 using System.Collections.Generic;
+using Myra.Graphics2D.Brushes;
+using Myra.Graphics2D;
 
 namespace SeaStrike.PC.Root.Screens;
 
@@ -15,14 +17,6 @@ public class SeaStrikeGameScreen : GameScreen
     private BoardBuilder boardBuilder;
     private Grid mainGrid;
     private GridPanel oceanGridPanel;
-    private List<Ship> shipPool = new List<Ship>
-    {
-        new Destroyer(),
-        new Cruiser(),
-        new Submarine(),
-        new Battleship(),
-        new Carrier()
-    };
 
     public SeaStrikeGameScreen(SeaStrike game) : base(game) => this.game = game;
 
@@ -57,7 +51,19 @@ public class SeaStrikeGameScreen : GameScreen
     {
         game.GraphicsDevice.Clear(Color.Black);
 
-        game.desktop.Render();
+        try
+        {
+            game.desktop.Render();
+        }
+        catch (Exception e)
+        {
+            Dialog errorDialog = Dialog.CreateMessageBox("Error", e.Message);
+            errorDialog.Background = new SolidBrush(Color.Black);
+            errorDialog.Border = new SolidBrush(Color.LawnGreen);
+            errorDialog.BorderThickness = new Thickness(1);
+
+            errorDialog.ShowModal(game.desktop);
+        }
     }
 
     public override void Update(GameTime gameTime) { }
@@ -79,10 +85,11 @@ public class SeaStrikeGameScreen : GameScreen
 
     private void InitializeShipAdditionDialog(object sender, EventArgs args)
     {
-        if (shipPool.Count == 0)
+        if (ShipAdditionDialog.shipPool.Count == 0)
             return;
 
-        ShipAdditionDialog dialog = new ShipAdditionDialog((TextButton)sender, shipPool, boardBuilder);
+        ShipAdditionDialog dialog =
+            new ShipAdditionDialog((TextButton)sender, boardBuilder);
         dialog.ShowModal(game.desktop);
         dialog.ButtonOk.TouchDown += (s, a) => UpdateOceanGridPanel();
     }
