@@ -13,7 +13,7 @@ namespace SeaStrike.PC.Root.UI;
 
 public class ShipAdditionDialog : Dialog
 {
-    private readonly TextButton emptyTileButton;
+    private readonly string position;
     private readonly List<Ship> shipPool;
     private readonly BoardBuilder boardBuilder;
     private Grid shipOptionsGrid;
@@ -22,7 +22,7 @@ public class ShipAdditionDialog : Dialog
 
     public ShipAdditionDialog(TextButton emptyTileButton, List<Ship> shipPool, BoardBuilder boardBuilder)
     {
-        this.emptyTileButton = emptyTileButton;
+        position = emptyTileButton.Text;
         this.shipPool = shipPool;
         this.boardBuilder = boardBuilder;
 
@@ -45,7 +45,7 @@ public class ShipAdditionDialog : Dialog
     {
         shipOptionsGrid.Widgets.Add(new Label()
         {
-            Text = "Selected position : " + emptyTileButton.Text,
+            Text = "Selected position : " + position,
             HorizontalAlignment = HorizontalAlignment.Center,
             GridColumnSpan = 2
         });
@@ -112,20 +112,21 @@ public class ShipAdditionDialog : Dialog
         Ship ship = shipPool[shipTypeIndex];
         int shipOrientationIndex = shipOrientationBox.SelectedIndex ?? 0;
 
+        Func<Ship, BoardBuilder> additionMethod;
+
+        if (shipOrientationIndex == 0)
+            additionMethod = boardBuilder.AddHorizontalShip;
+        else
+            additionMethod = boardBuilder.AddVerticalShip;
+
         try
         {
-            if (shipOrientationIndex == 0)
-                boardBuilder.AddHorizontalShip(ship).AtPosition(emptyTileButton.Text);
-            else
-                boardBuilder.AddVerticalShip(ship).AtPosition(emptyTileButton.Text);
-
+            additionMethod(ship).AtPosition(position);
             shipPool.Remove(ship);
         }
         catch (Exception e)
         {
             System.Console.WriteLine(e.Message);
         }
-
-        System.Console.WriteLine(boardBuilder.Build().ships.Count);
     }
 }
