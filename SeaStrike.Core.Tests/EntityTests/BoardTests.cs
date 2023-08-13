@@ -131,6 +131,18 @@ public class BoardTests
     }
 
     [Test]
+    public void Board_ShouldAdd_RemovedShipType_ToShipsPool()
+    {
+        Ship ship = new Cruiser();
+
+        board.AddHorizontalShip(ship, "A1");
+
+        board.RemoveShipAt("A3");
+
+        board.shipsPool.Should().ContainSingle(s => s.GetType() == ship.GetType());
+    }
+
+    [Test]
     public void Board_DoesNotThrow_OnRemoveShip_IfTileIsNotOccupied() =>
         board.Invoking(b => b.RemoveShipAt("A2"))
         .Should().NotThrow();

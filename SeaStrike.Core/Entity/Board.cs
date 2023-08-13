@@ -85,6 +85,7 @@ public class Board
             tile.occupiedBy = null;
 
         ships.Remove(ship);
+        shipsPool.Add(ship);
 
         NotifyAllObservers();
     }
