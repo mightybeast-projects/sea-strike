@@ -11,13 +11,15 @@ namespace SeaStrike.PC.Root.UI;
 
 public class GridPanel : Panel
 {
-    public Action<object, EventArgs> OnEmptyTileClicked;
-
     private readonly SeaStrike game;
     private readonly OceanGrid oceanGrid;
+    private readonly Action<object> onEmptyTileClicked;
     private Grid uiGrid;
 
-    public GridPanel(SeaStrike game, OceanGrid oceanGrid)
+    public GridPanel(
+        SeaStrike game,
+        OceanGrid oceanGrid,
+        Action<object> onEmptyTileClicked)
     {
         Width = 343;
         Height = 343;
@@ -26,6 +28,14 @@ public class GridPanel : Panel
 
         this.game = game;
         this.oceanGrid = oceanGrid;
+        this.onEmptyTileClicked = onEmptyTileClicked;
+
+        Update();
+    }
+
+    public void Update()
+    {
+        Widgets.Clear();
 
         uiGrid = new Grid()
         {
@@ -117,7 +127,7 @@ public class GridPanel : Panel
             HorizontalAlignment = HorizontalAlignment.Center,
             VerticalAlignment = VerticalAlignment.Center
         };
-        tileButton.TouchDown += (s, a) => OnEmptyTileClicked(s, a);
+        tileButton.TouchDown += (s, a) => onEmptyTileClicked(s);
 
         uiGrid.Widgets.Add(tileButton);
     }

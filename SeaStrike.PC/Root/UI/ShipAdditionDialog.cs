@@ -95,6 +95,7 @@ public class ShipAdditionDialog : Dialog
         shipOrientationBox.Items.Add(new ListItem("Horizontal"));
         shipOrientationBox.Items.Add(new ListItem("Vertical"));
         shipOrientationBox.SelectedIndex = 0;
+
         shipOptionsGrid.Widgets.Add(shipOrientationBox);
     }
 
@@ -116,14 +117,14 @@ public class ShipAdditionDialog : Dialog
         int shipTypeIndex = shipsTypeBox.SelectedIndex ?? 0;
         Ship ship = shipPool[shipTypeIndex];
         int shipOrientationIndex = shipOrientationBox.SelectedIndex ?? 0;
-        Func<Ship, BoardBuilder> additionMethod;
+        Func<Ship, BoardBuilder> AddShip;
 
         if (shipOrientationIndex == 0)
-            additionMethod = boardBuilder.AddHorizontalShip;
+            AddShip = boardBuilder.AddHorizontalShip;
         else
-            additionMethod = boardBuilder.AddVerticalShip;
+            AddShip = boardBuilder.AddVerticalShip;
 
-        additionMethod(ship).AtPosition(position);
+        AddShip(ship).AtPosition(position);
         shipPool.Remove(ship);
     }
 }
