@@ -2,7 +2,7 @@ namespace SeaStrike.Core.Entity;
 
 public class BoardBuilder
 {
-    internal Board board;
+    private Board board;
     private Ship shipToAdd;
     private Action<Ship, string> additionMethod;
 

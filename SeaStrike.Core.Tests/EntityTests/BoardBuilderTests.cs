@@ -15,7 +15,7 @@ public class BoardBuilderTests
     public void Builder_CanBeInitialized_WithExistingBoard()
     {
         Board board = new BoardBuilder().Build();
-        new BoardBuilder(board).board.Should().BeEquivalentTo(board);
+        new BoardBuilder(board).Build().Should().BeEquivalentTo(board);
     }
 
     [Test]
