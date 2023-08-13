@@ -15,7 +15,7 @@ public class GridPanel : Panel
 
     private readonly SeaStrike game;
     private readonly OceanGrid oceanGrid;
-    private readonly Grid uiGrid;
+    private Grid uiGrid;
 
     public GridPanel(SeaStrike game, OceanGrid oceanGrid)
     {

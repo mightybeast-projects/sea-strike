@@ -3,17 +3,26 @@ using MonoGame.Extended.Screens;
 using Myra.Graphics2D.UI;
 using SeaStrike.Core.Entity;
 using SeaStrike.PC.Root.UI;
-using SeaStrikeGame = SeaStrike.Core.Entity.Game;
 using Grid = Myra.Graphics2D.UI.Grid;
 using System;
+using System.Collections.Generic;
 
 namespace SeaStrike.PC.Root.Screens;
 
 public class SeaStrikeGameScreen : GameScreen
 {
     private readonly SeaStrike game;
-    private Board board;
+    private BoardBuilder boardBuilder;
     private Grid mainGrid;
+    private GridPanel oceanGridPanel;
+    private List<Ship> shipPool = new List<Ship>
+    {
+        new Destroyer(),
+        new Cruiser(),
+        new Submarine(),
+        new Battleship(),
+        new Carrier()
+    };
 
     public SeaStrikeGameScreen(SeaStrike game) : base(game) => this.game = game;
 
@@ -21,7 +30,7 @@ public class SeaStrikeGameScreen : GameScreen
     {
         base.LoadContent();
 
-        board = new BoardBuilder().Build();
+        boardBuilder = new BoardBuilder();
 
         mainGrid = new Grid()
         {
@@ -39,13 +48,7 @@ public class SeaStrikeGameScreen : GameScreen
             HorizontalAlignment = HorizontalAlignment.Center
         });
 
-        mainGrid.Widgets.Add(new GridPanel(game, board.oceanGrid)
-        {
-            GridRow = 1,
-            HorizontalAlignment = HorizontalAlignment.Center,
-            VerticalAlignment = VerticalAlignment.Center,
-            OnEmptyTileClicked = InitializeShipAdditionDialog
-        });
+        UpdateOceanGridPanel();
 
         game.desktop.Root = mainGrid;
     }
@@ -59,7 +62,28 @@ public class SeaStrikeGameScreen : GameScreen
 
     public override void Update(GameTime gameTime) { }
 
-    private void InitializeShipAdditionDialog(object sender, EventArgs args) =>
-        new ShipAdditionDialog((TextButton)sender, board)
-        .ShowModal(game.desktop);
+    private void UpdateOceanGridPanel()
+    {
+        mainGrid.RemoveChild(oceanGridPanel);
+
+        oceanGridPanel = new GridPanel(game, boardBuilder.Build().oceanGrid)
+        {
+            GridRow = 1,
+            HorizontalAlignment = HorizontalAlignment.Center,
+            VerticalAlignment = VerticalAlignment.Center,
+            OnEmptyTileClicked = InitializeShipAdditionDialog
+        };
+
+        mainGrid.Widgets.Add(oceanGridPanel);
+    }
+
+    private void InitializeShipAdditionDialog(object sender, EventArgs args)
+    {
+        if (shipPool.Count == 0)
+            return;
+
+        ShipAdditionDialog dialog = new ShipAdditionDialog((TextButton)sender, shipPool, boardBuilder);
+        dialog.ShowModal(game.desktop);
+        dialog.ButtonOk.TouchDown += (s, a) => UpdateOceanGridPanel();
+    }
 }
