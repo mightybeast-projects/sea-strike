@@ -9,7 +9,7 @@ using OceanGrid = SeaStrike.Core.Entity.Grid;
 
 namespace SeaStrike.PC.Root.UI;
 
-public class GridPanel : Panel
+public class GridPanel : Panel, IBoardObserver
 {
     public Action<object> OnEmptyTileClicked;
     public Action<object> OnOccupiedTileClicked;
@@ -33,7 +33,9 @@ public class GridPanel : Panel
         Update();
     }
 
-    public void Update()
+    public void Notify() => Update();
+
+    private void Update()
     {
         Widgets.Clear();
 

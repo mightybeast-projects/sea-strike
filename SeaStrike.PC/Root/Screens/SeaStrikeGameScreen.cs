@@ -49,6 +49,7 @@ public class SeaStrikeGameScreen : GameScreen
             OnEmptyTileClicked = ShowShipAdditionDialog,
             OnOccupiedTileClicked = RemoveShip
         };
+        boardBuilder.Subscribe(oceanGridPanel);
 
         mainGrid.Widgets.Add(oceanGridPanel);
 
@@ -73,7 +74,6 @@ public class SeaStrikeGameScreen : GameScreen
         ShipAdditionDialog dialog =
             new ShipAdditionDialog((TextButton)sender, boardBuilder);
         dialog.ShowModal(game.desktop);
-        dialog.ButtonOk.TouchUp += (s, a) => oceanGridPanel.Update();
     }
 
     private void RemoveShip(object sender)
@@ -82,7 +82,6 @@ public class SeaStrikeGameScreen : GameScreen
         Tile tile = occupiedTileButton.tile;
         ShipAdditionDialog.shipPool.Add(tile.occupiedBy);
         boardBuilder.RemoveShipAt(tile.notation);
-        oceanGridPanel.Update();
     }
 
     private void ShowErrorDialog(Exception e)
