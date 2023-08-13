@@ -113,6 +113,7 @@ public class BoardTests
 
         board.ships.Should().BeEquivalentTo(new List<Ship>());
         board.oceanGrid.Should().BeEquivalentTo(new Grid());
+        board.shipsPool.Count().Should().Be(5);
     }
 
     [Test]

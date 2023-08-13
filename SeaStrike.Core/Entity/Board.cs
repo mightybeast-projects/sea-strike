@@ -17,7 +17,6 @@ public class Board
     {
         observers = new List<IBoardObserver>();
 
-        ResetShipsPool();
         ResetBoard();
     }
 
@@ -68,10 +67,7 @@ public class Board
         AddShip(ship, tilesToOccupy);
     }
 
-    internal void ClearOceanGrid()
-    {
-        ResetBoard();
-    }
+    internal void ClearOceanGrid() => ResetBoard();
 
     internal void RemoveShipAt(string occupiedTileStr)
     {
@@ -104,6 +100,14 @@ public class Board
     {
         oceanGrid = new Grid();
         ships = new List<Ship>();
+        shipsPool = new List<Ship>()
+        {
+            new Destroyer(),
+            new Cruiser(),
+            new Submarine(),
+            new Battleship(),
+            new Carrier()
+        };
     }
 
     private void TryToAddShipRandomly(Ship ship)
