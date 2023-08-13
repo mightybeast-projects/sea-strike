@@ -19,6 +19,11 @@ public class BoardBuilderTests
     }
 
     [Test]
+    public void Builder_CanGet_CurrentShipsPool() =>
+        new BoardBuilder().shipsPool
+            .Should().BeEquivalentTo(new BoardBuilder().Build().shipsPool);
+
+    [Test]
     public void Builder_CanRandomizeShipsPosition()
     {
         Board board = new BoardBuilder()

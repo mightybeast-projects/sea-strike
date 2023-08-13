@@ -2,6 +2,8 @@ namespace SeaStrike.Core.Entity;
 
 public class BoardBuilder
 {
+    public Ship[] shipsPool => board.shipsPool.ToArray();
+
     private Board board;
     private Ship shipToAdd;
     private Action<Ship, string> additionMethod;
