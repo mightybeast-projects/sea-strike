@@ -46,14 +46,16 @@ public class SeaStrikeGameScreen : GameScreen
             GridRow = 1,
             HorizontalAlignment = HorizontalAlignment.Center,
             VerticalAlignment = VerticalAlignment.Center,
-            OnEmptyTileClicked = InitializeShipAdditionDialog,
-            onOccupiedTileClicked = RemoveShip
+            OnEmptyTileClicked = ShowShipAdditionDialog,
+            OnOccupiedTileClicked = RemoveShip
         };
 
         mainGrid.Widgets.Add(oceanGridPanel);
 
         game.desktop.Root = mainGrid;
     }
+
+    public override void Update(GameTime gameTime) { }
 
     public override void Draw(GameTime gameTime)
     {
@@ -63,9 +65,7 @@ public class SeaStrikeGameScreen : GameScreen
         catch (Exception e) { ShowErrorDialog(e); }
     }
 
-    public override void Update(GameTime gameTime) { }
-
-    private void InitializeShipAdditionDialog(object sender)
+    private void ShowShipAdditionDialog(object sender)
     {
         if (ShipAdditionDialog.shipPool.Count == 0)
             return;

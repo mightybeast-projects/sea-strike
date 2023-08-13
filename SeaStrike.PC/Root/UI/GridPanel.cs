@@ -12,7 +12,7 @@ namespace SeaStrike.PC.Root.UI;
 public class GridPanel : Panel
 {
     public Action<object> OnEmptyTileClicked;
-    public Action<object> onOccupiedTileClicked;
+    public Action<object> OnOccupiedTileClicked;
 
     private readonly SeaStrike game;
     private readonly OceanGrid oceanGrid;
@@ -137,7 +137,7 @@ public class GridPanel : Panel
     {
         GridTileImageButton tileButton = new GridTileImageButton(tile, game.GraphicsDevice);
         if (tile.isOccupied)
-            tileButton.TouchUp += (s, a) => onOccupiedTileClicked(s);
+            tileButton.TouchUp += (s, a) => OnOccupiedTileClicked(s);
 
         uiGrid.Widgets.Add(tileButton);
     }
