@@ -135,8 +135,7 @@ public class GridPanel : Panel, IBoardObserver
 
     private void AddAllyGridTileImage(Tile tile)
     {
-        GridTileImageButton tileButton =
-            new GridTileImageButton(tile, game.GraphicsDevice);
+        GridTileImageButton tileButton = new GridTileImageButton(tile);
         if (tile.isOccupied)
             tileButton.TouchUp += (s, a) => OnOccupiedTileClicked(s);
 

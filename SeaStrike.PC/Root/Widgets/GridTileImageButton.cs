@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Myra;
 using Myra.Graphics2D.TextureAtlases;
 using Myra.Graphics2D.UI;
 using SeaStrike.Core.Entity;
@@ -10,11 +11,12 @@ public class GridTileImageButton : ImageButton
 {
     public Tile tile;
 
-    public GridTileImageButton(Tile tile, GraphicsDevice graphicsDevice)
+    public GridTileImageButton(Tile tile)
     {
         this.tile = tile;
 
-        Texture2D damagedShip = new Texture2D(graphicsDevice, 1, 1);
+        Texture2D damagedShip =
+            new Texture2D(MyraEnvironment.GraphicsDevice, 1, 1);
         Color tileColor = Color.Black;
 
         if (!tile.isOccupied && tile.hasBeenHit)

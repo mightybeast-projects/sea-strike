@@ -16,7 +16,6 @@ public class SeaStrike : Game
 {
     internal Desktop desktop;
     internal ScreenManager screenManager;
-    internal SpriteBatch spriteBatch;
     internal FontSystem fontSystem;
 
     private readonly GraphicsDeviceManager graphics;
@@ -37,7 +36,6 @@ public class SeaStrike : Game
     {
         base.LoadContent();
 
-        spriteBatch = new SpriteBatch(GraphicsDevice);
         desktop = new Desktop();
 
         string path = "SeaStrike.PC/Content/Font/Tektur.ttf";
@@ -55,7 +53,6 @@ public class SeaStrike : Game
 
     protected override void Draw(GameTime gameTime)
     {
-        System.Console.WriteLine("desktop draw");
         base.Draw(gameTime);
 
         GraphicsDevice.Clear(Color.Black);
