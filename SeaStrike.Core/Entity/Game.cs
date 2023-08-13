@@ -26,6 +26,9 @@ public class Game
         if (!isOver)
             SwitchPlayer();
 
+        player1.board.NotifyAllObservers();
+        player2.board.NotifyAllObservers();
+
         return result;
     }
 

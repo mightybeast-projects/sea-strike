@@ -16,10 +16,16 @@ public class Board
         new Battleship(),
         new Carrier()
     };
+    public List<IBoardObserver> observers;
 
     internal bool shipsAreSunk => ships.All(ship => ship.isSunk);
 
-    internal Board() => InitializeBoard();
+    internal Board()
+    {
+        observers = new List<IBoardObserver>();
+
+        InitializeBoard();
+    }
 
     internal void RandomizeShips()
     {
@@ -76,6 +82,8 @@ public class Board
             tile.occupiedBy = null;
 
         ships.Remove(ship);
+
+        NotifyAllObservers();
     }
 
     internal void Bind(Board opponentBoard)
@@ -83,6 +91,10 @@ public class Board
         this.opponentBoard = opponentBoard;
         opponentBoard.opponentBoard = this;
     }
+
+    internal void Subscribe(IBoardObserver observer) => observers.Add(observer);
+
+    internal void NotifyAllObservers() => observers.ForEach(o => o.Notify());
 
     private void InitializeBoard()
     {
@@ -116,6 +128,8 @@ public class Board
         }
 
         ships.Add(ship);
+
+        NotifyAllObservers();
     }
 
     private void ValidateShipWidth(int minWidth, Tile startTile)

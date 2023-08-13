@@ -49,4 +49,11 @@ public class BoardBuilder
 
         return this;
     }
+
+    public BoardBuilder Subscribe(IBoardObserver observer)
+    {
+        board.Subscribe(observer);
+
+        return this;
+    }
 }
