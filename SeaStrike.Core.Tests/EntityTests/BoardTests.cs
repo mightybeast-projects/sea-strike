@@ -75,6 +75,17 @@ public class BoardTests
     }
 
     [Test]
+    public void Board_Throws_CannotAddAlreadyPlacedShipException()
+    {
+        Ship ship = new Cruiser();
+
+        board.AddHorizontalShip(ship, "A1");
+
+        board.Invoking(b => b.AddHorizontalShip(ship, "B1"))
+            .Should().Throw<CannotAddAlreadyPlacedShipException>();
+    }
+
+    [Test]
     public void Board_Throws_CannotFitShipException()
     {
         board.Invoking(b => b.AddHorizontalShip(new Battleship(), "A8"))

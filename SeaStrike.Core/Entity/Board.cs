@@ -8,14 +8,7 @@ public class Board
     public List<Ship> ships { get; private set; }
     public Board opponentBoard { get; private set; }
     public Grid targetGrid => opponentBoard?.oceanGrid;
-    public Ship[] shipPool = new Ship[]
-    {
-        new Destroyer(),
-        new Cruiser(),
-        new Submarine(),
-        new Battleship(),
-        new Carrier()
-    };
+    public List<Ship> shipsPool;
     public List<IBoardObserver> observers;
 
     internal bool shipsAreSunk => ships.All(ship => ship.isSunk);
@@ -24,20 +17,25 @@ public class Board
     {
         observers = new List<IBoardObserver>();
 
-        InitializeBoard();
+        ResetShipsPool();
+        ResetBoard();
     }
 
     internal void RandomizeShips()
     {
         ClearOceanGrid();
 
-        foreach (Ship ship in shipPool)
+        Ship[] remainingShips = shipsPool.ToArray();
+
+        foreach (Ship ship in remainingShips)
             while (!ships.Contains(ship))
                 TryToAddShipRandomly(ship);
     }
 
     internal void AddHorizontalShip(Ship ship, string startTileStr)
     {
+        ValidateShipType(ship);
+
         Tile startTile = oceanGrid.GetTile(startTileStr);
         int minWidth = oceanGrid.tiles.GetLength(0) - (startTile.i + ship.width);
 
@@ -54,6 +52,8 @@ public class Board
 
     internal void AddVerticalShip(Ship ship, string startTileStr)
     {
+        ValidateShipType(ship);
+
         Tile startTile = oceanGrid.GetTile(startTileStr);
         int minWidth = oceanGrid.tiles.GetLength(1) - (startTile.j + ship.width);
 
@@ -68,7 +68,10 @@ public class Board
         AddShip(ship, tilesToOccupy);
     }
 
-    internal void ClearOceanGrid() => InitializeBoard();
+    internal void ClearOceanGrid()
+    {
+        ResetBoard();
+    }
 
     internal void RemoveShipAt(string occupiedTileStr)
     {
@@ -96,7 +99,7 @@ public class Board
 
     internal void NotifyAllObservers() => observers.ForEach(o => o.Notify());
 
-    private void InitializeBoard()
+    private void ResetBoard()
     {
         oceanGrid = new Grid();
         ships = new List<Ship>();
@@ -128,8 +131,15 @@ public class Board
         }
 
         ships.Add(ship);
+        shipsPool.Remove(shipsPool.Find(s => s.GetType() == ship.GetType()));
 
         NotifyAllObservers();
+    }
+
+    private void ValidateShipType(Ship ship)
+    {
+        if (!shipsPool.Contains(shipsPool.Find(s => s.GetType() == ship.GetType())))
+            throw new CannotAddAlreadyPlacedShipException(ship);
     }
 
     private void ValidateShipWidth(int minWidth, Tile startTile)
@@ -144,4 +154,13 @@ public class Board
             if (tile.isOccupied)
                 throw new TileIsOccupiedByOtherShipException(tile);
     }
+
+    private void ResetShipsPool() => shipsPool = new List<Ship>()
+    {
+        new Destroyer(),
+        new Cruiser(),
+        new Submarine(),
+        new Battleship(),
+        new Carrier()
+    };
 }

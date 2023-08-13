@@ -34,7 +34,7 @@ public class BoardBuilderTests
         Board board = new BoardBuilder()
             .AddHorizontalShip(new Destroyer())
                 .AtPosition("A1")
-            .AddHorizontalShip(new Destroyer())
+            .AddHorizontalShip(new Submarine())
                 .AtPosition("B1")
             .Build();
 
@@ -47,7 +47,7 @@ public class BoardBuilderTests
         Board board = new BoardBuilder()
             .AddVerticalShip(new Destroyer())
                 .AtPosition("A1")
-            .AddVerticalShip(new Destroyer())
+            .AddVerticalShip(new Submarine())
                 .AtPosition("A3")
             .Build();
 
