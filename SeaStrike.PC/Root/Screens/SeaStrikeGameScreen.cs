@@ -68,7 +68,7 @@ public class SeaStrikeGameScreen : GameScreen
 
     private void ShowShipAdditionDialog(object sender)
     {
-        if (ShipAdditionDialog.shipPool.Count == 0)
+        if (boardBuilder.shipsPool.Length == 0)
             return;
 
         ShipAdditionDialog dialog =
@@ -80,7 +80,6 @@ public class SeaStrikeGameScreen : GameScreen
     {
         GridTileImageButton occupiedTileButton = (GridTileImageButton)sender;
         Tile tile = occupiedTileButton.tile;
-        ShipAdditionDialog.shipPool.Add(tile.occupiedBy);
         boardBuilder.RemoveShipAt(tile.notation);
     }
 

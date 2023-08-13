@@ -12,14 +12,6 @@ namespace SeaStrike.PC.Root.UI;
 
 public class ShipAdditionDialog : Dialog
 {
-    public static List<Ship> shipPool = new List<Ship>
-    {
-        new Destroyer(),
-        new Cruiser(),
-        new Submarine(),
-        new Battleship(),
-        new Carrier()
-    };
     private readonly string position;
     private readonly BoardBuilder boardBuilder;
     private Grid shipOptionsGrid;
@@ -70,7 +62,7 @@ public class ShipAdditionDialog : Dialog
             GridColumn = 1,
             HorizontalAlignment = HorizontalAlignment.Right,
         };
-        foreach (Ship ship in shipPool)
+        foreach (Ship ship in boardBuilder.shipsPool)
             shipsTypeBox.Items.Add(
                 new ListItem(ship.GetType().Name +
                 " (Width : " + ship.width + ")"));
@@ -106,7 +98,7 @@ public class ShipAdditionDialog : Dialog
         Border = new SolidBrush(Color.LawnGreen);
         BorderThickness = new Thickness(1);
         ButtonOk.Text = "Create new ship";
-        ButtonOk.TouchDown += (s, a) => AddNewShip();
+        ButtonOk.TouchUp += (s, a) => AddNewShip();
         ButtonCancel.Visible = false;
         ConfirmKey = Keys.Enter;
         CloseKey = Keys.Escape;
@@ -115,7 +107,7 @@ public class ShipAdditionDialog : Dialog
     private void AddNewShip()
     {
         int shipTypeIndex = shipsTypeBox.SelectedIndex ?? 0;
-        Ship ship = shipPool[shipTypeIndex];
+        Ship ship = boardBuilder.shipsPool[shipTypeIndex];
         int shipOrientationIndex = shipOrientationBox.SelectedIndex ?? 0;
         Func<Ship, BoardBuilder> AddShip;
 
@@ -125,6 +117,5 @@ public class ShipAdditionDialog : Dialog
             AddShip = boardBuilder.AddVerticalShip;
 
         AddShip(ship).AtPosition(position);
-        shipPool.Remove(ship);
     }
 }
