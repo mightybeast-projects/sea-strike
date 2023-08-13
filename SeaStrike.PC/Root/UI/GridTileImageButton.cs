@@ -6,10 +6,14 @@ using SeaStrike.Core.Entity;
 
 namespace SeaStrike.PC.Root.UI;
 
-public class GridTileImage : Image
+public class GridTileImageButton : ImageButton
 {
-    public GridTileImage(Tile tile, GraphicsDevice graphicsDevice)
+    public Tile tile;
+
+    public GridTileImageButton(Tile tile, GraphicsDevice graphicsDevice)
     {
+        this.tile = tile;
+
         Texture2D damagedShip = new Texture2D(graphicsDevice, 1, 1);
         Color tileColor = Color.Black;
 
@@ -22,7 +26,7 @@ public class GridTileImage : Image
 
         damagedShip.SetData(new[] { tileColor });
 
-        Renderable = new TextureRegion(damagedShip, new Rectangle(0, 0, 15, 15));
+        Image = new TextureRegion(damagedShip, new Rectangle(0, 0, 15, 15));
         GridColumn = tile.i + 1;
         GridRow = tile.j + 1;
         HorizontalAlignment = HorizontalAlignment.Center;

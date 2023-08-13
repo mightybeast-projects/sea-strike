@@ -41,14 +41,13 @@ public class SeaStrikeGameScreen : GameScreen
             HorizontalAlignment = HorizontalAlignment.Center
         });
 
-        oceanGridPanel = new GridPanel(
-            game,
-            boardBuilder.Build().oceanGrid,
-            InitializeShipAdditionDialog)
+        oceanGridPanel = new GridPanel(game, boardBuilder.Build().oceanGrid)
         {
             GridRow = 1,
             HorizontalAlignment = HorizontalAlignment.Center,
-            VerticalAlignment = VerticalAlignment.Center
+            VerticalAlignment = VerticalAlignment.Center,
+            OnEmptyTileClicked = InitializeShipAdditionDialog,
+            onOccupiedTileClicked = RemoveShip
         };
 
         mainGrid.Widgets.Add(oceanGridPanel);
@@ -74,7 +73,16 @@ public class SeaStrikeGameScreen : GameScreen
         ShipAdditionDialog dialog =
             new ShipAdditionDialog((TextButton)sender, boardBuilder);
         dialog.ShowModal(game.desktop);
-        dialog.ButtonOk.TouchDown += (s, a) => oceanGridPanel.Update();
+        dialog.ButtonOk.TouchUp += (s, a) => oceanGridPanel.Update();
+    }
+
+    private void RemoveShip(object sender)
+    {
+        GridTileImageButton occupiedTileButton = (GridTileImageButton)sender;
+        Tile tile = occupiedTileButton.tile;
+        ShipAdditionDialog.shipPool.Add(tile.occupiedBy);
+        boardBuilder.RemoveShipAt(tile.notation);
+        oceanGridPanel.Update();
     }
 
     private void ShowErrorDialog(Exception e)
