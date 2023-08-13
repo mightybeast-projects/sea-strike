@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
@@ -8,7 +7,7 @@ using Myra.Graphics2D.UI;
 using SeaStrike.Core.Entity;
 using Grid = Myra.Graphics2D.UI.Grid;
 
-namespace SeaStrike.PC.Root.UI;
+namespace SeaStrike.PC.Root.Widgets;
 
 public class ShipAdditionDialog : Dialog
 {
@@ -18,9 +17,9 @@ public class ShipAdditionDialog : Dialog
     private ComboBox shipsTypeBox;
     private ComboBox shipOrientationBox;
 
-    public ShipAdditionDialog(TextButton emptyTileButton, BoardBuilder boardBuilder)
+    public ShipAdditionDialog(string position, BoardBuilder boardBuilder)
     {
-        position = emptyTileButton.Text;
+        this.position = position;
         this.boardBuilder = boardBuilder;
 
         shipOptionsGrid = new Grid()

@@ -7,7 +7,7 @@ using SeaStrike.Core.Entity;
 using Grid = Myra.Graphics2D.UI.Grid;
 using OceanGrid = SeaStrike.Core.Entity.Grid;
 
-namespace SeaStrike.PC.Root.UI;
+namespace SeaStrike.PC.Root.Widgets;
 
 public class GridPanel : Panel, IBoardObserver
 {
@@ -18,9 +18,7 @@ public class GridPanel : Panel, IBoardObserver
     private readonly OceanGrid oceanGrid;
     private Grid uiGrid;
 
-    public GridPanel(
-        SeaStrike game,
-        OceanGrid oceanGrid)
+    public GridPanel(SeaStrike game, OceanGrid oceanGrid)
     {
         Width = 343;
         Height = 343;
@@ -30,12 +28,12 @@ public class GridPanel : Panel, IBoardObserver
         this.game = game;
         this.oceanGrid = oceanGrid;
 
-        Update();
+        UpdateContent();
     }
 
-    public void Notify() => Update();
+    public void Notify() => UpdateContent();
 
-    private void Update()
+    private void UpdateContent()
     {
         Widgets.Clear();
 
@@ -137,7 +135,8 @@ public class GridPanel : Panel, IBoardObserver
 
     private void AddAllyGridTileImage(Tile tile)
     {
-        GridTileImageButton tileButton = new GridTileImageButton(tile, game.GraphicsDevice);
+        GridTileImageButton tileButton =
+            new GridTileImageButton(tile, game.GraphicsDevice);
         if (tile.isOccupied)
             tileButton.TouchUp += (s, a) => OnOccupiedTileClicked(s);
 

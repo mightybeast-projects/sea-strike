@@ -1,5 +1,4 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended.Screens;
 using Myra.Graphics2D.UI;
@@ -16,9 +15,9 @@ public class MainMenuScreen : GameScreen
     {
         base.LoadContent();
 
-        Panel panel = new Panel();
+        Panel mainPanel = new Panel();
 
-        panel.Widgets.Add(new Label()
+        mainPanel.Widgets.Add(new Label()
         {
             Text = "SEA STRIKE",
             TextColor = Color.LawnGreen,
@@ -28,7 +27,7 @@ public class MainMenuScreen : GameScreen
             Top = 100,
         });
 
-        panel.Widgets.Add(new Label()
+        mainPanel.Widgets.Add(new Label()
         {
             Text = "Press any key to start...",
             TextColor = Color.LawnGreen,
@@ -38,19 +37,14 @@ public class MainMenuScreen : GameScreen
             Top = -100
         });
 
-        game.desktop.Root = panel;
+        game.desktop.Root = mainPanel;
     }
 
-    public override void Draw(GameTime gameTime)
-    {
-        GraphicsDevice.Clear(Color.Black);
-
-        game.desktop.Render();
-    }
+    public override void Draw(GameTime gameTime) { }
 
     public override void Update(GameTime gameTime)
     {
         if (Keyboard.GetState().GetPressedKeyCount() > 0)
-            game.screenManager.LoadScreen(new SeaStrikeGameScreen(game));
+            game.screenManager.LoadScreen(new DeploymentPhaseScreen(game));
     }
 }

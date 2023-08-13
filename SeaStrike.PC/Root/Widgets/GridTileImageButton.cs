@@ -4,7 +4,7 @@ using Myra.Graphics2D.TextureAtlases;
 using Myra.Graphics2D.UI;
 using SeaStrike.Core.Entity;
 
-namespace SeaStrike.PC.Root.UI;
+namespace SeaStrike.PC.Root.Widgets;
 
 public class GridTileImageButton : ImageButton
 {

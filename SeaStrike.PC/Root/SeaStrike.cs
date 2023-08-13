@@ -1,9 +1,12 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using FontStashSharp;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended.Screens;
 using Myra;
+using Myra.Graphics2D;
+using Myra.Graphics2D.Brushes;
 using Myra.Graphics2D.UI;
 using SeaStrike.PC.Root.Screens;
 
@@ -48,5 +51,26 @@ public class SeaStrike : Game
         base.Initialize();
 
         screenManager.LoadScreen(new MainMenuScreen(this));
+    }
+
+    protected override void Draw(GameTime gameTime)
+    {
+        System.Console.WriteLine("desktop draw");
+        base.Draw(gameTime);
+
+        GraphicsDevice.Clear(Color.Black);
+
+        try { desktop.Render(); }
+        catch (Exception e) { ShowErrorDialog(e); }
+    }
+
+    private void ShowErrorDialog(Exception e)
+    {
+        Dialog errorDialog = Dialog.CreateMessageBox("Error", e.Message);
+        errorDialog.Background = new SolidBrush(Color.Black);
+        errorDialog.Border = new SolidBrush(Color.Red);
+        errorDialog.BorderThickness = new Thickness(1);
+
+        errorDialog.ShowModal(desktop);
     }
 }
