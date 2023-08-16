@@ -70,4 +70,16 @@ public class BoardBuilderTests
 
         board.ships.Should().BeEmpty();
     }
+
+    [Test]
+    public void Builder_CanClearOceanGrid()
+    {
+        Board board = new BoardBuilder()
+            .AddHorizontalShip(new Cruiser())
+                .AtPosition("A1")
+            .ClearOceanGrid()
+            .Build();
+
+        board.ships.Should().BeEmpty();
+    }
 }

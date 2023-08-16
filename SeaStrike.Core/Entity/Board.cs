@@ -22,13 +22,15 @@ public class Board
 
     internal void RandomizeShips()
     {
-        ClearOceanGrid();
+        ResetBoard();
 
         Ship[] remainingShips = shipsPool.ToArray();
 
         foreach (Ship ship in remainingShips)
             while (!ships.Contains(ship))
                 TryToAddShipRandomly(ship);
+
+        NotifyAllObservers();
     }
 
     internal void AddHorizontalShip(Ship ship, string startTileStr)
@@ -67,7 +69,12 @@ public class Board
         AddShip(ship, tilesToOccupy);
     }
 
-    internal void ClearOceanGrid() => ResetBoard();
+    internal void ClearOceanGrid()
+    {
+        ResetBoard();
+
+        NotifyAllObservers();
+    }
 
     internal void RemoveShipAt(string occupiedTileStr)
     {
@@ -159,13 +166,4 @@ public class Board
             if (tile.isOccupied)
                 throw new TileIsOccupiedByOtherShipException(tile);
     }
-
-    private void ResetShipsPool() => shipsPool = new List<Ship>()
-    {
-        new Destroyer(),
-        new Cruiser(),
-        new Submarine(),
-        new Battleship(),
-        new Carrier()
-    };
 }
