@@ -75,25 +75,19 @@ public class DeploymentPhaseScreen : GameScreen
             Spacing = 50
         };
 
-        buttonsPanel.Widgets.Add(new TextButton()
+        buttonsPanel.Widgets.Add(new GameButton(game)
         {
-            Width = 100,
-            Text = "Randomize",
-            HorizontalAlignment = HorizontalAlignment.Center
+            Text = "Randomize"
         });
 
-        buttonsPanel.Widgets.Add(new TextButton()
+        buttonsPanel.Widgets.Add(new GameButton(game)
         {
-            Width = 100,
-            Text = "Clear grid",
-            HorizontalAlignment = HorizontalAlignment.Center
+            Text = "Clear grid"
         });
 
-        startGameButton = new TextButton()
+        startGameButton = new GameButton(game)
         {
-            Width = 100,
             Text = "Start game",
-            HorizontalAlignment = HorizontalAlignment.Center,
             Visible = false
         };
         buttonsPanel.Widgets.Add(startGameButton);
