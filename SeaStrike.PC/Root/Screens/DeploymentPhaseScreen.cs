@@ -26,18 +26,14 @@ public class DeploymentPhaseScreen : GameScreen
     {
         base.LoadContent();
 
-        mainGrid = new Grid()
-        {
-            ShowGridLines = true,
-            GridLinesColor = Color.Magenta
-        };
+        mainGrid = new Grid();
 
         mainGrid.RowsProportions.Add(new Proportion(ProportionType.Auto));
-        mainGrid.ColumnsProportions.Add(new Proportion(ProportionType.Auto));
 
         AddTitleLabel();
         AddButtonsPanel();
         AddOceanGridPanel();
+        AddStartGameButton();
 
         game.desktop.Root = mainGrid;
     }
@@ -59,18 +55,17 @@ public class DeploymentPhaseScreen : GameScreen
             Text = "Deployment phase",
             TextColor = Color.LawnGreen,
             Font = game.fontSystem.GetFont(40),
-            HorizontalAlignment = HorizontalAlignment.Center,
-            GridColumnSpan = 2
+            HorizontalAlignment = HorizontalAlignment.Center
         });
     }
 
     private void AddButtonsPanel()
     {
-        VerticalStackPanel buttonsPanel = new VerticalStackPanel()
+        HorizontalStackPanel buttonsPanel = new HorizontalStackPanel()
         {
-            Width = 200,
+            Top = 10,
             HorizontalAlignment = HorizontalAlignment.Center,
-            VerticalAlignment = VerticalAlignment.Center,
+            VerticalAlignment = VerticalAlignment.Top,
             GridRow = 1,
             Spacing = 50
         };
@@ -81,6 +76,7 @@ public class DeploymentPhaseScreen : GameScreen
         };
         randomizeButton.TouchUp += (s, a) =>
             boardBuilder.RandomizeShipsStartingPosition();
+
         buttonsPanel.Widgets.Add(randomizeButton);
 
         TextButton clearButton = new GameButton(game)
@@ -88,14 +84,8 @@ public class DeploymentPhaseScreen : GameScreen
             Text = "Clear grid"
         };
         clearButton.TouchUp += (s, a) => boardBuilder.ClearOceanGrid();
-        buttonsPanel.Widgets.Add(clearButton);
 
-        startGameButton = new GameButton(game)
-        {
-            Text = "Start game",
-            Visible = false
-        };
-        buttonsPanel.Widgets.Add(startGameButton);
+        buttonsPanel.Widgets.Add(clearButton);
 
         mainGrid.Widgets.Add(buttonsPanel);
     }
@@ -105,7 +95,6 @@ public class DeploymentPhaseScreen : GameScreen
         oceanGridPanel = new GridPanel(game, boardBuilder.Build().oceanGrid)
         {
             GridRow = 1,
-            GridColumn = 1,
             HorizontalAlignment = HorizontalAlignment.Center,
             VerticalAlignment = VerticalAlignment.Center,
             OnEmptyTileClicked = ShowShipAdditionDialog,
@@ -114,6 +103,21 @@ public class DeploymentPhaseScreen : GameScreen
         boardBuilder.Subscribe(oceanGridPanel);
 
         mainGrid.Widgets.Add(oceanGridPanel);
+    }
+
+    private void AddStartGameButton()
+    {
+        startGameButton = new GameButton(game)
+        {
+            Top = -10,
+            Text = "Start game",
+            Visible = false,
+            GridRow = 1,
+            HorizontalAlignment = HorizontalAlignment.Center,
+            VerticalAlignment = VerticalAlignment.Bottom
+        };
+
+        mainGrid.Widgets.Add(startGameButton);
     }
 
     private void ShowShipAdditionDialog(object sender)

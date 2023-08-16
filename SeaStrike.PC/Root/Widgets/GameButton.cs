@@ -18,7 +18,7 @@ public class GameButton : TextButton
         Background = new SolidBrush(Color.Black);
         Font = game.fontSystem.GetFont(24);
         Border = new SolidBrush(Color.LawnGreen);
-        BorderThickness = new Thickness(2);
+        BorderThickness = new Thickness(1);
         PressedBackground = new SolidBrush(Color.DarkGreen);
     }
 }
