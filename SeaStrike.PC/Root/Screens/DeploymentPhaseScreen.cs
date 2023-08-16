@@ -10,7 +10,7 @@ namespace SeaStrike.PC.Root.Screens;
 public class DeploymentPhaseScreen : GameScreen
 {
     private readonly SeaStrike game;
-    private BoardBuilder boardBuilder;
+    private readonly BoardBuilder boardBuilder;
     private Grid mainGrid;
     private GridPanel oceanGridPanel;
     private TextButton startGameButton;
@@ -75,15 +75,20 @@ public class DeploymentPhaseScreen : GameScreen
             Spacing = 50
         };
 
-        buttonsPanel.Widgets.Add(new GameButton(game)
+        TextButton randomizeButton = new GameButton(game)
         {
             Text = "Randomize"
-        });
+        };
+        randomizeButton.TouchUp += (s, a) =>
+            boardBuilder.RandomizeShipsStartingPosition();
+        buttonsPanel.Widgets.Add(randomizeButton);
 
-        buttonsPanel.Widgets.Add(new GameButton(game)
+        TextButton clearButton = new GameButton(game)
         {
             Text = "Clear grid"
-        });
+        };
+        clearButton.TouchUp += (s, a) => boardBuilder.ClearOceanGrid();
+        buttonsPanel.Widgets.Add(clearButton);
 
         startGameButton = new GameButton(game)
         {
