@@ -116,6 +116,9 @@ public class DeploymentPhaseScreen : GameScreen
             HorizontalAlignment = HorizontalAlignment.Center,
             VerticalAlignment = VerticalAlignment.Bottom
         };
+        startGameButton.TouchUp += (s, a) =>
+            game.screenManager.LoadScreen(
+                new BattlePhaseScreen(game, boardBuilder));
 
         mainGrid.Widgets.Add(startGameButton);
     }
