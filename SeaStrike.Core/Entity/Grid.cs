@@ -12,6 +12,11 @@ public class Grid
     {
         tiles = new Tile[10, 10];
 
+        Reset();
+    }
+
+    internal void Reset()
+    {
         for (int i = 0; i < tiles.GetLength(0); i++)
             for (int j = 0; j < tiles.GetLength(1); j++)
                 tiles[i, j] = new Tile(i, j);

@@ -20,6 +20,15 @@ public class GridTests
         );
     }
 
+    [Test]
+    public void Grid_CanResetItself()
+    {
+        Grid grid = new Grid();
+        grid.Reset();
+
+        grid.tiles.Should().BeEquivalentTo(new Grid().tiles);
+    }
+
     [TestCaseSource(nameof(correctGridTileNotationCases))]
     public void Grid_CanGetTile_ByNotation(string notation, Tile tile) =>
         new Grid().GetTile(notation).Should().BeEquivalentTo(tile);

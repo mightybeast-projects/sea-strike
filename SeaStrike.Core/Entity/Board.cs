@@ -4,33 +4,32 @@ namespace SeaStrike.Core.Entity;
 
 public class Board
 {
-    public Grid oceanGrid { get; private set; }
-    public List<Ship> ships { get; private set; }
+    public readonly List<IBoardObserver> observers;
+    public readonly Grid oceanGrid;
+    public readonly List<Ship> ships;
+    public List<Ship> shipsPool { get; private set; }
     public Board opponentBoard { get; private set; }
     public Grid targetGrid => opponentBoard?.oceanGrid;
-    public List<Ship> shipsPool;
-    public List<IBoardObserver> observers;
 
     internal bool shipsAreSunk => ships.All(ship => ship.isSunk);
 
     internal Board()
     {
         observers = new List<IBoardObserver>();
-
-        ResetBoard();
+        oceanGrid = new Grid();
+        ships = new List<Ship>();
+        shipsPool = DefaultShipsPool;
     }
 
     internal void RandomizeShips()
     {
         ResetBoard();
 
-        Ship[] remainingShips = shipsPool.ToArray();
+        Ship[] shipsPoolArr = shipsPool.ToArray();
 
-        foreach (Ship ship in remainingShips)
+        foreach (Ship ship in shipsPoolArr)
             while (!ships.Contains(ship))
                 TryToAddShipRandomly(ship);
-
-        NotifyAllObservers();
     }
 
     internal void AddHorizontalShip(Ship ship, string startTileStr)
@@ -105,16 +104,9 @@ public class Board
 
     private void ResetBoard()
     {
-        oceanGrid = new Grid();
-        ships = new List<Ship>();
-        shipsPool = new List<Ship>()
-        {
-            new Destroyer(),
-            new Cruiser(),
-            new Submarine(),
-            new Battleship(),
-            new Carrier()
-        };
+        oceanGrid.Reset();
+        ships.Clear();
+        shipsPool = DefaultShipsPool;
     }
 
     private void TryToAddShipRandomly(Ship ship)
@@ -166,4 +158,13 @@ public class Board
             if (tile.isOccupied)
                 throw new TileIsOccupiedByOtherShipException(tile);
     }
+
+    private List<Ship> DefaultShipsPool => new List<Ship>()
+    {
+        new Destroyer(),
+        new Cruiser(),
+        new Submarine(),
+        new Battleship(),
+        new Carrier()
+    };
 }
