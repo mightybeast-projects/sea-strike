@@ -13,6 +13,7 @@ public class DeploymentPhaseScreen : GameScreen
     private BoardBuilder boardBuilder;
     private Grid mainGrid;
     private GridPanel oceanGridPanel;
+    private TextButton startGameButton;
 
     public DeploymentPhaseScreen(SeaStrike game) : base(game)
     {
@@ -32,14 +33,22 @@ public class DeploymentPhaseScreen : GameScreen
         };
 
         mainGrid.RowsProportions.Add(new Proportion(ProportionType.Auto));
+        mainGrid.ColumnsProportions.Add(new Proportion(ProportionType.Auto));
 
         AddTitleLabel();
+        AddButtonsPanel();
         AddOceanGridPanel();
 
         game.desktop.Root = mainGrid;
     }
 
-    public override void Update(GameTime gameTime) { }
+    public override void Update(GameTime gameTime)
+    {
+        if (boardBuilder.shipsPool.Length == 0)
+            startGameButton.Visible = true;
+        else
+            startGameButton.Visible = false;
+    }
 
     public override void Draw(GameTime gameTime) { }
 
@@ -50,8 +59,46 @@ public class DeploymentPhaseScreen : GameScreen
             Text = "Deployment phase",
             TextColor = Color.LawnGreen,
             Font = game.fontSystem.GetFont(40),
+            HorizontalAlignment = HorizontalAlignment.Center,
+            GridColumnSpan = 2
+        });
+    }
+
+    private void AddButtonsPanel()
+    {
+        VerticalStackPanel buttonsPanel = new VerticalStackPanel()
+        {
+            Width = 200,
+            HorizontalAlignment = HorizontalAlignment.Center,
+            VerticalAlignment = VerticalAlignment.Center,
+            GridRow = 1,
+            Spacing = 50
+        };
+
+        buttonsPanel.Widgets.Add(new TextButton()
+        {
+            Width = 100,
+            Text = "Randomize",
             HorizontalAlignment = HorizontalAlignment.Center
         });
+
+        buttonsPanel.Widgets.Add(new TextButton()
+        {
+            Width = 100,
+            Text = "Clear grid",
+            HorizontalAlignment = HorizontalAlignment.Center
+        });
+
+        startGameButton = new TextButton()
+        {
+            Width = 100,
+            Text = "Start game",
+            HorizontalAlignment = HorizontalAlignment.Center,
+            Visible = false
+        };
+        buttonsPanel.Widgets.Add(startGameButton);
+
+        mainGrid.Widgets.Add(buttonsPanel);
     }
 
     private void AddOceanGridPanel()
@@ -59,6 +106,7 @@ public class DeploymentPhaseScreen : GameScreen
         oceanGridPanel = new GridPanel(game, boardBuilder.Build().oceanGrid)
         {
             GridRow = 1,
+            GridColumn = 1,
             HorizontalAlignment = HorizontalAlignment.Center,
             VerticalAlignment = VerticalAlignment.Center,
             OnEmptyTileClicked = ShowShipAdditionDialog,
