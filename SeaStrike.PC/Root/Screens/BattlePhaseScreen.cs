@@ -47,24 +47,26 @@ public class BattlePhaseScreen : GameScreen
             GridColumnSpan = 2
         });
 
-        GridPanel oceanGridPanel = new GridPanel(game, playerBoard.oceanGrid)
+        AllyGridPanel oceanGridPanel = new AllyGridPanel(game, playerBoard.oceanGrid)
         {
             GridRow = 1,
             HorizontalAlignment = HorizontalAlignment.Center,
-            VerticalAlignment = VerticalAlignment.Center
+            VerticalAlignment = VerticalAlignment.Center,
+            OnEmptyTileClicked = (s) => { }
         };
-        boardBuilder.Subscribe(oceanGridPanel);
+        playerBoard.Subscribe(oceanGridPanel);
 
         mainGrid.Widgets.Add(oceanGridPanel);
 
-        GridPanel targetGridPanel = new GridPanel(game, playerBoard.targetGrid)
+        EnemyGridPanel targetGridPanel = new EnemyGridPanel(game, playerBoard.targetGrid)
         {
             GridRow = 1,
             GridColumn = 1,
             HorizontalAlignment = HorizontalAlignment.Center,
-            VerticalAlignment = VerticalAlignment.Center
+            VerticalAlignment = VerticalAlignment.Center,
+            OnEmptyTileClicked = ShootTile
         };
-        boardBuilder.Subscribe(targetGridPanel);
+        playerBoard.opponentBoard.Subscribe(targetGridPanel);
 
         mainGrid.Widgets.Add(targetGridPanel);
 
@@ -74,4 +76,12 @@ public class BattlePhaseScreen : GameScreen
     public override void Draw(GameTime gameTime) { }
 
     public override void Update(GameTime gameTime) { }
+
+    private void ShootTile(object sender)
+    {
+        string tileStr = ((TextButton)sender).Text;
+
+        seaStrikeGame.HandleShot(tileStr);
+        seaStrikeGame.HandleShot(tileStr);
+    }
 }

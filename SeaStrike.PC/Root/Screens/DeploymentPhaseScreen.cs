@@ -12,7 +12,7 @@ public class DeploymentPhaseScreen : GameScreen
     private readonly SeaStrike game;
     private readonly BoardBuilder boardBuilder;
     private Grid mainGrid;
-    private GridPanel oceanGridPanel;
+    private AllyGridPanel oceanGridPanel;
     private TextButton startGameButton;
 
     public DeploymentPhaseScreen(SeaStrike game) : base(game)
@@ -92,7 +92,7 @@ public class DeploymentPhaseScreen : GameScreen
 
     private void AddOceanGridPanel()
     {
-        oceanGridPanel = new GridPanel(game, boardBuilder.Build().oceanGrid)
+        oceanGridPanel = new AllyGridPanel(game, boardBuilder.Build().oceanGrid)
         {
             GridRow = 1,
             HorizontalAlignment = HorizontalAlignment.Center,

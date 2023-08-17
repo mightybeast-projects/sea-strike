@@ -9,7 +9,7 @@ using OceanGrid = SeaStrike.Core.Entity.Grid;
 
 namespace SeaStrike.PC.Root.Widgets;
 
-public class GridPanel : Panel, IBoardObserver
+public class AllyGridPanel : Panel, IBoardObserver
 {
     public Action<object> OnEmptyTileClicked;
     public Action<object> OnOccupiedTileClicked;
@@ -18,7 +18,7 @@ public class GridPanel : Panel, IBoardObserver
     private readonly OceanGrid oceanGrid;
     private Grid uiGrid;
 
-    public GridPanel(SeaStrike game, OceanGrid oceanGrid)
+    public AllyGridPanel(SeaStrike game, OceanGrid oceanGrid)
     {
         Width = 343;
         Height = 343;
@@ -32,6 +32,41 @@ public class GridPanel : Panel, IBoardObserver
     }
 
     public void Notify() => UpdateContent();
+
+    protected virtual void AddGridTile(Tile tile)
+    {
+        if (tile.isOccupied || tile.hasBeenHit)
+            AddAllyGridTileImage(tile);
+        else
+            AddEmptyGridTileButton(tile);
+    }
+
+    protected void AddAllyGridTileImage(Tile tile)
+    {
+        GridTileImageButton tileButton = new GridTileImageButton(tile);
+        if (tile.isOccupied && OnOccupiedTileClicked is not null)
+            tileButton.TouchUp += (s, a) => OnOccupiedTileClicked(s);
+
+        uiGrid.Widgets.Add(tileButton);
+    }
+
+    protected void AddEmptyGridTileButton(Tile tile)
+    {
+        TextButton tileButton = new TextButton()
+        {
+            Text = tile.notation,
+            Opacity = 0.1f,
+            Font = game.fontSystem.GetFont(18),
+            GridColumn = tile.i + 1,
+            GridRow = tile.j + 1,
+            HorizontalAlignment = HorizontalAlignment.Center,
+            VerticalAlignment = VerticalAlignment.Center
+        };
+
+        tileButton.TouchUp += (s, a) => OnEmptyTileClicked(s);
+
+        uiGrid.Widgets.Add(tileButton);
+    }
 
     private void UpdateContent()
     {
@@ -83,14 +118,6 @@ public class GridPanel : Panel, IBoardObserver
                 AddGridTile(oceanGrid.tiles[i - 1, j - 1]);
     }
 
-    private void AddGridTile(Tile tile)
-    {
-        if (tile.isOccupied || tile.hasBeenHit)
-            AddAllyGridTileImage(tile);
-        else
-            AddEmptyGridTileButton(tile);
-    }
-
     private void AddNumberLabel(int i)
     {
         uiGrid.Widgets.Add(new Label()
@@ -113,33 +140,5 @@ public class GridPanel : Panel, IBoardObserver
             HorizontalAlignment = HorizontalAlignment.Center,
             VerticalAlignment = VerticalAlignment.Center
         });
-    }
-
-    private void AddEmptyGridTileButton(Tile tile)
-    {
-        TextButton tileButton = new TextButton()
-        {
-            Text = tile.notation,
-            Opacity = 0.1f,
-            Font = game.fontSystem.GetFont(18),
-            GridColumn = tile.i + 1,
-            GridRow = tile.j + 1,
-            HorizontalAlignment = HorizontalAlignment.Center,
-            VerticalAlignment = VerticalAlignment.Center
-        };
-
-        if (OnEmptyTileClicked is not null)
-            tileButton.TouchUp += (s, a) => OnEmptyTileClicked(s);
-
-        uiGrid.Widgets.Add(tileButton);
-    }
-
-    private void AddAllyGridTileImage(Tile tile)
-    {
-        GridTileImageButton tileButton = new GridTileImageButton(tile);
-        if (tile.isOccupied && OnOccupiedTileClicked is not null)
-            tileButton.TouchUp += (s, a) => OnOccupiedTileClicked(s);
-
-        uiGrid.Widgets.Add(tileButton);
     }
 }
