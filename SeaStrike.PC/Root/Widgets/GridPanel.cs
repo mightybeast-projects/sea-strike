@@ -128,7 +128,8 @@ public class GridPanel : Panel, IBoardObserver
             VerticalAlignment = VerticalAlignment.Center
         };
 
-        tileButton.TouchUp += (s, a) => OnEmptyTileClicked(s);
+        if (OnEmptyTileClicked is not null)
+            tileButton.TouchUp += (s, a) => OnEmptyTileClicked(s);
 
         uiGrid.Widgets.Add(tileButton);
     }
@@ -136,7 +137,7 @@ public class GridPanel : Panel, IBoardObserver
     private void AddAllyGridTileImage(Tile tile)
     {
         GridTileImageButton tileButton = new GridTileImageButton(tile);
-        if (tile.isOccupied)
+        if (tile.isOccupied && OnOccupiedTileClicked is not null)
             tileButton.TouchUp += (s, a) => OnOccupiedTileClicked(s);
 
         uiGrid.Widgets.Add(tileButton);

@@ -63,7 +63,8 @@ public class SeaStrike : Game
 
     private void ShowErrorDialog(Exception e)
     {
-        Dialog errorDialog = Dialog.CreateMessageBox("Error", e.Message);
+        Dialog errorDialog = Dialog.CreateMessageBox("Error",
+            e.Message + " " + e.StackTrace);
         errorDialog.Background = new SolidBrush(Color.Black);
         errorDialog.Border = new SolidBrush(Color.Red);
         errorDialog.BorderThickness = new Thickness(1);

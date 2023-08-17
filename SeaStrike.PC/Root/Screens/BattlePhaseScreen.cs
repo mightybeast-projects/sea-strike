@@ -4,6 +4,7 @@ using Myra.Graphics2D.UI;
 using SeaStrike.Core.Entity;
 using SeaStrike.PC.Root.Widgets;
 using Grid = Myra.Graphics2D.UI.Grid;
+using SeaStrikeGame = SeaStrike.Core.Entity.Game;
 
 namespace SeaStrike.PC.Root.Screens;
 
@@ -11,6 +12,8 @@ public class BattlePhaseScreen : GameScreen
 {
     private readonly SeaStrike game;
     private readonly BoardBuilder boardBuilder;
+    private readonly Board playerBoard;
+    private readonly SeaStrikeGame seaStrikeGame;
     private Grid mainGrid;
 
     public BattlePhaseScreen(SeaStrike game, BoardBuilder boardBuilder)
@@ -18,6 +21,13 @@ public class BattlePhaseScreen : GameScreen
     {
         this.game = game;
         this.boardBuilder = boardBuilder;
+        playerBoard = boardBuilder.Build();
+
+        Board opponentBoard = new BoardBuilder()
+            .RandomizeShipsStartingPosition()
+            .Build();
+
+        seaStrikeGame = new SeaStrikeGame(playerBoard, opponentBoard);
     }
 
     public override void LoadContent()
@@ -36,6 +46,27 @@ public class BattlePhaseScreen : GameScreen
             HorizontalAlignment = HorizontalAlignment.Center,
             GridColumnSpan = 2
         });
+
+        GridPanel oceanGridPanel = new GridPanel(game, playerBoard.oceanGrid)
+        {
+            GridRow = 1,
+            HorizontalAlignment = HorizontalAlignment.Center,
+            VerticalAlignment = VerticalAlignment.Center
+        };
+        boardBuilder.Subscribe(oceanGridPanel);
+
+        mainGrid.Widgets.Add(oceanGridPanel);
+
+        GridPanel targetGridPanel = new GridPanel(game, playerBoard.targetGrid)
+        {
+            GridRow = 1,
+            GridColumn = 1,
+            HorizontalAlignment = HorizontalAlignment.Center,
+            VerticalAlignment = VerticalAlignment.Center
+        };
+        boardBuilder.Subscribe(targetGridPanel);
+
+        mainGrid.Widgets.Add(targetGridPanel);
 
         game.desktop.Root = mainGrid;
     }
