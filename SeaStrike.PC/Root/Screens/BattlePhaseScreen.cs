@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using MonoGame.Extended.Screens;
+using Myra.Graphics2D.Brushes;
 using Myra.Graphics2D.UI;
 using SeaStrike.Core.Entity;
 using SeaStrike.PC.Root.Widgets;
@@ -61,32 +62,62 @@ public class BattlePhaseScreen : GameScreen
 
     private void AddOceanGridPanel()
     {
+        VerticalStackPanel verticalPanel = new VerticalStackPanel()
+        {
+            GridRow = 1,
+            Spacing = 10
+        };
+
+        verticalPanel.Widgets.Add(new Label()
+        {
+            Text = "Your's ocean grid : ",
+            Font = game.fontSystem.GetFont(28),
+            TextColor = Color.LawnGreen,
+            HorizontalAlignment = HorizontalAlignment.Center
+        });
+
         GridPanel oceanGridPanel =
             new GridPanel(game, playerBoard.oceanGrid, true)
             {
-                GridRow = 1,
                 HorizontalAlignment = HorizontalAlignment.Center,
                 VerticalAlignment = VerticalAlignment.Center
             };
         playerBoard.Subscribe(oceanGridPanel);
 
-        mainGrid.Widgets.Add(oceanGridPanel);
+        verticalPanel.Widgets.Add(oceanGridPanel);
+
+        mainGrid.Widgets.Add(verticalPanel);
     }
 
     private void AddTargetGridPanel()
     {
+        VerticalStackPanel verticalPanel = new VerticalStackPanel()
+        {
+            GridRow = 1,
+            GridColumn = 1,
+            Spacing = 10
+        };
+
+        verticalPanel.Widgets.Add(new Label()
+        {
+            Text = "Opponent's ocean grid : ",
+            Font = game.fontSystem.GetFont(28),
+            TextColor = Color.LawnGreen,
+            HorizontalAlignment = HorizontalAlignment.Center
+        });
+
         GridPanel targetGridPanel =
             new GridPanel(game, playerBoard.targetGrid, false)
             {
-                GridRow = 1,
-                GridColumn = 1,
                 HorizontalAlignment = HorizontalAlignment.Center,
                 VerticalAlignment = VerticalAlignment.Center,
                 OnEmptyTileClicked = ShootTile
             };
         playerBoard.opponentBoard.Subscribe(targetGridPanel);
 
-        mainGrid.Widgets.Add(targetGridPanel);
+        verticalPanel.Widgets.Add(targetGridPanel);
+
+        mainGrid.Widgets.Add(verticalPanel);
     }
 
     private void ShootTile(object sender)
