@@ -21,6 +21,8 @@ public class Board
         shipsPool = DefaultShipsPool;
     }
 
+    public void Subscribe(IBoardObserver observer) => observers.Add(observer);
+
     internal void RandomizeShips()
     {
         ResetBoard();
@@ -97,8 +99,6 @@ public class Board
         this.opponentBoard = opponentBoard;
         opponentBoard.opponentBoard = this;
     }
-
-    internal void Subscribe(IBoardObserver observer) => observers.Add(observer);
 
     internal void NotifyAllObservers() => observers.ForEach(o => o.Notify());
 

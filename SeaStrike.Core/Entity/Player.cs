@@ -21,6 +21,8 @@ public class Player
             ship = tile.occupiedBy
         };
 
+        board.opponentBoard.NotifyAllObservers();
+
         return result;
     }
 }
