@@ -11,17 +11,15 @@ namespace SeaStrike.PC.Root.Screens;
 public class BattlePhaseScreen : GameScreen
 {
     private readonly SeaStrike game;
-    private readonly BoardBuilder boardBuilder;
-    private readonly Board playerBoard;
     private readonly SeaStrikeGame seaStrikeGame;
+    private readonly Board playerBoard;
     private Grid mainGrid;
 
-    public BattlePhaseScreen(SeaStrike game, BoardBuilder boardBuilder)
+    public BattlePhaseScreen(SeaStrike game, Board playerBoard)
         : base(game)
     {
         this.game = game;
-        this.boardBuilder = boardBuilder;
-        playerBoard = boardBuilder.Build();
+        this.playerBoard = playerBoard;
 
         Board opponentBoard = new BoardBuilder()
             .RandomizeShipsStartingPosition()
@@ -38,6 +36,19 @@ public class BattlePhaseScreen : GameScreen
 
         mainGrid.RowsProportions.Add(new Proportion(ProportionType.Auto));
 
+        AddPhaseLabel();
+        AddOceanGridPanel();
+        AddTargetGridPanel();
+
+        game.desktop.Root = mainGrid;
+    }
+
+    public override void Draw(GameTime gameTime) { }
+
+    public override void Update(GameTime gameTime) { }
+
+    private void AddPhaseLabel()
+    {
         mainGrid.Widgets.Add(new Label()
         {
             Text = "Battle phase",
@@ -46,36 +57,37 @@ public class BattlePhaseScreen : GameScreen
             HorizontalAlignment = HorizontalAlignment.Center,
             GridColumnSpan = 2
         });
+    }
 
-        AllyGridPanel oceanGridPanel = new AllyGridPanel(game, playerBoard.oceanGrid)
-        {
-            GridRow = 1,
-            HorizontalAlignment = HorizontalAlignment.Center,
-            VerticalAlignment = VerticalAlignment.Center,
-            OnEmptyTileClicked = (s) => { }
-        };
+    private void AddOceanGridPanel()
+    {
+        GridPanel oceanGridPanel =
+            new GridPanel(game, playerBoard.oceanGrid, true)
+            {
+                GridRow = 1,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center
+            };
         playerBoard.Subscribe(oceanGridPanel);
 
         mainGrid.Widgets.Add(oceanGridPanel);
+    }
 
-        EnemyGridPanel targetGridPanel = new EnemyGridPanel(game, playerBoard.targetGrid)
-        {
-            GridRow = 1,
-            GridColumn = 1,
-            HorizontalAlignment = HorizontalAlignment.Center,
-            VerticalAlignment = VerticalAlignment.Center,
-            OnEmptyTileClicked = ShootTile
-        };
+    private void AddTargetGridPanel()
+    {
+        GridPanel targetGridPanel =
+            new GridPanel(game, playerBoard.targetGrid, false)
+            {
+                GridRow = 1,
+                GridColumn = 1,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center,
+                OnEmptyTileClicked = ShootTile
+            };
         playerBoard.opponentBoard.Subscribe(targetGridPanel);
 
         mainGrid.Widgets.Add(targetGridPanel);
-
-        game.desktop.Root = mainGrid;
     }
-
-    public override void Draw(GameTime gameTime) { }
-
-    public override void Update(GameTime gameTime) { }
 
     private void ShootTile(object sender)
     {

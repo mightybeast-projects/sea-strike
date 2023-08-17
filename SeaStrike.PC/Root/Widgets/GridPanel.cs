@@ -9,64 +9,31 @@ using OceanGrid = SeaStrike.Core.Entity.Grid;
 
 namespace SeaStrike.PC.Root.Widgets;
 
-public class AllyGridPanel : Panel, IBoardObserver
+public class GridPanel : Panel, IBoardObserver
 {
     public Action<object> OnEmptyTileClicked;
     public Action<object> OnOccupiedTileClicked;
 
     private readonly SeaStrike game;
     private readonly OceanGrid oceanGrid;
+    private readonly bool showShips;
     private Grid uiGrid;
 
-    public AllyGridPanel(SeaStrike game, OceanGrid oceanGrid)
+    public GridPanel(SeaStrike game, OceanGrid oceanGrid, bool showShips)
     {
+        this.game = game;
+        this.oceanGrid = oceanGrid;
+        this.showShips = showShips;
+
         Width = 343;
         Height = 343;
         Border = new SolidBrush(Color.LawnGreen);
         BorderThickness = new Thickness(1);
 
-        this.game = game;
-        this.oceanGrid = oceanGrid;
-
         UpdateContent();
     }
 
     public void Notify() => UpdateContent();
-
-    protected virtual void AddGridTile(Tile tile)
-    {
-        if (tile.isOccupied || tile.hasBeenHit)
-            AddAllyGridTileImage(tile);
-        else
-            AddEmptyGridTileButton(tile);
-    }
-
-    protected void AddAllyGridTileImage(Tile tile)
-    {
-        GridTileImageButton tileButton = new GridTileImageButton(tile);
-        if (tile.isOccupied && OnOccupiedTileClicked is not null)
-            tileButton.TouchUp += (s, a) => OnOccupiedTileClicked(s);
-
-        uiGrid.Widgets.Add(tileButton);
-    }
-
-    protected void AddEmptyGridTileButton(Tile tile)
-    {
-        TextButton tileButton = new TextButton()
-        {
-            Text = tile.notation,
-            Opacity = 0.1f,
-            Font = game.fontSystem.GetFont(18),
-            GridColumn = tile.i + 1,
-            GridRow = tile.j + 1,
-            HorizontalAlignment = HorizontalAlignment.Center,
-            VerticalAlignment = VerticalAlignment.Center
-        };
-
-        tileButton.TouchUp += (s, a) => OnEmptyTileClicked(s);
-
-        uiGrid.Widgets.Add(tileButton);
-    }
 
     private void UpdateContent()
     {
@@ -140,5 +107,40 @@ public class AllyGridPanel : Panel, IBoardObserver
             HorizontalAlignment = HorizontalAlignment.Center,
             VerticalAlignment = VerticalAlignment.Center
         });
+    }
+
+    private void AddGridTile(Tile tile)
+    {
+        if ((showShips && tile.isOccupied) || tile.hasBeenHit)
+            AddAllyGridTileImage(tile);
+        else
+            AddEmptyGridTileButton(tile);
+    }
+
+    private void AddAllyGridTileImage(Tile tile)
+    {
+        GridTileImageButton tileButton = new GridTileImageButton(tile);
+        if (tile.isOccupied)
+            tileButton.TouchUp += (s, a) => OnOccupiedTileClicked?.Invoke(s);
+
+        uiGrid.Widgets.Add(tileButton);
+    }
+
+    private void AddEmptyGridTileButton(Tile tile)
+    {
+        TextButton tileButton = new TextButton()
+        {
+            Text = tile.notation,
+            Opacity = 0.1f,
+            Font = game.fontSystem.GetFont(18),
+            GridColumn = tile.i + 1,
+            GridRow = tile.j + 1,
+            HorizontalAlignment = HorizontalAlignment.Center,
+            VerticalAlignment = VerticalAlignment.Center
+        };
+
+        tileButton.TouchUp += (s, a) => OnEmptyTileClicked?.Invoke(s);
+
+        uiGrid.Widgets.Add(tileButton);
     }
 }

@@ -12,7 +12,7 @@ public class DeploymentPhaseScreen : GameScreen
     private readonly SeaStrike game;
     private readonly BoardBuilder boardBuilder;
     private Grid mainGrid;
-    private AllyGridPanel oceanGridPanel;
+    private GridPanel oceanGridPanel;
     private TextButton startGameButton;
 
     public DeploymentPhaseScreen(SeaStrike game) : base(game)
@@ -30,7 +30,7 @@ public class DeploymentPhaseScreen : GameScreen
 
         mainGrid.RowsProportions.Add(new Proportion(ProportionType.Auto));
 
-        AddTitleLabel();
+        AddPhaseLabel();
         AddButtonsPanel();
         AddOceanGridPanel();
         AddStartGameButton();
@@ -48,7 +48,7 @@ public class DeploymentPhaseScreen : GameScreen
 
     public override void Draw(GameTime gameTime) { }
 
-    private void AddTitleLabel()
+    private void AddPhaseLabel()
     {
         mainGrid.Widgets.Add(new Label()
         {
@@ -92,7 +92,7 @@ public class DeploymentPhaseScreen : GameScreen
 
     private void AddOceanGridPanel()
     {
-        oceanGridPanel = new AllyGridPanel(game, boardBuilder.Build().oceanGrid)
+        oceanGridPanel = new GridPanel(game, boardBuilder.Build().oceanGrid, true)
         {
             GridRow = 1,
             HorizontalAlignment = HorizontalAlignment.Center,
@@ -118,7 +118,7 @@ public class DeploymentPhaseScreen : GameScreen
         };
         startGameButton.TouchUp += (s, a) =>
             game.screenManager.LoadScreen(
-                new BattlePhaseScreen(game, boardBuilder));
+                new BattlePhaseScreen(game, boardBuilder.Build()));
 
         mainGrid.Widgets.Add(startGameButton);
     }
