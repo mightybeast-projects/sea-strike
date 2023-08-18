@@ -15,6 +15,7 @@ public class BattlePhaseScreen : GameScreen
     private readonly SeaStrikeGame seaStrikeGame;
     private readonly Board playerBoard;
     private Grid mainGrid;
+    private Label resultLabel;
 
     public BattlePhaseScreen(SeaStrike game, Board playerBoard)
         : base(game)
@@ -117,6 +118,14 @@ public class BattlePhaseScreen : GameScreen
 
         verticalPanel.Widgets.Add(targetGridPanel);
 
+        resultLabel = new Label()
+        {
+            Font = game.fontSystem.GetFont(28),
+            TextColor = Color.LawnGreen,
+            HorizontalAlignment = HorizontalAlignment.Center,
+        };
+        verticalPanel.Widgets.Add(resultLabel);
+
         mainGrid.Widgets.Add(verticalPanel);
     }
 
@@ -124,7 +133,38 @@ public class BattlePhaseScreen : GameScreen
     {
         string tileStr = ((TextButton)sender).Text;
 
+        ShootResult result = seaStrikeGame.HandleShot(tileStr);
+
+        if (seaStrikeGame.isOver)
+            ShowVictoryScreen();
+
+        resultLabel.Text = result.ToString();
+
         seaStrikeGame.HandleShot(tileStr);
-        seaStrikeGame.HandleShot(tileStr);
+
+        if (seaStrikeGame.isOver)
+            ShowLostScreen();
+    }
+
+    private void ShowVictoryScreen() => ShowGameOverWindow("You won!");
+
+    private void ShowLostScreen() => ShowGameOverWindow("You lost.");
+
+    private void ShowGameOverWindow(string message)
+    {
+        Window window = new Window()
+        {
+            Title = message
+        };
+
+        TextButton restartButton = new TextButton()
+        {
+            Text = "Start new game"
+        };
+        restartButton.TouchUp += (s, a) =>
+            game.screenManager.LoadScreen(new MainMenuScreen(game));
+
+        window.Content = restartButton;
+        window.ShowModal(game.desktop);
     }
 }
