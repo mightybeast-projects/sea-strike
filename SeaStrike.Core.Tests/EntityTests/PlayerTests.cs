@@ -37,9 +37,11 @@ public class PlayerTests
         ShootResult result = player1.Shoot("A1");
 
         player2Board.oceanGrid.GetTile("A1").hasBeenHit.Should().BeTrue();
+        result.tile.Should().Be(player2Board.oceanGrid.tiles[0, 0]);
         result.hit.Should().BeFalse();
         result.ship.Should().BeNull();
         result.sunk.Should().BeNull();
+        result.ToString().Should().Be("A1 : Miss.");
     }
 
     [Test]
@@ -56,9 +58,11 @@ public class PlayerTests
         ShootResult result = player1.Shoot("A2");
 
         player2Board.oceanGrid.GetTile("A2").hasBeenHit.Should().BeTrue();
+        result.tile.Should().Be(player2Board.oceanGrid.tiles[1, 0]);
         result.hit.Should().BeTrue();
         result.ship.Should().Be(player2Board.ships[0]);
         result.sunk.Should().BeFalse();
+        result.ToString().Should().Be("A2 : Hit. Destroyer (Width : 2).");
     }
 
     [Test]
@@ -69,8 +73,10 @@ public class PlayerTests
 
         player2Board.oceanGrid.GetTile("A2").hasBeenHit.Should().BeTrue();
         player2Board.oceanGrid.GetTile("A3").hasBeenHit.Should().BeTrue();
+        result.tile.Should().Be(player2Board.oceanGrid.tiles[2, 0]);
         result.hit.Should().BeTrue();
         result.ship.Should().Be(player2Board.ships[0]);
         result.sunk.Should().BeTrue();
+        result.ToString().Should().Be("A3 : Hit. Destroyer (Width : 2). Sunk.");
     }
 }

@@ -10,6 +10,9 @@ public abstract class Ship
     public int width => occupiedTiles.Length;
 
     protected Ship(int width) => occupiedTiles = new Tile[width];
+
+    public override string ToString() =>
+        GetType().Name + " (Width : " + width + ").";
 }
 
 public class Destroyer : Ship

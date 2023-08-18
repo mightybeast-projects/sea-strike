@@ -9,6 +9,8 @@ public class Tile
     public bool isOccupied => occupiedBy is not null;
     public string notation => (char)(j + 65) + (i + 1).ToString();
 
+    public override string ToString() => notation;
+
     internal Tile(int i, int j)
     {
         this.i = i;
