@@ -14,7 +14,7 @@ public class BattlePhaseScreen : GameScreen
     private readonly SeaStrikeGame seaStrikeGame;
     private readonly Board playerBoard;
     private Grid mainGrid;
-    private Label resultLabel;
+    private Label hitResultLabel;
 
     public BattlePhaseScreen(SeaStrike game, Board playerBoard)
         : base(game)
@@ -38,8 +38,8 @@ public class BattlePhaseScreen : GameScreen
         mainGrid.RowsProportions.Add(new Proportion(ProportionType.Auto));
 
         AddPhaseLabel();
-        AddOceanGridPanel();
-        AddTargetGridPanel();
+        AddPlayerOceanGridPanel();
+        AddOpponentOceanGridPanel();
 
         game.desktop.Root = mainGrid;
     }
@@ -60,70 +60,33 @@ public class BattlePhaseScreen : GameScreen
         });
     }
 
-    private void AddOceanGridPanel()
+    private void AddPlayerOceanGridPanel() =>
+        mainGrid.Widgets.Add(new BattleGridPanel()
+            .SetGridLabel("Your's ocean grid : ")
+            .SetPlayerBoard(playerBoard)
+            .SetShowShips(true)
+            .Build());
+
+    private void AddOpponentOceanGridPanel()
     {
-        VerticalStackPanel verticalPanel = new VerticalStackPanel()
-        {
-            GridRow = 1,
-            Spacing = 10
-        };
+        BattleGridPanel battleGridPanel = new BattleGridPanel()
+            .SetGridLabel("Opponent's ocean grid : ")
+            .SetPlayerBoard(playerBoard.opponentBoard)
+            .SetShowShips(false)
+            .SetOnEmptyTileClicked(ShootTile)
+            .Build();
 
-        verticalPanel.Widgets.Add(new Label()
-        {
-            Text = "Your's ocean grid : ",
-            Font = SeaStrike.fontSystem.GetFont(28),
-            TextColor = Color.LawnGreen,
-            HorizontalAlignment = HorizontalAlignment.Center
-        });
+        battleGridPanel.GridColumn = 1;
 
-        GridPanel oceanGridPanel = new GridPanel(playerBoard.oceanGrid, true)
-        {
-            HorizontalAlignment = HorizontalAlignment.Center,
-            VerticalAlignment = VerticalAlignment.Center
-        };
-        playerBoard.Subscribe(oceanGridPanel);
-
-        verticalPanel.Widgets.Add(oceanGridPanel);
-
-        mainGrid.Widgets.Add(verticalPanel);
-    }
-
-    private void AddTargetGridPanel()
-    {
-        VerticalStackPanel verticalPanel = new VerticalStackPanel()
-        {
-            GridRow = 1,
-            GridColumn = 1,
-            Spacing = 10
-        };
-
-        verticalPanel.Widgets.Add(new Label()
-        {
-            Text = "Opponent's ocean grid : ",
-            Font = SeaStrike.fontSystem.GetFont(28),
-            TextColor = Color.LawnGreen,
-            HorizontalAlignment = HorizontalAlignment.Center
-        });
-
-        GridPanel targetGridPanel = new GridPanel(playerBoard.targetGrid, false)
-        {
-            HorizontalAlignment = HorizontalAlignment.Center,
-            VerticalAlignment = VerticalAlignment.Center,
-            OnEmptyTileClicked = ShootTile
-        };
-        playerBoard.opponentBoard.Subscribe(targetGridPanel);
-
-        verticalPanel.Widgets.Add(targetGridPanel);
-
-        resultLabel = new Label()
+        hitResultLabel = new Label()
         {
             Font = SeaStrike.fontSystem.GetFont(28),
             TextColor = Color.LawnGreen,
             HorizontalAlignment = HorizontalAlignment.Center,
         };
-        verticalPanel.Widgets.Add(resultLabel);
+        battleGridPanel.Widgets.Add(hitResultLabel);
 
-        mainGrid.Widgets.Add(verticalPanel);
+        mainGrid.Widgets.Add(battleGridPanel);
     }
 
     private void ShootTile(object sender)
@@ -138,7 +101,7 @@ public class BattlePhaseScreen : GameScreen
             return;
         }
 
-        resultLabel.Text = result.ToString();
+        hitResultLabel.Text = result.ToString();
 
         seaStrikeGame.HandleShot(tileStr);
 
