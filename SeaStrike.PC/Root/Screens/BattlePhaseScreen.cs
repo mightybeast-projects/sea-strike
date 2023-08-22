@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using MonoGame.Extended.Screens;
+using Myra.Graphics2D;
 using Myra.Graphics2D.Brushes;
 using Myra.Graphics2D.UI;
 using SeaStrike.Core.Entity;
@@ -136,7 +137,10 @@ public class BattlePhaseScreen : GameScreen
         ShootResult result = seaStrikeGame.HandleShot(tileStr);
 
         if (seaStrikeGame.isOver)
+        {
             ShowVictoryScreen();
+            return;
+        }
 
         resultLabel.Text = result.ToString();
 
@@ -154,7 +158,9 @@ public class BattlePhaseScreen : GameScreen
     {
         Window window = new Window()
         {
-            Title = message
+            Title = message,
+            Border = new SolidBrush(Color.LawnGreen),
+            BorderThickness = new Thickness(1)
         };
 
         TextButton restartButton = new TextButton()
