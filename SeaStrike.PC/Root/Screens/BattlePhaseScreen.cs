@@ -149,29 +149,15 @@ public class BattlePhaseScreen : GameScreen
             ShowLostScreen();
     }
 
-    private void ShowVictoryScreen() => ShowGameOverWindow("You won!", Color.LawnGreen);
-
-    private void ShowLostScreen() => ShowGameOverWindow("You lost!", Color.Red);
-
-    private void ShowGameOverWindow(string title, Color titleColor)
+    private void ShowVictoryScreen() => new GameOverWindow(game)
     {
-        GameWindow window = new GameWindow()
-        {
-            Title = title,
-            TitleTextColor = titleColor,
-            DragHandle = null
-        };
-        window.CloseButton.Visible = false;
+        Title = "You won!",
+        TitleTextColor = Color.LawnGreen
+    };
 
-        TextButton restartButton = new GameButton()
-        {
-            Text = "Start new game"
-        };
-
-        restartButton.TouchUp += (s, a) =>
-            game.screenManager.LoadScreen(new MainMenuScreen(game));
-
-        window.Content = restartButton;
-        window.ShowModal(game.desktop);
-    }
+    private void ShowLostScreen() => new GameOverWindow(game)
+    {
+        Title = "You lost!",
+        TitleTextColor = Color.Red
+    };
 }
