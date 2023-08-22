@@ -56,7 +56,7 @@ public class BattlePhaseScreen : GameScreen
         {
             Text = "Battle phase",
             TextColor = Color.LawnGreen,
-            Font = game.fontSystem.GetFont(40),
+            Font = SeaStrike.fontSystem.GetFont(40),
             HorizontalAlignment = HorizontalAlignment.Center,
             GridColumnSpan = 2
         });
@@ -73,17 +73,16 @@ public class BattlePhaseScreen : GameScreen
         verticalPanel.Widgets.Add(new Label()
         {
             Text = "Your's ocean grid : ",
-            Font = game.fontSystem.GetFont(28),
+            Font = SeaStrike.fontSystem.GetFont(28),
             TextColor = Color.LawnGreen,
             HorizontalAlignment = HorizontalAlignment.Center
         });
 
-        GridPanel oceanGridPanel =
-            new GridPanel(game, playerBoard.oceanGrid, true)
-            {
-                HorizontalAlignment = HorizontalAlignment.Center,
-                VerticalAlignment = VerticalAlignment.Center
-            };
+        GridPanel oceanGridPanel = new GridPanel(playerBoard.oceanGrid, true)
+        {
+            HorizontalAlignment = HorizontalAlignment.Center,
+            VerticalAlignment = VerticalAlignment.Center
+        };
         playerBoard.Subscribe(oceanGridPanel);
 
         verticalPanel.Widgets.Add(oceanGridPanel);
@@ -103,25 +102,24 @@ public class BattlePhaseScreen : GameScreen
         verticalPanel.Widgets.Add(new Label()
         {
             Text = "Opponent's ocean grid : ",
-            Font = game.fontSystem.GetFont(28),
+            Font = SeaStrike.fontSystem.GetFont(28),
             TextColor = Color.LawnGreen,
             HorizontalAlignment = HorizontalAlignment.Center
         });
 
-        GridPanel targetGridPanel =
-            new GridPanel(game, playerBoard.targetGrid, false)
-            {
-                HorizontalAlignment = HorizontalAlignment.Center,
-                VerticalAlignment = VerticalAlignment.Center,
-                OnEmptyTileClicked = ShootTile
-            };
+        GridPanel targetGridPanel = new GridPanel(playerBoard.targetGrid, false)
+        {
+            HorizontalAlignment = HorizontalAlignment.Center,
+            VerticalAlignment = VerticalAlignment.Center,
+            OnEmptyTileClicked = ShootTile
+        };
         playerBoard.opponentBoard.Subscribe(targetGridPanel);
 
         verticalPanel.Widgets.Add(targetGridPanel);
 
         resultLabel = new Label()
         {
-            Font = game.fontSystem.GetFont(28),
+            Font = SeaStrike.fontSystem.GetFont(28),
             TextColor = Color.LawnGreen,
             HorizontalAlignment = HorizontalAlignment.Center,
         };
@@ -159,6 +157,7 @@ public class BattlePhaseScreen : GameScreen
         Window window = new Window()
         {
             Title = message,
+            Background = new SolidBrush(Color.Black),
             Border = new SolidBrush(Color.LawnGreen),
             BorderThickness = new Thickness(1)
         };

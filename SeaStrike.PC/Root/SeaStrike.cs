@@ -14,9 +14,9 @@ namespace SeaStrike.PC.Root;
 
 public class SeaStrike : Game
 {
+    internal static FontSystem fontSystem;
     internal Desktop desktop;
     internal ScreenManager screenManager;
-    internal FontSystem fontSystem;
 
     private readonly GraphicsDeviceManager graphics;
 

@@ -14,14 +14,12 @@ public class GridPanel : Panel, IBoardObserver
     public Action<object> OnEmptyTileClicked;
     public Action<object> OnOccupiedTileClicked;
 
-    private readonly SeaStrike game;
     private readonly OceanGrid oceanGrid;
     private readonly bool showShips;
     private Grid uiGrid;
 
-    public GridPanel(SeaStrike game, OceanGrid oceanGrid, bool showShips)
+    public GridPanel(OceanGrid oceanGrid, bool showShips)
     {
-        this.game = game;
         this.oceanGrid = oceanGrid;
         this.showShips = showShips;
 
@@ -90,7 +88,7 @@ public class GridPanel : Panel, IBoardObserver
         uiGrid.Widgets.Add(new Label()
         {
             Text = i.ToString(),
-            Font = game.fontSystem.GetFont(24),
+            Font = SeaStrike.fontSystem.GetFont(24),
             GridColumn = i,
             HorizontalAlignment = HorizontalAlignment.Center,
             VerticalAlignment = VerticalAlignment.Center
@@ -102,7 +100,7 @@ public class GridPanel : Panel, IBoardObserver
         uiGrid.Widgets.Add(new Label()
         {
             Text = ((char)(i + 64)).ToString(),
-            Font = game.fontSystem.GetFont(24),
+            Font = SeaStrike.fontSystem.GetFont(24),
             GridRow = i,
             HorizontalAlignment = HorizontalAlignment.Center,
             VerticalAlignment = VerticalAlignment.Center
@@ -132,7 +130,7 @@ public class GridPanel : Panel, IBoardObserver
         {
             Text = tile.notation,
             Opacity = 0.1f,
-            Font = game.fontSystem.GetFont(18),
+            Font = SeaStrike.fontSystem.GetFont(18),
             GridColumn = tile.i + 1,
             GridRow = tile.j + 1,
             HorizontalAlignment = HorizontalAlignment.Center,

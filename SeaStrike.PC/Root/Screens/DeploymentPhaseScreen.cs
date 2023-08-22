@@ -54,7 +54,7 @@ public class DeploymentPhaseScreen : GameScreen
         {
             Text = "Deployment phase",
             TextColor = Color.LawnGreen,
-            Font = game.fontSystem.GetFont(40),
+            Font = SeaStrike.fontSystem.GetFont(40),
             HorizontalAlignment = HorizontalAlignment.Center
         });
     }
@@ -70,7 +70,7 @@ public class DeploymentPhaseScreen : GameScreen
             Spacing = 50
         };
 
-        TextButton randomizeButton = new GameButton(game)
+        TextButton randomizeButton = new GameButton()
         {
             Text = "Randomize"
         };
@@ -79,7 +79,7 @@ public class DeploymentPhaseScreen : GameScreen
 
         buttonsPanel.Widgets.Add(randomizeButton);
 
-        TextButton clearButton = new GameButton(game)
+        TextButton clearButton = new GameButton()
         {
             Text = "Clear grid"
         };
@@ -92,7 +92,7 @@ public class DeploymentPhaseScreen : GameScreen
 
     private void AddOceanGridPanel()
     {
-        oceanGridPanel = new GridPanel(game, boardBuilder.Build().oceanGrid, true)
+        oceanGridPanel = new GridPanel(boardBuilder.Build().oceanGrid, true)
         {
             GridRow = 1,
             HorizontalAlignment = HorizontalAlignment.Center,
@@ -107,7 +107,7 @@ public class DeploymentPhaseScreen : GameScreen
 
     private void AddStartGameButton()
     {
-        startGameButton = new GameButton(game)
+        startGameButton = new GameButton()
         {
             Top = -10,
             Text = "Start game",

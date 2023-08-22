@@ -21,7 +21,7 @@ public class MainMenuScreen : GameScreen
         {
             Text = "SEA STRIKE",
             TextColor = Color.LawnGreen,
-            Font = game.fontSystem.GetFont(56),
+            Font = SeaStrike.fontSystem.GetFont(56),
             HorizontalAlignment = HorizontalAlignment.Center,
             VerticalAlignment = VerticalAlignment.Top,
             Top = 100,
@@ -31,7 +31,7 @@ public class MainMenuScreen : GameScreen
         {
             Text = "Press any key to start...",
             TextColor = Color.LawnGreen,
-            Font = game.fontSystem.GetFont(32),
+            Font = SeaStrike.fontSystem.GetFont(32),
             HorizontalAlignment = HorizontalAlignment.Center,
             VerticalAlignment = VerticalAlignment.Bottom,
             Top = -100
