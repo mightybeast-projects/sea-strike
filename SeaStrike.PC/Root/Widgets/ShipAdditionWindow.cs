@@ -1,15 +1,11 @@
 using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
-using Myra.Graphics2D;
-using Myra.Graphics2D.Brushes;
 using Myra.Graphics2D.UI;
 using SeaStrike.Core.Entity;
 using Grid = Myra.Graphics2D.UI.Grid;
 
 namespace SeaStrike.PC.Root.Widgets;
 
-public class ShipAdditionWindow : Window
+public class ShipAdditionWindow : GameWindow
 {
     private readonly string position;
     private readonly BoardBuilder boardBuilder;
@@ -21,6 +17,8 @@ public class ShipAdditionWindow : Window
     {
         this.position = position;
         this.boardBuilder = boardBuilder;
+
+        Title = "Select ship properties : ";
 
         shipOptionsGrid = new Grid()
         {
@@ -34,8 +32,6 @@ public class ShipAdditionWindow : Window
         AddCreateButton();
 
         Content = shipOptionsGrid;
-
-        SetDialogProperties();
     }
 
     private void AddSelectedTileLabel()
@@ -102,23 +98,11 @@ public class ShipAdditionWindow : Window
             GridRow = 3,
             GridColumnSpan = 2,
             HorizontalAlignment = HorizontalAlignment.Center,
-            Margin = new Thickness(0, 0, 0, 5)
         };
 
         createButton.TouchUp += (s, a) => AddNewShip();
 
         shipOptionsGrid.Widgets.Add(createButton);
-    }
-
-    private void SetDialogProperties()
-    {
-        Title = "Select ship properties : ";
-        TitleFont = SeaStrike.fontSystem.GetFont(30);
-        TitleTextColor = Color.LawnGreen;
-        Background = new SolidBrush(Color.Black);
-        Border = new SolidBrush(Color.LawnGreen);
-        BorderThickness = new Thickness(1);
-        CloseKey = Keys.Escape;
     }
 
     private void AddNewShip()

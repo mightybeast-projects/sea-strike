@@ -7,6 +7,7 @@ using SeaStrike.Core.Entity;
 using SeaStrike.PC.Root.Widgets;
 using Grid = Myra.Graphics2D.UI.Grid;
 using SeaStrikeGame = SeaStrike.Core.Entity.Game;
+using GameWindow = SeaStrike.PC.Root.Widgets.GameWindow;
 
 namespace SeaStrike.PC.Root.Screens;
 
@@ -148,24 +149,25 @@ public class BattlePhaseScreen : GameScreen
             ShowLostScreen();
     }
 
-    private void ShowVictoryScreen() => ShowGameOverWindow("You won!");
+    private void ShowVictoryScreen() => ShowGameOverWindow("You won!", Color.LawnGreen);
 
-    private void ShowLostScreen() => ShowGameOverWindow("You lost.");
+    private void ShowLostScreen() => ShowGameOverWindow("You lost!", Color.Red);
 
-    private void ShowGameOverWindow(string message)
+    private void ShowGameOverWindow(string title, Color titleColor)
     {
-        Window window = new Window()
+        GameWindow window = new GameWindow()
         {
-            Title = message,
-            Background = new SolidBrush(Color.Black),
-            Border = new SolidBrush(Color.LawnGreen),
-            BorderThickness = new Thickness(1)
+            Title = title,
+            TitleTextColor = titleColor,
+            DragHandle = null
         };
+        window.CloseButton.Visible = false;
 
-        TextButton restartButton = new TextButton()
+        TextButton restartButton = new GameButton()
         {
             Text = "Start new game"
         };
+
         restartButton.TouchUp += (s, a) =>
             game.screenManager.LoadScreen(new MainMenuScreen(game));
 

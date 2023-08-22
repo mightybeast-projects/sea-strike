@@ -5,16 +5,14 @@ using Myra.Graphics2D.UI;
 
 namespace SeaStrike.PC.Root.Widgets;
 
-public class GameButton : TextButton
+public class GameWindow : Window
 {
-    public GameButton()
+    public GameWindow()
     {
-        HorizontalAlignment = HorizontalAlignment.Center;
+        TitleFont = SeaStrike.fontSystem.GetFont(30);
+        TitleTextColor = Color.LawnGreen;
         Background = new SolidBrush(Color.Black);
-        Font = SeaStrike.fontSystem.GetFont(24);
         Border = new SolidBrush(Color.LawnGreen);
         BorderThickness = new Thickness(1);
-        PressedBackground = new SolidBrush(Color.DarkGreen);
-        Padding = new Thickness(5, 0);
     }
 }
