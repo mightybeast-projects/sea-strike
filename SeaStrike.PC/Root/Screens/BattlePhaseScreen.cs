@@ -1,13 +1,10 @@
 using Microsoft.Xna.Framework;
 using MonoGame.Extended.Screens;
-using Myra.Graphics2D;
-using Myra.Graphics2D.Brushes;
 using Myra.Graphics2D.UI;
 using SeaStrike.Core.Entity;
 using SeaStrike.PC.Root.Widgets;
 using Grid = Myra.Graphics2D.UI.Grid;
 using SeaStrikeGame = SeaStrike.Core.Entity.Game;
-using GameWindow = SeaStrike.PC.Root.Widgets.GameWindow;
 
 namespace SeaStrike.PC.Root.Screens;
 

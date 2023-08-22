@@ -31,7 +31,7 @@ public class DeploymentPhaseScreen : GameScreen
         mainGrid.RowsProportions.Add(new Proportion(ProportionType.Auto));
 
         AddPhaseLabel();
-        AddButtonsPanel();
+        AddGridButtonsPanel();
         AddOceanGridPanel();
         AddStartGameButton();
 
@@ -59,36 +59,8 @@ public class DeploymentPhaseScreen : GameScreen
         });
     }
 
-    private void AddButtonsPanel()
-    {
-        HorizontalStackPanel buttonsPanel = new HorizontalStackPanel()
-        {
-            Top = 10,
-            HorizontalAlignment = HorizontalAlignment.Center,
-            VerticalAlignment = VerticalAlignment.Top,
-            GridRow = 1,
-            Spacing = 50
-        };
-
-        TextButton randomizeButton = new GameButton()
-        {
-            Text = "Randomize"
-        };
-        randomizeButton.TouchUp += (s, a) =>
-            boardBuilder.RandomizeShipsStartingPosition();
-
-        buttonsPanel.Widgets.Add(randomizeButton);
-
-        TextButton clearButton = new GameButton()
-        {
-            Text = "Clear grid"
-        };
-        clearButton.TouchUp += (s, a) => boardBuilder.ClearOceanGrid();
-
-        buttonsPanel.Widgets.Add(clearButton);
-
-        mainGrid.Widgets.Add(buttonsPanel);
-    }
+    private void AddGridButtonsPanel() =>
+        mainGrid.Widgets.Add(new GridButtonsPanel(boardBuilder));
 
     private void AddOceanGridPanel()
     {
