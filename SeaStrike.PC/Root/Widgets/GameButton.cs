@@ -9,12 +9,12 @@ public class GameButton : TextButton
 {
     public GameButton() : base()
     {
-        Width = 130;
         HorizontalAlignment = HorizontalAlignment.Center;
         Background = new SolidBrush(Color.Black);
         Font = SeaStrike.fontSystem.GetFont(24);
         Border = new SolidBrush(Color.LawnGreen);
         BorderThickness = new Thickness(1);
         PressedBackground = new SolidBrush(Color.DarkGreen);
+        Padding = new Thickness(5, 0);
     }
 }

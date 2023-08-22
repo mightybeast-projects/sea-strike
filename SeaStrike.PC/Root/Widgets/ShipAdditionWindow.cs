@@ -9,7 +9,7 @@ using Grid = Myra.Graphics2D.UI.Grid;
 
 namespace SeaStrike.PC.Root.Widgets;
 
-public class ShipAdditionDialog : Dialog
+public class ShipAdditionWindow : Window
 {
     private readonly string position;
     private readonly BoardBuilder boardBuilder;
@@ -17,7 +17,7 @@ public class ShipAdditionDialog : Dialog
     private ComboBox shipsTypeBox;
     private ComboBox shipOrientationBox;
 
-    public ShipAdditionDialog(string position, BoardBuilder boardBuilder)
+    public ShipAdditionWindow(string position, BoardBuilder boardBuilder)
     {
         this.position = position;
         this.boardBuilder = boardBuilder;
@@ -31,6 +31,7 @@ public class ShipAdditionDialog : Dialog
         AddSelectedTileLabel();
         AddShipTypeSelectionForm();
         AddShipOrientationSelectionForm();
+        AddCreateButton();
 
         Content = shipOptionsGrid;
 
@@ -42,6 +43,7 @@ public class ShipAdditionDialog : Dialog
         shipOptionsGrid.Widgets.Add(new Label()
         {
             Text = "Selected position : " + position,
+            Font = SeaStrike.fontSystem.GetFont(24),
             HorizontalAlignment = HorizontalAlignment.Center,
             GridColumnSpan = 2
         });
@@ -52,6 +54,7 @@ public class ShipAdditionDialog : Dialog
         shipOptionsGrid.Widgets.Add(new Label()
         {
             Text = "Ship type : ",
+            Font = SeaStrike.fontSystem.GetFont(24),
             GridRow = 1
         });
 
@@ -59,7 +62,7 @@ public class ShipAdditionDialog : Dialog
         {
             GridRow = 1,
             GridColumn = 1,
-            HorizontalAlignment = HorizontalAlignment.Right,
+            HorizontalAlignment = HorizontalAlignment.Right
         };
         foreach (Ship ship in boardBuilder.shipsPool)
             shipsTypeBox.Items.Add(
@@ -74,6 +77,7 @@ public class ShipAdditionDialog : Dialog
         shipOptionsGrid.Widgets.Add(new Label()
         {
             Text = "Ship orientation : ",
+            Font = SeaStrike.fontSystem.GetFont(24),
             GridRow = 2,
         });
 
@@ -90,21 +94,37 @@ public class ShipAdditionDialog : Dialog
         shipOptionsGrid.Widgets.Add(shipOrientationBox);
     }
 
+    private void AddCreateButton()
+    {
+        GameButton createButton = new GameButton()
+        {
+            Text = "Create new ship",
+            GridRow = 3,
+            GridColumnSpan = 2,
+            HorizontalAlignment = HorizontalAlignment.Center,
+            Margin = new Thickness(0, 0, 0, 5)
+        };
+
+        createButton.TouchUp += (s, a) => AddNewShip();
+
+        shipOptionsGrid.Widgets.Add(createButton);
+    }
+
     private void SetDialogProperties()
     {
-        Title = "Select ship properties";
+        Title = "Select ship properties : ";
+        TitleFont = SeaStrike.fontSystem.GetFont(30);
+        TitleTextColor = Color.LawnGreen;
         Background = new SolidBrush(Color.Black);
         Border = new SolidBrush(Color.LawnGreen);
         BorderThickness = new Thickness(1);
-        ButtonOk.Text = "Create new ship";
-        ButtonOk.TouchUp += (s, a) => AddNewShip();
-        ButtonCancel.Visible = false;
-        ConfirmKey = Keys.Enter;
         CloseKey = Keys.Escape;
     }
 
     private void AddNewShip()
     {
+        Close();
+
         int shipTypeIndex = shipsTypeBox.SelectedIndex ?? 0;
         Ship ship = boardBuilder.shipsPool[shipTypeIndex];
         int shipOrientationIndex = shipOrientationBox.SelectedIndex ?? 0;

@@ -129,8 +129,8 @@ public class DeploymentPhaseScreen : GameScreen
             return;
 
         string tilePosition = ((TextButton)sender).Text;
-        ShipAdditionDialog dialog =
-            new ShipAdditionDialog(tilePosition, boardBuilder);
+        ShipAdditionWindow dialog =
+            new ShipAdditionWindow(tilePosition, boardBuilder);
         dialog.ShowModal(game.desktop);
     }
 
