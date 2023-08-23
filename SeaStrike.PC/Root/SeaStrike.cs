@@ -39,21 +39,8 @@ public class SeaStrike : Game
 
         desktop = new Desktop();
 
-        string path = "SeaStrike.PC/Content/Font/Tektur.ttf";
-        byte[] ttf = File.ReadAllBytes(path);
-        fontSystem = new FontSystem();
-        fontSystem.AddFont(ttf);
-
-        Stylesheet ss = Stylesheet.Current;
-
-        ss.WindowStyle.CloseButtonStyle.Border = new SolidBrush(Color.Red);
-        ss.WindowStyle.CloseButtonStyle.BorderThickness = new Thickness(1);
-        ss.ComboBoxStyle.LabelStyle.Font = fontSystem.GetFont(24);
-        ss.ComboBoxStyle.LabelStyle.Padding = new Thickness(5, 0);
-
-        ImageTextButtonStyle style = ss.ComboBoxStyle.ListBoxStyle.ListItemStyle;
-        style.LabelStyle.Font = fontSystem.GetFont(24);
-        style.LabelStyle.Padding = new Thickness(5, 0);
+        InitializeFontSystem();
+        ApplyGlobalStylesheet();
     }
 
     protected override void Initialize()
@@ -71,6 +58,28 @@ public class SeaStrike : Game
 
         try { desktop.Render(); }
         catch (Exception e) { ShowErrorDialog(e); }
+    }
+
+    private void InitializeFontSystem()
+    {
+        string path = "SeaStrike.PC/Content/Font/Tektur.ttf";
+        byte[] ttf = File.ReadAllBytes(path);
+        fontSystem = new FontSystem();
+        fontSystem.AddFont(ttf);
+    }
+
+    private void ApplyGlobalStylesheet()
+    {
+        Stylesheet ss = Stylesheet.Current;
+
+        ss.WindowStyle.CloseButtonStyle.Border = new SolidBrush(Color.Red);
+        ss.WindowStyle.CloseButtonStyle.BorderThickness = new Thickness(1);
+        ss.ComboBoxStyle.LabelStyle.Font = fontSystem.GetFont(24);
+        ss.ComboBoxStyle.LabelStyle.Padding = new Thickness(5, 0);
+
+        ImageTextButtonStyle style = ss.ComboBoxStyle.ListBoxStyle.ListItemStyle;
+        style.LabelStyle.Font = fontSystem.GetFont(24);
+        style.LabelStyle.Padding = new Thickness(5, 0);
     }
 
     private void ShowErrorDialog(Exception e)
