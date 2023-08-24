@@ -2,29 +2,29 @@ namespace SeaStrike.Core.Entity;
 
 public class Game
 {
-    public Player player1;
-    public Player player2;
+    public Player player;
+    public Player opponent;
     public Player currentPlayer;
     public bool isOver => currentPlayer.board.opponentBoard.shipsAreSunk;
 
     public Game(Board playerBoard)
     {
-        player1 = new Player(playerBoard);
-        player2 = new AIPlayer();
+        player = new Player(playerBoard);
+        opponent = new AIPlayer();
 
-        playerBoard.Bind(player2.board);
+        playerBoard.Bind(opponent.board);
 
-        currentPlayer = player1;
+        currentPlayer = player;
     }
 
-    public Game(Board player1Board, Board player2Board)
+    public Game(Board playerBoard, Board opponentBoard)
     {
-        player1 = new Player(player1Board);
-        player2 = new Player(player2Board);
+        player = new Player(playerBoard);
+        opponent = new Player(opponentBoard);
 
-        player1Board.Bind(player2Board);
+        playerBoard.Bind(opponentBoard);
 
-        currentPlayer = player1;
+        currentPlayer = player;
     }
 
     public ShootResult HandleShot(string tileStr)
@@ -42,9 +42,9 @@ public class Game
 
     private void SwitchPlayer()
     {
-        if (currentPlayer == player1)
-            currentPlayer = player2;
+        if (currentPlayer == player)
+            currentPlayer = opponent;
         else
-            currentPlayer = player1;
+            currentPlayer = player;
     }
 }
