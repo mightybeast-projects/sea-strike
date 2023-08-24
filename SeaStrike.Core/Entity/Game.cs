@@ -7,12 +7,23 @@ public class Game
     public Player currentPlayer;
     public bool isOver => currentPlayer.board.opponentBoard.shipsAreSunk;
 
+    public Game(Board playerBoard)
+    {
+        player1 = new Player(playerBoard);
+        player2 = new AIPlayer();
+
+        playerBoard.Bind(player2.board);
+
+        currentPlayer = player1;
+    }
+
     public Game(Board player1Board, Board player2Board)
     {
-        player1Board.Bind(player2Board);
-
         player1 = new Player(player1Board);
         player2 = new Player(player2Board);
+
+        player1Board.Bind(player2Board);
+
         currentPlayer = player1;
     }
 

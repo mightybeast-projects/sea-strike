@@ -22,11 +22,29 @@ public class GameTests
             .AddHorizontalShip(new Destroyer())
                 .AtPosition("A1")
             .Build();
+
         game = new Game(player1Board, player2Board);
     }
 
     [Test]
-    public void GameInitialization_IsCorrect()
+    public void OnePlayerGameInitialization_IsCorrect()
+    {
+        player1Board = new BoardBuilder()
+            .RandomizeShipsStartingPosition()
+            .Build();
+
+        game = new Game(player1Board);
+
+        player1Board.targetGrid.Should().Be(game.player2.board.oceanGrid);
+        game.player1.board.Should().Be(player1Board);
+        game.player2.board.ships.Count.Should().Be(5);
+        game.currentPlayer.Should().Be(game.player1);
+        game.player2.Should().BeAssignableTo<AIPlayer>();
+        game.isOver.Should().BeFalse();
+    }
+
+    [Test]
+    public void TwoPlayerGameInitialization_IsCorrect()
     {
         player1Board.targetGrid.Should().Be(player2Board.oceanGrid);
         game.player1.board.Should().Be(player1Board);
