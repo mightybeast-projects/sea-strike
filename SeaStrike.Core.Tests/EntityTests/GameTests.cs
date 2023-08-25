@@ -63,6 +63,14 @@ public class GameTests
     }
 
     [Test]
+    public void TwoPlayerGame_ShouldSwitchCurrentPlayer_OnCurrentPlayerShot()
+    {
+        game.HandleShot("A1");
+
+        game.currentPlayer.Should().Be(game.opponent);
+    }
+
+    [Test]
     public void Game_IsOver_WhenOneOfThePlayers_SunkAllShips()
     {
         game.HandleShot("A1");

@@ -2,9 +2,10 @@ namespace SeaStrike.Core.Entity;
 
 public class Game
 {
-    public Player player;
-    public Player opponent;
-    public Player currentPlayer;
+    public Player currentPlayer { get; private set; }
+    internal readonly Player player;
+    internal readonly Player opponent;
+
     public bool isOver => currentPlayer.board.opponentBoard.shipsAreSunk;
 
     public Game(Board playerBoard)
