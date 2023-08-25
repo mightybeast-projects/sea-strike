@@ -71,6 +71,20 @@ public class GameTests
     }
 
     [Test]
+    public void OnePlayerGame_ShouldNotSwitchCurrentPlayer_OnPlayerShot()
+    {
+        playerBoard = new BoardBuilder()
+            .RandomizeShipsStartingPosition()
+            .Build();
+
+        game = new Game(playerBoard);
+
+        game.HandleShot("A1");
+
+        game.currentPlayer.Should().Be(game.player);
+    }
+
+    [Test]
     public void Game_IsOver_WhenOneOfThePlayers_SunkAllShips()
     {
         game.HandleShot("A1");

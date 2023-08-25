@@ -35,7 +35,9 @@ public class Game
 
         ShootResult result = currentPlayer.Shoot(tileStr);
 
-        if (!isOver)
+        if (!isOver && opponent is AIPlayer)
+            ((AIPlayer)opponent).Shoot();
+        else if (!isOver)
             SwitchPlayer();
 
         return result;

@@ -7,4 +7,6 @@ public class AIPlayer : Player
         .RandomizeShipsStartingPosition()
         .Build())
     { }
+
+    public void Shoot() { }
 }
