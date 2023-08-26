@@ -9,7 +9,6 @@ namespace SeaStrike.Core.Tests.EntityTests.SeaStrikeGameTests;
 public class OnePlayerGameTests
 {
     private Board playerBoard;
-    private Board opponentBoard;
     private SeaStrikeGame game;
 
     [SetUp]
