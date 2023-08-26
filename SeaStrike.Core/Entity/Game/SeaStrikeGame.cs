@@ -13,9 +13,7 @@ public class SeaStrikeGame
         player = new Player(playerBoard);
         opponent = new AIPlayer();
 
-        playerBoard.Bind(opponent.board);
-
-        currentPlayer = player;
+        StartGame();
     }
 
     public SeaStrikeGame(Board playerBoard, Board opponentBoard)
@@ -23,9 +21,7 @@ public class SeaStrikeGame
         player = new Player(playerBoard);
         opponent = new Player(opponentBoard);
 
-        playerBoard.Bind(opponentBoard);
-
-        currentPlayer = player;
+        StartGame();
     }
 
     public ShootResult HandleCurrentPlayerShot(string tileStr)
@@ -52,6 +48,13 @@ public class SeaStrikeGame
             SwitchPlayer();
 
         return result;
+    }
+
+    private void StartGame()
+    {
+        player.board.Bind(opponent.board);
+
+        currentPlayer = player;
     }
 
     private void SwitchPlayer()
