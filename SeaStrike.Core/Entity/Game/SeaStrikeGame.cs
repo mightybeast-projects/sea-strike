@@ -1,6 +1,6 @@
-namespace SeaStrike.Core.Entity;
+namespace SeaStrike.Core.Entity.Game;
 
-public class Game
+public class SeaStrikeGame
 {
     public Player currentPlayer { get; private set; }
     internal readonly Player player;
@@ -8,7 +8,7 @@ public class Game
 
     public bool isOver => currentPlayer.board.opponentBoard.shipsAreSunk;
 
-    public Game(Board playerBoard)
+    public SeaStrikeGame(Board playerBoard)
     {
         player = new Player(playerBoard);
         opponent = new AIPlayer();
@@ -18,7 +18,7 @@ public class Game
         currentPlayer = player;
     }
 
-    public Game(Board playerBoard, Board opponentBoard)
+    public SeaStrikeGame(Board playerBoard, Board opponentBoard)
     {
         player = new Player(playerBoard);
         opponent = new Player(opponentBoard);

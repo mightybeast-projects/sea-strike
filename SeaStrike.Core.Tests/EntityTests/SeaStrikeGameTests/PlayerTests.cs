@@ -1,8 +1,9 @@
 using FluentAssertions;
 using NUnit.Framework;
 using SeaStrike.Core.Entity;
+using SeaStrike.Core.Entity.Game;
 
-namespace SeaStrike.Core.Tests.EntityTests;
+namespace SeaStrike.Core.Tests.EntityTests.SeaStrikeGameTests;
 
 [TestFixture]
 public class PlayerTests

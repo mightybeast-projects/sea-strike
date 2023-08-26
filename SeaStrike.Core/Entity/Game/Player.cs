@@ -1,5 +1,6 @@
 using System.Text;
-namespace SeaStrike.Core.Entity;
+
+namespace SeaStrike.Core.Entity.Game;
 
 public class Player
 {

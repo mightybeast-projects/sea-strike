@@ -1,15 +1,16 @@
 using FluentAssertions;
 using NUnit.Framework;
 using SeaStrike.Core.Entity;
+using SeaStrike.Core.Entity.Game;
 
-namespace SeaStrike.Core.Tests.EntityTests;
+namespace SeaStrike.Core.Tests.EntityTests.SeaStrikeGameTests;
 
 [TestFixture]
-public class GameTests
+public class TwoPlayerGameTests
 {
     private Board playerBoard;
     private Board opponentBoard;
-    private Game game;
+    private SeaStrikeGame game;
 
     [SetUp]
     public void SetUp()
@@ -23,28 +24,11 @@ public class GameTests
                 .AtPosition("A1")
             .Build();
 
-        game = new Game(playerBoard, opponentBoard);
+        game = new SeaStrikeGame(playerBoard, opponentBoard);
     }
 
     [Test]
-    public void OnePlayerGameInitialization_IsCorrect()
-    {
-        playerBoard = new BoardBuilder()
-            .RandomizeShipsStartingPosition()
-            .Build();
-
-        game = new Game(playerBoard);
-
-        playerBoard.targetGrid.Should().Be(game.opponent.board.oceanGrid);
-        game.player.board.Should().Be(playerBoard);
-        game.opponent.board.ships.Count.Should().Be(5);
-        game.currentPlayer.Should().Be(game.player);
-        game.opponent.Should().BeAssignableTo<AIPlayer>();
-        game.isOver.Should().BeFalse();
-    }
-
-    [Test]
-    public void TwoPlayerGameInitialization_IsCorrect()
+    public void GameInitialization_IsCorrect()
     {
         playerBoard.targetGrid.Should().Be(opponentBoard.oceanGrid);
         game.player.board.Should().Be(playerBoard);
@@ -59,29 +43,14 @@ public class GameTests
         ShootResult result = game.HandleShot("A1");
 
         result.hit.Should().BeTrue();
-        game.currentPlayer.Should().Be(game.opponent);
     }
 
     [Test]
-    public void TwoPlayerGame_ShouldSwitchCurrentPlayer_OnCurrentPlayerShot()
+    public void Game_ShouldSwitchCurrentPlayer_OnCurrentPlayerShot()
     {
         game.HandleShot("A1");
 
         game.currentPlayer.Should().Be(game.opponent);
-    }
-
-    [Test]
-    public void OnePlayerGame_ShouldNotSwitchCurrentPlayer_OnPlayerShot()
-    {
-        playerBoard = new BoardBuilder()
-            .RandomizeShipsStartingPosition()
-            .Build();
-
-        game = new Game(playerBoard);
-
-        game.HandleShot("A1");
-
-        game.currentPlayer.Should().Be(game.player);
     }
 
     [Test]
