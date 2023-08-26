@@ -26,14 +26,31 @@ public class AIPlayerTests
         int seed,
         string expectedTileStr)
     {
-        AIPlayer opponent = new AIPlayer(seed);
+        AIPlayer ai = new AIPlayer(seed);
 
-        player.board.Bind(opponent.board);
+        player.board.Bind(ai.board);
 
-        opponent.Shoot();
+        ai.Shoot();
 
         player.board.oceanGrid.GetTile(expectedTileStr).hasBeenHit
             .Should().BeTrue();
+    }
+
+    [Test]
+    public void AIPlayer_ShouldNotShoot_AtAlreadyShotTile()
+    {
+        AIPlayer ai = new AIPlayer();
+
+        player.board.Bind(ai.board);
+
+        for (int i = 0; i < 100; i++)
+            ai.Shoot();
+
+        Tile[,] playerTiles = player.board.oceanGrid.tiles;
+
+        for (int i = 0; i < playerTiles.GetLength(0); i++)
+            for (int j = 0; j < playerTiles.GetLength(1); j++)
+                playerTiles[i, j].hasBeenHit.Should().BeTrue();
     }
 
     private static TestCaseData[] cases =

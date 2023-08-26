@@ -15,17 +15,20 @@ public class AIPlayer : Player
     internal AIPlayer(int seed) : base(InitializeRandomizedBoard) =>
         rnd = new Random(seed);
 
-    internal void Shoot()
+    internal void Shoot() => base.Shoot(ChooseRandomTile().notation);
+
+    private Tile ChooseRandomTile()
     {
-        Tile[,] tiles = board.oceanGrid.tiles;
+        Tile[,] opponentTiles = board.targetGrid.tiles;
 
-        int rndI = rnd.Next(tiles.GetLength(0));
-        int rndJ = rnd.Next(tiles.GetLength(1));
+        int rndI = rnd.Next(opponentTiles.GetLength(0));
+        int rndJ = rnd.Next(opponentTiles.GetLength(1));
 
-        string randomTileStr = tiles[rndI, rndJ].notation;
+        Tile randomTile = opponentTiles[rndI, rndJ];
 
-        System.Console.WriteLine(randomTileStr);
+        if (randomTile.hasBeenHit)
+            return ChooseRandomTile();
 
-        base.Shoot(randomTileStr);
+        return randomTile;
     }
 }
