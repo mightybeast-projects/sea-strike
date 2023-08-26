@@ -28,16 +28,27 @@ public class SeaStrikeGame
         currentPlayer = player;
     }
 
-    public ShootResult HandleShot(string tileStr)
+    public ShootResult HandleCurrentPlayerShot(string tileStr)
     {
         if (isOver)
             return null;
 
         ShootResult result = currentPlayer.Shoot(tileStr);
 
-        if (!isOver && opponent is AIPlayer)
-            ((AIPlayer)opponent).Shoot();
-        else if (!isOver)
+        if (!isOver)
+            SwitchPlayer();
+
+        return result;
+    }
+
+    public ShootResult HandleAIPlayerShot()
+    {
+        if (isOver)
+            return null;
+
+        ShootResult result = (currentPlayer as AIPlayer)?.Shoot();
+
+        if (!isOver && result is not null)
             SwitchPlayer();
 
         return result;

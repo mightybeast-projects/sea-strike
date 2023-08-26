@@ -33,9 +33,9 @@ public class BattleGridPanel : VerticalStackPanel
         return this;
     }
 
-    public BattleGridPanel SetOnEmptyTileClicked(Action<object> action)
+    public BattleGridPanel AddOnEmptyTileClickedAction(Action<object> action)
     {
-        this.OnEmptyTileClicked = action;
+        this.OnEmptyTileClicked += action;
 
         return this;
     }

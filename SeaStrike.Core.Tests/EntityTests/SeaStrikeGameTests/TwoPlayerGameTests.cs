@@ -40,7 +40,7 @@ public class TwoPlayerGameTests
     [Test]
     public void Game_CanHandle_CurrentPlayerShot()
     {
-        ShootResult result = game.HandleShot("A1");
+        ShootResult result = game.HandleCurrentPlayerShot("A1");
 
         result.hit.Should().BeTrue();
     }
@@ -48,7 +48,7 @@ public class TwoPlayerGameTests
     [Test]
     public void Game_ShouldSwitchCurrentPlayer_OnCurrentPlayerShot()
     {
-        game.HandleShot("A1");
+        game.HandleCurrentPlayerShot("A1");
 
         game.currentPlayer.Should().Be(game.opponent);
     }
@@ -56,9 +56,9 @@ public class TwoPlayerGameTests
     [Test]
     public void Game_IsOver_WhenOneOfThePlayers_SunkAllShips()
     {
-        game.HandleShot("A1");
-        game.HandleShot("A1");
-        game.HandleShot("A2");
+        game.HandleCurrentPlayerShot("A1");
+        game.HandleCurrentPlayerShot("A1");
+        game.HandleCurrentPlayerShot("A2");
 
         game.isOver.Should().BeTrue();
     }
@@ -66,10 +66,17 @@ public class TwoPlayerGameTests
     [Test]
     public void Game_ReturnsNullOnShot_IfGameIsOver()
     {
-        game.HandleShot("A1");
-        game.HandleShot("A1");
-        game.HandleShot("A2");
+        game.HandleCurrentPlayerShot("A1");
+        game.HandleCurrentPlayerShot("A1");
+        game.HandleCurrentPlayerShot("A2");
 
-        game.HandleShot("A3").Should().BeNull();
+        game.HandleCurrentPlayerShot("A3").Should().BeNull();
+    }
+
+    [Test]
+    public void Game_ShouldReturnNull_OnHandleAIPlayerShot()
+    {
+        game.HandleAIPlayerShot().Should().BeNull();
+        game.currentPlayer.Should().Be(game.player);
     }
 }

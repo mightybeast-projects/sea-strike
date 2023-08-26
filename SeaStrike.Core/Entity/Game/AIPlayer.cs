@@ -15,7 +15,7 @@ public class AIPlayer : Player
     internal AIPlayer(int seed) : base(InitializeRandomizedBoard) =>
         rnd = new Random(seed);
 
-    internal void Shoot() => base.Shoot(ChooseRandomTile().notation);
+    internal ShootResult Shoot() => base.Shoot(ChooseRandomTile().notation);
 
     private Tile ChooseRandomTile()
     {

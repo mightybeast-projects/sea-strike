@@ -22,11 +22,7 @@ public class BattlePhaseScreen : GameScreen
         this.game = game;
         this.playerBoard = playerBoard;
 
-        Board opponentBoard = new BoardBuilder()
-            .RandomizeShipsStartingPosition()
-            .Build();
-
-        seaStrikeGame = new SeaStrikeGame(playerBoard, opponentBoard);
+        seaStrikeGame = new SeaStrikeGame(playerBoard);
     }
 
     public override void LoadContent()
@@ -73,7 +69,8 @@ public class BattlePhaseScreen : GameScreen
             .SetGridLabel("Opponent's ocean grid : ")
             .SetPlayerBoard(playerBoard.opponentBoard)
             .SetShowShips(false)
-            .SetOnEmptyTileClicked(ShootTile)
+            .AddOnEmptyTileClickedAction(ShootTile)
+            .AddOnEmptyTileClickedAction(MakeAIPlayerShoot)
             .Build();
 
         battleGridPanel.GridColumn = 1;
@@ -93,17 +90,20 @@ public class BattlePhaseScreen : GameScreen
     {
         string tileStr = ((TextButton)sender).Text;
 
-        ShootResult result = seaStrikeGame.HandleShot(tileStr);
-
-        if (seaStrikeGame.isOver)
-        {
-            ShowVictoryScreen();
-            return;
-        }
+        ShootResult result = seaStrikeGame.HandleCurrentPlayerShot(tileStr);
 
         hitResultLabel.Text = result.ToString();
 
-        seaStrikeGame.HandleShot(tileStr);
+        if (seaStrikeGame.isOver)
+            ShowVictoryScreen();
+    }
+
+    private void MakeAIPlayerShoot(object sender)
+    {
+        if (seaStrikeGame.isOver)
+            return;
+
+        seaStrikeGame.HandleAIPlayerShot();
 
         if (seaStrikeGame.isOver)
             ShowLostScreen();

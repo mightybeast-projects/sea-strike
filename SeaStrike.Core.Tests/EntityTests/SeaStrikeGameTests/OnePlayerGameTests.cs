@@ -33,10 +33,10 @@ public class OnePlayerGameTests
     }
 
     [Test]
-    public void Game_ShouldNotSwitchCurrentPlayer_OnPlayerShot()
+    public void Game_ShouldHandleAIPlayerShot()
     {
-        game.HandleShot("A1");
+        game.HandleCurrentPlayerShot("A1");
 
-        game.currentPlayer.Should().Be(game.player);
+        game.HandleAIPlayerShot().Should().NotBeNull();
     }
 }
