@@ -8,37 +8,56 @@ namespace SeaStrike.Core.Tests.EntityTests.SeaStrikeGameTests;
 [TestFixture]
 public class AIPlayerTests
 {
-    private Player player;
-
-    [SetUp]
-    public void SetUp()
-    {
-        Board playerBoard = new BoardBuilder()
-            .AddHorizontalShip(new Destroyer())
-                .AtPosition("D4")
-            .Build();
-
-        player = new Player(playerBoard);
-    }
-
     [TestCaseSource(nameof(cases))]
     public void SeededShoot_ShouldChooseExpectedTile(
         int seed,
         string expectedTileStr)
     {
+        Board playerBoard = new BoardBuilder()
+            .RandomizeShipsStartingPosition()
+            .Build();
+
+        Player player = new Player(playerBoard);
         AIPlayer ai = new AIPlayer(seed);
 
         player.board.Bind(ai.board);
 
-        ai.Shoot();
+        ai.Shoot().tile.notation.Should().Be(expectedTileStr);
+    }
 
-        player.board.oceanGrid.GetTile(expectedTileStr).hasBeenHit
-            .Should().BeTrue();
+    [Test]
+    public void SeededShotSequence_ShouldChooseExpectedTiles()
+    {
+        Board playerBoard = new BoardBuilder()
+            .AddVerticalShip(new Destroyer())
+                .AtPosition("B3")
+            .Build();
+
+        Player player = new Player(playerBoard);
+        AIPlayer ai = new AIPlayer(001);
+
+        player.board.Bind(ai.board);
+
+        ShootResult firstShot = ai.Shoot();
+        firstShot.tile.notation.Should().Be("B3");
+        firstShot.hit.Should().BeTrue();
+        firstShot.ship.Should().BeAssignableTo<Destroyer>();
+
+        ShootResult secondShot = ai.Shoot();
+        secondShot.tile.notation.Should().Be("C3");
+        secondShot.hit.Should().BeTrue();
+        secondShot.ship.Should().BeAssignableTo<Destroyer>();
+        secondShot.sunk.Should().BeTrue();
     }
 
     [Test]
     public void AIPlayer_ShouldNotShoot_AtAlreadyShotTile()
     {
+        Board playerBoard = new BoardBuilder()
+            .RandomizeShipsStartingPosition()
+            .Build();
+
+        Player player = new Player(playerBoard);
         AIPlayer ai = new AIPlayer();
 
         player.board.Bind(ai.board);
