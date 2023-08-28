@@ -137,6 +137,37 @@ public class AIPlayerTests
     }
 
     [Test]
+    public void PlayerAI_ShouldAddNewAnchor_OnShot_WithDifferentShip()
+    {
+        playerBoard = new BoardBuilder()
+            .AddHorizontalShip(new Destroyer())
+                .AtPosition("B3")
+            .AddHorizontalShip(new Submarine())
+                .AtPosition("C3")
+            .Build();
+
+        BindSeededAIPlayer(001);
+
+        shotResult = ai.Shoot();
+        AssertHitShot<Destroyer>("B3");
+
+        shotResult = ai.Shoot();
+        AssertHitShot<Submarine>("C3");
+
+        shotResult = ai.Shoot();
+        AssertSunkShot<Destroyer>("B4");
+
+        shotResult = ai.Shoot();
+        AssertMissShot("D3");
+
+        shotResult = ai.Shoot();
+        AssertHitShot<Submarine>("C4");
+
+        shotResult = ai.Shoot();
+        AssertSunkShot<Submarine>("C5");
+    }
+
+    [Test]
     public void AIPlayer_ShouldContinueToShootRandomly_AfterSunkShot()
     {
         playerBoard = new BoardBuilder()

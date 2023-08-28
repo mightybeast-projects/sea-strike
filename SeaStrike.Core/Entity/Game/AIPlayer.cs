@@ -11,7 +11,7 @@ public class AIPlayer : Player
         .Build();
 
     private readonly Random rnd;
-    private ShotResult anchorShot;
+    private List<ShotResult> anchorShots = new List<ShotResult>();
     private ShotVector shotVector = new ShotVector();
     private bool vectorizedHit;
 
@@ -23,10 +23,10 @@ public class AIPlayer : Player
 
     internal ShotResult Shoot()
     {
-        if (shotVector.isZero)
+        if (anchorShots.Count == 0)
             return ShootRandomTile();
         else
-            return ShootVectorizedTile();
+            return ShootAnchoredTile();
     }
 
     private ShotResult ShootRandomTile()
@@ -36,14 +36,14 @@ public class AIPlayer : Player
 
         if (shotResult.hit)
         {
-            anchorShot = shotResult;
+            anchorShots.Add(shotResult);
             shotVector.Rotate();
         }
 
         return shotResult;
     }
 
-    private ShotResult ShootVectorizedTile()
+    private ShotResult ShootAnchoredTile()
     {
         Tile nextTile = ChooseNextVectorizedTile();
 
@@ -58,8 +58,16 @@ public class AIPlayer : Player
 
         if (shotResult.hit)
         {
-            vectorizedHit = true;
-            shotVector.Extend();
+            if (shotResult.ship == anchorShots[0].ship)
+            {
+                vectorizedHit = true;
+                shotVector.Extend();
+            }
+            else
+            {
+                anchorShots.Add(shotResult);
+                shotVector.Rotate();
+            }
         }
         else if (!shotResult.hit && vectorizedHit)
             shotVector.Invert();
@@ -93,10 +101,14 @@ public class AIPlayer : Player
         int heightMax = board.targetGrid.height - 1;
 
         int nextTileI = Math.Clamp(
-            anchorShot.tile.i + shotVector.x * shotVector.length, 0, widthMax
+            anchorShots[0].tile.i + shotVector.x * shotVector.length,
+            0,
+            widthMax
         );
         int nextTileJ = Math.Clamp(
-            anchorShot.tile.j + shotVector.y * shotVector.length, 0, heightMax
+            anchorShots[0].tile.j + shotVector.y * shotVector.length,
+            0,
+            heightMax
         );
 
         return board.targetGrid.tiles[nextTileI, nextTileJ];
@@ -104,7 +116,7 @@ public class AIPlayer : Player
 
     private void ResetShootingBehaviour()
     {
-        anchorShot = null;
+        anchorShots.RemoveAt(0);
         shotVector = new ShotVector();
         vectorizedHit = false;
     }
