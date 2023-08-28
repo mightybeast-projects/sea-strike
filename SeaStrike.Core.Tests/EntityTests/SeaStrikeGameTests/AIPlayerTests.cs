@@ -9,34 +9,20 @@ namespace SeaStrike.Core.Tests.EntityTests.SeaStrikeGameTests;
 [TestFixture]
 public class AIPlayerTests
 {
+    private Board playerBoard;
+    private Player player;
+    private AIPlayer ai;
     private ShotResult shotResult;
-
-    [TestCaseSource(nameof(cases))]
-    public void SeededShoot_ShouldChooseExpectedTile(
-        int seed,
-        string expectedTileStr)
-    {
-        Board playerBoard = new BoardBuilder()
-            .RandomizeShipsStartingPosition()
-            .Build();
-
-        Player player = new Player(playerBoard);
-        AIPlayer ai = new AIPlayer(seed);
-
-        player.board.Bind(ai.board);
-
-        ai.Shoot().tile.notation.Should().Be(expectedTileStr);
-    }
 
     [Test]
     public void AIPlayer_ShouldNotShoot_AtAlreadyShotTile()
     {
-        Board playerBoard = new BoardBuilder()
+        playerBoard = new BoardBuilder()
             .RandomizeShipsStartingPosition()
             .Build();
 
-        Player player = new Player(playerBoard);
-        AIPlayer ai = new AIPlayer();
+        player = new Player(playerBoard);
+        ai = new AIPlayer();
 
         player.board.Bind(ai.board);
 
@@ -50,159 +36,153 @@ public class AIPlayerTests
                 playerTiles[i, j].hasBeenHit.Should().BeTrue();
     }
 
-    [Test]
-    public void AIPlayer_ShouldChooseShootingVector()
+    [TestCaseSource(nameof(cases))]
+    public void SeededShoot_ShouldChooseExpectedTile(
+        int seed,
+        string expectedTileStr)
     {
-        Board playerBoard = new BoardBuilder()
+        playerBoard = new BoardBuilder()
+            .RandomizeShipsStartingPosition()
+            .Build();
+
+        BindSeededAIPlayer(seed);
+
+        ai.Shoot().tile.notation.Should().Be(expectedTileStr);
+    }
+
+    [Test]
+    public void AIPlayer_ShouldChooseShotVector()
+    {
+        playerBoard = new BoardBuilder()
             .AddVerticalShip(new Destroyer())
                 .AtPosition("B3")
             .Build();
 
-        Player player = new Player(playerBoard);
-        AIPlayer ai = new AIPlayer(001);
-
-        player.board.Bind(ai.board);
+        BindSeededAIPlayer(001);
 
         shotResult = ai.Shoot();
-        shotResult.tile.notation.Should().Be("B3");
-        shotResult.hit.Should().BeTrue();
-        shotResult.ship.Should().BeAssignableTo<Destroyer>();
+        AssertHitShot<Destroyer>("B3");
 
         shotResult = ai.Shoot();
-        shotResult.tile.notation.Should().Be("C3");
-        shotResult.hit.Should().BeTrue();
-        shotResult.ship.Should().BeAssignableTo<Destroyer>();
-        shotResult.sunk.Should().BeTrue();
+        AssertSunkShot<Destroyer>("C3");
     }
 
     [Test]
-    public void AIPlayer_ShouldIncreaseShootingVectorLength()
+    public void AIPlayer_ShouldExtendShotVector()
     {
-        Board playerBoard = new BoardBuilder()
+        playerBoard = new BoardBuilder()
             .AddVerticalShip(new Submarine())
                 .AtPosition("B3")
             .Build();
 
-        Player player = new Player(playerBoard);
-        AIPlayer ai = new AIPlayer(001);
-
-        player.board.Bind(ai.board);
+        BindSeededAIPlayer(001);
 
         shotResult = ai.Shoot();
-        shotResult.tile.notation.Should().Be("B3");
-        shotResult.hit.Should().BeTrue();
-        shotResult.ship.Should().BeAssignableTo<Submarine>();
+        AssertHitShot<Submarine>("B3");
 
         shotResult = ai.Shoot();
-        shotResult.tile.notation.Should().Be("C3");
-        shotResult.hit.Should().BeTrue();
-        shotResult.ship.Should().BeAssignableTo<Submarine>();
+        AssertHitShot<Submarine>("C3");
 
         shotResult = ai.Shoot();
-        shotResult.tile.notation.Should().Be("D3");
-        shotResult.hit.Should().BeTrue();
-        shotResult.ship.Should().BeAssignableTo<Submarine>();
-        shotResult.sunk.Should().BeTrue();
+        AssertSunkShot<Submarine>("D3");
     }
 
     [Test]
-    public void AIPlayer_ShouldRotateShootingVector_OnMiss()
+    public void AIPlayer_ShouldRotateShotVector_OnMiss()
     {
-        Board playerBoard = new BoardBuilder()
+        playerBoard = new BoardBuilder()
             .AddHorizontalShip(new Destroyer())
                 .AtPosition("B3")
             .Build();
 
-        Player player = new Player(playerBoard);
-        AIPlayer ai = new AIPlayer(001);
-
-        player.board.Bind(ai.board);
+        BindSeededAIPlayer(001);
 
         shotResult = ai.Shoot();
-        shotResult.tile.notation.Should().Be("B3");
-        shotResult.hit.Should().BeTrue();
-        shotResult.ship.Should().BeAssignableTo<Destroyer>();
+        AssertHitShot<Destroyer>("B3");
 
         shotResult = ai.Shoot();
-        shotResult.tile.notation.Should().Be("C3");
-        shotResult.hit.Should().BeFalse();
+        AssertMissShot("C3");
 
         shotResult = ai.Shoot();
-        shotResult.tile.notation.Should().Be("B4");
-        shotResult.hit.Should().BeTrue();
-        shotResult.ship.Should().BeAssignableTo<Destroyer>();
-        shotResult.sunk.Should().BeTrue();
+        AssertSunkShot<Destroyer>("B4");
     }
 
     [Test]
-    public void AIPlayer_ShouldInvertShootingVector_OnMiss()
+    public void AIPlayer_ShouldInvertShotVector_OnMiss()
     {
-        Board playerBoard = new BoardBuilder()
+        playerBoard = new BoardBuilder()
             .AddHorizontalShip(new Battleship())
                 .AtPosition("B1")
             .Build();
 
-        Player player = new Player(playerBoard);
-        AIPlayer ai = new AIPlayer(001);
-
-        player.board.Bind(ai.board);
+        BindSeededAIPlayer(001);
 
         shotResult = ai.Shoot();
-        shotResult.tile.notation.Should().Be("B3");
-        shotResult.hit.Should().BeTrue();
-        shotResult.ship.Should().BeAssignableTo<Battleship>();
+        AssertHitShot<Battleship>("B3");
 
         shotResult = ai.Shoot();
-        shotResult.tile.notation.Should().Be("C3");
-        shotResult.hit.Should().BeFalse();
+        AssertMissShot("C3");
 
         shotResult = ai.Shoot();
-        shotResult.tile.notation.Should().Be("B4");
-        shotResult.hit.Should().BeTrue();
-        shotResult.ship.Should().BeAssignableTo<Battleship>();
+        AssertHitShot<Battleship>("B4");
 
         shotResult = ai.Shoot();
-        shotResult.tile.notation.Should().Be("B5");
-        shotResult.hit.Should().BeFalse();
+        AssertMissShot("B5");
 
         shotResult = ai.Shoot();
-        shotResult.tile.notation.Should().Be("B2");
-        shotResult.hit.Should().BeTrue();
-        shotResult.ship.Should().BeAssignableTo<Battleship>();
+        AssertHitShot<Battleship>("B2");
 
         shotResult = ai.Shoot();
-        shotResult.tile.notation.Should().Be("B1");
-        shotResult.hit.Should().BeTrue();
-        shotResult.ship.Should().BeAssignableTo<Battleship>();
-        shotResult.sunk.Should().BeTrue();
+        AssertSunkShot<Battleship>("B1");
     }
 
     [Test]
     public void AIPlayer_ShouldContinueToShootRandomly_AfterSunkShot()
     {
-        Board playerBoard = new BoardBuilder()
+        playerBoard = new BoardBuilder()
             .AddVerticalShip(new Destroyer())
                 .AtPosition("B3")
             .Build();
 
-        Player player = new Player(playerBoard);
-        AIPlayer ai = new AIPlayer(001);
-
-        player.board.Bind(ai.board);
+        BindSeededAIPlayer(001);
 
         shotResult = ai.Shoot();
-        shotResult.tile.notation.Should().Be("B3");
-        shotResult.hit.Should().BeTrue();
-        shotResult.ship.Should().BeAssignableTo<Destroyer>();
+        AssertHitShot<Destroyer>("B3");
 
         shotResult = ai.Shoot();
-        shotResult.tile.notation.Should().Be("C3");
-        shotResult.hit.Should().BeTrue();
-        shotResult.ship.Should().BeAssignableTo<Destroyer>();
-        shotResult.sunk.Should().BeTrue();
+        AssertSunkShot<Destroyer>("C3");
 
         shotResult = ai.Shoot();
         shotResult.tile.notation.Should().NotBe("D3");
+    }
+
+    private void BindSeededAIPlayer(int seed)
+    {
+        player = new Player(playerBoard);
+        ai = new AIPlayer(seed);
+
+        player.board.Bind(ai.board);
+    }
+
+    private void AssertMissShot(string tileStr)
+    {
+        shotResult.tile.notation.Should().Be(tileStr);
+        shotResult.hit.Should().BeFalse();
+    }
+
+    private void AssertHitShot<T>(string tileStr)
+    {
+        shotResult.tile.notation.Should().Be(tileStr);
+        shotResult.hit.Should().BeTrue();
+        shotResult.ship.Should().BeAssignableTo<T>();
+    }
+
+    private void AssertSunkShot<T>(string tileStr)
+    {
+        shotResult.tile.notation.Should().Be(tileStr);
+        shotResult.hit.Should().BeTrue();
+        shotResult.ship.Should().BeAssignableTo<T>();
+        shotResult.sunk.Should().BeTrue();
     }
 
     private static TestCaseData[] cases =
