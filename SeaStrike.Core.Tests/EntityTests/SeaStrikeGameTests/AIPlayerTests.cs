@@ -176,6 +176,34 @@ public class AIPlayerTests
         result.sunk.Should().BeTrue();
     }
 
+    [Test]
+    public void AIPlayer_ShouldContinueToShootRandomly_AfterSunkShot()
+    {
+        Board playerBoard = new BoardBuilder()
+            .AddVerticalShip(new Destroyer())
+                .AtPosition("B3")
+            .Build();
+
+        Player player = new Player(playerBoard);
+        AIPlayer ai = new AIPlayer(001);
+
+        player.board.Bind(ai.board);
+
+        result = ai.Shoot();
+        result.tile.notation.Should().Be("B3");
+        result.hit.Should().BeTrue();
+        result.ship.Should().BeAssignableTo<Destroyer>();
+
+        result = ai.Shoot();
+        result.tile.notation.Should().Be("C3");
+        result.hit.Should().BeTrue();
+        result.ship.Should().BeAssignableTo<Destroyer>();
+        result.sunk.Should().BeTrue();
+
+        result = ai.Shoot();
+        result.tile.notation.Should().NotBe("D3");
+    }
+
     private static TestCaseData[] cases =
     {
         new TestCaseData(001, "B3"),

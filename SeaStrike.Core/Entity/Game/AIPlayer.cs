@@ -106,16 +106,16 @@ public class AIPlayer : Player
 
     private void InvertShootingVector()
     {
-        if (ShootingVectorIsLong())
-            ResetShootingVector();
+        if (ShootingVectorIsNotNormalized())
+            NormalizeShootingVector();
 
         shootingVector *= -1;
     }
 
     private void RotateShootingVector()
     {
-        if (ShootingVectorIsLong())
-            ResetShootingVector();
+        if (ShootingVectorIsNotNormalized())
+            NormalizeShootingVector();
 
         if (shootingVector == Vector2.Zero)
             shootingVector = Vector2.UnitY;
@@ -129,7 +129,7 @@ public class AIPlayer : Player
             shootingVector = Vector2.Zero;
     }
 
-    private void ResetShootingVector()
+    private void NormalizeShootingVector()
     {
         int newX = 0;
         int newY = 0;
@@ -153,7 +153,7 @@ public class AIPlayer : Player
         vectorizedHit = false;
     }
 
-    private bool ShootingVectorIsLong() =>
+    private bool ShootingVectorIsNotNormalized() =>
         shootingVector.X > 1 ||
         shootingVector.X < 1 ||
         shootingVector.Y > 1 ||
