@@ -11,6 +11,7 @@ public class AIPlayer : Player
     private readonly Random rnd;
     private ShootResult anchor;
     private Vector2 shootingVector = Vector2.Zero;
+    private bool vectorizedHit;
 
     internal AIPlayer() : base(InitializeRandomizedBoard) =>
         rnd = new Random();
@@ -32,36 +33,45 @@ public class AIPlayer : Player
             if (result.hit)
             {
                 anchor = result;
-                SwitchShootingVector();
+                RotateShootingVector();
                 System.Console.WriteLine(anchor + " " + shootingVector.ToString());
             }
         }
         else
         {
             System.Console.WriteLine(anchor + " " + shootingVector.ToString());
-            int nextTileI = Math.Clamp(anchor.tile.i + (int)shootingVector.X, 0, board.targetGrid.width - 1);
-            int nextTileJ = Math.Clamp(anchor.tile.j + (int)shootingVector.Y, 0, board.targetGrid.height - 1);
+
+            int nextTileI = Math.Clamp(anchor.tile.i + (int)shootingVector.X,
+                0,
+                board.targetGrid.width - 1);
+            int nextTileJ = Math.Clamp(anchor.tile.j + (int)shootingVector.Y,
+                0,
+                board.targetGrid.height - 1);
 
             Tile nextTile = board.targetGrid.tiles[nextTileI, nextTileJ];
 
-            System.Console.WriteLine("NextTile:" + nextTile);
+            System.Console.WriteLine("NextTile: " + nextTile);
 
             if (nextTile.hasBeenHit)
             {
-                SwitchShootingVector();
+                RotateShootingVector();
                 return Shoot();
             }
 
             result = base.Shoot(nextTile.notation);
 
             if (result.hit)
+            {
+                vectorizedHit = true;
                 IncreaseShootingVectorLength();
+            }
+            else if (!result.hit && vectorizedHit)
+                InvertShootingVector();
+            else
+                RotateShootingVector();
 
             if (result.sunk ?? false)
-            {
-                anchor = null;
-                shootingVector = Vector2.Zero;
-            }
+                ResetShootingBehaviour();
         }
 
         return result;
@@ -94,8 +104,19 @@ public class AIPlayer : Player
             shootingVector.Y--;
     }
 
-    private void SwitchShootingVector()
+    private void InvertShootingVector()
     {
+        if (ShootingVectorIsLong())
+            ResetShootingVector();
+
+        shootingVector *= -1;
+    }
+
+    private void RotateShootingVector()
+    {
+        if (ShootingVectorIsLong())
+            ResetShootingVector();
+
         if (shootingVector == Vector2.Zero)
             shootingVector = Vector2.UnitY;
         else if (shootingVector == Vector2.UnitY)
@@ -107,4 +128,34 @@ public class AIPlayer : Player
         else
             shootingVector = Vector2.Zero;
     }
+
+    private void ResetShootingVector()
+    {
+        int newX = 0;
+        int newY = 0;
+
+        if (shootingVector.X > 0)
+            newX = 1;
+        if (shootingVector.X < 0)
+            newX = -1;
+        if (shootingVector.Y > 0)
+            newY = 1;
+        if (shootingVector.Y < 0)
+            newY = -1;
+
+        shootingVector = new Vector2(newX, newY);
+    }
+
+    private void ResetShootingBehaviour()
+    {
+        anchor = null;
+        shootingVector = Vector2.Zero;
+        vectorizedHit = false;
+    }
+
+    private bool ShootingVectorIsLong() =>
+        shootingVector.X > 1 ||
+        shootingVector.X < 1 ||
+        shootingVector.Y > 1 ||
+        shootingVector.Y < 1;
 }

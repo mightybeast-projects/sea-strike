@@ -133,6 +133,49 @@ public class AIPlayerTests
         result.sunk.Should().BeTrue();
     }
 
+    [Test]
+    public void AIPlayer_ShouldInvertShootingVector_OnMiss()
+    {
+        Board playerBoard = new BoardBuilder()
+            .AddHorizontalShip(new Battleship())
+                .AtPosition("B1")
+            .Build();
+
+        Player player = new Player(playerBoard);
+        AIPlayer ai = new AIPlayer(001);
+
+        player.board.Bind(ai.board);
+
+        result = ai.Shoot();
+        result.tile.notation.Should().Be("B3");
+        result.hit.Should().BeTrue();
+        result.ship.Should().BeAssignableTo<Battleship>();
+
+        result = ai.Shoot();
+        result.tile.notation.Should().Be("C3");
+        result.hit.Should().BeFalse();
+
+        result = ai.Shoot();
+        result.tile.notation.Should().Be("B4");
+        result.hit.Should().BeTrue();
+        result.ship.Should().BeAssignableTo<Battleship>();
+
+        result = ai.Shoot();
+        result.tile.notation.Should().Be("B5");
+        result.hit.Should().BeFalse();
+
+        result = ai.Shoot();
+        result.tile.notation.Should().Be("B2");
+        result.hit.Should().BeTrue();
+        result.ship.Should().BeAssignableTo<Battleship>();
+
+        result = ai.Shoot();
+        result.tile.notation.Should().Be("B1");
+        result.hit.Should().BeTrue();
+        result.ship.Should().BeAssignableTo<Battleship>();
+        result.sunk.Should().BeTrue();
+    }
+
     private static TestCaseData[] cases =
     {
         new TestCaseData(001, "B3"),
