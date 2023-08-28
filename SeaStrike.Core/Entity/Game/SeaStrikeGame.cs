@@ -24,12 +24,12 @@ public class SeaStrikeGame
         StartGame();
     }
 
-    public ShootResult HandleCurrentPlayerShot(string tileStr)
+    public ShotResult HandleCurrentPlayerShot(string tileStr)
     {
         if (isOver)
             return null;
 
-        ShootResult result = currentPlayer.Shoot(tileStr);
+        ShotResult result = currentPlayer.Shoot(tileStr);
 
         if (!isOver)
             SwitchPlayer();
@@ -37,12 +37,12 @@ public class SeaStrikeGame
         return result;
     }
 
-    public ShootResult HandleAIPlayerShot()
+    public ShotResult HandleAIPlayerShot()
     {
         if (isOver)
             return null;
 
-        ShootResult result = (currentPlayer as AIPlayer)?.Shoot();
+        ShotResult result = (currentPlayer as AIPlayer)?.Shoot();
 
         if (!isOver && result is not null)
             SwitchPlayer();

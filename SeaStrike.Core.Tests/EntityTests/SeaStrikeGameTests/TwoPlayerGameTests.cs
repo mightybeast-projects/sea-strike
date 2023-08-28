@@ -40,7 +40,7 @@ public class TwoPlayerGameTests
     [Test]
     public void Game_CanHandle_CurrentPlayerShot()
     {
-        ShootResult result = game.HandleCurrentPlayerShot("A1");
+        ShotResult result = game.HandleCurrentPlayerShot("A1");
 
         result.hit.Should().BeTrue();
     }

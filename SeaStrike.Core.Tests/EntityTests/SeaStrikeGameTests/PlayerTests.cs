@@ -35,7 +35,7 @@ public class PlayerTests
     [Test]
     public void Player_CanShoot()
     {
-        ShootResult result = player.Shoot("A1");
+        ShotResult result = player.Shoot("A1");
 
         opponentBoard.oceanGrid.GetTile("A1").hasBeenHit.Should().BeTrue();
         result.tile.Should().Be(opponentBoard.oceanGrid.tiles[0, 0]);
@@ -56,7 +56,7 @@ public class PlayerTests
     [Test]
     public void Player_HitAShip()
     {
-        ShootResult result = player.Shoot("A2");
+        ShotResult result = player.Shoot("A2");
 
         opponentBoard.oceanGrid.GetTile("A2").hasBeenHit.Should().BeTrue();
         result.tile.Should().Be(opponentBoard.oceanGrid.tiles[1, 0]);
@@ -70,7 +70,7 @@ public class PlayerTests
     public void Player_SunkAShip()
     {
         player.Shoot("A2");
-        ShootResult result = player.Shoot("A3");
+        ShotResult result = player.Shoot("A3");
 
         opponentBoard.oceanGrid.GetTile("A2").hasBeenHit.Should().BeTrue();
         opponentBoard.oceanGrid.GetTile("A3").hasBeenHit.Should().BeTrue();

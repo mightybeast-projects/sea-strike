@@ -2,7 +2,7 @@ using System.Text;
 
 namespace SeaStrike.Core.Entity.Game;
 
-public class ShootResult
+public class ShotResult
 {
     public Tile tile;
     public bool hit;

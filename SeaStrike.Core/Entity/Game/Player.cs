@@ -6,7 +6,7 @@ public class Player
 
     internal Player(Board board) => this.board = board;
 
-    public ShootResult Shoot(string tileStr)
+    public ShotResult Shoot(string tileStr)
     {
         Tile tile = board.targetGrid.GetTile(tileStr);
 
@@ -15,7 +15,7 @@ public class Player
 
         tile.hasBeenHit = true;
 
-        ShootResult result = new ShootResult
+        ShotResult result = new ShotResult
         {
             tile = tile,
             hit = tile.isOccupied,

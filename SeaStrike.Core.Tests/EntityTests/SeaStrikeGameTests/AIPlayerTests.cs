@@ -8,7 +8,7 @@ namespace SeaStrike.Core.Tests.EntityTests.SeaStrikeGameTests;
 [TestFixture]
 public class AIPlayerTests
 {
-    private ShootResult result;
+    private ShotResult shotResult;
 
     [TestCaseSource(nameof(cases))]
     public void SeededShoot_ShouldChooseExpectedTile(
@@ -62,16 +62,16 @@ public class AIPlayerTests
 
         player.board.Bind(ai.board);
 
-        result = ai.Shoot();
-        result.tile.notation.Should().Be("B3");
-        result.hit.Should().BeTrue();
-        result.ship.Should().BeAssignableTo<Destroyer>();
+        shotResult = ai.Shoot();
+        shotResult.tile.notation.Should().Be("B3");
+        shotResult.hit.Should().BeTrue();
+        shotResult.ship.Should().BeAssignableTo<Destroyer>();
 
-        result = ai.Shoot();
-        result.tile.notation.Should().Be("C3");
-        result.hit.Should().BeTrue();
-        result.ship.Should().BeAssignableTo<Destroyer>();
-        result.sunk.Should().BeTrue();
+        shotResult = ai.Shoot();
+        shotResult.tile.notation.Should().Be("C3");
+        shotResult.hit.Should().BeTrue();
+        shotResult.ship.Should().BeAssignableTo<Destroyer>();
+        shotResult.sunk.Should().BeTrue();
     }
 
     [Test]
@@ -87,21 +87,21 @@ public class AIPlayerTests
 
         player.board.Bind(ai.board);
 
-        result = ai.Shoot();
-        result.tile.notation.Should().Be("B3");
-        result.hit.Should().BeTrue();
-        result.ship.Should().BeAssignableTo<Submarine>();
+        shotResult = ai.Shoot();
+        shotResult.tile.notation.Should().Be("B3");
+        shotResult.hit.Should().BeTrue();
+        shotResult.ship.Should().BeAssignableTo<Submarine>();
 
-        result = ai.Shoot();
-        result.tile.notation.Should().Be("C3");
-        result.hit.Should().BeTrue();
-        result.ship.Should().BeAssignableTo<Submarine>();
+        shotResult = ai.Shoot();
+        shotResult.tile.notation.Should().Be("C3");
+        shotResult.hit.Should().BeTrue();
+        shotResult.ship.Should().BeAssignableTo<Submarine>();
 
-        result = ai.Shoot();
-        result.tile.notation.Should().Be("D3");
-        result.hit.Should().BeTrue();
-        result.ship.Should().BeAssignableTo<Submarine>();
-        result.sunk.Should().BeTrue();
+        shotResult = ai.Shoot();
+        shotResult.tile.notation.Should().Be("D3");
+        shotResult.hit.Should().BeTrue();
+        shotResult.ship.Should().BeAssignableTo<Submarine>();
+        shotResult.sunk.Should().BeTrue();
     }
 
     [Test]
@@ -117,20 +117,20 @@ public class AIPlayerTests
 
         player.board.Bind(ai.board);
 
-        result = ai.Shoot();
-        result.tile.notation.Should().Be("B3");
-        result.hit.Should().BeTrue();
-        result.ship.Should().BeAssignableTo<Destroyer>();
+        shotResult = ai.Shoot();
+        shotResult.tile.notation.Should().Be("B3");
+        shotResult.hit.Should().BeTrue();
+        shotResult.ship.Should().BeAssignableTo<Destroyer>();
 
-        result = ai.Shoot();
-        result.tile.notation.Should().Be("C3");
-        result.hit.Should().BeFalse();
+        shotResult = ai.Shoot();
+        shotResult.tile.notation.Should().Be("C3");
+        shotResult.hit.Should().BeFalse();
 
-        result = ai.Shoot();
-        result.tile.notation.Should().Be("B4");
-        result.hit.Should().BeTrue();
-        result.ship.Should().BeAssignableTo<Destroyer>();
-        result.sunk.Should().BeTrue();
+        shotResult = ai.Shoot();
+        shotResult.tile.notation.Should().Be("B4");
+        shotResult.hit.Should().BeTrue();
+        shotResult.ship.Should().BeAssignableTo<Destroyer>();
+        shotResult.sunk.Should().BeTrue();
     }
 
     [Test]
@@ -146,34 +146,34 @@ public class AIPlayerTests
 
         player.board.Bind(ai.board);
 
-        result = ai.Shoot();
-        result.tile.notation.Should().Be("B3");
-        result.hit.Should().BeTrue();
-        result.ship.Should().BeAssignableTo<Battleship>();
+        shotResult = ai.Shoot();
+        shotResult.tile.notation.Should().Be("B3");
+        shotResult.hit.Should().BeTrue();
+        shotResult.ship.Should().BeAssignableTo<Battleship>();
 
-        result = ai.Shoot();
-        result.tile.notation.Should().Be("C3");
-        result.hit.Should().BeFalse();
+        shotResult = ai.Shoot();
+        shotResult.tile.notation.Should().Be("C3");
+        shotResult.hit.Should().BeFalse();
 
-        result = ai.Shoot();
-        result.tile.notation.Should().Be("B4");
-        result.hit.Should().BeTrue();
-        result.ship.Should().BeAssignableTo<Battleship>();
+        shotResult = ai.Shoot();
+        shotResult.tile.notation.Should().Be("B4");
+        shotResult.hit.Should().BeTrue();
+        shotResult.ship.Should().BeAssignableTo<Battleship>();
 
-        result = ai.Shoot();
-        result.tile.notation.Should().Be("B5");
-        result.hit.Should().BeFalse();
+        shotResult = ai.Shoot();
+        shotResult.tile.notation.Should().Be("B5");
+        shotResult.hit.Should().BeFalse();
 
-        result = ai.Shoot();
-        result.tile.notation.Should().Be("B2");
-        result.hit.Should().BeTrue();
-        result.ship.Should().BeAssignableTo<Battleship>();
+        shotResult = ai.Shoot();
+        shotResult.tile.notation.Should().Be("B2");
+        shotResult.hit.Should().BeTrue();
+        shotResult.ship.Should().BeAssignableTo<Battleship>();
 
-        result = ai.Shoot();
-        result.tile.notation.Should().Be("B1");
-        result.hit.Should().BeTrue();
-        result.ship.Should().BeAssignableTo<Battleship>();
-        result.sunk.Should().BeTrue();
+        shotResult = ai.Shoot();
+        shotResult.tile.notation.Should().Be("B1");
+        shotResult.hit.Should().BeTrue();
+        shotResult.ship.Should().BeAssignableTo<Battleship>();
+        shotResult.sunk.Should().BeTrue();
     }
 
     [Test]
@@ -189,19 +189,19 @@ public class AIPlayerTests
 
         player.board.Bind(ai.board);
 
-        result = ai.Shoot();
-        result.tile.notation.Should().Be("B3");
-        result.hit.Should().BeTrue();
-        result.ship.Should().BeAssignableTo<Destroyer>();
+        shotResult = ai.Shoot();
+        shotResult.tile.notation.Should().Be("B3");
+        shotResult.hit.Should().BeTrue();
+        shotResult.ship.Should().BeAssignableTo<Destroyer>();
 
-        result = ai.Shoot();
-        result.tile.notation.Should().Be("C3");
-        result.hit.Should().BeTrue();
-        result.ship.Should().BeAssignableTo<Destroyer>();
-        result.sunk.Should().BeTrue();
+        shotResult = ai.Shoot();
+        shotResult.tile.notation.Should().Be("C3");
+        shotResult.hit.Should().BeTrue();
+        shotResult.ship.Should().BeAssignableTo<Destroyer>();
+        shotResult.sunk.Should().BeTrue();
 
-        result = ai.Shoot();
-        result.tile.notation.Should().NotBe("D3");
+        shotResult = ai.Shoot();
+        shotResult.tile.notation.Should().NotBe("D3");
     }
 
     private static TestCaseData[] cases =

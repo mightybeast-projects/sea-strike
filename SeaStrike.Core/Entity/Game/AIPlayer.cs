@@ -9,8 +9,8 @@ public class AIPlayer : Player
         .Build();
 
     private readonly Random rnd;
-    private ShootResult anchor;
-    private Vector2 shootingVector = Vector2.Zero;
+    private ShotResult anchorShot;
+    private Vector2 shotVector = Vector2.Zero;
     private bool vectorizedHit;
 
     internal AIPlayer() : base(InitializeRandomizedBoard) =>
@@ -19,62 +19,55 @@ public class AIPlayer : Player
     internal AIPlayer(int seed) : base(InitializeRandomizedBoard) =>
         rnd = new Random(seed);
 
-    internal ShootResult Shoot()
+    internal ShotResult Shoot()
     {
-        ShootResult result = null;
-
-        if (shootingVector == Vector2.Zero)
-        {
-            Tile randomTile = ChooseRandomTile();
-            result = base.Shoot(randomTile.notation);
-
-            System.Console.WriteLine(randomTile);
-
-            if (result.hit)
-            {
-                anchor = result;
-                RotateShootingVector();
-                System.Console.WriteLine(anchor + " " + shootingVector.ToString());
-            }
-        }
+        if (shotVector == Vector2.Zero)
+            return ShootRandomTile();
         else
+            return ShootVectorizedTile();
+    }
+
+    private ShotResult ShootRandomTile()
+    {
+        Tile randomTile = ChooseRandomTile();
+        ShotResult shotResult = base.Shoot(randomTile.notation);
+
+        if (shotResult.hit)
         {
-            System.Console.WriteLine(anchor + " " + shootingVector.ToString());
-
-            int nextTileI = Math.Clamp(anchor.tile.i + (int)shootingVector.X,
-                0,
-                board.targetGrid.width - 1);
-            int nextTileJ = Math.Clamp(anchor.tile.j + (int)shootingVector.Y,
-                0,
-                board.targetGrid.height - 1);
-
-            Tile nextTile = board.targetGrid.tiles[nextTileI, nextTileJ];
-
-            System.Console.WriteLine("NextTile: " + nextTile);
-
-            if (nextTile.hasBeenHit)
-            {
-                RotateShootingVector();
-                return Shoot();
-            }
-
-            result = base.Shoot(nextTile.notation);
-
-            if (result.hit)
-            {
-                vectorizedHit = true;
-                IncreaseShootingVectorLength();
-            }
-            else if (!result.hit && vectorizedHit)
-                InvertShootingVector();
-            else
-                RotateShootingVector();
-
-            if (result.sunk ?? false)
-                ResetShootingBehaviour();
+            anchorShot = shotResult;
+            RotateShotVector();
         }
 
-        return result;
+        return shotResult;
+    }
+
+    private ShotResult ShootVectorizedTile()
+    {
+        Tile nextTile = ChooseNextVectorizedTile();
+
+        if (nextTile.hasBeenHit)
+        {
+            RotateShotVector();
+
+            return Shoot();
+        }
+
+        ShotResult shotResult = base.Shoot(nextTile.notation);
+
+        if (shotResult.hit)
+        {
+            vectorizedHit = true;
+            IncreaseShotVectorLength();
+        }
+        else if (!shotResult.hit && vectorizedHit)
+            InvertShotVector();
+        else
+            RotateShotVector();
+
+        if (shotResult.sunk ?? false)
+            ResetShootingBehaviour();
+
+        return shotResult;
     }
 
     private Tile ChooseRandomTile()
@@ -92,41 +85,57 @@ public class AIPlayer : Player
         return randomTile;
     }
 
-    private void IncreaseShootingVectorLength()
+    private Tile ChooseNextVectorizedTile()
     {
-        if (shootingVector.X > 0)
-            shootingVector.X++;
-        if (shootingVector.X < 0)
-            shootingVector.X--;
-        if (shootingVector.Y > 0)
-            shootingVector.Y++;
-        if (shootingVector.Y < 0)
-            shootingVector.Y--;
+        int nextTileI = Math.Clamp(
+            anchorShot.tile.i + (int)shotVector.X,
+            0,
+            board.targetGrid.width - 1
+        );
+        int nextTileJ = Math.Clamp(
+            anchorShot.tile.j + (int)shotVector.Y,
+            0,
+            board.targetGrid.height - 1
+        );
+
+        return board.targetGrid.tiles[nextTileI, nextTileJ];
     }
 
-    private void InvertShootingVector()
+    private void IncreaseShotVectorLength()
     {
-        if (ShootingVectorIsNotNormalized())
-            NormalizeShootingVector();
-
-        shootingVector *= -1;
+        if (shotVector.X > 0)
+            shotVector.X++;
+        if (shotVector.X < 0)
+            shotVector.X--;
+        if (shotVector.Y > 0)
+            shotVector.Y++;
+        if (shotVector.Y < 0)
+            shotVector.Y--;
     }
 
-    private void RotateShootingVector()
+    private void InvertShotVector()
     {
-        if (ShootingVectorIsNotNormalized())
+        if (ShotVectorIsNotNormalized())
             NormalizeShootingVector();
 
-        if (shootingVector == Vector2.Zero)
-            shootingVector = Vector2.UnitY;
-        else if (shootingVector == Vector2.UnitY)
-            shootingVector = Vector2.UnitX;
-        else if (shootingVector == Vector2.UnitX)
-            shootingVector = -Vector2.UnitY;
-        else if (shootingVector == -Vector2.UnitY)
-            shootingVector = -Vector2.UnitX;
+        shotVector *= -1;
+    }
+
+    private void RotateShotVector()
+    {
+        if (ShotVectorIsNotNormalized())
+            NormalizeShootingVector();
+
+        if (shotVector == Vector2.Zero)
+            shotVector = Vector2.UnitY;
+        else if (shotVector == Vector2.UnitY)
+            shotVector = Vector2.UnitX;
+        else if (shotVector == Vector2.UnitX)
+            shotVector = -Vector2.UnitY;
+        else if (shotVector == -Vector2.UnitY)
+            shotVector = -Vector2.UnitX;
         else
-            shootingVector = Vector2.Zero;
+            shotVector = Vector2.Zero;
     }
 
     private void NormalizeShootingVector()
@@ -134,28 +143,28 @@ public class AIPlayer : Player
         int newX = 0;
         int newY = 0;
 
-        if (shootingVector.X > 0)
+        if (shotVector.X > 0)
             newX = 1;
-        if (shootingVector.X < 0)
+        if (shotVector.X < 0)
             newX = -1;
-        if (shootingVector.Y > 0)
+        if (shotVector.Y > 0)
             newY = 1;
-        if (shootingVector.Y < 0)
+        if (shotVector.Y < 0)
             newY = -1;
 
-        shootingVector = new Vector2(newX, newY);
+        shotVector = new Vector2(newX, newY);
     }
 
     private void ResetShootingBehaviour()
     {
-        anchor = null;
-        shootingVector = Vector2.Zero;
+        anchorShot = null;
+        shotVector = Vector2.Zero;
         vectorizedHit = false;
     }
 
-    private bool ShootingVectorIsNotNormalized() =>
-        shootingVector.X > 1 ||
-        shootingVector.X < 1 ||
-        shootingVector.Y > 1 ||
-        shootingVector.Y < 1;
+    private bool ShotVectorIsNotNormalized() =>
+        shotVector.X > 1 ||
+        shotVector.X < 1 ||
+        shotVector.Y > 1 ||
+        shotVector.Y < 1;
 }

@@ -90,7 +90,7 @@ public class BattlePhaseScreen : GameScreen
     {
         string tileStr = ((TextButton)sender).Text;
 
-        ShootResult result = seaStrikeGame.HandleCurrentPlayerShot(tileStr);
+        ShotResult result = seaStrikeGame.HandleCurrentPlayerShot(tileStr);
 
         hitResultLabel.Text = result.ToString();
 
