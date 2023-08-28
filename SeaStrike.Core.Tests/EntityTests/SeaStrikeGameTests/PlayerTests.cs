@@ -2,6 +2,7 @@ using FluentAssertions;
 using NUnit.Framework;
 using SeaStrike.Core.Entity;
 using SeaStrike.Core.Entity.Game;
+using SeaStrike.Core.Entity.Game.Utility;
 
 namespace SeaStrike.Core.Tests.EntityTests.SeaStrikeGameTests;
 

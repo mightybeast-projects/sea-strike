@@ -1,4 +1,6 @@
 using System.Numerics;
+using SeaStrike.Core.Entity.Game.Utility;
+
 namespace SeaStrike.Core.Entity.Game;
 
 public class AIPlayer : Player
@@ -10,7 +12,7 @@ public class AIPlayer : Player
 
     private readonly Random rnd;
     private ShotResult anchorShot;
-    private Vector2 shotVector = Vector2.Zero;
+    private ShotVector shotVector = new ShotVector();
     private bool vectorizedHit;
 
     internal AIPlayer() : base(InitializeRandomizedBoard) =>
@@ -21,7 +23,7 @@ public class AIPlayer : Player
 
     internal ShotResult Shoot()
     {
-        if (shotVector == Vector2.Zero)
+        if (shotVector.isZero)
             return ShootRandomTile();
         else
             return ShootVectorizedTile();
@@ -35,7 +37,7 @@ public class AIPlayer : Player
         if (shotResult.hit)
         {
             anchorShot = shotResult;
-            RotateShotVector();
+            shotVector.Rotate();
         }
 
         return shotResult;
@@ -47,7 +49,7 @@ public class AIPlayer : Player
 
         if (nextTile.hasBeenHit)
         {
-            RotateShotVector();
+            shotVector.Rotate();
 
             return Shoot();
         }
@@ -57,12 +59,12 @@ public class AIPlayer : Player
         if (shotResult.hit)
         {
             vectorizedHit = true;
-            IncreaseShotVectorLength();
+            shotVector.Extend();
         }
         else if (!shotResult.hit && vectorizedHit)
-            InvertShotVector();
+            shotVector.Invert();
         else
-            RotateShotVector();
+            shotVector.Rotate();
 
         if (shotResult.sunk ?? false)
             ResetShootingBehaviour();
@@ -87,84 +89,23 @@ public class AIPlayer : Player
 
     private Tile ChooseNextVectorizedTile()
     {
+        int widthMax = board.targetGrid.width - 1;
+        int heightMax = board.targetGrid.height - 1;
+
         int nextTileI = Math.Clamp(
-            anchorShot.tile.i + (int)shotVector.X,
-            0,
-            board.targetGrid.width - 1
+            anchorShot.tile.i + shotVector.x * shotVector.length, 0, widthMax
         );
         int nextTileJ = Math.Clamp(
-            anchorShot.tile.j + (int)shotVector.Y,
-            0,
-            board.targetGrid.height - 1
+            anchorShot.tile.j + shotVector.y * shotVector.length, 0, heightMax
         );
 
         return board.targetGrid.tiles[nextTileI, nextTileJ];
     }
 
-    private void IncreaseShotVectorLength()
-    {
-        if (shotVector.X > 0)
-            shotVector.X++;
-        if (shotVector.X < 0)
-            shotVector.X--;
-        if (shotVector.Y > 0)
-            shotVector.Y++;
-        if (shotVector.Y < 0)
-            shotVector.Y--;
-    }
-
-    private void InvertShotVector()
-    {
-        if (ShotVectorIsNotNormalized())
-            NormalizeShootingVector();
-
-        shotVector *= -1;
-    }
-
-    private void RotateShotVector()
-    {
-        if (ShotVectorIsNotNormalized())
-            NormalizeShootingVector();
-
-        if (shotVector == Vector2.Zero)
-            shotVector = Vector2.UnitY;
-        else if (shotVector == Vector2.UnitY)
-            shotVector = Vector2.UnitX;
-        else if (shotVector == Vector2.UnitX)
-            shotVector = -Vector2.UnitY;
-        else if (shotVector == -Vector2.UnitY)
-            shotVector = -Vector2.UnitX;
-        else
-            shotVector = Vector2.Zero;
-    }
-
-    private void NormalizeShootingVector()
-    {
-        int newX = 0;
-        int newY = 0;
-
-        if (shotVector.X > 0)
-            newX = 1;
-        if (shotVector.X < 0)
-            newX = -1;
-        if (shotVector.Y > 0)
-            newY = 1;
-        if (shotVector.Y < 0)
-            newY = -1;
-
-        shotVector = new Vector2(newX, newY);
-    }
-
     private void ResetShootingBehaviour()
     {
         anchorShot = null;
-        shotVector = Vector2.Zero;
+        shotVector = new ShotVector();
         vectorizedHit = false;
     }
-
-    private bool ShotVectorIsNotNormalized() =>
-        shotVector.X > 1 ||
-        shotVector.X < 1 ||
-        shotVector.Y > 1 ||
-        shotVector.Y < 1;
 }

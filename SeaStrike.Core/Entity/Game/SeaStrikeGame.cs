@@ -1,3 +1,5 @@
+using SeaStrike.Core.Entity.Game.Utility;
+
 namespace SeaStrike.Core.Entity.Game;
 
 public class SeaStrikeGame
