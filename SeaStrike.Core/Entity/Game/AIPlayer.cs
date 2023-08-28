@@ -97,13 +97,13 @@ public class AIPlayer : Player
     private void SwitchShootingVector()
     {
         if (shootingVector == Vector2.Zero)
-            shootingVector = new Vector2(0, 1);
-        else if (shootingVector == new Vector2(0, 1))
-            shootingVector = new Vector2(1, 0);
-        else if (shootingVector == new Vector2(1, 0))
-            shootingVector = new Vector2(0, -1);
-        else if (shootingVector == new Vector2(0, -1))
-            shootingVector = new Vector2(-1, 0);
+            shootingVector = Vector2.UnitY;
+        else if (shootingVector == Vector2.UnitY)
+            shootingVector = Vector2.UnitX;
+        else if (shootingVector == Vector2.UnitX)
+            shootingVector = -Vector2.UnitY;
+        else if (shootingVector == -Vector2.UnitY)
+            shootingVector = -Vector2.UnitX;
         else
             shootingVector = Vector2.Zero;
     }

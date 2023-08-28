@@ -8,6 +8,8 @@ namespace SeaStrike.Core.Tests.EntityTests.SeaStrikeGameTests;
 [TestFixture]
 public class AIPlayerTests
 {
+    private ShootResult result;
+
     [TestCaseSource(nameof(cases))]
     public void SeededShoot_ShouldChooseExpectedTile(
         int seed,
@@ -23,31 +25,6 @@ public class AIPlayerTests
         player.board.Bind(ai.board);
 
         ai.Shoot().tile.notation.Should().Be(expectedTileStr);
-    }
-
-    [Test]
-    public void SeededShotSequence_ShouldChooseExpectedTiles()
-    {
-        Board playerBoard = new BoardBuilder()
-            .AddVerticalShip(new Destroyer())
-                .AtPosition("B3")
-            .Build();
-
-        Player player = new Player(playerBoard);
-        AIPlayer ai = new AIPlayer(001);
-
-        player.board.Bind(ai.board);
-
-        ShootResult firstShot = ai.Shoot();
-        firstShot.tile.notation.Should().Be("B3");
-        firstShot.hit.Should().BeTrue();
-        firstShot.ship.Should().BeAssignableTo<Destroyer>();
-
-        ShootResult secondShot = ai.Shoot();
-        secondShot.tile.notation.Should().Be("C3");
-        secondShot.hit.Should().BeTrue();
-        secondShot.ship.Should().BeAssignableTo<Destroyer>();
-        secondShot.sunk.Should().BeTrue();
     }
 
     [Test]
@@ -70,6 +47,90 @@ public class AIPlayerTests
         for (int i = 0; i < playerTiles.GetLength(0); i++)
             for (int j = 0; j < playerTiles.GetLength(1); j++)
                 playerTiles[i, j].hasBeenHit.Should().BeTrue();
+    }
+
+    [Test]
+    public void AIPlayer_ShouldChooseShootingVector()
+    {
+        Board playerBoard = new BoardBuilder()
+            .AddVerticalShip(new Destroyer())
+                .AtPosition("B3")
+            .Build();
+
+        Player player = new Player(playerBoard);
+        AIPlayer ai = new AIPlayer(001);
+
+        player.board.Bind(ai.board);
+
+        result = ai.Shoot();
+        result.tile.notation.Should().Be("B3");
+        result.hit.Should().BeTrue();
+        result.ship.Should().BeAssignableTo<Destroyer>();
+
+        result = ai.Shoot();
+        result.tile.notation.Should().Be("C3");
+        result.hit.Should().BeTrue();
+        result.ship.Should().BeAssignableTo<Destroyer>();
+        result.sunk.Should().BeTrue();
+    }
+
+    [Test]
+    public void AIPlayer_ShouldIncreaseShootingVectorLength()
+    {
+        Board playerBoard = new BoardBuilder()
+            .AddVerticalShip(new Submarine())
+                .AtPosition("B3")
+            .Build();
+
+        Player player = new Player(playerBoard);
+        AIPlayer ai = new AIPlayer(001);
+
+        player.board.Bind(ai.board);
+
+        result = ai.Shoot();
+        result.tile.notation.Should().Be("B3");
+        result.hit.Should().BeTrue();
+        result.ship.Should().BeAssignableTo<Submarine>();
+
+        result = ai.Shoot();
+        result.tile.notation.Should().Be("C3");
+        result.hit.Should().BeTrue();
+        result.ship.Should().BeAssignableTo<Submarine>();
+
+        result = ai.Shoot();
+        result.tile.notation.Should().Be("D3");
+        result.hit.Should().BeTrue();
+        result.ship.Should().BeAssignableTo<Submarine>();
+        result.sunk.Should().BeTrue();
+    }
+
+    [Test]
+    public void AIPlayer_ShouldRotateShootingVector_OnMiss()
+    {
+        Board playerBoard = new BoardBuilder()
+            .AddHorizontalShip(new Destroyer())
+                .AtPosition("B3")
+            .Build();
+
+        Player player = new Player(playerBoard);
+        AIPlayer ai = new AIPlayer(001);
+
+        player.board.Bind(ai.board);
+
+        result = ai.Shoot();
+        result.tile.notation.Should().Be("B3");
+        result.hit.Should().BeTrue();
+        result.ship.Should().BeAssignableTo<Destroyer>();
+
+        result = ai.Shoot();
+        result.tile.notation.Should().Be("C3");
+        result.hit.Should().BeFalse();
+
+        result = ai.Shoot();
+        result.tile.notation.Should().Be("B4");
+        result.hit.Should().BeTrue();
+        result.ship.Should().BeAssignableTo<Destroyer>();
+        result.sunk.Should().BeTrue();
     }
 
     private static TestCaseData[] cases =
