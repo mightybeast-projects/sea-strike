@@ -35,10 +35,10 @@ public class BattlePhaseScreen : GameScreen
 
         mainGrid.RowsProportions.Add(new Proportion(ProportionType.Auto));
 
-        AddPhaseLabel();
-        AddHelpButton();
-        AddPlayerBattleGridPanel();
-        AddOpponentOceanGridPanel();
+        mainGrid.Widgets.Add(PhaseLabel);
+        mainGrid.Widgets.Add(HelpButton);
+        mainGrid.Widgets.Add(PlayerBattleGridPanel);
+        mainGrid.Widgets.Add(OpponentBattleGridPanel);
 
         game.desktop.Root = mainGrid;
     }
@@ -47,41 +47,34 @@ public class BattlePhaseScreen : GameScreen
 
     public override void Update(GameTime gameTime) { }
 
-    private void AddPhaseLabel()
+    private Label PhaseLabel => new Label()
     {
-        mainGrid.Widgets.Add(new Label()
-        {
-            Text = SeaStrike.stringStorage.battlePhaseScreenTitle,
-            TextColor = Color.LawnGreen,
-            Font = SeaStrike.fontSystem.GetFont(40),
-            HorizontalAlignment = HorizontalAlignment.Center,
-            GridColumnSpan = 2
-        });
-    }
+        Text = SeaStrike.stringStorage.battlePhaseScreenTitle,
+        TextColor = Color.LawnGreen,
+        Font = SeaStrike.fontSystem.GetFont(40),
+        HorizontalAlignment = HorizontalAlignment.Center,
+        GridColumnSpan = 2
+    };
 
-    private void AddHelpButton()
+    private HelpButton HelpButton => new HelpButton(game)
     {
-        mainGrid.Widgets.Add(new HelpButton(game)
-        {
-            GridColumn = 1,
-            HorizontalAlignment = HorizontalAlignment.Right,
-            VerticalAlignment = VerticalAlignment.Top,
-            helpWindowContent = SeaStrike.stringStorage.bpHelpWindowContent
-        });
-    }
+        GridColumn = 1,
+        HorizontalAlignment = HorizontalAlignment.Right,
+        VerticalAlignment = VerticalAlignment.Top,
+        helpWindowContent = SeaStrike.stringStorage.bpHelpWindowContent
+    };
 
-    private void AddPlayerBattleGridPanel() =>
-        mainGrid.Widgets.Add(new PlayerBattleGridPanel(playerBoard));
-
-    private void AddOpponentOceanGridPanel()
-    {
-        mainGrid.Widgets.Add(new OpponentBattleGridPanel(
-            game,
-            seaStrikeGame,
-            playerBoard.opponentBoard
-        )
+    private PlayerBattleGridPanel PlayerBattleGridPanel =>
+        new PlayerBattleGridPanel(playerBoard)
         {
+            GridRow = 1
+        };
+
+    private OpponentBattleGridPanel OpponentBattleGridPanel =>
+        new OpponentBattleGridPanel(
+            game, seaStrikeGame, playerBoard.opponentBoard)
+        {
+            GridRow = 1,
             GridColumn = 1
-        });
-    }
+        };
 }

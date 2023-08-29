@@ -14,7 +14,6 @@ public abstract class BattleGridPanel : VerticalStackPanel
 
     public void Initialize()
     {
-        GridRow = 1;
         Spacing = 10;
 
         Widgets.Add(new Label()
