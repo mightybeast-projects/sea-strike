@@ -1,4 +1,3 @@
-using System.Text;
 using Microsoft.Xna.Framework;
 using MonoGame.Extended.Screens;
 using Myra.Graphics2D.UI;
@@ -71,14 +70,9 @@ public class BattlePhaseScreen : GameScreen
             VerticalAlignment = VerticalAlignment.Top
         };
 
-        string[] helpWindowContent = SeaStrike.stringStorage.helpWindowContent;
-        StringBuilder builder = new StringBuilder();
-        foreach (string str in helpWindowContent)
-            builder.Append(str);
-
-        string helpContent = builder.ToString();
+        string[] helpWindowContent = SeaStrike.stringStorage.bpHelpWindowContent;
         helpButton.TouchUp += (s, a) =>
-            new HelpWindow(helpContent).ShowModal(game.desktop);
+            new HelpWindow(helpWindowContent).ShowModal(game.desktop);
 
         mainGrid.Widgets.Add(helpButton);
     }

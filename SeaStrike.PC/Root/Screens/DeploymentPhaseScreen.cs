@@ -1,11 +1,9 @@
-using System.Text;
 using Microsoft.Xna.Framework;
 using MonoGame.Extended.Screens;
 using Myra.Graphics2D.UI;
 using SeaStrike.Core.Entity;
 using SeaStrike.PC.Root.Widgets;
 using Grid = Myra.Graphics2D.UI.Grid;
-using GameWindow = SeaStrike.PC.Root.Widgets.GameWindow;
 
 namespace SeaStrike.PC.Root.Screens;
 
@@ -56,7 +54,7 @@ public class DeploymentPhaseScreen : GameScreen
     {
         TextButton backButton = new GameButton()
         {
-            Text = "<=",
+            Text = SeaStrike.stringStorage.backButtonLabel,
             Width = 40,
             Height = 40,
             HorizontalAlignment = HorizontalAlignment.Left,
@@ -72,7 +70,7 @@ public class DeploymentPhaseScreen : GameScreen
     {
         mainGrid.Widgets.Add(new Label()
         {
-            Text = "Deployment phase",
+            Text = SeaStrike.stringStorage.deploymentPhaseScreenTitle,
             TextColor = Color.LawnGreen,
             Font = SeaStrike.fontSystem.GetFont(40),
             HorizontalAlignment = HorizontalAlignment.Center
@@ -83,20 +81,14 @@ public class DeploymentPhaseScreen : GameScreen
     {
         TextButton helpButton = new GameButton()
         {
-            Text = "?",
+            Text = SeaStrike.stringStorage.helpButtonLabel,
             Width = 40,
             Height = 40,
             HorizontalAlignment = HorizontalAlignment.Right,
             VerticalAlignment = VerticalAlignment.Top
         };
 
-        StringBuilder str = new StringBuilder();
-        str.AppendLine("Place all 5 ships on the grid.");
-        str.AppendLine("Choose and click on the tile you wish to place your ship to.");
-        str.AppendLine("Click on already placed ship to remove it from the grid.");
-        str.Append("You can start game once all 5 ships has been placed.");
-
-        string helpContent = str.ToString();
+        string[] helpContent = SeaStrike.stringStorage.dpHelpWindowContent;
         helpButton.TouchUp += (s, a) =>
             new HelpWindow(helpContent).ShowModal(game.desktop);
 
@@ -126,7 +118,7 @@ public class DeploymentPhaseScreen : GameScreen
         startGameButton = new GameButton()
         {
             Top = -10,
-            Text = "Start game",
+            Text = SeaStrike.stringStorage.startGameButtonLabel,
             Visible = false,
             GridRow = 1,
             HorizontalAlignment = HorizontalAlignment.Center,
