@@ -93,6 +93,7 @@ public class DeploymentPhaseScreen : GameScreen
         StringBuilder str = new StringBuilder();
         str.AppendLine("Place all 5 ships on the grid.");
         str.AppendLine("Choose and click on the tile you wish to place your ship to.");
+        str.AppendLine("Click on already placed ship to remove it from the grid.");
         str.Append("You can start game once all 5 ships has been placed.");
 
         string helpContent = str.ToString();

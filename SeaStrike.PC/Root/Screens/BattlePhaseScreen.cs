@@ -72,8 +72,8 @@ public class BattlePhaseScreen : GameScreen
         };
 
         StringBuilder str = new StringBuilder();
-        str.AppendLine("Sunk your opponent ships to win the game.");
-        str.Append("Choose and click on the tile you wish to shoot at.");
+        str.AppendLine("Sink your opponent ships to win the game.");
+        str.Append("Choose and click on the tile of your opponent's grid you wish to shoot at.");
 
         string helpContent = str.ToString();
         helpButton.TouchUp += (s, a) =>
