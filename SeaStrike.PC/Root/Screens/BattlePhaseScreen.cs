@@ -1,3 +1,4 @@
+using System;
 using Microsoft.Xna.Framework;
 using MonoGame.Extended.Screens;
 using Myra.Graphics2D.UI;
@@ -5,6 +6,7 @@ using SeaStrike.Core.Entity;
 using SeaStrike.Core.Entity.Game;
 using SeaStrike.Core.Entity.Game.Utility;
 using SeaStrike.PC.Root.Widgets;
+using SeaStrike.PC.Root.Widgets.BattleGrid;
 using Grid = Myra.Graphics2D.UI.Grid;
 
 namespace SeaStrike.PC.Root.Screens;
@@ -15,7 +17,6 @@ public class BattlePhaseScreen : GameScreen
     private readonly SeaStrikeGame seaStrikeGame;
     private readonly Board playerBoard;
     private Grid mainGrid;
-    private Label hitResultLabel;
 
     public BattlePhaseScreen(SeaStrike game, Board playerBoard)
         : base(game)
@@ -36,7 +37,7 @@ public class BattlePhaseScreen : GameScreen
 
         AddPhaseLabel();
         AddHelpButton();
-        AddPlayerOceanGridPanel();
+        AddPlayerBattleGridPanel();
         AddOpponentOceanGridPanel();
 
         game.desktop.Root = mainGrid;
@@ -69,68 +70,18 @@ public class BattlePhaseScreen : GameScreen
         });
     }
 
-    private void AddPlayerOceanGridPanel() =>
-        mainGrid.Widgets.Add(new BattleGridPanel()
-            .SetGridLabel(SeaStrike.stringStorage.playerOceanGridLabel)
-            .SetPlayerBoard(playerBoard)
-            .SetShowShips(true)
-            .Build());
+    private void AddPlayerBattleGridPanel() =>
+        mainGrid.Widgets.Add(new PlayerBattleGridPanel(playerBoard));
 
     private void AddOpponentOceanGridPanel()
     {
-        BattleGridPanel battleGridPanel = new BattleGridPanel()
-            .SetGridLabel(SeaStrike.stringStorage.opponentOceanGridLabel)
-            .SetPlayerBoard(playerBoard.opponentBoard)
-            .SetShowShips(false)
-            .AddOnEmptyTileClickedAction(ShootTile)
-            .AddOnEmptyTileClickedAction(MakeAIPlayerShoot)
-            .Build();
-
-        battleGridPanel.GridColumn = 1;
-
-        hitResultLabel = new Label()
+        mainGrid.Widgets.Add(new OpponentBattleGridPanel(
+            game,
+            seaStrikeGame,
+            playerBoard.opponentBoard
+        )
         {
-            Font = SeaStrike.fontSystem.GetFont(28),
-            TextColor = Color.LawnGreen,
-            HorizontalAlignment = HorizontalAlignment.Center,
-        };
-        battleGridPanel.Widgets.Add(hitResultLabel);
-
-        mainGrid.Widgets.Add(battleGridPanel);
+            GridColumn = 1
+        });
     }
-
-    private void ShootTile(object sender)
-    {
-        string tileStr = ((TextButton)sender).Text;
-
-        ShotResult result = seaStrikeGame.HandleCurrentPlayerShot(tileStr);
-
-        hitResultLabel.Text = result.ToString();
-
-        if (seaStrikeGame.isOver)
-            ShowVictoryScreen();
-    }
-
-    private void MakeAIPlayerShoot(object sender)
-    {
-        if (seaStrikeGame.isOver)
-            return;
-
-        seaStrikeGame.HandleAIPlayerShot();
-
-        if (seaStrikeGame.isOver)
-            ShowLostScreen();
-    }
-
-    private void ShowVictoryScreen() => new GameOverWindow(game)
-    {
-        Title = SeaStrike.stringStorage.victoryScreenTitle,
-        TitleTextColor = Color.LawnGreen
-    }.ShowModal(game.desktop);
-
-    private void ShowLostScreen() => new GameOverWindow(game)
-    {
-        Title = SeaStrike.stringStorage.loseScreenTitle,
-        TitleTextColor = Color.Red
-    }.ShowModal(game.desktop);
 }
