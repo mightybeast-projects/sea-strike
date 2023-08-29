@@ -19,6 +19,5 @@ public class GameOverWindow : GameWindow
             game.screenManager.LoadScreen(new MainMenuScreen(game));
 
         Content = restartButton;
-        ShowModal(game.desktop);
     }
 }

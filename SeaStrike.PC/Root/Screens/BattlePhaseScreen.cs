@@ -126,11 +126,11 @@ public class BattlePhaseScreen : GameScreen
     {
         Title = SeaStrike.stringStorage.victoryScreenTitle,
         TitleTextColor = Color.LawnGreen
-    };
+    }.ShowModal(game.desktop);
 
     private void ShowLostScreen() => new GameOverWindow(game)
     {
         Title = SeaStrike.stringStorage.loseScreenTitle,
         TitleTextColor = Color.Red
-    };
+    }.ShowModal(game.desktop);
 }

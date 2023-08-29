@@ -54,16 +54,8 @@ public class GridPanel : Panel, IBoardObserver
     {
         for (int i = 0; i < oceanGrid.width + 1; i++)
         {
-            uiGrid.RowsProportions.Add(new Proportion()
-            {
-                Type = ProportionType.Pixels,
-                Value = (float)Width / (oceanGrid.width + 1)
-            });
-            uiGrid.ColumnsProportions.Add(new Proportion()
-            {
-                Type = ProportionType.Pixels,
-                Value = (float)Height / (oceanGrid.height + 1)
-            });
+            uiGrid.RowsProportions.Add(WidthProportion);
+            uiGrid.ColumnsProportions.Add(HeightProportion);
         }
     }
 
@@ -141,4 +133,16 @@ public class GridPanel : Panel, IBoardObserver
 
         uiGrid.Widgets.Add(tileButton);
     }
+
+    private Proportion WidthProportion => new Proportion()
+    {
+        Type = ProportionType.Pixels,
+        Value = (float)Width / (oceanGrid.width + 1)
+    };
+
+    private Proportion HeightProportion => new Proportion()
+    {
+        Type = ProportionType.Pixels,
+        Value = (float)Height / (oceanGrid.height + 1)
+    };
 }
