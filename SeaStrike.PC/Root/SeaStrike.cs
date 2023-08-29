@@ -73,7 +73,7 @@ public class SeaStrike : Game
         Stylesheet ss = Stylesheet.Current;
 
         ss.WindowStyle.CloseButtonStyle.Border = new SolidBrush(Color.Red);
-        ss.WindowStyle.CloseButtonStyle.BorderThickness = new Thickness(1);
+        ss.WindowStyle.CloseButtonStyle.BorderThickness = new Thickness(2);
         ss.ComboBoxStyle.LabelStyle.Font = fontSystem.GetFont(24);
         ss.ComboBoxStyle.LabelStyle.Padding = new Thickness(5, 0);
 

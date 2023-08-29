@@ -19,5 +19,6 @@ public class HelpWindow : GameWindow
         panel.Widgets.Add(helpLabel);
 
         Content = panel;
+        DragHandle = null;
     }
 }

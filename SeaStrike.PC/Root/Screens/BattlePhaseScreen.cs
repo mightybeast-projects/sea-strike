@@ -1,3 +1,4 @@
+using System.Text;
 using Microsoft.Xna.Framework;
 using MonoGame.Extended.Screens;
 using Myra.Graphics2D.UI;
@@ -35,6 +36,7 @@ public class BattlePhaseScreen : GameScreen
         mainGrid.RowsProportions.Add(new Proportion(ProportionType.Auto));
 
         AddPhaseLabel();
+        AddHelpButton();
         AddPlayerOceanGridPanel();
         AddOpponentOceanGridPanel();
 
@@ -55,6 +57,29 @@ public class BattlePhaseScreen : GameScreen
             HorizontalAlignment = HorizontalAlignment.Center,
             GridColumnSpan = 2
         });
+    }
+
+    private void AddHelpButton()
+    {
+        TextButton helpButton = new GameButton()
+        {
+            Text = "?",
+            Width = 40,
+            Height = 40,
+            GridColumn = 1,
+            HorizontalAlignment = HorizontalAlignment.Right,
+            VerticalAlignment = VerticalAlignment.Top
+        };
+
+        StringBuilder str = new StringBuilder();
+        str.AppendLine("Sunk your opponent ships to win the game.");
+        str.Append("Choose and click on the tile you wish to shoot at.");
+
+        string helpContent = str.ToString();
+        helpButton.TouchUp += (s, a) =>
+            new HelpWindow(helpContent).ShowModal(game.desktop);
+
+        mainGrid.Widgets.Add(helpButton);
     }
 
     private void AddPlayerOceanGridPanel() =>
