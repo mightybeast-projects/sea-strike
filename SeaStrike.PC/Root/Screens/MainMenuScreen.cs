@@ -1,5 +1,4 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended.Screens;
 using Myra.Graphics2D.UI;
 using SeaStrike.PC.Root.Widgets;
@@ -29,7 +28,7 @@ public class MainMenuScreen : GameScreen
     {
         mainPanel.Widgets.Add(new Label()
         {
-            Text = "SEA STRIKE",
+            Text = SeaStrike.stringStorage.gameTitle,
             TextColor = Color.LawnGreen,
             Font = SeaStrike.fontSystem.GetFont(56),
             HorizontalAlignment = HorizontalAlignment.Center,
@@ -49,7 +48,7 @@ public class MainMenuScreen : GameScreen
 
         panel.Widgets.Add(new Label()
         {
-            Text = "Choose game mode :",
+            Text = SeaStrike.stringStorage.gameModeLabel,
             Font = SeaStrike.fontSystem.GetFont(30),
             TextColor = Color.LawnGreen,
             HorizontalAlignment = HorizontalAlignment.Center
@@ -57,7 +56,7 @@ public class MainMenuScreen : GameScreen
 
         GameButton singlePlayerButton = new GameButton()
         {
-            Text = "Single player"
+            Text = SeaStrike.stringStorage.singlePlayerButtonLabel
         };
         singlePlayerButton.TouchUp += (s, a) =>
             game.screenManager.LoadScreen(new DeploymentPhaseScreen(game));
@@ -66,7 +65,7 @@ public class MainMenuScreen : GameScreen
 
         GameButton multiplayerButton = new GameButton()
         {
-            Text = "Local multiplayer"
+            Text = SeaStrike.stringStorage.multiplayerButonLabel
         };
 
         panel.Widgets.Add(multiplayerButton);

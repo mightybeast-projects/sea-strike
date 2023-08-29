@@ -7,7 +7,13 @@ public class StringStorage
     public string fontPath = "SeaStrike.PC/Content/Font/Tektur.ttf";
     public string errorWindowTitle = "Error";
 
-    //Deployment phase screen
+    //Main menu screen strings
+    public string gameTitle = "SEA STRIKE";
+    public string gameModeLabel = "Choose game mode :";
+    public string singlePlayerButtonLabel = "Single player";
+    public string multiplayerButonLabel = "Local multiplayer";
+
+    //Deployment phase screen strings
     public string backButtonLabel = "<=";
     public string deploymentPhaseScreenTitle = "Deployment phase";
     public string[] dpHelpWindowContent = new[]
