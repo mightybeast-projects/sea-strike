@@ -16,6 +16,7 @@ namespace SeaStrike.PC.Root;
 public class SeaStrike : Game
 {
     internal static FontSystem fontSystem;
+    internal static StringStorage stringStorage = new StringStorage();
     internal Desktop desktop;
     internal ScreenManager screenManager;
 
@@ -26,7 +27,7 @@ public class SeaStrike : Game
         graphics = new GraphicsDeviceManager(this);
         screenManager = new ScreenManager();
 
-        Content.RootDirectory = "Content";
+        Content.RootDirectory = stringStorage.contentPath;
         IsMouseVisible = true;
         MyraEnvironment.Game = this;
 
@@ -62,7 +63,7 @@ public class SeaStrike : Game
 
     private void InitializeFontSystem()
     {
-        string path = "SeaStrike.PC/Content/Font/Tektur.ttf";
+        string path = stringStorage.fontPath;
         byte[] ttf = File.ReadAllBytes(path);
         fontSystem = new FontSystem();
         fontSystem.AddFont(ttf);
@@ -84,8 +85,10 @@ public class SeaStrike : Game
 
     private void ShowErrorDialog(Exception e)
     {
-        Dialog errorDialog = Dialog.CreateMessageBox("Error",
-            e.Message + " " + e.StackTrace);
+        Dialog errorDialog =
+            Dialog.CreateMessageBox(
+                stringStorage.errorWindowTitle,
+                e.Message + " " + e.StackTrace);
         errorDialog.Background = new SolidBrush(Color.Black);
         errorDialog.Border = new SolidBrush(Color.Red);
         errorDialog.BorderThickness = new Thickness(1);

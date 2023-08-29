@@ -51,7 +51,7 @@ public class BattlePhaseScreen : GameScreen
     {
         mainGrid.Widgets.Add(new Label()
         {
-            Text = "Battle phase",
+            Text = SeaStrike.stringStorage.battlePhaseScreenTitle,
             TextColor = Color.LawnGreen,
             Font = SeaStrike.fontSystem.GetFont(40),
             HorizontalAlignment = HorizontalAlignment.Center,
@@ -63,7 +63,7 @@ public class BattlePhaseScreen : GameScreen
     {
         TextButton helpButton = new GameButton()
         {
-            Text = "?",
+            Text = SeaStrike.stringStorage.helpButtonLabel,
             Width = 40,
             Height = 40,
             GridColumn = 1,
@@ -71,11 +71,12 @@ public class BattlePhaseScreen : GameScreen
             VerticalAlignment = VerticalAlignment.Top
         };
 
-        StringBuilder str = new StringBuilder();
-        str.AppendLine("Sink your opponent ships to win the game.");
-        str.Append("Choose and click on the tile of your opponent's grid you wish to shoot at.");
+        string[] helpWindowContent = SeaStrike.stringStorage.helpWindowContent;
+        StringBuilder builder = new StringBuilder();
+        foreach (string str in helpWindowContent)
+            builder.Append(str);
 
-        string helpContent = str.ToString();
+        string helpContent = builder.ToString();
         helpButton.TouchUp += (s, a) =>
             new HelpWindow(helpContent).ShowModal(game.desktop);
 
@@ -84,7 +85,7 @@ public class BattlePhaseScreen : GameScreen
 
     private void AddPlayerOceanGridPanel() =>
         mainGrid.Widgets.Add(new BattleGridPanel()
-            .SetGridLabel("Your's ocean grid : ")
+            .SetGridLabel(SeaStrike.stringStorage.playerOceanGridLabel)
             .SetPlayerBoard(playerBoard)
             .SetShowShips(true)
             .Build());
@@ -92,7 +93,7 @@ public class BattlePhaseScreen : GameScreen
     private void AddOpponentOceanGridPanel()
     {
         BattleGridPanel battleGridPanel = new BattleGridPanel()
-            .SetGridLabel("Opponent's ocean grid : ")
+            .SetGridLabel(SeaStrike.stringStorage.opponentOceanGridLabel)
             .SetPlayerBoard(playerBoard.opponentBoard)
             .SetShowShips(false)
             .AddOnEmptyTileClickedAction(ShootTile)
@@ -137,13 +138,13 @@ public class BattlePhaseScreen : GameScreen
 
     private void ShowVictoryScreen() => new GameOverWindow(game)
     {
-        Title = "You won!",
+        Title = SeaStrike.stringStorage.victoryScreenTitle,
         TitleTextColor = Color.LawnGreen
     };
 
     private void ShowLostScreen() => new GameOverWindow(game)
     {
-        Title = "You lost!",
+        Title = SeaStrike.stringStorage.loseScreenTitle,
         TitleTextColor = Color.Red
     };
 }
