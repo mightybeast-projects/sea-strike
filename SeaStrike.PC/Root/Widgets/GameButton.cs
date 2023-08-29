@@ -13,7 +13,7 @@ public class GameButton : TextButton
         Background = new SolidBrush(Color.Black);
         Font = SeaStrike.fontSystem.GetFont(24);
         Border = new SolidBrush(Color.LawnGreen);
-        BorderThickness = new Thickness(1);
+        BorderThickness = new Thickness(2);
         PressedBackground = new SolidBrush(Color.DarkGreen);
         Padding = new Thickness(5, 0);
     }

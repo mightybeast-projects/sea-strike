@@ -1,9 +1,11 @@
+using System.Text;
 using Microsoft.Xna.Framework;
 using MonoGame.Extended.Screens;
 using Myra.Graphics2D.UI;
 using SeaStrike.Core.Entity;
 using SeaStrike.PC.Root.Widgets;
 using Grid = Myra.Graphics2D.UI.Grid;
+using GameWindow = SeaStrike.PC.Root.Widgets.GameWindow;
 
 namespace SeaStrike.PC.Root.Screens;
 
@@ -32,6 +34,7 @@ public class DeploymentPhaseScreen : GameScreen
 
         AddBackButton();
         AddPhaseLabel();
+        AddHelpButton();
         AddGridButtonsPanel();
         AddOceanGridPanel();
         AddStartGameButton();
@@ -74,6 +77,29 @@ public class DeploymentPhaseScreen : GameScreen
             Font = SeaStrike.fontSystem.GetFont(40),
             HorizontalAlignment = HorizontalAlignment.Center
         });
+    }
+
+    private void AddHelpButton()
+    {
+        TextButton helpButton = new GameButton()
+        {
+            Text = "?",
+            Width = 40,
+            Height = 40,
+            HorizontalAlignment = HorizontalAlignment.Right,
+            VerticalAlignment = VerticalAlignment.Top
+        };
+
+        StringBuilder str = new StringBuilder();
+        str.AppendLine("Place all 5 ships on the grid.");
+        str.AppendLine("Choose and click on the tile you wish to place your ship to.");
+        str.Append("You can start game once all 5 ships has been placed.");
+
+        string helpContent = str.ToString();
+        helpButton.TouchUp += (s, a) =>
+            new HelpWindow(helpContent).ShowModal(game.desktop);
+
+        mainGrid.Widgets.Add(helpButton);
     }
 
     private void AddGridButtonsPanel() =>
