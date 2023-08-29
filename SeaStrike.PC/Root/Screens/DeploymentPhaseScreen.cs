@@ -30,6 +30,7 @@ public class DeploymentPhaseScreen : GameScreen
 
         mainGrid.RowsProportions.Add(new Proportion(ProportionType.Auto));
 
+        AddBackButton();
         AddPhaseLabel();
         AddGridButtonsPanel();
         AddOceanGridPanel();
@@ -47,6 +48,22 @@ public class DeploymentPhaseScreen : GameScreen
     }
 
     public override void Draw(GameTime gameTime) { }
+
+    private void AddBackButton()
+    {
+        TextButton backButton = new GameButton()
+        {
+            Text = "<=",
+            Width = 40,
+            Height = 40,
+            HorizontalAlignment = HorizontalAlignment.Left,
+            VerticalAlignment = VerticalAlignment.Top
+        };
+        backButton.TouchUp += (s, a) =>
+            game.screenManager.LoadScreen(new MainMenuScreen(game));
+
+        mainGrid.Widgets.Add(backButton);
+    }
 
     private void AddPhaseLabel()
     {
