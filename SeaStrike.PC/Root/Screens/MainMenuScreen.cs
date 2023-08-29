@@ -18,60 +18,21 @@ public class MainMenuScreen : GameScreen
 
         mainPanel = new Panel();
 
-        AddTitleLabel();
-        AddGameModesPanel();
+        mainPanel.Widgets.Add(TitleLabel);
+        mainPanel.Widgets.Add(new GameModesPanel(game));
 
         game.desktop.Root = mainPanel;
     }
 
-    private void AddTitleLabel()
+    private Label TitleLabel => new Label()
     {
-        mainPanel.Widgets.Add(new Label()
-        {
-            Text = SeaStrike.stringStorage.gameTitle,
-            TextColor = Color.LawnGreen,
-            Font = SeaStrike.fontSystem.GetFont(56),
-            HorizontalAlignment = HorizontalAlignment.Center,
-            VerticalAlignment = VerticalAlignment.Top,
-            Top = 100,
-        });
-    }
-
-    private void AddGameModesPanel()
-    {
-        VerticalStackPanel panel = new VerticalStackPanel()
-        {
-            Spacing = 20,
-            Top = -100,
-            VerticalAlignment = VerticalAlignment.Bottom
-        };
-
-        panel.Widgets.Add(new Label()
-        {
-            Text = SeaStrike.stringStorage.gameModeLabel,
-            Font = SeaStrike.fontSystem.GetFont(30),
-            TextColor = Color.LawnGreen,
-            HorizontalAlignment = HorizontalAlignment.Center
-        });
-
-        GameButton singlePlayerButton = new GameButton()
-        {
-            Text = SeaStrike.stringStorage.singlePlayerButtonLabel
-        };
-        singlePlayerButton.TouchUp += (s, a) =>
-            game.screenManager.LoadScreen(new DeploymentPhaseScreen(game));
-
-        panel.Widgets.Add(singlePlayerButton);
-
-        GameButton multiplayerButton = new GameButton()
-        {
-            Text = SeaStrike.stringStorage.multiplayerButonLabel
-        };
-
-        panel.Widgets.Add(multiplayerButton);
-
-        mainPanel.Widgets.Add(panel);
-    }
+        Text = SeaStrike.stringStorage.gameTitle,
+        TextColor = Color.LawnGreen,
+        Font = SeaStrike.fontSystem.GetFont(56),
+        HorizontalAlignment = HorizontalAlignment.Center,
+        VerticalAlignment = VerticalAlignment.Top,
+        Top = 100,
+    };
 
     public override void Draw(GameTime gameTime) { }
 
