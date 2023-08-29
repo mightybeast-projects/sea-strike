@@ -15,7 +15,7 @@ public class GridButtonsPanel : HorizontalStackPanel
 
         TextButton randomizeButton = new GameButton()
         {
-            Text = "Randomize"
+            Text = SeaStrike.stringStorage.randomizeButtonString
         };
         randomizeButton.TouchUp += (s, a) =>
             boardBuilder.RandomizeShipsStartingPosition();
@@ -24,7 +24,7 @@ public class GridButtonsPanel : HorizontalStackPanel
 
         TextButton clearButton = new GameButton()
         {
-            Text = "Clear grid"
+            Text = SeaStrike.stringStorage.clearButtonString
         };
         clearButton.TouchUp += (s, a) => boardBuilder.ClearOceanGrid();
 

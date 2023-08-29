@@ -12,7 +12,7 @@ public class GameOverWindow : GameWindow
 
         TextButton restartButton = new GameButton()
         {
-            Text = "Start new game"
+            Text = SeaStrike.stringStorage.restartButtonLabel
         };
 
         restartButton.TouchUp += (s, a) =>

@@ -7,7 +7,7 @@ public class HelpWindow : GameWindow
 {
     public HelpWindow(string[] helpLabelContent)
     {
-        Title = "Help";
+        Title = SeaStrike.stringStorage.helpWindowTitle;
 
         StringBuilder builder = new StringBuilder();
         foreach (string str in helpLabelContent)

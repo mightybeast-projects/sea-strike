@@ -18,7 +18,7 @@ public class ShipAdditionWindow : GameWindow
         this.position = position;
         this.boardBuilder = boardBuilder;
 
-        Title = "Select ship properties : ";
+        Title = SeaStrike.stringStorage.shipAdditionWindowTitle;
 
         shipOptionsGrid = new Grid()
         {
@@ -38,7 +38,7 @@ public class ShipAdditionWindow : GameWindow
     {
         shipOptionsGrid.Widgets.Add(new Label()
         {
-            Text = "Selected position : " + position,
+            Text = SeaStrike.stringStorage.selectedPositionLabel + position,
             Font = SeaStrike.fontSystem.GetFont(24),
             HorizontalAlignment = HorizontalAlignment.Center,
             GridColumnSpan = 2
@@ -49,7 +49,7 @@ public class ShipAdditionWindow : GameWindow
     {
         shipOptionsGrid.Widgets.Add(new Label()
         {
-            Text = "Ship type : ",
+            Text = SeaStrike.stringStorage.shipTypeLabel,
             Font = SeaStrike.fontSystem.GetFont(24),
             GridRow = 1
         });
@@ -63,7 +63,10 @@ public class ShipAdditionWindow : GameWindow
         foreach (Ship ship in boardBuilder.shipsPool)
             shipsTypeBox.Items.Add(
                 new ListItem(ship.GetType().Name +
-                " (Width : " + ship.width + ")"));
+                    " (" +
+                    SeaStrike.stringStorage.shipWidthLabel +
+                    ship.width +
+                    ")"));
         shipsTypeBox.SelectedIndex = 0;
         shipOptionsGrid.Widgets.Add(shipsTypeBox);
     }
@@ -72,7 +75,7 @@ public class ShipAdditionWindow : GameWindow
     {
         shipOptionsGrid.Widgets.Add(new Label()
         {
-            Text = "Ship orientation : ",
+            Text = SeaStrike.stringStorage.shipOrientationLabel,
             Font = SeaStrike.fontSystem.GetFont(24),
             GridRow = 2,
         });
@@ -83,8 +86,10 @@ public class ShipAdditionWindow : GameWindow
             GridColumn = 1,
             HorizontalAlignment = HorizontalAlignment.Right
         };
-        shipOrientationBox.Items.Add(new ListItem("Horizontal"));
-        shipOrientationBox.Items.Add(new ListItem("Vertical"));
+        shipOrientationBox.Items.Add(
+            new ListItem(SeaStrike.stringStorage.horizontalLabel));
+        shipOrientationBox.Items.Add(
+            new ListItem(SeaStrike.stringStorage.vericalLabel));
         shipOrientationBox.SelectedIndex = 0;
 
         shipOptionsGrid.Widgets.Add(shipOrientationBox);
@@ -94,7 +99,7 @@ public class ShipAdditionWindow : GameWindow
     {
         GameButton createButton = new GameButton()
         {
-            Text = "Create new ship",
+            Text = SeaStrike.stringStorage.createShipButtonLabel,
             GridRow = 3,
             GridColumnSpan = 2,
             HorizontalAlignment = HorizontalAlignment.Center,
