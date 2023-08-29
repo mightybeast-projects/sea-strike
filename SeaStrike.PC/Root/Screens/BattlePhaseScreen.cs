@@ -60,21 +60,13 @@ public class BattlePhaseScreen : GameScreen
 
     private void AddHelpButton()
     {
-        TextButton helpButton = new GameButton()
+        mainGrid.Widgets.Add(new HelpButton(game)
         {
-            Text = SeaStrike.stringStorage.helpButtonLabel,
-            Width = 40,
-            Height = 40,
             GridColumn = 1,
             HorizontalAlignment = HorizontalAlignment.Right,
-            VerticalAlignment = VerticalAlignment.Top
-        };
-
-        string[] helpWindowContent = SeaStrike.stringStorage.bpHelpWindowContent;
-        helpButton.TouchUp += (s, a) =>
-            new HelpWindow(helpWindowContent).ShowModal(game.desktop);
-
-        mainGrid.Widgets.Add(helpButton);
+            VerticalAlignment = VerticalAlignment.Top,
+            helpWindowContent = SeaStrike.stringStorage.bpHelpWindowContent
+        });
     }
 
     private void AddPlayerOceanGridPanel() =>

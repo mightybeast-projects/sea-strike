@@ -79,20 +79,15 @@ public class DeploymentPhaseScreen : GameScreen
 
     private void AddHelpButton()
     {
-        TextButton helpButton = new GameButton()
+        mainGrid.Widgets.Add(new HelpButton(game)
         {
             Text = SeaStrike.stringStorage.helpButtonLabel,
             Width = 40,
             Height = 40,
             HorizontalAlignment = HorizontalAlignment.Right,
-            VerticalAlignment = VerticalAlignment.Top
-        };
-
-        string[] helpContent = SeaStrike.stringStorage.dpHelpWindowContent;
-        helpButton.TouchUp += (s, a) =>
-            new HelpWindow(helpContent).ShowModal(game.desktop);
-
-        mainGrid.Widgets.Add(helpButton);
+            VerticalAlignment = VerticalAlignment.Top,
+            helpWindowContent = SeaStrike.stringStorage.dpHelpWindowContent
+        });
     }
 
     private void AddGridButtonsPanel() =>
