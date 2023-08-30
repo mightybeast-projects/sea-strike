@@ -19,7 +19,7 @@ public class MainMenuScreen : GameScreen
         mainPanel = new Panel();
 
         mainPanel.Widgets.Add(TitleLabel);
-        mainPanel.Widgets.Add(new GameModesPanel(game));
+        mainPanel.Widgets.Add(GameModesPanel);
 
         game.desktop.Root = mainPanel;
     }
@@ -33,6 +33,8 @@ public class MainMenuScreen : GameScreen
         VerticalAlignment = VerticalAlignment.Top,
         Top = 100,
     };
+
+    private GameModesPanel GameModesPanel => new GameModesPanel(game);
 
     public override void Draw(GameTime gameTime) { }
 

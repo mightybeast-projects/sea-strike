@@ -110,18 +110,14 @@ public class DeploymentPhaseScreen : GameScreen
 
     private void AddStartGameButton()
     {
-        startGameButton = new GameButton()
+        startGameButton = new StartGameButton(game, boardBuilder)
         {
             Top = -10,
-            Text = SeaStrike.stringStorage.startGameButtonLabel,
             Visible = false,
             GridRow = 1,
             HorizontalAlignment = HorizontalAlignment.Center,
             VerticalAlignment = VerticalAlignment.Bottom
         };
-        startGameButton.TouchUp += (s, a) =>
-            game.screenManager.LoadScreen(
-                new BattlePhaseScreen(game, boardBuilder.Build()));
 
         mainGrid.Widgets.Add(startGameButton);
     }
