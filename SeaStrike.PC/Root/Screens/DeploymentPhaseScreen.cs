@@ -116,7 +116,7 @@ public class DeploymentPhaseScreen : GameScreen
     }
 
     private void RemoveShip(object obj) =>
-        ((AllyShipGridTileButton)obj).RemoveShip(boardBuilder);
+        boardBuilder.RemoveShipAt(((AllyShipGridTileButton)obj).tile.notation);
 
     private void UpdateStartButtonVisibility() =>
         mainGrid.Widgets.Last().Visible =

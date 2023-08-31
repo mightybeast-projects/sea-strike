@@ -10,7 +10,4 @@ public class AllyShipGridTileButton : GridTileButton
 
     public AllyShipGridTileButton(Tile tile, Action<object> onClick)
         : base(tile, onClick) { }
-
-    public void RemoveShip(BoardBuilder builder) =>
-        builder.RemoveShipAt(tile.notation);
 }
