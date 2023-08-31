@@ -4,6 +4,7 @@ using Myra.Graphics2D.UI;
 using SeaStrike.Core.Entity;
 using SeaStrike.Core.Entity.Game;
 using SeaStrike.Core.Entity.Game.Utility;
+using SeaStrike.PC.Root.Widgets.GridTile;
 
 namespace SeaStrike.PC.Root.Widgets.BattleGrid;
 
@@ -40,7 +41,7 @@ public class OpponentBattleGridPanel : BattleGridPanel
 
     private void ShootTile(object sender)
     {
-        string tileStr = ((TextButton)sender).Text;
+        string tileStr = ((EmptyGridTileButton)sender).tile.notation;
 
         ShotResult result = seaStrikeGame.HandleCurrentPlayerShot(tileStr);
 

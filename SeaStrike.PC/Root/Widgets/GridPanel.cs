@@ -4,6 +4,7 @@ using Myra.Graphics2D;
 using Myra.Graphics2D.Brushes;
 using Myra.Graphics2D.UI;
 using SeaStrike.Core.Entity;
+using SeaStrike.PC.Root.Widgets.GridTile;
 using Grid = Myra.Graphics2D.UI.Grid;
 using OceanGrid = SeaStrike.Core.Entity.Grid;
 
@@ -20,12 +21,12 @@ public class GridPanel : Panel, IBoardObserver
             UpdateContent();
         }
     }
-    public Action<object> OnOccupiedTileClicked
+    public Action<object> OnAllyShipClicked
     {
-        private get => onOccupiedTileClicked;
+        private get => onAllyShipClicked;
         set
         {
-            onOccupiedTileClicked = value;
+            onAllyShipClicked = value;
             UpdateContent();
         }
     }
@@ -34,7 +35,7 @@ public class GridPanel : Panel, IBoardObserver
     private readonly bool showShips;
     private Grid uiGrid;
     private Action<object> onEmptyTileClicked;
-    private Action<object> onOccupiedTileClicked;
+    private Action<object> onAllyShipClicked;
 
     public GridPanel(Board playerBoard, bool showShips)
     {
@@ -119,23 +120,17 @@ public class GridPanel : Panel, IBoardObserver
 
     private void AddGridTile(Tile tile)
     {
-        if ((showShips && tile.isOccupied) || tile.hasBeenHit)
-            AddAllyGridTileImage(tile);
+        if (!tile.isOccupied && tile.hasBeenHit)
+            uiGrid.Widgets.Add(new MissGridTileImage(tile));
+        else if (tile.isOccupied && tile.hasBeenHit)
+            uiGrid.Widgets.Add(new EnemyShipGridTileImage(tile));
+        else if (tile.isOccupied && !tile.hasBeenHit && showShips)
+            uiGrid.Widgets.Add(
+                new AllyShipGridTileButton(tile, onAllyShipClicked));
         else
-            AddEmptyGridTileButton(tile);
+            uiGrid.Widgets.Add(
+                new EmptyGridTileButton(tile, onEmptyTileClicked));
     }
-
-    private void AddAllyGridTileImage(Tile tile)
-    {
-        GridTileImageButton tileButton = new GridTileImageButton(tile);
-        if (tile.isOccupied)
-            tileButton.TouchUp += (s, a) => OnOccupiedTileClicked?.Invoke(s);
-
-        uiGrid.Widgets.Add(tileButton);
-    }
-
-    private void AddEmptyGridTileButton(Tile tile) =>
-        uiGrid.Widgets.Add(new EmptyGridTileButton(tile, onEmptyTileClicked));
 
     private Proportion WidthProportion => new Proportion()
     {

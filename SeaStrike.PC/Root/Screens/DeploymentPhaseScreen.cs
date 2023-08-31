@@ -4,6 +4,7 @@ using MonoGame.Extended.Screens;
 using Myra.Graphics2D.UI;
 using SeaStrike.Core.Entity;
 using SeaStrike.PC.Root.Widgets;
+using SeaStrike.PC.Root.Widgets.GridTile;
 using Grid = Myra.Graphics2D.UI.Grid;
 
 namespace SeaStrike.PC.Root.Screens;
@@ -78,7 +79,7 @@ public class DeploymentPhaseScreen : GameScreen
             HorizontalAlignment = HorizontalAlignment.Center,
             VerticalAlignment = VerticalAlignment.Center,
             OnEmptyTileClicked = ShowShipAdditionDialog,
-            OnOccupiedTileClicked = RemoveShip
+            OnAllyShipClicked = RemoveShip
         };
 
     private StartGameButton StartGameButton =>
@@ -91,22 +92,19 @@ public class DeploymentPhaseScreen : GameScreen
             VerticalAlignment = VerticalAlignment.Bottom
         };
 
-    private void ShowShipAdditionDialog(object sender)
+    private void ShowShipAdditionDialog(object obj)
     {
         if (boardBuilder.shipsPool.Length == 0)
             return;
 
-        string tilePosition = ((TextButton)sender).Text;
-        ShipAdditionWindow dialog =
-            new ShipAdditionWindow(tilePosition, boardBuilder);
-        dialog.ShowModal(game.desktop);
+        Tile tile = ((EmptyGridTileButton)obj).tile;
+
+        new ShipAdditionWindow(tile.notation, boardBuilder)
+            .ShowModal(game.desktop);
     }
 
-    private void RemoveShip(object sender)
-    {
-        GridTileImageButton occupiedTileButton = (GridTileImageButton)sender;
-        boardBuilder.RemoveShipAt(occupiedTileButton.tile.notation);
-    }
+    private void RemoveShip(object obj) =>
+        ((AllyShipGridTileButton)obj).RemoveShip(boardBuilder);
 
     private void UpdateStartButtonVisibility() =>
         mainGrid.Widgets.Last().Visible =
