@@ -5,27 +5,31 @@ namespace SeaStrike.PC.Root.Widgets;
 
 public class HelpWindow : GameWindow
 {
+    private string labelText;
+
     public HelpWindow(string[] helpLabelContent)
     {
         Title = SeaStrike.stringStorage.helpWindowTitle;
+        DragHandle = null;
 
+        GetHelpText(helpLabelContent);
+
+        Content = HelpLabel;
+    }
+
+    private void GetHelpText(string[] helpLabelContent)
+    {
         StringBuilder builder = new StringBuilder();
+
         foreach (string str in helpLabelContent)
             builder.Append(str);
 
-        string labelText = builder.ToString();
-
-        VerticalStackPanel panel = new VerticalStackPanel();
-
-        Label helpLabel = new Label()
-        {
-            Text = labelText,
-            Font = SeaStrike.fontSystem.GetFont(24)
-        };
-
-        panel.Widgets.Add(helpLabel);
-
-        Content = panel;
-        DragHandle = null;
+        labelText = builder.ToString();
     }
+
+    private Label HelpLabel => new Label()
+    {
+        Text = labelText,
+        Font = SeaStrike.fontSystem.GetFont(24)
+    };
 }

@@ -9,8 +9,8 @@ public class StartGameButton : GameButton
     {
         Text = SeaStrike.stringStorage.startGameButtonLabel;
 
-        TouchUp += (s, a) => game.screenManager.LoadScreen(
-            new BattlePhaseScreen(game, boardBuilder.Build())
-        );
+        TouchUp += (s, a) =>
+            game.screenManager
+            .LoadScreen(new BattlePhaseScreen(game, boardBuilder.Build()));
     }
 }
