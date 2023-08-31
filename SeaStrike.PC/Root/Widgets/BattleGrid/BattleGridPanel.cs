@@ -7,28 +7,31 @@ namespace SeaStrike.PC.Root.Widgets.BattleGrid;
 
 public abstract class BattleGridPanel : VerticalStackPanel
 {
-    internal string gridLabel;
-    internal Board playerBoard;
-    internal bool showShips;
-    internal Action<object> OnEmptyTileClicked;
+    protected string gridLabel;
+    protected Board playerBoard;
+    protected bool showShips;
+    protected Action<object> OnEmptyTileClicked;
 
     public void Initialize()
     {
         Spacing = 10;
 
-        Widgets.Add(new Label()
-        {
-            Text = gridLabel,
-            Font = SeaStrike.fontSystem.GetFont(28),
-            TextColor = Color.LawnGreen,
-            HorizontalAlignment = HorizontalAlignment.Center
-        });
-
-        Widgets.Add(new GridPanel(playerBoard, showShips)
-        {
-            HorizontalAlignment = HorizontalAlignment.Center,
-            VerticalAlignment = VerticalAlignment.Center,
-            OnEmptyTileClicked = OnEmptyTileClicked
-        });
+        Widgets.Add(GridLabel);
+        Widgets.Add(PlayerOceanGrid);
     }
+
+    private Label GridLabel => new Label()
+    {
+        Text = gridLabel,
+        Font = SeaStrike.fontSystem.GetFont(28),
+        TextColor = Color.LawnGreen,
+        HorizontalAlignment = HorizontalAlignment.Center
+    };
+
+    private GridPanel PlayerOceanGrid => new GridPanel(playerBoard, showShips)
+    {
+        HorizontalAlignment = HorizontalAlignment.Center,
+        VerticalAlignment = VerticalAlignment.Center,
+        OnEmptyTileClicked = OnEmptyTileClicked
+    };
 }

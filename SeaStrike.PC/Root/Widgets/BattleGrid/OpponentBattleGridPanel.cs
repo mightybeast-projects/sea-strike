@@ -1,3 +1,4 @@
+using System.Linq;
 using System;
 using Microsoft.Xna.Framework;
 using Myra.Graphics2D.UI;
@@ -29,15 +30,15 @@ public class OpponentBattleGridPanel : BattleGridPanel
 
         Initialize();
 
-        hitResultLabel = new Label()
-        {
-            Font = SeaStrike.fontSystem.GetFont(28),
-            TextColor = Color.LawnGreen,
-            HorizontalAlignment = HorizontalAlignment.Center,
-        };
-
-        Widgets.Add(hitResultLabel);
+        Widgets.Add(HitResultLabel);
     }
+
+    private Label HitResultLabel => new Label()
+    {
+        Font = SeaStrike.fontSystem.GetFont(28),
+        TextColor = Color.LawnGreen,
+        HorizontalAlignment = HorizontalAlignment.Center,
+    };
 
     private void ShootTile(object sender)
     {
@@ -45,7 +46,7 @@ public class OpponentBattleGridPanel : BattleGridPanel
 
         ShotResult result = seaStrikeGame.HandleCurrentPlayerShot(tileStr);
 
-        hitResultLabel.Text = result.ToString();
+        ((Label)Widgets.Last()).Text = result.ToString();
 
         if (seaStrikeGame.isOver)
             ShowVictoryScreen();
