@@ -14,13 +14,6 @@ public class GridButtonsPanel : HorizontalStackPanel
         Spacing = 50;
 
         Widgets.Add(new RandomizeShipsButton(boardBuilder));
-
-        TextButton clearButton = new GameButton()
-        {
-            Text = SeaStrike.stringStorage.clearButtonString
-        };
-        clearButton.TouchUp += (s, a) => boardBuilder.ClearOceanGrid();
-
-        Widgets.Add(clearButton);
+        Widgets.Add(new ClearShipsButton(boardBuilder));
     }
 }
