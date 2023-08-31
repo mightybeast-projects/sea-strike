@@ -7,9 +7,9 @@ public class HelpWindow : GameWindow
 {
     private string labelText;
 
-    public HelpWindow(string[] helpLabelContent)
+    public HelpWindow(string[] helpLabelContent) :
+        base(SeaStrike.stringStorage.helpWindowTitle)
     {
-        Title = SeaStrike.stringStorage.helpWindowTitle;
         DragHandle = null;
 
         GetHelpText(helpLabelContent);

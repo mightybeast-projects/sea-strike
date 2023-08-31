@@ -7,7 +7,7 @@ public class GameOverWindow : GameWindow
 {
     private readonly SeaStrike game;
 
-    public GameOverWindow(SeaStrike game)
+    public GameOverWindow(SeaStrike game, string title) : base(title)
     {
         this.game = game;
 

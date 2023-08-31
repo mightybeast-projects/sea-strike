@@ -62,15 +62,15 @@ public class OpponentBattleGridPanel : BattleGridPanel
             ShowLostScreen();
     }
 
-    private void ShowVictoryScreen() => new GameOverWindow(game)
-    {
-        Title = SeaStrike.stringStorage.victoryScreenTitle,
-        TitleTextColor = Color.LawnGreen
-    }.ShowModal(game.desktop);
+    private void ShowVictoryScreen() =>
+        new GameOverWindow(game, SeaStrike.stringStorage.victoryScreenTitle)
+        {
+            TitleTextColor = Color.LawnGreen
+        }.ShowModal(game.desktop);
 
-    private void ShowLostScreen() => new GameOverWindow(game)
-    {
-        Title = SeaStrike.stringStorage.loseScreenTitle,
-        TitleTextColor = Color.Red
-    }.ShowModal(game.desktop);
+    private void ShowLostScreen() =>
+        new GameOverWindow(game, SeaStrike.stringStorage.loseScreenTitle)
+        {
+            TitleTextColor = Color.Red
+        }.ShowModal(game.desktop);
 }

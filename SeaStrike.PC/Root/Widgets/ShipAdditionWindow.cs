@@ -14,11 +14,10 @@ public class ShipAdditionWindow : GameWindow
     private readonly BoardBuilder boardBuilder;
 
     public ShipAdditionWindow(string position, BoardBuilder boardBuilder)
+        : base(SeaStrike.stringStorage.shipAdditionWindowTitle)
     {
         this.position = position;
         this.boardBuilder = boardBuilder;
-
-        Title = SeaStrike.stringStorage.shipAdditionWindowTitle;
 
         Grid shipOptionsGrid = new Grid()
         {
