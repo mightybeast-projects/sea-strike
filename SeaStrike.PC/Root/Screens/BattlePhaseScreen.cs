@@ -3,7 +3,6 @@ using MonoGame.Extended.Screens;
 using Myra.Graphics2D.UI;
 using SeaStrike.Core.Entity;
 using SeaStrike.Core.Entity.Game;
-using SeaStrike.PC.Root.Widgets;
 using SeaStrike.PC.Root.Widgets.BattleGrid;
 using SeaStrike.PC.Root.Widgets.Button;
 using Grid = Myra.Graphics2D.UI.Grid;
