@@ -11,12 +11,30 @@ namespace SeaStrike.PC.Root.Widgets;
 
 public class GridPanel : Panel, IBoardObserver
 {
-    public Action<object> OnEmptyTileClicked;
-    public Action<object> OnOccupiedTileClicked;
+    public Action<object> OnEmptyTileClicked
+    {
+        private get => onEmptyTileClicked;
+        set
+        {
+            onEmptyTileClicked = value;
+            UpdateContent();
+        }
+    }
+    public Action<object> OnOccupiedTileClicked
+    {
+        private get => onOccupiedTileClicked;
+        set
+        {
+            onOccupiedTileClicked = value;
+            UpdateContent();
+        }
+    }
 
     private readonly OceanGrid oceanGrid;
     private readonly bool showShips;
     private Grid uiGrid;
+    private Action<object> onEmptyTileClicked;
+    private Action<object> onOccupiedTileClicked;
 
     public GridPanel(Board playerBoard, bool showShips)
     {
@@ -27,8 +45,6 @@ public class GridPanel : Panel, IBoardObserver
         Height = 343;
         Border = new SolidBrush(Color.LawnGreen);
         BorderThickness = new Thickness(1);
-
-        UpdateContent();
 
         playerBoard.Subscribe(this);
     }
@@ -118,23 +134,8 @@ public class GridPanel : Panel, IBoardObserver
         uiGrid.Widgets.Add(tileButton);
     }
 
-    private void AddEmptyGridTileButton(Tile tile)
-    {
-        TextButton tileButton = new TextButton()
-        {
-            Text = tile.notation,
-            Opacity = 0.1f,
-            Font = SeaStrike.fontSystem.GetFont(18),
-            GridColumn = tile.i + 1,
-            GridRow = tile.j + 1,
-            HorizontalAlignment = HorizontalAlignment.Center,
-            VerticalAlignment = VerticalAlignment.Center
-        };
-
-        tileButton.TouchUp += (s, a) => OnEmptyTileClicked?.Invoke(s);
-
-        uiGrid.Widgets.Add(tileButton);
-    }
+    private void AddEmptyGridTileButton(Tile tile) =>
+        uiGrid.Widgets.Add(new EmptyGridTileButton(tile, onEmptyTileClicked));
 
     private Proportion WidthProportion => new Proportion()
     {
