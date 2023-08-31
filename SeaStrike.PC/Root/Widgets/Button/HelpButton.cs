@@ -1,10 +1,12 @@
-namespace SeaStrike.PC.Root.Widgets;
+using System;
+
+namespace SeaStrike.PC.Root.Widgets.Button;
 
 public class HelpButton : GameButton
 {
     public string[] helpWindowContent;
 
-    public HelpButton(SeaStrike game)
+    public HelpButton(SeaStrike game) : base()
     {
         Text = SeaStrike.stringStorage.helpButtonLabel;
         Width = 40;

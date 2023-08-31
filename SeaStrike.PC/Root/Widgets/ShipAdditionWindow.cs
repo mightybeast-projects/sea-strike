@@ -1,6 +1,7 @@
 using System;
 using Myra.Graphics2D.UI;
 using SeaStrike.Core.Entity;
+using SeaStrike.PC.Root.Widgets.Button;
 using Grid = Myra.Graphics2D.UI.Grid;
 
 namespace SeaStrike.PC.Root.Widgets;
@@ -71,13 +72,13 @@ public class ShipAdditionWindow : GameWindow
             HorizontalAlignment = HorizontalAlignment.Right
         };
 
-    private CreateShipButton CreateShipButton =>
-        new CreateShipButton(AddNewShip)
-        {
-            GridRow = 3,
-            GridColumnSpan = 2,
-            HorizontalAlignment = HorizontalAlignment.Center
-        };
+    private GameButton CreateShipButton => new GameButton(AddNewShip)
+    {
+        Text = SeaStrike.stringStorage.createShipButtonLabel,
+        GridRow = 3,
+        GridColumnSpan = 2,
+        HorizontalAlignment = HorizontalAlignment.Center
+    };
 
     private void AddNewShip()
     {

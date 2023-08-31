@@ -4,6 +4,7 @@ using MonoGame.Extended.Screens;
 using Myra.Graphics2D.UI;
 using SeaStrike.Core.Entity;
 using SeaStrike.PC.Root.Widgets;
+using SeaStrike.PC.Root.Widgets.Button;
 using SeaStrike.PC.Root.Widgets.GridTile;
 using Grid = Myra.Graphics2D.UI.Grid;
 
@@ -45,8 +46,11 @@ public class DeploymentPhaseScreen : GameScreen
 
     public override void Draw(GameTime gameTime) { }
 
-    private BackButton BackButton => new BackButton(game)
+    private GameButton BackButton => new GameButton(ReturnOnMainMenuScreen)
     {
+        Text = SeaStrike.stringStorage.backButtonLabel,
+        Width = 40,
+        Height = 40,
         HorizontalAlignment = HorizontalAlignment.Left,
         VerticalAlignment = VerticalAlignment.Top
     };
@@ -82,15 +86,22 @@ public class DeploymentPhaseScreen : GameScreen
             OnAllyShipClicked = RemoveShip
         };
 
-    private StartGameButton StartGameButton =>
-        new StartGameButton(game, boardBuilder)
-        {
-            Top = -10,
-            Visible = false,
-            GridRow = 1,
-            HorizontalAlignment = HorizontalAlignment.Center,
-            VerticalAlignment = VerticalAlignment.Bottom
-        };
+    private GameButton StartGameButton => new GameButton(LoadBattlePhaseScreen)
+    {
+        Text = SeaStrike.stringStorage.startGameButtonLabel,
+        Top = -10,
+        Visible = false,
+        GridRow = 1,
+        HorizontalAlignment = HorizontalAlignment.Center,
+        VerticalAlignment = VerticalAlignment.Bottom
+    };
+
+    private void ReturnOnMainMenuScreen() =>
+        game.screenManager.LoadScreen(new MainMenuScreen(game));
+
+    private void LoadBattlePhaseScreen() =>
+        game.screenManager
+            .LoadScreen(new BattlePhaseScreen(game, boardBuilder.Build()));
 
     private void ShowShipAdditionDialog(object obj)
     {

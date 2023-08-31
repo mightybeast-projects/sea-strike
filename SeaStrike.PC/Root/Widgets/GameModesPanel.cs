@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Myra.Graphics2D.UI;
 using SeaStrike.PC.Root.Screens;
+using SeaStrike.PC.Root.Widgets.Button;
 
 namespace SeaStrike.PC.Root.Widgets;
 
@@ -23,7 +24,7 @@ public class GameModesPanel : VerticalStackPanel
 
         Widgets.Add(singlePlayerButton);
 
-        GameButton multiplayerButton = new GameButton()
+        GameButton multiplayerButton = new GameButton(null)
         {
             Text = SeaStrike.stringStorage.multiplayerButonLabel
         };
