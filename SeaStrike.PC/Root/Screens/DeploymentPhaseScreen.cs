@@ -20,6 +20,14 @@ public class DeploymentPhaseScreen : GameScreen
         this.game = game;
 
         boardBuilder = new BoardBuilder();
+        startGameButton = new StartGameButton(game, boardBuilder)
+        {
+            Top = -10,
+            Visible = false,
+            GridRow = 1,
+            HorizontalAlignment = HorizontalAlignment.Center,
+            VerticalAlignment = VerticalAlignment.Bottom
+        };
     }
 
     public override void LoadContent()
@@ -52,18 +60,11 @@ public class DeploymentPhaseScreen : GameScreen
 
     private void AddBackButton()
     {
-        TextButton backButton = new GameButton()
+        mainGrid.Widgets.Add(new BackButton(game)
         {
-            Text = SeaStrike.stringStorage.backButtonLabel,
-            Width = 40,
-            Height = 40,
             HorizontalAlignment = HorizontalAlignment.Left,
             VerticalAlignment = VerticalAlignment.Top
-        };
-        backButton.TouchUp += (s, a) =>
-            game.screenManager.LoadScreen(new MainMenuScreen(game));
-
-        mainGrid.Widgets.Add(backButton);
+        });
     }
 
     private void AddPhaseLabel()
@@ -108,19 +109,7 @@ public class DeploymentPhaseScreen : GameScreen
         mainGrid.Widgets.Add(oceanGridPanel);
     }
 
-    private void AddStartGameButton()
-    {
-        startGameButton = new StartGameButton(game, boardBuilder)
-        {
-            Top = -10,
-            Visible = false,
-            GridRow = 1,
-            HorizontalAlignment = HorizontalAlignment.Center,
-            VerticalAlignment = VerticalAlignment.Bottom
-        };
-
-        mainGrid.Widgets.Add(startGameButton);
-    }
+    private void AddStartGameButton() => mainGrid.Widgets.Add(startGameButton);
 
     private void ShowShipAdditionDialog(object sender)
     {
