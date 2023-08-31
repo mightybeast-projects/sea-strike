@@ -33,8 +33,11 @@ public class StringStorage
     public string shipTypeLabel = "Ship type : ";
     public string shipWidthLabel = "Width : ";
     public string shipOrientationLabel = "Ship orientation : ";
-    public string horizontalLabel = "Horizontal";
-    public string vericalLabel = "Vertical";
+    public string[] orientationBoxItems = new[]
+    {
+        "Horizontal",
+        "Vertical"
+    };
     public string createShipButtonLabel = "Create new ship";
 
     //Battle phase screen strings

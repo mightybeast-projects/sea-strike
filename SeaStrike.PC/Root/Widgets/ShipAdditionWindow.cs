@@ -54,20 +54,12 @@ public class ShipAdditionWindow : GameWindow
             GridRow = 1
         });
 
-        shipsTypeBox = new ComboBox()
+        shipsTypeBox = new GameComboBox(GetShipTypes())
         {
             GridRow = 1,
             GridColumn = 1,
             HorizontalAlignment = HorizontalAlignment.Right
         };
-        foreach (Ship ship in boardBuilder.shipsPool)
-            shipsTypeBox.Items.Add(
-                new ListItem(ship.GetType().Name +
-                    " (" +
-                    SeaStrike.stringStorage.shipWidthLabel +
-                    ship.width +
-                    ")"));
-        shipsTypeBox.SelectedIndex = 0;
 
         shipOptionsGrid.Widgets.Add(shipsTypeBox);
     }
@@ -81,17 +73,13 @@ public class ShipAdditionWindow : GameWindow
             GridRow = 2,
         });
 
-        shipOrientationBox = new ComboBox()
-        {
-            GridRow = 2,
-            GridColumn = 1,
-            HorizontalAlignment = HorizontalAlignment.Right
-        };
-        shipOrientationBox.Items.Add(
-            new ListItem(SeaStrike.stringStorage.horizontalLabel));
-        shipOrientationBox.Items.Add(
-            new ListItem(SeaStrike.stringStorage.vericalLabel));
-        shipOrientationBox.SelectedIndex = 0;
+        shipOrientationBox =
+            new GameComboBox(SeaStrike.stringStorage.orientationBoxItems)
+            {
+                GridRow = 2,
+                GridColumn = 1,
+                HorizontalAlignment = HorizontalAlignment.Right
+            };
 
         shipOptionsGrid.Widgets.Add(shipOrientationBox);
     }
@@ -119,5 +107,22 @@ public class ShipAdditionWindow : GameWindow
             boardBuilder.AddVerticalShip;
 
         AddShip(ship).AtPosition(position);
+    }
+
+    private string[] GetShipTypes()
+    {
+        string[] ships = new string[boardBuilder.shipsPool.Length];
+
+        for (int i = 0; i < boardBuilder.shipsPool.Length; i++)
+        {
+            Ship ship = boardBuilder.shipsPool[i];
+            ships[i] = ship.GetType().Name +
+                        " (" +
+                        SeaStrike.stringStorage.shipWidthLabel +
+                        ship.width +
+                        ")";
+        }
+
+        return ships;
     }
 }
