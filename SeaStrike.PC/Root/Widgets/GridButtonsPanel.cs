@@ -13,14 +13,7 @@ public class GridButtonsPanel : HorizontalStackPanel
         GridRow = 1;
         Spacing = 50;
 
-        TextButton randomizeButton = new GameButton()
-        {
-            Text = SeaStrike.stringStorage.randomizeButtonString
-        };
-        randomizeButton.TouchUp += (s, a) =>
-            boardBuilder.RandomizeShipsStartingPosition();
-
-        Widgets.Add(randomizeButton);
+        Widgets.Add(new RandomizeShipsButton(boardBuilder));
 
         TextButton clearButton = new GameButton()
         {
