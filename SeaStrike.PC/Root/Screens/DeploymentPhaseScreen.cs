@@ -4,7 +4,6 @@ using MonoGame.Extended.Screens;
 using Myra.Graphics2D.UI;
 using SeaStrike.Core.Entity;
 using SeaStrike.PC.Root.Widgets;
-using SeaStrike.PC.Root.Widgets.Button;
 using SeaStrike.PC.Root.Widgets.GridTile;
 using SeaStrike.PC.Root.Widgets.Modal;
 using Grid = Myra.Graphics2D.UI.Grid;
@@ -64,15 +63,16 @@ public class DeploymentPhaseScreen : GameScreen
         HorizontalAlignment = HorizontalAlignment.Center
     };
 
-    private HelpButton HelpButton => new HelpButton(game)
-    {
-        Text = SeaStrike.stringStorage.helpButtonLabel,
-        Width = 40,
-        Height = 40,
-        HorizontalAlignment = HorizontalAlignment.Right,
-        VerticalAlignment = VerticalAlignment.Top,
-        helpWindowContent = SeaStrike.stringStorage.dpHelpWindowContent
-    };
+    private GameButton HelpButton =>
+        new GameButton(() =>
+            ShowHelpWindow(SeaStrike.stringStorage.dpHelpWindowContent))
+        {
+            Width = 40,
+            Height = 40,
+            Text = SeaStrike.stringStorage.helpButtonLabel,
+            HorizontalAlignment = HorizontalAlignment.Right,
+            VerticalAlignment = VerticalAlignment.Top
+        };
 
     private GridButtonsPanel GridButtonsPanel =>
         new GridButtonsPanel(boardBuilder);
@@ -103,6 +103,9 @@ public class DeploymentPhaseScreen : GameScreen
     private void LoadBattlePhaseScreen() =>
         game.screenManager
             .LoadScreen(new BattlePhaseScreen(game, boardBuilder.Build()));
+
+    private void ShowHelpWindow(string[] content) =>
+        new HelpWindow(content).ShowModal(game.desktop);
 
     private void ShowShipAdditionDialog(object obj)
     {

@@ -1,7 +1,6 @@
 using System;
 using Myra.Graphics2D.UI;
 using SeaStrike.Core.Entity;
-using SeaStrike.PC.Root.Widgets.Button;
 using Grid = Myra.Graphics2D.UI.Grid;
 
 namespace SeaStrike.PC.Root.Widgets.Modal;

@@ -1,6 +1,5 @@
 using Myra.Graphics2D.UI;
 using SeaStrike.Core.Entity;
-using SeaStrike.PC.Root.Widgets.Button;
 
 namespace SeaStrike.PC.Root.Widgets;
 

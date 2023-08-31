@@ -3,8 +3,9 @@ using MonoGame.Extended.Screens;
 using Myra.Graphics2D.UI;
 using SeaStrike.Core.Entity;
 using SeaStrike.Core.Entity.Game;
+using SeaStrike.PC.Root.Widgets;
 using SeaStrike.PC.Root.Widgets.BattleGrid;
-using SeaStrike.PC.Root.Widgets.Button;
+using SeaStrike.PC.Root.Widgets.Modal;
 using Grid = Myra.Graphics2D.UI.Grid;
 
 namespace SeaStrike.PC.Root.Screens;
@@ -52,13 +53,17 @@ public class BattlePhaseScreen : GameScreen
         GridColumnSpan = 2
     };
 
-    private HelpButton HelpButton => new HelpButton(game)
-    {
-        GridColumn = 1,
-        HorizontalAlignment = HorizontalAlignment.Right,
-        VerticalAlignment = VerticalAlignment.Top,
-        helpWindowContent = SeaStrike.stringStorage.bpHelpWindowContent
-    };
+    private GameButton HelpButton =>
+        new GameButton(() =>
+            ShowHelpWindow(SeaStrike.stringStorage.dpHelpWindowContent))
+        {
+            Width = 40,
+            Height = 40,
+            Text = SeaStrike.stringStorage.helpButtonLabel,
+            GridColumn = 1,
+            HorizontalAlignment = HorizontalAlignment.Right,
+            VerticalAlignment = VerticalAlignment.Top,
+        };
 
     private PlayerBattleGridPanel PlayerBattleGridPanel =>
         new PlayerBattleGridPanel(playerBoard)
@@ -74,4 +79,6 @@ public class BattlePhaseScreen : GameScreen
             GridColumn = 1
         };
 
+    private void ShowHelpWindow(string[] content) =>
+        new HelpWindow(content).ShowModal(game.desktop);
 }
