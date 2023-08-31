@@ -1,7 +1,7 @@
 using SeaStrike.PC.Root.Screens;
 using SeaStrike.PC.Root.Widgets.Button;
 
-namespace SeaStrike.PC.Root.Widgets;
+namespace SeaStrike.PC.Root.Widgets.Modal;
 
 public class GameOverWindow : GameWindow
 {

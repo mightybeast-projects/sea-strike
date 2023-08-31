@@ -5,6 +5,7 @@ using SeaStrike.Core.Entity;
 using SeaStrike.Core.Entity.Game;
 using SeaStrike.Core.Entity.Game.Utility;
 using SeaStrike.PC.Root.Widgets.GridTile;
+using SeaStrike.PC.Root.Widgets.Modal;
 
 namespace SeaStrike.PC.Root.Widgets.BattleGrid;
 

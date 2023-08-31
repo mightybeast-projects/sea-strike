@@ -6,6 +6,7 @@ using SeaStrike.Core.Entity;
 using SeaStrike.PC.Root.Widgets;
 using SeaStrike.PC.Root.Widgets.Button;
 using SeaStrike.PC.Root.Widgets.GridTile;
+using SeaStrike.PC.Root.Widgets.Modal;
 using Grid = Myra.Graphics2D.UI.Grid;
 
 namespace SeaStrike.PC.Root.Screens;
