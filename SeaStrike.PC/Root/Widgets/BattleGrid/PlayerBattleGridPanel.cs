@@ -7,6 +7,7 @@ public class PlayerBattleGridPanel : BattleGridPanel
     public PlayerBattleGridPanel(Board playerBoard)
     {
         this.playerBoard = playerBoard;
+
         gridLabel = SeaStrike.stringStorage.playerOceanGridLabel;
         showShips = true;
 

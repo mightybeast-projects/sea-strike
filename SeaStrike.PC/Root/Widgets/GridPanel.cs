@@ -18,10 +18,10 @@ public class GridPanel : Panel, IBoardObserver
     private readonly bool showShips;
     private Grid uiGrid;
 
-    public GridPanel(OceanGrid oceanGrid, bool showShips)
+    public GridPanel(Board playerBoard, bool showShips)
     {
-        this.oceanGrid = oceanGrid;
         this.showShips = showShips;
+        oceanGrid = playerBoard.oceanGrid;
 
         Width = 343;
         Height = 343;
@@ -29,6 +29,8 @@ public class GridPanel : Panel, IBoardObserver
         BorderThickness = new Thickness(1);
 
         UpdateContent();
+
+        playerBoard.Subscribe(this);
     }
 
     public void Notify() => UpdateContent();

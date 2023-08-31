@@ -96,17 +96,14 @@ public class DeploymentPhaseScreen : GameScreen
 
     private void AddOceanGridPanel()
     {
-        oceanGridPanel = new GridPanel(boardBuilder.Build().oceanGrid, true)
+        mainGrid.Widgets.Add(new GridPanel(boardBuilder.Build(), true)
         {
             GridRow = 1,
             HorizontalAlignment = HorizontalAlignment.Center,
             VerticalAlignment = VerticalAlignment.Center,
             OnEmptyTileClicked = ShowShipAdditionDialog,
             OnOccupiedTileClicked = RemoveShip
-        };
-        boardBuilder.Subscribe(oceanGridPanel);
-
-        mainGrid.Widgets.Add(oceanGridPanel);
+        });
     }
 
     private void AddStartGameButton() => mainGrid.Widgets.Add(startGameButton);

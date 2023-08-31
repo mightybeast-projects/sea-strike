@@ -24,15 +24,11 @@ public abstract class BattleGridPanel : VerticalStackPanel
             HorizontalAlignment = HorizontalAlignment.Center
         });
 
-        GridPanel oceanGridPanel =
-            new GridPanel(playerBoard.oceanGrid, showShips)
-            {
-                HorizontalAlignment = HorizontalAlignment.Center,
-                VerticalAlignment = VerticalAlignment.Center,
-                OnEmptyTileClicked = OnEmptyTileClicked
-            };
-        playerBoard.Subscribe(oceanGridPanel);
-
-        Widgets.Add(oceanGridPanel);
+        Widgets.Add(new GridPanel(playerBoard, showShips)
+        {
+            HorizontalAlignment = HorizontalAlignment.Center,
+            VerticalAlignment = VerticalAlignment.Center,
+            OnEmptyTileClicked = OnEmptyTileClicked
+        });
     }
 }
