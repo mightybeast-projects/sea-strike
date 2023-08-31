@@ -8,7 +8,6 @@ namespace SeaStrike.PC.Root.Screens;
 public class MainMenuScreen : GameScreen
 {
     private readonly SeaStrike game;
-    private Panel mainPanel;
 
     public MainMenuScreen(SeaStrike game) : base(game) => this.game = game;
 
@@ -16,13 +15,17 @@ public class MainMenuScreen : GameScreen
     {
         base.LoadContent();
 
-        mainPanel = new Panel();
+        Panel mainPanel = new Panel();
 
         mainPanel.Widgets.Add(TitleLabel);
         mainPanel.Widgets.Add(GameModesPanel);
 
         game.desktop.Root = mainPanel;
     }
+
+    public override void Draw(GameTime gameTime) { }
+
+    public override void Update(GameTime gameTime) { }
 
     private Label TitleLabel => new Label()
     {
@@ -35,8 +38,4 @@ public class MainMenuScreen : GameScreen
     };
 
     private GameModesPanel GameModesPanel => new GameModesPanel(game);
-
-    public override void Draw(GameTime gameTime) { }
-
-    public override void Update(GameTime gameTime) { }
 }

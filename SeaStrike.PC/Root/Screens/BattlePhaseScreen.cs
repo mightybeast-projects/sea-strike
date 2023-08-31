@@ -1,10 +1,8 @@
-using System;
 using Microsoft.Xna.Framework;
 using MonoGame.Extended.Screens;
 using Myra.Graphics2D.UI;
 using SeaStrike.Core.Entity;
 using SeaStrike.Core.Entity.Game;
-using SeaStrike.Core.Entity.Game.Utility;
 using SeaStrike.PC.Root.Widgets;
 using SeaStrike.PC.Root.Widgets.BattleGrid;
 using Grid = Myra.Graphics2D.UI.Grid;
@@ -16,10 +14,8 @@ public class BattlePhaseScreen : GameScreen
     private readonly SeaStrike game;
     private readonly SeaStrikeGame seaStrikeGame;
     private readonly Board playerBoard;
-    private Grid mainGrid;
 
-    public BattlePhaseScreen(SeaStrike game, Board playerBoard)
-        : base(game)
+    public BattlePhaseScreen(SeaStrike game, Board playerBoard) : base(game)
     {
         this.game = game;
         this.playerBoard = playerBoard;
@@ -31,7 +27,7 @@ public class BattlePhaseScreen : GameScreen
     {
         base.LoadContent();
 
-        mainGrid = new Grid();
+        Grid mainGrid = new Grid();
 
         mainGrid.RowsProportions.Add(new Proportion(ProportionType.Auto));
 
@@ -77,4 +73,5 @@ public class BattlePhaseScreen : GameScreen
             GridRow = 1,
             GridColumn = 1
         };
+
 }

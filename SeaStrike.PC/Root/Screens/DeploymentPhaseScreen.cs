@@ -1,3 +1,4 @@
+using System.Linq;
 using Microsoft.Xna.Framework;
 using MonoGame.Extended.Screens;
 using Myra.Graphics2D.UI;
@@ -12,21 +13,12 @@ public class DeploymentPhaseScreen : GameScreen
     private readonly SeaStrike game;
     private readonly BoardBuilder boardBuilder;
     private Grid mainGrid;
-    private TextButton startGameButton;
 
     public DeploymentPhaseScreen(SeaStrike game) : base(game)
     {
         this.game = game;
 
         boardBuilder = new BoardBuilder();
-        startGameButton = new StartGameButton(game, boardBuilder)
-        {
-            Top = -10,
-            Visible = false,
-            GridRow = 1,
-            HorizontalAlignment = HorizontalAlignment.Center,
-            VerticalAlignment = VerticalAlignment.Bottom
-        };
     }
 
     public override void LoadContent()
@@ -42,18 +34,13 @@ public class DeploymentPhaseScreen : GameScreen
         mainGrid.Widgets.Add(HelpButton);
         mainGrid.Widgets.Add(GridButtonsPanel);
         mainGrid.Widgets.Add(OceanGridPanel);
-        mainGrid.Widgets.Add(startGameButton);
+        mainGrid.Widgets.Add(StartGameButton);
 
         game.desktop.Root = mainGrid;
     }
 
-    public override void Update(GameTime gameTime)
-    {
-        if (boardBuilder.shipsPool.Length == 0)
-            startGameButton.Visible = true;
-        else
-            startGameButton.Visible = false;
-    }
+    public override void Update(GameTime gameTime) =>
+        UpdateStartButtonVisibility();
 
     public override void Draw(GameTime gameTime) { }
 
@@ -94,6 +81,16 @@ public class DeploymentPhaseScreen : GameScreen
             OnOccupiedTileClicked = RemoveShip
         };
 
+    private StartGameButton StartGameButton =>
+        new StartGameButton(game, boardBuilder)
+        {
+            Top = -10,
+            Visible = false,
+            GridRow = 1,
+            HorizontalAlignment = HorizontalAlignment.Center,
+            VerticalAlignment = VerticalAlignment.Bottom
+        };
+
     private void ShowShipAdditionDialog(object sender)
     {
         if (boardBuilder.shipsPool.Length == 0)
@@ -110,4 +107,8 @@ public class DeploymentPhaseScreen : GameScreen
         GridTileImageButton occupiedTileButton = (GridTileImageButton)sender;
         boardBuilder.RemoveShipAt(occupiedTileButton.tile.notation);
     }
+
+    private void UpdateStartButtonVisibility() =>
+        mainGrid.Widgets.Last().Visible =
+            boardBuilder.shipsPool.Length == 0 ? true : false;
 }
