@@ -13,6 +13,10 @@ public class GameWindow : Window
         TitleFont = SeaStrike.fontSystem.GetFont(30);
         TitleTextColor = Color.LawnGreen;
 
+        TitleGrid.Background = new SolidBrush(Color.Black);
+        TitleGrid.Border = new SolidBrush(Color.DimGray);
+        TitleGrid.BorderThickness = new Thickness(0, 0, 0, 1);
+
         Background = new SolidBrush(Color.Black);
         Border = new SolidBrush(Color.LawnGreen);
         BorderThickness = new Thickness(1);
