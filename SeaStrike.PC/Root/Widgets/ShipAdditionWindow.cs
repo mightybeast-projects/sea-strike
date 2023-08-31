@@ -68,6 +68,7 @@ public class ShipAdditionWindow : GameWindow
                     ship.width +
                     ")"));
         shipsTypeBox.SelectedIndex = 0;
+
         shipOptionsGrid.Widgets.Add(shipsTypeBox);
     }
 
@@ -97,17 +98,12 @@ public class ShipAdditionWindow : GameWindow
 
     private void AddCreateButton()
     {
-        GameButton createButton = new GameButton()
+        shipOptionsGrid.Widgets.Add(new CreateShipButton(AddNewShip)
         {
-            Text = SeaStrike.stringStorage.createShipButtonLabel,
             GridRow = 3,
             GridColumnSpan = 2,
-            HorizontalAlignment = HorizontalAlignment.Center,
-        };
-
-        createButton.TouchUp += (s, a) => AddNewShip();
-
-        shipOptionsGrid.Widgets.Add(createButton);
+            HorizontalAlignment = HorizontalAlignment.Center
+        });
     }
 
     private void AddNewShip()
@@ -117,12 +113,10 @@ public class ShipAdditionWindow : GameWindow
         int shipTypeIndex = shipsTypeBox.SelectedIndex ?? 0;
         Ship ship = boardBuilder.shipsPool[shipTypeIndex];
         int shipOrientationIndex = shipOrientationBox.SelectedIndex ?? 0;
-        Func<Ship, BoardBuilder> AddShip;
-
-        if (shipOrientationIndex == 0)
-            AddShip = boardBuilder.AddHorizontalShip;
-        else
-            AddShip = boardBuilder.AddVerticalShip;
+        Func<Ship, BoardBuilder> AddShip =
+            shipOrientationIndex == 0 ?
+            boardBuilder.AddHorizontalShip :
+            boardBuilder.AddVerticalShip;
 
         AddShip(ship).AtPosition(position);
     }
