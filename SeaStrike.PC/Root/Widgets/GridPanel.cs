@@ -33,7 +33,7 @@ public class GridPanel : Panel, IBoardObserver
 
     private readonly OceanGrid oceanGrid;
     private readonly bool showShips;
-    private Grid uiGrid;
+    private Grid mainGrid;
     private Action<object> onEmptyTileClicked;
     private Action<object> onAllyShipClicked;
 
@@ -56,78 +56,43 @@ public class GridPanel : Panel, IBoardObserver
     {
         Widgets.Clear();
 
-        uiGrid = new Grid()
+        mainGrid = new Grid()
         {
             ShowGridLines = true,
             GridLinesColor = Color.Green
         };
 
         AddGridProportions();
+
         AddBoardGridLabels();
         AddGridTiles();
 
-        Widgets.Add(uiGrid);
+        Widgets.Add(mainGrid);
     }
 
     private void AddGridProportions()
     {
         for (int i = 0; i < oceanGrid.width + 1; i++)
-        {
-            uiGrid.RowsProportions.Add(WidthProportion);
-            uiGrid.ColumnsProportions.Add(HeightProportion);
-        }
+            mainGrid.RowsProportions.Add(WidthProportion);
+
+        for (int i = 0; i < oceanGrid.height + 1; i++)
+            mainGrid.ColumnsProportions.Add(HeightProportion);
     }
 
     private void AddBoardGridLabels()
     {
         for (int i = 1; i < oceanGrid.width + 1; i++)
-        {
-            AddNumberLabel(i);
-            AddLetterLabel(i);
-        }
+            mainGrid.Widgets.Add(NumberLabel(i));
+
+        for (int i = 1; i < oceanGrid.height + 1; i++)
+            mainGrid.Widgets.Add(LetterLabel(i));
     }
 
     private void AddGridTiles()
     {
         for (int i = 1; i < oceanGrid.width + 1; i++)
             for (int j = 1; j < oceanGrid.height + 1; j++)
-                AddGridTile(oceanGrid.tiles[i - 1, j - 1]);
-    }
-
-    private void AddNumberLabel(int i)
-    {
-        uiGrid.Widgets.Add(new Label()
-        {
-            Text = i.ToString(),
-            GridColumn = i,
-            HorizontalAlignment = HorizontalAlignment.Center,
-            VerticalAlignment = VerticalAlignment.Center
-        });
-    }
-
-    private void AddLetterLabel(int i)
-    {
-        uiGrid.Widgets.Add(new Label()
-        {
-            Text = ((char)(i + 64)).ToString(),
-            GridRow = i,
-            HorizontalAlignment = HorizontalAlignment.Center,
-            VerticalAlignment = VerticalAlignment.Center
-        });
-    }
-
-    private void AddGridTile(Tile tile)
-    {
-        if (!tile.isOccupied && tile.hasBeenHit)
-            uiGrid.Widgets.Add(new MissGridTileImage(tile));
-        else if (tile.isOccupied && tile.hasBeenHit)
-            uiGrid.Widgets.Add(new EnemyShipGridTileImage(tile));
-        else if (tile.isOccupied && !tile.hasBeenHit && showShips)
-            uiGrid.Widgets.Add(
-                new AllyShipGridTileButton(tile, onAllyShipClicked));
-        else
-            uiGrid.Widgets.Add(
-                new EmptyGridTileButton(tile, onEmptyTileClicked));
+                mainGrid.Widgets.Add(GridTile(oceanGrid.tiles[i - 1, j - 1]));
     }
 
     private Proportion WidthProportion => new Proportion()
@@ -141,4 +106,32 @@ public class GridPanel : Panel, IBoardObserver
         Type = ProportionType.Pixels,
         Value = (float)Height / (oceanGrid.height + 1)
     };
+
+    private Func<int, Label> NumberLabel = (int i) => new Label()
+    {
+        Text = i.ToString(),
+        GridColumn = i,
+        HorizontalAlignment = HorizontalAlignment.Center,
+        VerticalAlignment = VerticalAlignment.Center
+    };
+
+    private Func<int, Label> LetterLabel = (int i) => new Label()
+    {
+        Text = ((char)(i + 64)).ToString(),
+        GridRow = i,
+        HorizontalAlignment = HorizontalAlignment.Center,
+        VerticalAlignment = VerticalAlignment.Center
+    };
+
+    private Widget GridTile(Tile tile)
+    {
+        if (!tile.isOccupied && tile.hasBeenHit)
+            return new MissGridTileImage(tile);
+        else if (tile.isOccupied && tile.hasBeenHit)
+            return new EnemyShipGridTileImage(tile);
+        else if (tile.isOccupied && !tile.hasBeenHit && showShips)
+            return new AllyShipGridTileButton(tile, onAllyShipClicked);
+        else
+            return new EmptyGridTileButton(tile, onEmptyTileClicked);
+    }
 }
