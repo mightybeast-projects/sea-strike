@@ -17,10 +17,12 @@ public abstract class GridTileImage : Image
 
         texture.SetData(new[] { textureColor });
 
-        Renderable = new TextureRegion(texture, new Rectangle(0, 0, 15, 15));
+        Renderable = new TextureRegion(texture, new Rectangle(0, 0, 20, 20));
         GridColumn = tile.i + 1;
         GridRow = tile.j + 1;
         HorizontalAlignment = HorizontalAlignment.Center;
         VerticalAlignment = VerticalAlignment.Center;
+        Top = 1;
+        Left = 1;
     }
 }

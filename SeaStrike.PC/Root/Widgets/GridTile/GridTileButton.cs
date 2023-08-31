@@ -22,11 +22,13 @@ public abstract class GridTileButton : ImageButton
 
         texture.SetData(new[] { textureColor });
 
-        Image = new TextureRegion(texture, new Rectangle(0, 0, 15, 15));
+        Image = new TextureRegion(texture, new Rectangle(0, 0, 20, 20));
         GridColumn = tile.i + 1;
         GridRow = tile.j + 1;
         HorizontalAlignment = HorizontalAlignment.Center;
         VerticalAlignment = VerticalAlignment.Center;
+        Top = 1;
+        Left = 1;
 
         TouchUp += (s, a) => onClick?.Invoke(s);
     }
