@@ -1,5 +1,4 @@
 using System.Linq;
-using System;
 using Microsoft.Xna.Framework;
 using Myra.Graphics2D.UI;
 using SeaStrike.Core.Entity;
@@ -12,7 +11,6 @@ public class OpponentBattleGridPanel : BattleGridPanel
 {
     private readonly SeaStrike game;
     private readonly SeaStrikeGame seaStrikeGame;
-    private readonly Label hitResultLabel;
 
     public OpponentBattleGridPanel(
         SeaStrike game,
