@@ -12,7 +12,6 @@ public class DeploymentPhaseScreen : GameScreen
     private readonly SeaStrike game;
     private readonly BoardBuilder boardBuilder;
     private Grid mainGrid;
-    private GridPanel oceanGridPanel;
     private TextButton startGameButton;
 
     public DeploymentPhaseScreen(SeaStrike game) : base(game)
@@ -38,12 +37,12 @@ public class DeploymentPhaseScreen : GameScreen
 
         mainGrid.RowsProportions.Add(new Proportion(ProportionType.Auto));
 
-        AddBackButton();
-        AddPhaseLabel();
-        AddHelpButton();
-        AddGridButtonsPanel();
-        AddOceanGridPanel();
-        AddStartGameButton();
+        mainGrid.Widgets.Add(BackButton);
+        mainGrid.Widgets.Add(PhaseLabel);
+        mainGrid.Widgets.Add(HelpButton);
+        mainGrid.Widgets.Add(GridButtonsPanel);
+        mainGrid.Widgets.Add(OceanGridPanel);
+        mainGrid.Widgets.Add(startGameButton);
 
         game.desktop.Root = mainGrid;
     }
@@ -58,55 +57,42 @@ public class DeploymentPhaseScreen : GameScreen
 
     public override void Draw(GameTime gameTime) { }
 
-    private void AddBackButton()
+    private BackButton BackButton => new BackButton(game)
     {
-        mainGrid.Widgets.Add(new BackButton(game)
-        {
-            HorizontalAlignment = HorizontalAlignment.Left,
-            VerticalAlignment = VerticalAlignment.Top
-        });
-    }
+        HorizontalAlignment = HorizontalAlignment.Left,
+        VerticalAlignment = VerticalAlignment.Top
+    };
 
-    private void AddPhaseLabel()
+    private Label PhaseLabel => new Label()
     {
-        mainGrid.Widgets.Add(new Label()
-        {
-            Text = SeaStrike.stringStorage.deploymentPhaseScreenTitle,
-            TextColor = Color.LawnGreen,
-            Font = SeaStrike.fontSystem.GetFont(40),
-            HorizontalAlignment = HorizontalAlignment.Center
-        });
-    }
+        Text = SeaStrike.stringStorage.deploymentPhaseScreenTitle,
+        TextColor = Color.LawnGreen,
+        Font = SeaStrike.fontSystem.GetFont(40),
+        HorizontalAlignment = HorizontalAlignment.Center
+    };
 
-    private void AddHelpButton()
+    private HelpButton HelpButton => new HelpButton(game)
     {
-        mainGrid.Widgets.Add(new HelpButton(game)
-        {
-            Text = SeaStrike.stringStorage.helpButtonLabel,
-            Width = 40,
-            Height = 40,
-            HorizontalAlignment = HorizontalAlignment.Right,
-            VerticalAlignment = VerticalAlignment.Top,
-            helpWindowContent = SeaStrike.stringStorage.dpHelpWindowContent
-        });
-    }
+        Text = SeaStrike.stringStorage.helpButtonLabel,
+        Width = 40,
+        Height = 40,
+        HorizontalAlignment = HorizontalAlignment.Right,
+        VerticalAlignment = VerticalAlignment.Top,
+        helpWindowContent = SeaStrike.stringStorage.dpHelpWindowContent
+    };
 
-    private void AddGridButtonsPanel() =>
-        mainGrid.Widgets.Add(new GridButtonsPanel(boardBuilder));
+    private GridButtonsPanel GridButtonsPanel =>
+        new GridButtonsPanel(boardBuilder);
 
-    private void AddOceanGridPanel()
-    {
-        mainGrid.Widgets.Add(new GridPanel(boardBuilder.Build(), true)
+    private GridPanel OceanGridPanel =>
+        new GridPanel(boardBuilder.Build(), true)
         {
             GridRow = 1,
             HorizontalAlignment = HorizontalAlignment.Center,
             VerticalAlignment = VerticalAlignment.Center,
             OnEmptyTileClicked = ShowShipAdditionDialog,
             OnOccupiedTileClicked = RemoveShip
-        });
-    }
-
-    private void AddStartGameButton() => mainGrid.Widgets.Add(startGameButton);
+        };
 
     private void ShowShipAdditionDialog(object sender)
     {
