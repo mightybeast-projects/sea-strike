@@ -29,7 +29,6 @@ public class HelpWindow : GameWindow
 
     private Label HelpLabel => new Label()
     {
-        Text = labelText,
-        Font = SeaStrike.fontSystem.GetFont(24)
+        Text = labelText
     };
 }

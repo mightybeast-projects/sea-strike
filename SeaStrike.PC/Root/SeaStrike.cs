@@ -9,6 +9,7 @@ using Myra.Graphics2D;
 using Myra.Graphics2D.Brushes;
 using Myra.Graphics2D.UI;
 using Myra.Graphics2D.UI.Styles;
+using SeaStrike.Core.Exceptions;
 using SeaStrike.PC.Root.Screens;
 
 namespace SeaStrike.PC.Root;
@@ -58,7 +59,8 @@ public class SeaStrike : Game
         GraphicsDevice.Clear(Color.Black);
 
         try { desktop.Render(); }
-        catch (Exception e) { ShowErrorDialog(e); }
+        catch (SeaStrikeCoreException e) { ShowCoreLibraryError(e); }
+        catch (Exception e) { ShowSystemError(e); }
     }
 
     private void InitializeFontSystem()
@@ -73,8 +75,12 @@ public class SeaStrike : Game
     {
         Stylesheet ss = Stylesheet.Current;
 
+        ss.LabelStyle.Font = SeaStrike.fontSystem.GetFont(24);
+
+        ss.WindowStyle.TitleStyle.Font = SeaStrike.fontSystem.GetFont(30);
         ss.WindowStyle.CloseButtonStyle.Border = new SolidBrush(Color.Red);
         ss.WindowStyle.CloseButtonStyle.BorderThickness = new Thickness(2);
+
         ss.ComboBoxStyle.LabelStyle.Font = fontSystem.GetFont(24);
         ss.ComboBoxStyle.LabelStyle.Padding = new Thickness(5, 0);
 
@@ -83,15 +89,21 @@ public class SeaStrike : Game
         style.LabelStyle.Padding = new Thickness(5, 0);
     }
 
-    private void ShowErrorDialog(Exception e)
+    private void ShowCoreLibraryError(Exception e) =>
+        ShowErrorDialog(e.Message);
+
+    private void ShowSystemError(Exception e) =>
+        ShowErrorDialog(e.Message + " " + e.StackTrace);
+
+    private void ShowErrorDialog(string message)
     {
-        Dialog errorDialog = Dialog.CreateMessageBox(
-            stringStorage.errorWindowTitle,
-            e.Message + " " + e.StackTrace
-        );
+        Dialog errorDialog =
+            Dialog.CreateMessageBox(stringStorage.errorWindowTitle, message);
         errorDialog.Background = new SolidBrush(Color.Black);
         errorDialog.Border = new SolidBrush(Color.Red);
         errorDialog.BorderThickness = new Thickness(1);
+        errorDialog.ButtonOk.Visible = false;
+        errorDialog.ButtonCancel.Visible = false;
 
         errorDialog.ShowModal(desktop);
     }

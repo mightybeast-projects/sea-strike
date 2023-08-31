@@ -39,7 +39,6 @@ public class ShipAdditionWindow : GameWindow
         shipOptionsGrid.Widgets.Add(new Label()
         {
             Text = SeaStrike.stringStorage.selectedPositionLabel + position,
-            Font = SeaStrike.fontSystem.GetFont(24),
             HorizontalAlignment = HorizontalAlignment.Center,
             GridColumnSpan = 2
         });
@@ -50,7 +49,6 @@ public class ShipAdditionWindow : GameWindow
         shipOptionsGrid.Widgets.Add(new Label()
         {
             Text = SeaStrike.stringStorage.shipTypeLabel,
-            Font = SeaStrike.fontSystem.GetFont(24),
             GridRow = 1
         });
 
@@ -69,7 +67,6 @@ public class ShipAdditionWindow : GameWindow
         shipOptionsGrid.Widgets.Add(new Label()
         {
             Text = SeaStrike.stringStorage.shipOrientationLabel,
-            Font = SeaStrike.fontSystem.GetFont(24),
             GridRow = 2,
         });
 

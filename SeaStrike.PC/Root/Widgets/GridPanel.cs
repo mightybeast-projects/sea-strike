@@ -99,7 +99,6 @@ public class GridPanel : Panel, IBoardObserver
         uiGrid.Widgets.Add(new Label()
         {
             Text = i.ToString(),
-            Font = SeaStrike.fontSystem.GetFont(24),
             GridColumn = i,
             HorizontalAlignment = HorizontalAlignment.Center,
             VerticalAlignment = VerticalAlignment.Center
@@ -111,7 +110,6 @@ public class GridPanel : Panel, IBoardObserver
         uiGrid.Widgets.Add(new Label()
         {
             Text = ((char)(i + 64)).ToString(),
-            Font = SeaStrike.fontSystem.GetFont(24),
             GridRow = i,
             HorizontalAlignment = HorizontalAlignment.Center,
             VerticalAlignment = VerticalAlignment.Center
