@@ -7,11 +7,10 @@ namespace SeaStrike.PC.Root.Widgets;
 
 public class ShipAdditionWindow : GameWindow
 {
+    private const string shipTypeBoxId = "shipType";
+    private const string orientationBoxId = "orientationBox";
     private readonly string position;
     private readonly BoardBuilder boardBuilder;
-    private Grid shipOptionsGrid;
-    private ComboBox shipsTypeBox;
-    private ComboBox shipOrientationBox;
 
     public ShipAdditionWindow(string position, BoardBuilder boardBuilder)
     {
@@ -20,84 +19,79 @@ public class ShipAdditionWindow : GameWindow
 
         Title = SeaStrike.stringStorage.shipAdditionWindowTitle;
 
-        shipOptionsGrid = new Grid()
+        Grid shipOptionsGrid = new Grid()
         {
             RowSpacing = 8,
             ColumnSpacing = 8
         };
 
-        AddSelectedTileLabel();
-        AddShipTypeSelectionForm();
-        AddShipOrientationSelectionForm();
-        AddCreateButton();
+        shipOptionsGrid.Widgets.Add(SelectedTileLabel);
+        shipOptionsGrid.Widgets.Add(ShipTypeLabel);
+        shipOptionsGrid.Widgets.Add(ShipTypeComboBox);
+        shipOptionsGrid.Widgets.Add(ShipOrientationLabel);
+        shipOptionsGrid.Widgets.Add(ShipOrientationComboBox);
+        shipOptionsGrid.Widgets.Add(CreateShipButton);
 
         Content = shipOptionsGrid;
     }
 
-    private void AddSelectedTileLabel()
+    private Label SelectedTileLabel => new Label()
     {
-        shipOptionsGrid.Widgets.Add(new Label()
-        {
-            Text = SeaStrike.stringStorage.selectedPositionLabel + position,
-            HorizontalAlignment = HorizontalAlignment.Center,
-            GridColumnSpan = 2
-        });
-    }
+        Text = SeaStrike.stringStorage.selectedPositionLabel + position,
+        HorizontalAlignment = HorizontalAlignment.Center,
+        GridColumnSpan = 2
+    };
 
-    private void AddShipTypeSelectionForm()
+    private Label ShipTypeLabel => new Label()
     {
-        shipOptionsGrid.Widgets.Add(new Label()
-        {
-            Text = SeaStrike.stringStorage.shipTypeLabel,
-            GridRow = 1
-        });
+        Text = SeaStrike.stringStorage.shipTypeLabel,
+        GridRow = 1
+    };
 
-        shipsTypeBox = new GameComboBox(GetShipTypes())
+    private GameComboBox ShipTypeComboBox => new GameComboBox(GetShipTypes())
+    {
+        Id = shipTypeBoxId,
+        GridRow = 1,
+        GridColumn = 1,
+        HorizontalAlignment = HorizontalAlignment.Right
+    };
+
+    private Label ShipOrientationLabel => new Label()
+    {
+        Text = SeaStrike.stringStorage.shipOrientationLabel,
+        GridRow = 2,
+    };
+
+    private GameComboBox ShipOrientationComboBox =>
+        new GameComboBox(SeaStrike.stringStorage.orientationBoxItems)
         {
-            GridRow = 1,
+            Id = orientationBoxId,
+            GridRow = 2,
             GridColumn = 1,
             HorizontalAlignment = HorizontalAlignment.Right
         };
 
-        shipOptionsGrid.Widgets.Add(shipsTypeBox);
-    }
-
-    private void AddShipOrientationSelectionForm()
-    {
-        shipOptionsGrid.Widgets.Add(new Label()
-        {
-            Text = SeaStrike.stringStorage.shipOrientationLabel,
-            GridRow = 2,
-        });
-
-        shipOrientationBox =
-            new GameComboBox(SeaStrike.stringStorage.orientationBoxItems)
-            {
-                GridRow = 2,
-                GridColumn = 1,
-                HorizontalAlignment = HorizontalAlignment.Right
-            };
-
-        shipOptionsGrid.Widgets.Add(shipOrientationBox);
-    }
-
-    private void AddCreateButton()
-    {
-        shipOptionsGrid.Widgets.Add(new CreateShipButton(AddNewShip)
+    private CreateShipButton CreateShipButton =>
+        new CreateShipButton(AddNewShip)
         {
             GridRow = 3,
             GridColumnSpan = 2,
             HorizontalAlignment = HorizontalAlignment.Center
-        });
-    }
+        };
 
     private void AddNewShip()
     {
         Close();
 
+        ComboBox shipsTypeBox =
+            (ComboBox)Content.FindWidgetById(shipTypeBoxId);
+        ComboBox shipOrientationBox =
+            (ComboBox)Content.FindWidgetById(orientationBoxId);
+
         int shipTypeIndex = shipsTypeBox.SelectedIndex ?? 0;
         Ship ship = boardBuilder.shipsPool[shipTypeIndex];
         int shipOrientationIndex = shipOrientationBox.SelectedIndex ?? 0;
+
         Func<Ship, BoardBuilder> AddShip =
             shipOrientationIndex == 0 ?
             boardBuilder.AddHorizontalShip :
