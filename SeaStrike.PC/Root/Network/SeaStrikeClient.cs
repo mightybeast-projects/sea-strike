@@ -2,11 +2,14 @@ using System;
 using System.Text;
 using System.Threading;
 using NetCoreServer;
+using SocketError = System.Net.Sockets.SocketError;
 
 namespace SeaStrike.PC.Root.Network;
 
 public class SeaStrikeClient : TcpClient
 {
+    private bool _stop;
+
     public SeaStrikeClient(string address, int port) : base(address, port) { }
 
     public void DisconnectAndStop()
@@ -23,13 +26,6 @@ public class SeaStrikeClient : TcpClient
     protected override void OnDisconnected()
     {
         Console.WriteLine($"Chat TCP client disconnected a session with Id {Id}");
-
-        // Wait for a while...
-        Thread.Sleep(1000);
-
-        // Try to connect again
-        if (!_stop)
-            ConnectAsync();
     }
 
     protected override void OnReceived(byte[] buffer, long offset, long size)
@@ -37,5 +33,8 @@ public class SeaStrikeClient : TcpClient
         Console.WriteLine("From client : " + Encoding.UTF8.GetString(buffer, (int)offset, (int)size));
     }
 
-    private bool _stop;
+    protected override void OnError(SocketError error)
+    {
+        Console.WriteLine($"Chat TCP client caught an error with code {error}");
+    }
 }

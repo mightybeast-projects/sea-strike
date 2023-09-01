@@ -16,6 +16,9 @@ public class SeaStrikeSession : TcpSession
         // Send invite message
         string message = "Hello from TCP chat! Please send a message or '!' to disconnect the client!";
         SendAsync(message);
+
+        if (Server.ConnectedSessions == 2)
+            System.Console.WriteLine("We can start a game!");
     }
 
     protected override void OnDisconnected() =>
