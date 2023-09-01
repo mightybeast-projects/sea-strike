@@ -62,6 +62,8 @@ public class LobbyScreen : GameScreen
         Console.WriteLine("Done!");
 
         Console.WriteLine("Press Enter to stop the server or '!' to restart the server...");
+
+        ConnectToLobby();
     }
 
     private void ConnectToLobby()

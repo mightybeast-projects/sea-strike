@@ -13,7 +13,8 @@ public class SeaStrikeSession : TcpSession
     {
         Console.WriteLine($"Chat TCP session with Id {Id} connected!");
 
-        SendAsync("-> Deploy ships");
+        if (Server.ConnectedSessions == 2)
+            Server.Multicast("-> Deploy ships");
     }
 
     protected override void OnDisconnected() =>
