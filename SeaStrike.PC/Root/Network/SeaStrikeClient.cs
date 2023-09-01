@@ -34,7 +34,7 @@ public class SeaStrikeClient : TcpClient
 
     protected override void OnReceived(byte[] buffer, long offset, long size)
     {
-        Console.WriteLine(Encoding.UTF8.GetString(buffer, (int)offset, (int)size));
+        Console.WriteLine("From client : " + Encoding.UTF8.GetString(buffer, (int)offset, (int)size));
     }
 
     private bool _stop;
