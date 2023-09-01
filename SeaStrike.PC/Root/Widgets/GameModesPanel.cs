@@ -6,29 +6,19 @@ namespace SeaStrike.PC.Root.Widgets;
 
 public class GameModesPanel : VerticalStackPanel
 {
+    private SeaStrike game;
+
     public GameModesPanel(SeaStrike game)
     {
+        this.game = game;
+
         Spacing = 20;
         Top = -100;
         VerticalAlignment = VerticalAlignment.Bottom;
 
         Widgets.Add(GameModeLabel);
-
-        GameButton singlePlayerButton = new GameButton()
-        {
-            Text = SeaStrike.stringStorage.singlePlayerButtonLabel
-        };
-        singlePlayerButton.TouchUp += (s, a) =>
-            game.screenManager.LoadScreen(new DeploymentPhaseScreen(game));
-
-        Widgets.Add(singlePlayerButton);
-
-        GameButton multiplayerButton = new GameButton(null)
-        {
-            Text = SeaStrike.stringStorage.multiplayerButonLabel
-        };
-
-        Widgets.Add(multiplayerButton);
+        Widgets.Add(SinglePlayerButton);
+        Widgets.Add(MultiplayerButton);
     }
 
     private Label GameModeLabel => new Label()
@@ -38,4 +28,22 @@ public class GameModesPanel : VerticalStackPanel
         TextColor = Color.LawnGreen,
         HorizontalAlignment = HorizontalAlignment.Center
     };
+
+    private GameButton SinglePlayerButton =>
+        new GameButton(() => LoadSinglePlayerMode())
+        {
+            Text = SeaStrike.stringStorage.singlePlayerButtonLabel
+        };
+
+    private GameButton MultiplayerButton =>
+        new GameButton(() => LoadMultiplayerMode())
+        {
+            Text = SeaStrike.stringStorage.multiplayerButonLabel
+        };
+
+    private void LoadSinglePlayerMode() =>
+        game.screenManager.LoadScreen(new DeploymentPhaseScreen(game));
+
+    private void LoadMultiplayerMode() =>
+        game.screenManager.LoadScreen(new LobbyScreen(game));
 }
