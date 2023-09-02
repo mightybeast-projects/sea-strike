@@ -13,8 +13,6 @@ public class GameModesPanel : VerticalStackPanel
         this.game = game;
 
         Spacing = 20;
-        Top = -100;
-        VerticalAlignment = VerticalAlignment.Bottom;
 
         Widgets.Add(GameModeLabel);
         Widgets.Add(SinglePlayerButton);

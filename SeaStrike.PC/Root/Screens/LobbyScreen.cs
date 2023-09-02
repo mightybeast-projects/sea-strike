@@ -38,22 +38,6 @@ public class LobbyScreen : GameScreen
         client?.PollEvents();
     }
 
-    private void CreateNewLobby()
-    {
-        server = new SeaStrikeServer(game);
-        server.Start();
-
-        ConnectToLobby();
-
-        game.desktop.Root = CreatedNewLobbyLabel;
-    }
-
-    private void ConnectToLobby()
-    {
-        client = new SeaStrikeClient(game);
-        client.Start();
-    }
-
     private Label ScreenTitleLabel => new Label()
     {
         Text = SeaStrike.stringStorage.lobbyScreenLabel,
@@ -79,4 +63,20 @@ public class LobbyScreen : GameScreen
         HorizontalAlignment = HorizontalAlignment.Center,
         VerticalAlignment = VerticalAlignment.Center
     };
+
+    private void CreateNewLobby()
+    {
+        server = new SeaStrikeServer(game);
+        server.Start();
+
+        ConnectToLobby();
+
+        game.desktop.Root = CreatedNewLobbyLabel;
+    }
+
+    private void ConnectToLobby()
+    {
+        client = new SeaStrikeClient(game);
+        client.Start();
+    }
 }

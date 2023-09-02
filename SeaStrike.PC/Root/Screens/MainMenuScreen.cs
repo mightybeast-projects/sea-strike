@@ -29,13 +29,17 @@ public class MainMenuScreen : GameScreen
 
     private Label TitleLabel => new Label()
     {
+        Top = 100,
         Text = SeaStrike.stringStorage.gameTitle,
         TextColor = Color.LawnGreen,
         Font = SeaStrike.fontSystem.GetFont(56),
         HorizontalAlignment = HorizontalAlignment.Center,
         VerticalAlignment = VerticalAlignment.Top,
-        Top = 100,
     };
 
-    private GameModesPanel GameModesPanel => new GameModesPanel(game);
+    private GameModesPanel GameModesPanel => new GameModesPanel(game)
+    {
+        Top = -100,
+        VerticalAlignment = VerticalAlignment.Bottom
+    };
 }
