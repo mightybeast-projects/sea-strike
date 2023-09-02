@@ -16,12 +16,18 @@ public class SeaStrikeClient
         EventBasedNetListener listener = new EventBasedNetListener();
         client = new NetManager(listener);
 
-        client.Start();
-        client.Connect(Utils.address, 9050, Utils.connectionKey);
-
         listener.NetworkReceiveEvent +=
             (fromPeer, dataReader, deliveryMethod, channel) =>
                 HandleReceivedMessage(fromPeer, dataReader, deliveryMethod, channel);
+
+        listener.PeerDisconnectedEvent += (peer, info) =>
+            game.screenManager.LoadScreen(new MainMenuScreen(game));
+    }
+
+    public void Start()
+    {
+        client.Start();
+        client.Connect(Utils.address, 9050, Utils.connectionKey);
     }
 
     public void PollEvents() => client.PollEvents();

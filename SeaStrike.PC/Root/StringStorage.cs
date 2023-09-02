@@ -60,4 +60,10 @@ public class StringStorage
     //Game button strings
     public string backButtonLabel = "<=";
     public string helpButtonLabel = "?";
+
+    //Lobby screen strings
+    public string lobbyScreenLabel = "Lobby screen";
+    public string createLobbyButtonLabel = "Create new lobby";
+    public string connectToLobbyButtonLabel = "Connect to existing lobby";
+    public string createdLobbyLabel = "Created new lobby.\nWaiting for another player to connect...";
 }

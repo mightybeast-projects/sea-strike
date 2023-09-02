@@ -3,6 +3,7 @@ using MonoGame.Extended.Screens;
 using Myra.Graphics2D.UI;
 using SeaStrike.PC.Root.Widgets;
 using SeaStrike.PC.Root.Network;
+using FontStashSharp.RichText;
 
 namespace SeaStrike.PC.Root.Screens;
 
@@ -18,25 +19,13 @@ public class LobbyScreen : GameScreen
 
         VerticalStackPanel panel = new VerticalStackPanel()
         {
-            Spacing = 10,
+            Spacing = 20,
             VerticalAlignment = VerticalAlignment.Center
         };
 
-        panel.Widgets.Add(new Label()
-        {
-            Text = "Lobby screen",
-            HorizontalAlignment = HorizontalAlignment.Center,
-        });
-
-        panel.Widgets.Add(new GameButton(() => CreateNewLobby())
-        {
-            Text = "Create new lobby"
-        });
-
-        panel.Widgets.Add(new GameButton(() => ConnectToLobby())
-        {
-            Text = "Connect to existing lobby"
-        });
+        panel.Widgets.Add(ScreenTitleLabel);
+        panel.Widgets.Add(CreateLobbyButton);
+        panel.Widgets.Add(ConnectToLobbyButton);
 
         game.desktop.Root = panel;
     }
@@ -45,21 +34,49 @@ public class LobbyScreen : GameScreen
 
     public override void Update(GameTime gameTime)
     {
-        if (server is not null)
-            server.PollEvents();
-        if (client is not null)
-            client.PollEvents();
+        server?.PollEvents();
+        client?.PollEvents();
     }
 
     private void CreateNewLobby()
     {
         server = new SeaStrikeServer(game);
+        server.Start();
 
         ConnectToLobby();
+
+        game.desktop.Root = CreatedNewLobbyLabel;
     }
 
     private void ConnectToLobby()
     {
         client = new SeaStrikeClient(game);
+        client.Start();
     }
+
+    private Label ScreenTitleLabel => new Label()
+    {
+        Text = SeaStrike.stringStorage.lobbyScreenLabel,
+        HorizontalAlignment = HorizontalAlignment.Center,
+    };
+
+    private GameButton CreateLobbyButton =>
+        new GameButton(() => CreateNewLobby())
+        {
+            Text = SeaStrike.stringStorage.createLobbyButtonLabel
+        };
+
+    private GameButton ConnectToLobbyButton =>
+        new GameButton(() => ConnectToLobby())
+        {
+            Text = SeaStrike.stringStorage.connectToLobbyButtonLabel
+        };
+
+    private Label CreatedNewLobbyLabel => new Label()
+    {
+        Text = SeaStrike.stringStorage.createdLobbyLabel,
+        TextAlign = TextHorizontalAlignment.Center,
+        HorizontalAlignment = HorizontalAlignment.Center,
+        VerticalAlignment = VerticalAlignment.Center
+    };
 }

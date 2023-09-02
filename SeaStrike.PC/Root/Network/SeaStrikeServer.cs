@@ -15,14 +15,13 @@ public class SeaStrikeServer
 
         EventBasedNetListener listener = new EventBasedNetListener();
         server = new NetManager(listener);
-        server.Start(Utils.port);
-
-        System.Console.WriteLine("Server started!");
 
         listener.ConnectionRequestEvent += request =>
             HandleNewRequest(request);
         listener.PeerConnectedEvent += peer => HandleNewPeer(peer);
     }
+
+    public void Start() => server.Start(Utils.port);
 
     public void PollEvents() => server.PollEvents();
 
