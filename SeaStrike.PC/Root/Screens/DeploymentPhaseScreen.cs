@@ -46,7 +46,7 @@ public class DeploymentPhaseScreen : GameScreen
 
     public override void Draw(GameTime gameTime) { }
 
-    private GameButton BackButton => new GameButton(ReturnOnMainMenuScreen)
+    private GameButton BackButton => new GameButton(OnBackButtonPressed)
     {
         Text = SeaStrike.stringStorage.backButtonLabel,
         Width = 40,
@@ -87,7 +87,7 @@ public class DeploymentPhaseScreen : GameScreen
             OnAllyShipClicked = RemoveShip
         };
 
-    private GameButton StartGameButton => new GameButton(LoadBattlePhaseScreen)
+    private GameButton StartGameButton => new GameButton(OnStartButtonPressed)
     {
         Text = SeaStrike.stringStorage.startGameButtonLabel,
         Top = -10,
@@ -97,10 +97,10 @@ public class DeploymentPhaseScreen : GameScreen
         VerticalAlignment = VerticalAlignment.Bottom
     };
 
-    private void ReturnOnMainMenuScreen() =>
+    protected virtual void OnBackButtonPressed() =>
         game.screenManager.LoadScreen(new MainMenuScreen(game));
 
-    private void LoadBattlePhaseScreen() =>
+    protected virtual void OnStartButtonPressed() =>
         game.screenManager
             .LoadScreen(new BattlePhaseScreen(game, boardBuilder.Build()));
 

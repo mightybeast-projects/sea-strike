@@ -6,4 +6,5 @@ public class Utils
     public static int port = 9050;
     public static string connectionKey = "SeaStrikeKey";
     public static string deploymentPhaseStartMessage = "-> Deploy ships";
+    public static string shipsDeployedMessage = "Ships deployed <-";
 }

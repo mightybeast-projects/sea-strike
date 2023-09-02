@@ -1,27 +1,41 @@
 using System;
 using LiteNetLib;
 using LiteNetLib.Utils;
+using SeaStrike.PC.Root.Screens;
 
 namespace SeaStrike.PC.Root.Network;
 
 public class SeaStrikeServer
 {
-    private SeaStrike game;
+    private Player player;
     private NetManager server;
+    private SeaStrike game => player.game;
 
-    public SeaStrikeServer(SeaStrike game)
+    public SeaStrikeServer(Player player)
     {
-        this.game = game;
+        this.player = player;
+
+        player.server = this;
 
         EventBasedNetListener listener = new EventBasedNetListener();
         server = new NetManager(listener);
 
-        listener.ConnectionRequestEvent += request =>
-            HandleNewRequest(request);
+        listener.ConnectionRequestEvent += request => HandleNewRequest(request);
         listener.PeerConnectedEvent += peer => HandleNewPeer(peer);
+        listener.PeerDisconnectedEvent += (peer, info) =>
+            game.screenManager.LoadScreen(new MainMenuScreen(game));
+        listener.NetworkReceiveEvent +=
+            (fromPeer, dataReader, deliveryMethod, channel) =>
+                HandleReceivedMessage(fromPeer, dataReader, deliveryMethod, channel);
     }
 
     public void Start() => server.Start(Utils.port);
+
+    public void Disconnect()
+    {
+        server.DisconnectAll();
+        server.Stop();
+    }
 
     public void PollEvents() => server.PollEvents();
 
@@ -41,6 +55,17 @@ public class SeaStrikeServer
 
         if (server.ConnectedPeersCount == 2)
             StartDeploymentPhase();
+    }
+
+    private void HandleReceivedMessage(
+        NetPeer fromPeer,
+        NetPacketReader dataReader,
+        byte deliveryMethod,
+        DeliveryMethod channel)
+    {
+        string message = dataReader.GetString(100);
+
+        Console.WriteLine("From client {0}: {1}", fromPeer.Id, message);
     }
 
     private NetDataWriter FormMessage(string message)

@@ -10,12 +10,13 @@ namespace SeaStrike.PC.Root.Screens;
 public class LobbyScreen : GameScreen
 {
     private SeaStrike game;
-    private SeaStrikeServer server;
-    private SeaStrikeClient client;
+    private Player player;
 
     public LobbyScreen(SeaStrike game) : base(game)
     {
         this.game = game;
+
+        player = new Player(game);
 
         VerticalStackPanel panel = new VerticalStackPanel()
         {
@@ -32,11 +33,7 @@ public class LobbyScreen : GameScreen
 
     public override void Draw(GameTime gameTime) { }
 
-    public override void Update(GameTime gameTime)
-    {
-        server?.PollEvents();
-        client?.PollEvents();
-    }
+    public override void Update(GameTime gameTime) => player.UpdateNetwork();
 
     private Label ScreenTitleLabel => new Label()
     {
@@ -45,7 +42,7 @@ public class LobbyScreen : GameScreen
     };
 
     private GameButton CreateLobbyButton =>
-        new GameButton(() => CreateNewLobby())
+        new GameButton(() => { CreateNewLobby(); ConnectToLobby(); })
         {
             Text = SeaStrike.stringStorage.createLobbyButtonLabel
         };
@@ -66,17 +63,15 @@ public class LobbyScreen : GameScreen
 
     private void CreateNewLobby()
     {
-        server = new SeaStrikeServer(game);
+        SeaStrikeServer server = new SeaStrikeServer(player);
         server.Start();
-
-        ConnectToLobby();
 
         game.desktop.Root = CreatedNewLobbyLabel;
     }
 
     private void ConnectToLobby()
     {
-        client = new SeaStrikeClient(game);
+        SeaStrikeClient client = new SeaStrikeClient(player);
         client.Start();
     }
 }
