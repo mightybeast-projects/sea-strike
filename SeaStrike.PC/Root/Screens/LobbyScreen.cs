@@ -5,16 +5,17 @@ using System.Net;
 using Microsoft.Xna.Framework;
 using MonoGame.Extended.Screens;
 using Myra.Graphics2D.UI;
-using SeaStrike.PC.Root.Network;
 using SeaStrike.PC.Root.Widgets;
+using LiteNetLib;
+using LiteNetLib.Utils;
 
 namespace SeaStrike.PC.Root.Screens;
 
 public class LobbyScreen : GameScreen
 {
     private SeaStrike game;
-    private const int port = 1111;
-    private const string address = "127.0.0.1";
+    private NetManager server;
+    private NetManager client;
 
     public LobbyScreen(SeaStrike game) : base(game)
     {
@@ -47,35 +48,65 @@ public class LobbyScreen : GameScreen
 
     public override void Draw(GameTime gameTime) { }
 
-    public override void Update(GameTime gameTime) { }
+    public override void Update(GameTime gameTime)
+    {
+        if (server is not null)
+            server.PollEvents();
+        if (client is not null)
+            client.PollEvents();
+    }
 
     private void CreateNewLobby()
     {
-        var server = new SeaStrikeServer(IPAddress.Any, port, game);
+        EventBasedNetListener listener = new EventBasedNetListener();
+        server = new NetManager(listener);
+        server.Start(9050 /* port */);
 
-        server.OptionNoDelay = true;
-        server.OptionTcpKeepAliveInterval = 1;
+        System.Console.WriteLine("Server started!");
 
-        // Start the server
-        Console.Write("Server starting...");
-        server.Start();
-        Console.WriteLine("Done!");
+        listener.ConnectionRequestEvent += request =>
+        {
+            if (server.ConnectedPeersCount < 10 /* max connections */)
+                request.AcceptIfKey("SomeConnectionKey");
+            else
+                request.Reject();
+        };
 
-        Console.WriteLine("Press Enter to stop the server or '!' to restart the server...");
+        listener.PeerConnectedEvent += peer =>
+        {
+            Console.WriteLine("New connection: {0}", peer.EndPoint); // Show peer ip
+            NetDataWriter writer = new NetDataWriter();                 // Create writer class
+            writer.Put("Hello client!");                                // Put some string
+            peer.Send(writer, DeliveryMethod.ReliableOrdered);
+
+            if (server.ConnectedPeersCount == 2)
+            {
+                writer = new NetDataWriter();                 // Create writer class
+                writer.Put("-> Deploy ships");
+                server.SendToAll(writer, DeliveryMethod.ReliableOrdered);
+            }
+        };
 
         ConnectToLobby();
     }
 
     private void ConnectToLobby()
     {
-        var client = new SeaStrikeClient(address, port, game);
+        EventBasedNetListener listener = new EventBasedNetListener();
+        client = new NetManager(listener);
+        client.Start();
+        client.Connect("localhost" /* host ip or name */, 9050 /* port */, "SomeConnectionKey" /* text key or NetDataWriter */);
 
-        // Connect the client
-        Console.Write("Client connecting...");
-        bool connected = client.ConnectAsync();
+        listener.NetworkReceiveEvent += (fromPeer, dataReader, deliveryMethod, channel) =>
+        {
+            string message = dataReader.GetString(100);
 
-        Console.WriteLine("Done!");
+            Console.WriteLine("From server: {0}", message);
 
-        Console.WriteLine("Press Enter to stop the client or '!' to reconnect the client...");
+            if (message == "-> Deploy ships")
+                game.screenManager.LoadScreen(new DeploymentPhaseScreen(game));
+
+            dataReader.Recycle();
+        };
     }
 }
