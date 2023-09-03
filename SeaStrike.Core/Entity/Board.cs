@@ -1,9 +1,11 @@
+using Newtonsoft.Json;
 using SeaStrike.Core.Exceptions;
 
 namespace SeaStrike.Core.Entity;
 
 public class Board
 {
+    [JsonIgnore]
     public readonly List<IBoardObserver> observers;
     public readonly Grid oceanGrid;
     public readonly List<Ship> ships;
@@ -19,6 +21,14 @@ public class Board
         oceanGrid = new Grid();
         ships = new List<Ship>();
         shipsPool = DefaultShipsPool;
+    }
+
+    [JsonConstructor]
+    private Board(Grid oceanGrid, List<Ship> ships, Board opponentBoard)
+    {
+        this.oceanGrid = oceanGrid;
+        this.ships = ships;
+        this.opponentBoard = opponentBoard;
     }
 
     public void Subscribe(IBoardObserver observer) => observers.Add(observer);

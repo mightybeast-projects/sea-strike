@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using SeaStrike.Core.Exceptions;
 
 namespace SeaStrike.Core.Entity;
@@ -14,6 +15,9 @@ public class Grid
 
         Reset();
     }
+
+    [JsonConstructor]
+    private Grid(Tile[,] tiles) => this.tiles = tiles;
 
     internal void Reset()
     {

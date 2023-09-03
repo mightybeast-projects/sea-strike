@@ -1,6 +1,8 @@
+using Newtonsoft.Json;
+
 namespace SeaStrike.Core.Entity;
 
-public abstract class Ship
+public class Ship
 {
     public readonly Tile[] occupiedTiles;
 
@@ -10,6 +12,9 @@ public abstract class Ship
     public int width => occupiedTiles.Length;
 
     protected Ship(int width) => occupiedTiles = new Tile[width];
+
+    [JsonConstructor]
+    private Ship(Tile[] occupiedTiles) => this.occupiedTiles = occupiedTiles;
 
     public override string ToString() =>
         GetType().Name + " (Width : " + width + ").";

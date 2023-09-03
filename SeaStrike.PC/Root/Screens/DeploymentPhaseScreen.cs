@@ -12,9 +12,9 @@ namespace SeaStrike.PC.Root.Screens;
 
 public class DeploymentPhaseScreen : GameScreen
 {
+    protected readonly BoardBuilder boardBuilder;
+    protected Grid mainGrid;
     private readonly SeaStrike game;
-    private readonly BoardBuilder boardBuilder;
-    private Grid mainGrid;
 
     public DeploymentPhaseScreen(SeaStrike game) : base(game)
     {

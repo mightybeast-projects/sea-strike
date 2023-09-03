@@ -1,3 +1,6 @@
+using System.Net.NetworkInformation;
+using Newtonsoft.Json;
+
 namespace SeaStrike.Core.Entity;
 
 public class Tile
@@ -15,5 +18,13 @@ public class Tile
     {
         this.i = i;
         this.j = j;
+    }
+
+    [JsonConstructor]
+    private Tile(int i, int j, Ship occupiedBy)
+    {
+        this.i = i;
+        this.j = j;
+        this.occupiedBy = occupiedBy;
     }
 }

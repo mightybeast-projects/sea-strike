@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Myra.Graphics2D.UI;
 using SeaStrike.PC.Root.Network;
+using SeaStrike.PC.Root.Widgets;
 using GameWindow = SeaStrike.PC.Root.Widgets.Modal.GameWindow;
 
 namespace SeaStrike.PC.Root.Screens;
@@ -29,7 +30,7 @@ public class MultiplayerDeploymentPhaseScreen : DeploymentPhaseScreen
 
     protected override void OnStartButtonPressed()
     {
-        player.SendShipsDeployedMessage();
+        player.SendBoard(boardBuilder.Build());
 
         GameWindow readyWindow =
             new GameWindow(SeaStrike.stringStorage.readyWindowTitle)
