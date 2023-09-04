@@ -16,4 +16,11 @@ public class Tile
         this.i = i;
         this.j = j;
     }
+
+    private Tile(int i, int j, Ship occupiedBy)
+    {
+        this.i = i;
+        this.j = j;
+        this.occupiedBy = occupiedBy;
+    }
 }

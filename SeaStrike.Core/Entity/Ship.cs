@@ -17,6 +17,8 @@ public abstract class Ship
 
     protected Ship(int width) => occupiedTiles = new Tile[width];
 
+    private Ship(Tile[] occupiedTiles) => this.occupiedTiles = occupiedTiles;
+
     public override string ToString() =>
         GetType().Name + " (Width : " + width + ").";
 }

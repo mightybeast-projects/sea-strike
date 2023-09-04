@@ -15,6 +15,8 @@ public class Grid
         Reset();
     }
 
+    private Grid(Tile[,] tiles) => this.tiles = tiles;
+
     internal void Reset()
     {
         for (int i = 0; i < tiles.GetLength(0); i++)
