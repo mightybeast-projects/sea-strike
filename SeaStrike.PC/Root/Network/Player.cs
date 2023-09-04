@@ -5,6 +5,7 @@ namespace SeaStrike.PC.Root.Network;
 public class Player
 {
     internal SeaStrike game;
+    internal Board board;
     internal SeaStrikeClient client;
     internal SeaStrikeServer server;
 
@@ -22,6 +23,10 @@ public class Player
         server?.Disconnect();
     }
 
-    public void SendBoard(Board board) =>
+    public void SendBoard(Board board)
+    {
+        this.board = board;
+
         client.Send(new BoardData(board).ToJson());
+    }
 }

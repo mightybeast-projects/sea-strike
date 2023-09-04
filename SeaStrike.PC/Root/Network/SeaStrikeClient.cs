@@ -1,6 +1,7 @@
 using System;
 using LiteNetLib;
 using LiteNetLib.Utils;
+using Newtonsoft.Json;
 using SeaStrike.PC.Root.Screens;
 
 namespace SeaStrike.PC.Root.Network;
@@ -9,6 +10,7 @@ public class SeaStrikeClient
 {
     private Player player;
     private NetManager client;
+    private BoardData data;
     private SeaStrike game => player.game;
 
     public SeaStrikeClient(Player player)
@@ -49,6 +51,12 @@ public class SeaStrikeClient
         if (message == Utils.deploymentPhaseStartMessage)
             game.screenManager
                 .LoadScreen(new MultiplayerDeploymentPhaseScreen(player));
+        else if (message == Utils.startBattlePhaseMessage)
+            game.screenManager
+                .LoadScreen(new MultiplayerBattlePhaseScreen(
+                    game, player.board, data.Build()));
+        else
+            data = JsonConvert.DeserializeObject<BoardData>(message);
 
         dataReader.Recycle();
     }

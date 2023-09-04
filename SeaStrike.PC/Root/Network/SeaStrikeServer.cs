@@ -1,9 +1,9 @@
-using System.Linq;
 using System.Collections.Generic;
 using System;
 using LiteNetLib;
 using LiteNetLib.Utils;
 using SeaStrike.PC.Root.Screens;
+using System.Linq;
 
 namespace SeaStrike.PC.Root.Network;
 
@@ -55,8 +55,6 @@ public class SeaStrikeServer
     {
         Console.WriteLine("New connection: {0}", peer.EndPoint);
 
-        peer.Send(FormMessage("Hello client!"), DeliveryMethod.ReliableOrdered);
-
         if (server.ConnectedPeersCount == 2)
             StartDeploymentPhase();
     }
@@ -67,22 +65,18 @@ public class SeaStrikeServer
     {
         string message = dataReader.GetString();
 
-        //Console.WriteLine("From client {0}: {1}", fromPeer.Id, message);
-
         playerBoardDatas.Add(fromPeer, message);
 
         if (playerBoardDatas.Count == 2)
+        {
             ExchangeBoardDatas();
+            StartBattlePhase();
+        }
     }
 
-    private void ExchangeBoardDatas()
-    {
-        foreach (KeyValuePair<NetPeer, string> item in playerBoardDatas)
-            server.SendToAll(
-                FormMessage(item.Value),
-                DeliveryMethod.ReliableOrdered,
-                item.Key);
-    }
+    private void ExchangeBoardDatas() =>
+        playerBoardDatas.ToList()
+        .ForEach(playerData => SendOpponentBoard(playerData));
 
     private NetDataWriter FormMessage(string message)
     {
@@ -95,5 +89,16 @@ public class SeaStrikeServer
     private void StartDeploymentPhase() =>
         server.SendToAll(
             FormMessage(Utils.deploymentPhaseStartMessage),
+            DeliveryMethod.ReliableOrdered);
+
+    private void SendOpponentBoard(KeyValuePair<NetPeer, string> item) =>
+        server.SendToAll(
+            FormMessage(item.Value),
+            DeliveryMethod.ReliableOrdered,
+            item.Key);
+
+    private void StartBattlePhase() =>
+        server.SendToAll(
+            FormMessage(Utils.startBattlePhaseMessage),
             DeliveryMethod.ReliableOrdered);
 }

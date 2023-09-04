@@ -12,9 +12,9 @@ namespace SeaStrike.PC.Root.Screens;
 
 public class BattlePhaseScreen : GameScreen
 {
-    private readonly SeaStrike game;
-    private readonly SeaStrikeGame seaStrikeGame;
-    private readonly Board playerBoard;
+    protected SeaStrike game;
+    protected SeaStrikeGame seaStrikeGame;
+    protected Board playerBoard;
 
     public BattlePhaseScreen(SeaStrike game, Board playerBoard) : base(game)
     {
@@ -23,6 +23,8 @@ public class BattlePhaseScreen : GameScreen
 
         seaStrikeGame = new SeaStrikeGame(playerBoard);
     }
+
+    protected BattlePhaseScreen(SeaStrike game) : base(game) { }
 
     public override void LoadContent()
     {
