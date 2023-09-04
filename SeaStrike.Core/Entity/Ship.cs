@@ -1,13 +1,19 @@
 namespace SeaStrike.Core.Entity;
 
+public enum Orientation { Horizontal, Vertical }
+
 public abstract class Ship
 {
     public readonly Tile[] occupiedTiles;
 
-    internal bool isSunk => occupiedTiles.All(tile => tile.hasBeenHit)!;
-
     public string name => GetType().Name;
     public int width => occupiedTiles.Length;
+    public Orientation orientation =>
+        occupiedTiles[0]?.j == occupiedTiles[1]?.j ?
+            Orientation.Horizontal :
+            Orientation.Vertical;
+
+    internal bool isSunk => occupiedTiles.All(tile => tile.hasBeenHit)!;
 
     protected Ship(int width) => occupiedTiles = new Tile[width];
 
