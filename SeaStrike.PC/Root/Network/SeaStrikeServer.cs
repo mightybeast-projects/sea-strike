@@ -1,3 +1,5 @@
+using System.Linq;
+using System.Collections.Generic;
 using System;
 using LiteNetLib;
 using LiteNetLib.Utils;
@@ -9,6 +11,7 @@ public class SeaStrikeServer
 {
     private Player player;
     private NetManager server;
+    private Dictionary<NetPeer, string> playerBoardDatas;
     private SeaStrike game => player.game;
 
     public SeaStrikeServer(Player player)
@@ -16,6 +19,7 @@ public class SeaStrikeServer
         this.player = player;
 
         player.server = this;
+        playerBoardDatas = new Dictionary<NetPeer, string>();
 
         EventBasedNetListener listener = new EventBasedNetListener();
         server = new NetManager(listener);
@@ -63,7 +67,21 @@ public class SeaStrikeServer
     {
         string message = dataReader.GetString();
 
-        Console.WriteLine("From client {0}: {1}", fromPeer.Id, message);
+        //Console.WriteLine("From client {0}: {1}", fromPeer.Id, message);
+
+        playerBoardDatas.Add(fromPeer, message);
+
+        if (playerBoardDatas.Count == 2)
+            ExchangeBoardDatas();
+    }
+
+    private void ExchangeBoardDatas()
+    {
+        foreach (KeyValuePair<NetPeer, string> item in playerBoardDatas)
+            server.SendToAll(
+                FormMessage(item.Value),
+                DeliveryMethod.ReliableOrdered,
+                item.Key);
     }
 
     private NetDataWriter FormMessage(string message)
