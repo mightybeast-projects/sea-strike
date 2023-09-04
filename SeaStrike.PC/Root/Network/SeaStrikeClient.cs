@@ -22,7 +22,7 @@ public class SeaStrikeClient
 
         listener.NetworkReceiveEvent +=
             (fromPeer, dataReader, deliveryMethod, channel) =>
-                HandleReceivedMessage(fromPeer, dataReader, deliveryMethod, channel);
+                HandleReceivedMessage(dataReader);
         listener.PeerDisconnectedEvent += (peer, info) =>
             game.screenManager.LoadScreen(new MainMenuScreen(game));
     }
@@ -40,11 +40,7 @@ public class SeaStrikeClient
     public void Send(string message) =>
         client.SendToAll(FormMessage(message), DeliveryMethod.ReliableOrdered);
 
-    private void HandleReceivedMessage(
-        NetPeer fromPeer,
-        NetPacketReader dataReader,
-        byte deliveryMethod,
-        DeliveryMethod channel)
+    private void HandleReceivedMessage(NetPacketReader dataReader)
     {
         string message = dataReader.GetString();
 

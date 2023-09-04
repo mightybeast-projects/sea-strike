@@ -26,7 +26,7 @@ public class SeaStrikeServer
             game.screenManager.LoadScreen(new MainMenuScreen(game));
         listener.NetworkReceiveEvent +=
             (fromPeer, dataReader, deliveryMethod, channel) =>
-                HandleReceivedMessage(fromPeer, dataReader, deliveryMethod, channel);
+                HandleReceivedMessage(fromPeer, dataReader);
     }
 
     public void Start() => server.Start(Utils.port);
@@ -59,9 +59,7 @@ public class SeaStrikeServer
 
     private void HandleReceivedMessage(
         NetPeer fromPeer,
-        NetPacketReader dataReader,
-        byte deliveryMethod,
-        DeliveryMethod channel)
+        NetPacketReader dataReader)
     {
         string message = dataReader.GetString();
 
