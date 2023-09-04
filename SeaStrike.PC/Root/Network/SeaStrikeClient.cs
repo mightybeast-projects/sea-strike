@@ -46,7 +46,7 @@ public class SeaStrikeClient
         byte deliveryMethod,
         DeliveryMethod channel)
     {
-        string message = dataReader.GetString(100);
+        string message = dataReader.GetString();
 
         Console.WriteLine("From server: {0}", message);
 

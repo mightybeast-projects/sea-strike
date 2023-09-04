@@ -1,3 +1,5 @@
+using SeaStrike.Core.Entity;
+
 namespace SeaStrike.PC.Root.Network;
 
 public class Player
@@ -20,6 +22,6 @@ public class Player
         server?.Disconnect();
     }
 
-    public void SendShipsDeployedMessage() =>
-        client.Send(Utils.shipsDeployedMessage);
+    public void SendBoard(Board board) =>
+        client.Send(new BoardData(board).ToJson());
 }

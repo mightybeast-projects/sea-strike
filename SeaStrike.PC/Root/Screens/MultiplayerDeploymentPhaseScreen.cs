@@ -29,7 +29,7 @@ public class MultiplayerDeploymentPhaseScreen : DeploymentPhaseScreen
 
     protected override void OnStartButtonPressed()
     {
-        player.SendShipsDeployedMessage();
+        player.SendBoard(boardBuilder.Build());
 
         GameWindow readyWindow =
             new GameWindow(SeaStrike.stringStorage.readyWindowTitle)
