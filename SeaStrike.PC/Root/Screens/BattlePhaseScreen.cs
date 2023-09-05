@@ -46,6 +46,14 @@ public class BattlePhaseScreen : GameScreen
 
     public override void Update(GameTime gameTime) { }
 
+    protected virtual OpponentBattleGridPanel OpponentBattleGridPanel =>
+        new OpponentBattleGridPanel(
+            game, seaStrikeGame, playerBoard.opponentBoard)
+        {
+            GridRow = 1,
+            GridColumn = 1
+        };
+
     private Label PhaseLabel => new Label()
     {
         Text = SeaStrike.stringStorage.battlePhaseScreenTitle,
@@ -71,14 +79,6 @@ public class BattlePhaseScreen : GameScreen
         new PlayerBattleGridPanel(playerBoard)
         {
             GridRow = 1
-        };
-
-    private OpponentBattleGridPanel OpponentBattleGridPanel =>
-        new OpponentBattleGridPanel(
-            game, seaStrikeGame, playerBoard.opponentBoard)
-        {
-            GridRow = 1,
-            GridColumn = 1
         };
 
     private void ShowHelpWindow(string[] content) =>

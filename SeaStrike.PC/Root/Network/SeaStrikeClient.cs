@@ -54,7 +54,7 @@ public class SeaStrikeClient
         else if (message == Utils.startBattlePhaseMessage)
             game.screenManager
                 .LoadScreen(new MultiplayerBattlePhaseScreen(
-                    game, player.board, data.Build()));
+                    player, game, player.board, data.Build()));
         else
             data = JsonConvert.DeserializeObject<BoardData>(message);
 

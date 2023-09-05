@@ -11,8 +11,8 @@ namespace SeaStrike.PC.Root.Widgets.BattleGrid;
 
 public class OpponentBattleGridPanel : BattleGridPanel
 {
+    protected readonly SeaStrikeGame seaStrikeGame;
     private readonly SeaStrike game;
-    private readonly SeaStrikeGame seaStrikeGame;
 
     public OpponentBattleGridPanel(
         SeaStrike game,
@@ -25,7 +25,6 @@ public class OpponentBattleGridPanel : BattleGridPanel
         playerBoard = opponentBoard;
         gridLabel = SeaStrike.stringStorage.opponentOceanGridLabel;
         OnEmptyTileClicked += ShootTile;
-        OnEmptyTileClicked += MakeAIPlayerShoot;
         showShips = false;
 
         Initialize();
@@ -40,7 +39,7 @@ public class OpponentBattleGridPanel : BattleGridPanel
         HorizontalAlignment = HorizontalAlignment.Center,
     };
 
-    private void ShootTile(object sender)
+    protected virtual void ShootTile(object sender)
     {
         string tileStr = ((EmptyGridTileButton)sender).tile.notation;
 
@@ -50,9 +49,23 @@ public class OpponentBattleGridPanel : BattleGridPanel
 
         if (seaStrikeGame.isOver)
             ShowVictoryScreen();
+
+        MakeAIPlayerShoot();
     }
 
-    private void MakeAIPlayerShoot(object sender)
+    protected void ShowVictoryScreen() =>
+        new GameOverWindow(game, SeaStrike.stringStorage.victoryScreenTitle)
+        {
+            TitleTextColor = Color.LawnGreen
+        }.ShowModal(game.desktop);
+
+    protected void ShowLostScreen() =>
+        new GameOverWindow(game, SeaStrike.stringStorage.loseScreenTitle)
+        {
+            TitleTextColor = Color.Red
+        }.ShowModal(game.desktop);
+
+    private void MakeAIPlayerShoot()
     {
         if (seaStrikeGame.isOver)
             return;
@@ -62,16 +75,4 @@ public class OpponentBattleGridPanel : BattleGridPanel
         if (seaStrikeGame.isOver)
             ShowLostScreen();
     }
-
-    private void ShowVictoryScreen() =>
-        new GameOverWindow(game, SeaStrike.stringStorage.victoryScreenTitle)
-        {
-            TitleTextColor = Color.LawnGreen
-        }.ShowModal(game.desktop);
-
-    private void ShowLostScreen() =>
-        new GameOverWindow(game, SeaStrike.stringStorage.loseScreenTitle)
-        {
-            TitleTextColor = Color.Red
-        }.ShowModal(game.desktop);
 }
