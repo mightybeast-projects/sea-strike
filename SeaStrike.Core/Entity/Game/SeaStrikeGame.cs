@@ -15,15 +15,21 @@ public class SeaStrikeGame
         player = new Player(playerBoard);
         opponent = new AIPlayer();
 
-        StartGame();
+        StartGame(player);
     }
 
-    public SeaStrikeGame(Board playerBoard, Board opponentBoard)
+    public SeaStrikeGame(
+        Board playerBoard,
+        Board opponentBoard,
+        bool opponentMovesFirst = false)
     {
         player = new Player(playerBoard);
         opponent = new Player(opponentBoard);
 
-        StartGame();
+        if (opponentMovesFirst)
+            StartGame(opponent);
+        else
+            StartGame(player);
     }
 
     public ShotResult HandleCurrentPlayerShot(string tileStr)
@@ -52,11 +58,11 @@ public class SeaStrikeGame
         return result;
     }
 
-    private void StartGame()
+    private void StartGame(Player firstMovePlayer)
     {
         player.board.Bind(opponent.board);
 
-        currentPlayer = player;
+        currentPlayer = firstMovePlayer;
     }
 
     private void SwitchPlayer()

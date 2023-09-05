@@ -39,6 +39,14 @@ public class TwoPlayerGameTests
     }
 
     [Test]
+    public void Game_CanBeInitialized_WithOpponent_AsCurrentPlayer()
+    {
+        game = new SeaStrikeGame(playerBoard, opponentBoard, true);
+
+        game.currentPlayer.Should().Be(game.opponent);
+    }
+
+    [Test]
     public void Game_CanHandle_CurrentPlayerShot()
     {
         ShotResult result = game.HandleCurrentPlayerShot("A1");
