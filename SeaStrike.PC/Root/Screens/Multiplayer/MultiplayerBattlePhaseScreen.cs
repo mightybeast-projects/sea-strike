@@ -18,7 +18,13 @@ public class MultiplayerBattlePhaseScreen : BattlePhaseScreen
         this.game = player.game;
         this.playerBoard = player.board;
 
-        seaStrikeGame = new SeaStrikeGame(playerBoard, opponentBoard);
+        if (player.isHost)
+            seaStrikeGame = new SeaStrikeGame(playerBoard, opponentBoard);
+        else
+        {
+            seaStrikeGame = new SeaStrikeGame(playerBoard, opponentBoard, true);
+            player.canShoot = false;
+        }
     }
 
     public override void Update(GameTime gameTime)

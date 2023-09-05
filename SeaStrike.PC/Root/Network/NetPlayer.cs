@@ -8,6 +8,9 @@ public class NetPlayer
     internal Board board;
     internal SeaStrikeClient client;
     internal SeaStrikeServer server;
+    internal bool canShoot = true;
+
+    internal bool isHost => server is not null;
 
     public NetPlayer(SeaStrike game) => this.game = game;
 
