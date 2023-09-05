@@ -2,15 +2,14 @@ using SeaStrike.Core.Entity;
 
 namespace SeaStrike.PC.Root.Network;
 
-public class Player
+public class NetPlayer
 {
     internal SeaStrike game;
     internal Board board;
     internal SeaStrikeClient client;
     internal SeaStrikeServer server;
-    internal bool canAttack;
 
-    public Player(SeaStrike game) => this.game = game;
+    public NetPlayer(SeaStrike game) => this.game = game;
 
     public void UpdateNetwork()
     {

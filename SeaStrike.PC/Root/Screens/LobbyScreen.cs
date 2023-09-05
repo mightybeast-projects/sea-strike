@@ -10,13 +10,13 @@ namespace SeaStrike.PC.Root.Screens;
 public class LobbyScreen : GameScreen
 {
     private SeaStrike game;
-    private Player player;
+    private NetPlayer player;
 
     public LobbyScreen(SeaStrike game) : base(game)
     {
         this.game = game;
 
-        player = new Player(game);
+        player = new NetPlayer(game);
 
         VerticalStackPanel panel = new VerticalStackPanel()
         {

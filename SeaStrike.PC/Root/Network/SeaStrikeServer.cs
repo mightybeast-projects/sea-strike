@@ -9,12 +9,12 @@ namespace SeaStrike.PC.Root.Network;
 
 public class SeaStrikeServer
 {
-    private Player player;
+    private NetPlayer player;
     private NetManager server;
     private Dictionary<NetPeer, string> playerBoardDatas;
     private SeaStrike game => player.game;
 
-    public SeaStrikeServer(Player player)
+    public SeaStrikeServer(NetPlayer player)
     {
         this.player = player;
 

@@ -3,14 +3,14 @@ using Myra.Graphics2D.UI;
 using SeaStrike.PC.Root.Network;
 using GameWindow = SeaStrike.PC.Root.Widgets.Modal.GameWindow;
 
-namespace SeaStrike.PC.Root.Screens;
+namespace SeaStrike.PC.Root.Screens.Multiplayer;
 
 public class MultiplayerDeploymentPhaseScreen : DeploymentPhaseScreen
 {
-    private Player player;
+    private NetPlayer player;
     private SeaStrike game => player.game;
 
-    public MultiplayerDeploymentPhaseScreen(Player player) : base(player.game)
+    public MultiplayerDeploymentPhaseScreen(NetPlayer player) : base(player.game)
         => this.player = player;
 
     public override void Update(GameTime gameTime)
