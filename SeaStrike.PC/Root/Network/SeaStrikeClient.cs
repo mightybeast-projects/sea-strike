@@ -56,8 +56,17 @@ public class SeaStrikeClient
             game.screenManager
                 .LoadScreen(new MultiplayerBattlePhaseScreen(
                     player, data.Build()));
-        else
+        else if (message.Length > 3)
             data = JsonConvert.DeserializeObject<BoardData>(message);
+        else
+        {
+            player.seaStrikeGame.HandleCurrentPlayerShot(message);
+
+            if (player.seaStrikeGame.isOver)
+                game.ShowLostScreen();
+
+            player.canShoot = true;
+        }
 
         dataReader.Recycle();
     }

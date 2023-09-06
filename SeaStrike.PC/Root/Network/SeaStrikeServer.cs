@@ -13,6 +13,7 @@ public class SeaStrikeServer
     private NetManager server;
     private Dictionary<NetPeer, string> playerBoardDatas;
     private SeaStrike game => player.game;
+    private bool gameStarted => player.seaStrikeGame is not null;
 
     public SeaStrikeServer(NetPlayer player)
     {
@@ -65,12 +66,18 @@ public class SeaStrikeServer
     {
         string message = dataReader.GetString();
 
-        playerBoardDatas.Add(fromPeer, message);
+        if (!gameStarted)
+            playerBoardDatas.Add(fromPeer, message);
 
         if (playerBoardDatas.Count == 2)
         {
-            ExchangeBoardDatas();
-            StartBattlePhase();
+            if (!gameStarted)
+            {
+                ExchangeBoardDatas();
+                StartBattlePhase();
+            }
+            else
+                SendShotTile(fromPeer, message);
         }
     }
 
@@ -101,4 +108,10 @@ public class SeaStrikeServer
         server.SendToAll(
             FormMessage(Utils.startBattlePhaseMessage),
             DeliveryMethod.ReliableOrdered);
+
+    private void SendShotTile(NetPeer fromPeer, string tileStr) =>
+        server.SendToAll(
+            FormMessage(tileStr),
+            DeliveryMethod.ReliableOrdered,
+            fromPeer);
 }

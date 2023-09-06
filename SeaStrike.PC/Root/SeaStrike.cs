@@ -10,6 +10,7 @@ using Myra.Graphics2D.UI;
 using Myra.Graphics2D.UI.Styles;
 using SeaStrike.Core.Exceptions;
 using SeaStrike.PC.Root.Screens;
+using SeaStrike.PC.Root.Widgets.Modal;
 using GameWindow = SeaStrike.PC.Root.Widgets.Modal.GameWindow;
 
 namespace SeaStrike.PC.Root;
@@ -34,6 +35,18 @@ public class SeaStrike : Game
 
         Components.Add(screenManager);
     }
+
+    public void ShowVictoryScreen() =>
+        new GameOverWindow(this, SeaStrike.stringStorage.victoryScreenTitle)
+        {
+            TitleTextColor = Color.LawnGreen
+        }.ShowModal(desktop);
+
+    public void ShowLostScreen() =>
+        new GameOverWindow(this, SeaStrike.stringStorage.loseScreenTitle)
+        {
+            TitleTextColor = Color.Red
+        }.ShowModal(desktop);
 
     protected override void LoadContent()
     {

@@ -70,4 +70,8 @@ public class StringStorage
     //Multiplayer deployment phase screen
     public string readyWindowTitle = "Ships deployed!";
     public string readyWindowContentLabel = "Waiting for other player...";
+
+    //Multiplayer battle plhase screen
+    public string yourTurnLabel = "Your turn.";
+    public string opponentsTurnLabel = "Opponent's turn.";
 }

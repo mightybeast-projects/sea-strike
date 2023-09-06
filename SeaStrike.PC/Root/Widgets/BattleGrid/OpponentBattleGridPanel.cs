@@ -48,22 +48,10 @@ public class OpponentBattleGridPanel : BattleGridPanel
         ((Label)Widgets.Last()).Text = result.ToString();
 
         if (seaStrikeGame.isOver)
-            ShowVictoryScreen();
+            game.ShowVictoryScreen();
 
         MakeAIPlayerShoot();
     }
-
-    protected void ShowVictoryScreen() =>
-        new GameOverWindow(game, SeaStrike.stringStorage.victoryScreenTitle)
-        {
-            TitleTextColor = Color.LawnGreen
-        }.ShowModal(game.desktop);
-
-    protected void ShowLostScreen() =>
-        new GameOverWindow(game, SeaStrike.stringStorage.loseScreenTitle)
-        {
-            TitleTextColor = Color.Red
-        }.ShowModal(game.desktop);
 
     private void MakeAIPlayerShoot()
     {
@@ -73,6 +61,6 @@ public class OpponentBattleGridPanel : BattleGridPanel
         seaStrikeGame.HandleAIPlayerShot();
 
         if (seaStrikeGame.isOver)
-            ShowLostScreen();
+            game.ShowLostScreen();
     }
 }

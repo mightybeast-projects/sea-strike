@@ -46,15 +46,7 @@ public class BattlePhaseScreen : GameScreen
 
     public override void Update(GameTime gameTime) { }
 
-    protected virtual OpponentBattleGridPanel OpponentBattleGridPanel =>
-        new OpponentBattleGridPanel(
-            game, seaStrikeGame, playerBoard.opponentBoard)
-        {
-            GridRow = 1,
-            GridColumn = 1
-        };
-
-    private Label PhaseLabel => new Label()
+    protected Label PhaseLabel => new Label()
     {
         Text = SeaStrike.stringStorage.battlePhaseScreenTitle,
         TextColor = Color.LawnGreen,
@@ -63,7 +55,7 @@ public class BattlePhaseScreen : GameScreen
         GridColumnSpan = 2
     };
 
-    private GameButton HelpButton =>
+    protected GameButton HelpButton =>
         new GameButton(() =>
             ShowHelpWindow(SeaStrike.stringStorage.dpHelpWindowContent))
         {
@@ -75,10 +67,18 @@ public class BattlePhaseScreen : GameScreen
             VerticalAlignment = VerticalAlignment.Top,
         };
 
-    private PlayerBattleGridPanel PlayerBattleGridPanel =>
+    protected PlayerBattleGridPanel PlayerBattleGridPanel =>
         new PlayerBattleGridPanel(playerBoard)
         {
             GridRow = 1
+        };
+
+    protected virtual OpponentBattleGridPanel OpponentBattleGridPanel =>
+        new OpponentBattleGridPanel(
+            game, seaStrikeGame, playerBoard.opponentBoard)
+        {
+            GridRow = 1,
+            GridColumn = 1
         };
 
     private void ShowHelpWindow(string[] content) =>
