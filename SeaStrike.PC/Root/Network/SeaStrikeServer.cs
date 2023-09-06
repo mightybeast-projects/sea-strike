@@ -66,32 +66,24 @@ public class SeaStrikeServer
     {
         string message = dataReader.GetString();
 
-        if (!gameStarted)
+        if (MessageIsBoardData(message))
+        {
             playerBoardDatas.Add(fromPeer, message);
 
-        if (playerBoardDatas.Count == 2)
-        {
-            if (!gameStarted)
+            if (playerBoardDatas.Count == 2)
             {
                 ExchangeBoardDatas();
                 StartBattlePhase();
             }
-            else
-                SendShotTile(fromPeer, message);
         }
+
+        if (gameStarted)
+            SendShotTile(fromPeer, message);
     }
 
     private void ExchangeBoardDatas() =>
         playerBoardDatas.ToList()
         .ForEach(playerData => SendOpponentBoard(playerData));
-
-    private NetDataWriter FormMessage(string message)
-    {
-        NetDataWriter writer = new NetDataWriter();
-        writer.Put(message);
-
-        return writer;
-    }
 
     private void StartDeploymentPhase() =>
         server.SendToAll(
@@ -114,4 +106,15 @@ public class SeaStrikeServer
             FormMessage(tileStr),
             DeliveryMethod.ReliableOrdered,
             fromPeer);
+
+    private NetDataWriter FormMessage(string message)
+    {
+        NetDataWriter writer = new NetDataWriter();
+        writer.Put(message);
+
+        return writer;
+    }
+
+    private bool MessageIsBoardData(string message) =>
+        message.StartsWith('{') && message.EndsWith('}');
 }

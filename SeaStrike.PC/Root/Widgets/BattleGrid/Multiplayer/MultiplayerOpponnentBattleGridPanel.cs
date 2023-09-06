@@ -22,19 +22,20 @@ public class MultiplayerOpponnentBattleGridPanel : OpponentBattleGridPanel
     protected override void ShootTile(object sender)
     {
         if (player.canShoot)
-        {
-            string tileStr = ((EmptyGridTileButton)sender).tile.notation;
+            MakeShot(((EmptyGridTileButton)sender).tile);
+    }
 
-            ShotResult result = seaStrikeGame.HandleCurrentPlayerShot(tileStr);
+    private void MakeShot(Tile tile)
+    {
+        ShotResult result = seaStrikeGame.HandleCurrentPlayerShot(tile.notation);
 
-            ((Label)Widgets.Last()).Text = result.ToString();
+        ((Label)Widgets.Last()).Text = result.ToString();
 
-            if (seaStrikeGame.isOver)
-                player.game.ShowVictoryScreen();
+        if (seaStrikeGame.isOver)
+            player.game.ShowVictoryScreen();
 
-            player.SendShotTile(result.tile);
+        player.SendShotTile(result.tile);
 
-            player.canShoot = false;
-        }
+        player.canShoot = false;
     }
 }

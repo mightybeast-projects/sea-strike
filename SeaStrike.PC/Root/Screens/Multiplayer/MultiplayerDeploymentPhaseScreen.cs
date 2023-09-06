@@ -1,7 +1,6 @@
 using Microsoft.Xna.Framework;
-using Myra.Graphics2D.UI;
 using SeaStrike.PC.Root.Network;
-using GameWindow = SeaStrike.PC.Root.Widgets.Modal.GameWindow;
+using SeaStrike.PC.Root.Widgets.Modal;
 
 namespace SeaStrike.PC.Root.Screens.Multiplayer;
 
@@ -31,18 +30,6 @@ public class MultiplayerDeploymentPhaseScreen : DeploymentPhaseScreen
     {
         player.SendBoard(boardBuilder.Build());
 
-        GameWindow readyWindow =
-            new GameWindow(SeaStrike.stringStorage.readyWindowTitle)
-            {
-                Content = new Label()
-                {
-                    Text = SeaStrike.stringStorage.readyWindowContentLabel
-                },
-                DragHandle = null,
-            };
-
-        readyWindow.CloseButton.Visible = false;
-
-        readyWindow.ShowModal(game.desktop);
+        new ReadyWindow().ShowModal(game.desktop);
     }
 }
