@@ -1,53 +1,48 @@
 using System.Collections.Generic;
 using System;
 using LiteNetLib;
-using LiteNetLib.Utils;
-using SeaStrike.PC.Root.Screens;
 using System.Linq;
 
 namespace SeaStrike.PC.Root.Network;
 
-public class SeaStrikeServer
+public class SeaStrikeServer : SeaStrikeNetManager
 {
-    private NetPlayer player;
-    private NetManager server;
     private Dictionary<NetPeer, string> playerBoardDatas;
-    private SeaStrike game => player.game;
+
     private bool gameStarted => player.seaStrikeGame is not null;
 
-    public SeaStrikeServer(NetPlayer player)
+    public SeaStrikeServer(NetPlayer player) : base(player)
     {
-        this.player = player;
-
         player.server = this;
         playerBoardDatas = new Dictionary<NetPeer, string>();
 
         EventBasedNetListener listener = new EventBasedNetListener();
-        server = new NetManager(listener);
 
         listener.ConnectionRequestEvent += request => HandleNewRequest(request);
         listener.PeerConnectedEvent += peer => HandleNewPeer(peer);
         listener.PeerDisconnectedEvent += (peer, info) =>
-            game.screenManager.LoadScreen(new MainMenuScreen(game));
+            player.RedirectToMainMenu();
         listener.NetworkReceiveEvent +=
             (fromPeer, dataReader, deliveryMethod, channel) =>
                 HandleReceivedMessage(fromPeer, dataReader);
+
+        netManager = new NetManager(listener);
     }
 
-    public void Start() => server.Start(Utils.port);
+    public void Start() => netManager.Start(NetUtils.port);
 
     public void Disconnect()
     {
-        server.DisconnectAll();
-        server.Stop();
+        netManager.DisconnectAll();
+        netManager.Stop();
     }
 
-    public void PollEvents() => server.PollEvents();
+    public void PollEvents() => netManager.PollEvents();
 
     private void HandleNewRequest(ConnectionRequest request)
     {
-        if (server.ConnectedPeersCount < 2)
-            request.AcceptIfKey(Utils.connectionKey);
+        if (netManager.ConnectedPeersCount < 2)
+            request.AcceptIfKey(NetUtils.connectionKey);
         else
             request.Reject();
     }
@@ -56,7 +51,7 @@ public class SeaStrikeServer
     {
         Console.WriteLine("New connection: {0}", peer.EndPoint);
 
-        if (server.ConnectedPeersCount == 2)
+        if (netManager.ConnectedPeersCount == 2)
             StartDeploymentPhase();
     }
 
@@ -82,39 +77,28 @@ public class SeaStrikeServer
     }
 
     private void ExchangeBoardDatas() =>
-        playerBoardDatas.ToList()
-        .ForEach(playerData => SendOpponentBoard(playerData));
+        playerBoardDatas.ToList().ForEach(
+            playerData => SendOpponentBoard(playerData));
 
     private void StartDeploymentPhase() =>
-        server.SendToAll(
-            FormMessage(Utils.deploymentPhaseStartMessage),
+        netManager.SendToAll(
+            FormMessage(NetUtils.deploymentPhaseStartMessage),
             DeliveryMethod.ReliableOrdered);
 
     private void SendOpponentBoard(KeyValuePair<NetPeer, string> item) =>
-        server.SendToAll(
+        netManager.SendToAll(
             FormMessage(item.Value),
             DeliveryMethod.ReliableOrdered,
             item.Key);
 
     private void StartBattlePhase() =>
-        server.SendToAll(
-            FormMessage(Utils.startBattlePhaseMessage),
+        netManager.SendToAll(
+            FormMessage(NetUtils.startBattlePhaseMessage),
             DeliveryMethod.ReliableOrdered);
 
     private void SendShotTile(NetPeer fromPeer, string tileStr) =>
-        server.SendToAll(
+        netManager.SendToAll(
             FormMessage(tileStr),
             DeliveryMethod.ReliableOrdered,
             fromPeer);
-
-    private NetDataWriter FormMessage(string message)
-    {
-        NetDataWriter writer = new NetDataWriter();
-        writer.Put(message);
-
-        return writer;
-    }
-
-    private bool MessageIsBoardData(string message) =>
-        message.StartsWith('{') && message.EndsWith('}');
 }

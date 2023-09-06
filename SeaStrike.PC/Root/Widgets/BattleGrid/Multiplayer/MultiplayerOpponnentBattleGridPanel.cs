@@ -35,7 +35,5 @@ public class MultiplayerOpponnentBattleGridPanel : OpponentBattleGridPanel
             player.game.ShowVictoryScreen();
 
         player.SendShotTile(result.tile);
-
-        player.canShoot = false;
     }
 }

@@ -23,10 +23,7 @@ public class MultiplayerBattlePhaseScreen : BattlePhaseScreen
         if (player.isHost)
             seaStrikeGame = new SeaStrikeGame(playerBoard, opponentBoard);
         else
-        {
             seaStrikeGame = new SeaStrikeGame(playerBoard, opponentBoard, true);
-            player.canShoot = false;
-        }
 
         player.seaStrikeGame = seaStrikeGame;
     }
