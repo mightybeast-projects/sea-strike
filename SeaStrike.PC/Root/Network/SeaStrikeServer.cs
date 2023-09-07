@@ -2,27 +2,10 @@ using LiteNetLib;
 
 namespace SeaStrike.PC.Root.Network;
 
-public class SeaStrikeServer
+public class SeaStrikeServer : NetManager
 {
-    private NetManager netManager;
+    public SeaStrikeServer(SeaStrikeServerListener listener) : base(listener)
+        => listener.server = this;
 
-    public SeaStrikeServer(NetPlayer player)
-    {
-        player.server = this;
-
-        var listener = new SeaStrikeServerListener(player);
-        netManager = new NetManager(listener);
-
-        listener.server = netManager;
-    }
-
-    public void Start() => netManager.Start(NetUtils.port);
-
-    public void Disconnect()
-    {
-        netManager.DisconnectAll();
-        netManager.Stop();
-    }
-
-    public void PollEvents() => netManager.PollEvents();
+    public new void Start() => base.Start(NetUtils.port);
 }

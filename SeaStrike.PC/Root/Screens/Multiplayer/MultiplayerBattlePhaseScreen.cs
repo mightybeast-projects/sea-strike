@@ -47,7 +47,7 @@ public class MultiplayerBattlePhaseScreen : BattlePhaseScreen
     {
         base.Update(gameTime);
 
-        player.UpdateNetwork();
+        player.UpdateNetManagers();
 
         UpdateCurrentTurnLabel();
     }

@@ -2,29 +2,18 @@ using LiteNetLib;
 
 namespace SeaStrike.PC.Root.Network;
 
-public class SeaStrikeClient
+public class SeaStrikeClient : NetManager
 {
-    private NetManager netManager;
+    public SeaStrikeClient(SeaStrikeClientListener listener) : base(listener) { }
 
-    public SeaStrikeClient(NetPlayer player)
+    public new void Start()
     {
-        player.client = this;
-
-        netManager = new NetManager(new SeaStrikeClientListener(player));
+        base.Start();
+        base.Connect(NetUtils.address, 9050, NetUtils.connectionKey);
     }
-
-    public void Start()
-    {
-        netManager.Start();
-        netManager.Connect(NetUtils.address, 9050, NetUtils.connectionKey);
-    }
-
-    public void Disconnect() => netManager.DisconnectAll();
-
-    public void PollEvents() => netManager.PollEvents();
 
     public void Send(string message) =>
-        netManager.SendToAll(
+        SendToAll(
             new SeaStrikeNetDataWriter(message),
             DeliveryMethod.ReliableOrdered);
 }

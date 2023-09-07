@@ -8,20 +8,38 @@ namespace SeaStrike.PC.Root.Network;
 
 public class NetPlayer
 {
-    internal SeaStrike game;
+    internal readonly SeaStrike game;
     internal SeaStrikeGame seaStrikeGame;
     internal Board board;
-    internal SeaStrikeClient client;
-    internal SeaStrikeServer server;
-
-    private BoardData opponentBoardData;
 
     internal bool canShoot => seaStrikeGame.currentPlayer.board == board;
     internal bool isHost => server is not null;
 
+    private SeaStrikeClient client;
+    private SeaStrikeServer server;
+    private BoardData opponentBoardData;
+
     public NetPlayer(SeaStrike game) => this.game = game;
 
-    public void UpdateNetwork()
+    public void CreateServer()
+    {
+        var server = new SeaStrikeServer(new SeaStrikeServerListener(this));
+
+        this.server = server;
+
+        server.Start();
+    }
+
+    public void CreateClient()
+    {
+        var client = new SeaStrikeClient(new SeaStrikeClientListener(this));
+
+        this.client = client;
+
+        client.Start();
+    }
+
+    public void UpdateNetManagers()
     {
         client?.PollEvents();
         server?.PollEvents();
@@ -29,8 +47,9 @@ public class NetPlayer
 
     public void Disconnect()
     {
-        client?.Disconnect();
-        server?.Disconnect();
+        client?.DisconnectAll();
+        server?.DisconnectAll();
+        server?.Stop();
     }
 
     public void SendBoard(Board board)

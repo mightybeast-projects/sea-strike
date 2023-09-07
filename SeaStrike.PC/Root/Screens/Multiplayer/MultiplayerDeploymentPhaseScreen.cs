@@ -16,7 +16,7 @@ public class MultiplayerDeploymentPhaseScreen : DeploymentPhaseScreen
     {
         base.Update(gameTime);
 
-        player.UpdateNetwork();
+        player.UpdateNetManagers();
     }
 
     protected override void OnBackButtonPressed()

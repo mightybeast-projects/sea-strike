@@ -33,7 +33,7 @@ public class LobbyScreen : GameScreen
 
     public override void Draw(GameTime gameTime) { }
 
-    public override void Update(GameTime gameTime) => player.UpdateNetwork();
+    public override void Update(GameTime gameTime) => player.UpdateNetManagers();
 
     private Label ScreenTitleLabel => new Label()
     {
@@ -42,7 +42,7 @@ public class LobbyScreen : GameScreen
     };
 
     private GameButton CreateLobbyButton =>
-        new GameButton(() => { CreateNewLobby(); ConnectToLobby(); })
+        new GameButton(() => CreateNewLobby())
         {
             Text = SeaStrike.stringStorage.createLobbyButtonLabel
         };
@@ -63,15 +63,12 @@ public class LobbyScreen : GameScreen
 
     private void CreateNewLobby()
     {
-        SeaStrikeServer server = new SeaStrikeServer(player);
-        server.Start();
+        player.CreateServer();
+
+        ConnectToLobby();
 
         game.desktop.Root = CreatedNewLobbyLabel;
     }
 
-    private void ConnectToLobby()
-    {
-        SeaStrikeClient client = new SeaStrikeClient(player);
-        client.Start();
-    }
+    private void ConnectToLobby() => player.CreateClient();
 }
