@@ -5,20 +5,18 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended.Screens;
 using Myra;
-using Myra.Graphics2D.Brushes;
 using Myra.Graphics2D.UI;
 using Myra.Graphics2D.UI.Styles;
 using SeaStrike.Core.Exceptions;
 using SeaStrike.PC.Root.Screens;
 using SeaStrike.PC.Root.Widgets.Modal;
-using GameWindow = SeaStrike.PC.Root.Widgets.Modal.GameWindow;
 
 namespace SeaStrike.PC.Root;
 
 public class SeaStrike : Game
 {
     internal static FontSystem fontSystem;
-    internal static StringStorage stringStorage = new StringStorage();
+    internal static StringStorage stringStorage;
     internal Desktop desktop;
     internal ScreenManager screenManager;
 
@@ -26,8 +24,10 @@ public class SeaStrike : Game
 
     public SeaStrike()
     {
-        graphics = new GraphicsDeviceManager(this);
+        fontSystem = new FontSystem();
+        stringStorage = new StringStorage();
         screenManager = new ScreenManager();
+        graphics = new GraphicsDeviceManager(this);
 
         Content.RootDirectory = stringStorage.contentPath;
         IsMouseVisible = true;
@@ -37,13 +37,13 @@ public class SeaStrike : Game
     }
 
     public void ShowVictoryScreen() =>
-        new GameOverWindow(this, SeaStrike.stringStorage.victoryScreenTitle)
+        new GameOverWindow(this, stringStorage.victoryScreenTitle)
         {
             TitleTextColor = Color.LawnGreen
         }.ShowModal(desktop);
 
     public void ShowLostScreen() =>
-        new GameOverWindow(this, SeaStrike.stringStorage.loseScreenTitle)
+        new GameOverWindow(this, stringStorage.loseScreenTitle)
         {
             TitleTextColor = Color.Red
         }.ShowModal(desktop);
@@ -56,10 +56,9 @@ public class SeaStrike : Game
 
         string path = stringStorage.fontPath;
         byte[] ttf = File.ReadAllBytes(path);
-        fontSystem = new FontSystem();
         fontSystem.AddFont(ttf);
 
-        Stylesheet.Current.LabelStyle.Font = SeaStrike.fontSystem.GetFont(24);
+        Stylesheet.Current.LabelStyle.Font = fontSystem.GetFont(24);
     }
 
     protected override void Initialize()
@@ -81,21 +80,8 @@ public class SeaStrike : Game
     }
 
     private void ShowCoreLibraryError(Exception e) =>
-        ShowErrorWindow(e.Message);
+        new ErrorWindow(e.Message).ShowModal(desktop);
 
     private void ShowSystemError(Exception e) =>
-        ShowErrorWindow(e.Message + " " + e.StackTrace);
-
-    private void ShowErrorWindow(string message) =>
-        new GameWindow(stringStorage.errorWindowTitle)
-        {
-            Content = new Label()
-            {
-                Text = message,
-                Wrap = true
-            },
-            TitleTextColor = Color.Red,
-            Border = new SolidBrush(Color.Red),
-            DragHandle = null
-        }.ShowModal(desktop);
+        new ErrorWindow(e.Message + " " + e.StackTrace).ShowModal(desktop);
 }
