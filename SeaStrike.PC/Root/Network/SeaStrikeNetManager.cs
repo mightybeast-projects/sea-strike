@@ -5,10 +5,7 @@ namespace SeaStrike.PC.Root.Network;
 
 public class SeaStrikeNetManager
 {
-    protected NetPlayer player;
     protected NetManager netManager;
-
-    protected SeaStrikeNetManager(NetPlayer player) => this.player = player;
 
     protected NetDataWriter FormMessage(string message)
     {
@@ -17,7 +14,4 @@ public class SeaStrikeNetManager
 
         return writer;
     }
-
-    protected bool MessageIsBoardData(string message) =>
-        message.StartsWith('{') && message.EndsWith('}');
 }
