@@ -78,7 +78,7 @@ public class SeaStrikeServerListener : INetEventListener
 
     private void StartDeploymentPhase() =>
         server.SendToAll(
-            FormMessage(NetUtils.deploymentPhaseStartMessage),
+            new SeaStrikeNetDataWriter(NetUtils.deploymentPhaseStartMessage),
             DeliveryMethod.ReliableOrdered);
 
     private void ExchangeBoardDatas() =>
@@ -87,28 +87,20 @@ public class SeaStrikeServerListener : INetEventListener
 
     private void SendOpponentBoard(KeyValuePair<NetPeer, string> item) =>
         server.SendToAll(
-            FormMessage(item.Value),
+            new SeaStrikeNetDataWriter(item.Value),
             DeliveryMethod.ReliableOrdered,
             item.Key);
 
     private void StartBattlePhase() =>
         server.SendToAll(
-            FormMessage(NetUtils.startBattlePhaseMessage),
+            new SeaStrikeNetDataWriter(NetUtils.startBattlePhaseMessage),
             DeliveryMethod.ReliableOrdered);
 
     private void SendShotTile(NetPeer fromPeer, string tileStr) =>
         server.SendToAll(
-            FormMessage(tileStr),
+            new SeaStrikeNetDataWriter(tileStr),
             DeliveryMethod.ReliableOrdered,
             fromPeer);
-
-    protected NetDataWriter FormMessage(string message)
-    {
-        NetDataWriter writer = new NetDataWriter();
-        writer.Put(message);
-
-        return writer;
-    }
 
     protected bool MessageIsBoardData(string message) =>
         message.StartsWith('{') && message.EndsWith('}');

@@ -2,8 +2,10 @@ using LiteNetLib;
 
 namespace SeaStrike.PC.Root.Network;
 
-public class SeaStrikeClient : SeaStrikeNetManager
+public class SeaStrikeClient
 {
+    private NetManager netManager;
+
     public SeaStrikeClient(NetPlayer player)
     {
         player.client = this;
@@ -23,5 +25,6 @@ public class SeaStrikeClient : SeaStrikeNetManager
 
     public void Send(string message) =>
         netManager.SendToAll(
-            FormMessage(message), DeliveryMethod.ReliableOrdered);
+            new SeaStrikeNetDataWriter(message),
+            DeliveryMethod.ReliableOrdered);
 }

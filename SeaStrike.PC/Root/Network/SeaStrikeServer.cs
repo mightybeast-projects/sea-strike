@@ -2,8 +2,10 @@ using LiteNetLib;
 
 namespace SeaStrike.PC.Root.Network;
 
-public class SeaStrikeServer : SeaStrikeNetManager
+public class SeaStrikeServer
 {
+    private NetManager netManager;
+
     public SeaStrikeServer(NetPlayer player)
     {
         player.server = this;
