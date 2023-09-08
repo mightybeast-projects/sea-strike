@@ -1,30 +1,22 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Sockets;
 using LiteNetLib;
-using LiteNetLib.Utils;
 
-namespace SeaStrike.PC.Root.Network;
+namespace SeaStrike.PC.Root.Network.Listener;
 
-public class SeaStrikeServerListener : INetEventListener
+public class SeaStrikeServerListener : SeaStrikeListener
 {
     internal NetManager server;
 
-    private NetPlayer player;
     private Dictionary<NetPeer, string> playerBoardDatas;
 
     private bool gameStarted => player.seaStrikeGame is not null;
 
-    public SeaStrikeServerListener(NetPlayer player)
-    {
-        this.player = player;
-
+    public SeaStrikeServerListener(NetPlayer player) : base(player) =>
         playerBoardDatas = new Dictionary<NetPeer, string>();
-    }
 
-    public void OnConnectionRequest(ConnectionRequest request)
+    public override void OnConnectionRequest(ConnectionRequest request)
     {
         if (server.ConnectedPeersCount < 2)
             request.AcceptIfKey(NetUtils.connectionKey);
@@ -32,7 +24,7 @@ public class SeaStrikeServerListener : INetEventListener
             request.Reject();
     }
 
-    public void OnNetworkReceive(
+    public override void OnNetworkReceive(
         NetPeer peer,
         NetPacketReader reader,
         byte channelNumber,
@@ -55,26 +47,13 @@ public class SeaStrikeServerListener : INetEventListener
             SendShotTile(peer, message);
     }
 
-    public void OnPeerConnected(NetPeer peer)
+    public override void OnPeerConnected(NetPeer peer)
     {
         Console.WriteLine("New connection: {0}", peer.EndPoint);
 
         if (server.ConnectedPeersCount == 2)
             StartDeploymentPhase();
     }
-
-    public void OnPeerDisconnected(NetPeer peer, DisconnectInfo disconnectInfo)
-        => player.RedirectToMainMenu();
-
-    public void OnNetworkError(IPEndPoint endPoint, SocketError socketError) { }
-
-    public void OnNetworkLatencyUpdate(NetPeer peer, int latency) { }
-
-    public void OnNetworkReceiveUnconnected(
-        IPEndPoint remoteEndPoint,
-        NetPacketReader reader,
-        UnconnectedMessageType messageType)
-    { }
 
     private void StartDeploymentPhase() =>
         server.SendToAll(
@@ -101,7 +80,4 @@ public class SeaStrikeServerListener : INetEventListener
             new SeaStrikeNetDataWriter(tileStr),
             DeliveryMethod.ReliableOrdered,
             fromPeer);
-
-    protected bool MessageIsBoardData(string message) =>
-        message.StartsWith('{') && message.EndsWith('}');
 }

@@ -1,6 +1,7 @@
 using LiteNetLib;
+using SeaStrike.PC.Root.Network.Listener;
 
-namespace SeaStrike.PC.Root.Network;
+namespace SeaStrike.PC.Root.Network.Manager;
 
 public class SeaStrikeClient : NetManager
 {
