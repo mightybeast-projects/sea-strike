@@ -55,6 +55,10 @@ public class SeaStrikeServerListener : SeaStrikeListener
             StartDeploymentPhase();
     }
 
+    public override void OnPeerDisconnected(
+        NetPeer peer,
+        DisconnectInfo disconnectInfo) => player.RedirectToMainMenu();
+
     private void StartDeploymentPhase() =>
         server.SendToAll(
             new SeaStrikeNetDataWriter(NetUtils.deploymentPhaseStartMessage),

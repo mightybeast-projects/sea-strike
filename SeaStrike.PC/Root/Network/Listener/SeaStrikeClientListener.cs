@@ -28,4 +28,8 @@ public class SeaStrikeClientListener : SeaStrikeListener
 
         reader.Recycle();
     }
+
+    public override void OnPeerDisconnected(
+        NetPeer peer,
+        DisconnectInfo disconnectInfo) => player.RedirectToMainMenu();
 }
