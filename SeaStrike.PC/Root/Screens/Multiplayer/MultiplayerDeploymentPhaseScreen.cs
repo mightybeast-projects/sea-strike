@@ -23,7 +23,7 @@ public class MultiplayerDeploymentPhaseScreen : DeploymentPhaseScreen
     {
         player.Disconnect();
 
-        game.screenManager.LoadScreen(new MainMenuScreen(game));
+        game.screenManager.LoadScreen(new LobbyScreen(game));
     }
 
     protected override void OnStartButtonPressed()

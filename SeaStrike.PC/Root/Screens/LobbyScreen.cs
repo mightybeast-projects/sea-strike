@@ -11,6 +11,7 @@ public class LobbyScreen : GameScreen
 {
     private SeaStrike game;
     private NetPlayer player;
+    private Grid mainGrid;
 
     public LobbyScreen(SeaStrike game) : base(game)
     {
@@ -18,57 +19,69 @@ public class LobbyScreen : GameScreen
 
         player = new NetPlayer(game);
 
-        VerticalStackPanel panel = new VerticalStackPanel()
-        {
-            Spacing = 20,
-            VerticalAlignment = VerticalAlignment.Center
-        };
+        mainGrid = new Grid();
 
-        panel.Widgets.Add(ScreenTitleLabel);
-        panel.Widgets.Add(CreateLobbyButton);
-        panel.Widgets.Add(ConnectToLobbyButton);
+        mainGrid.RowsProportions.Add(new Proportion(ProportionType.Auto));
 
-        game.desktop.Root = panel;
+        mainGrid.Widgets.Add(BackButton);
+        mainGrid.Widgets.Add(ScreenTitleLabel);
+        mainGrid.Widgets.Add(LobbyButtonsPanel);
+
+        game.desktop.Root = mainGrid;
     }
 
     public override void Draw(GameTime gameTime) { }
 
-    public override void Update(GameTime gameTime) => player.UpdateNetManagers();
+    public override void Update(GameTime gameTime)
+    {
+        if (player.isHost)
+            ShowCreatedLobbyLabel();
+
+        player.UpdateNetManagers();
+    }
 
     private Label ScreenTitleLabel => new Label()
     {
         Text = SeaStrike.stringStorage.lobbyScreenLabel,
-        HorizontalAlignment = HorizontalAlignment.Center,
+        TextColor = Color.LawnGreen,
+        Font = SeaStrike.fontSystem.GetFont(40),
+        HorizontalAlignment = HorizontalAlignment.Center
     };
 
-    private GameButton CreateLobbyButton =>
-        new GameButton(() => CreateNewLobby())
-        {
-            Text = SeaStrike.stringStorage.createLobbyButtonLabel
-        };
+    private GameButton BackButton => new GameButton(OnBackButtonPressed)
+    {
+        Text = SeaStrike.stringStorage.backButtonLabel,
+        Width = 40,
+        Height = 40,
+        HorizontalAlignment = HorizontalAlignment.Left,
+        VerticalAlignment = VerticalAlignment.Top
+    };
 
-    private GameButton ConnectToLobbyButton =>
-        new GameButton(() => ConnectToLobby())
-        {
-            Text = SeaStrike.stringStorage.connectToLobbyButtonLabel
-        };
+    private LobbyButtonsPanel LobbyButtonsPanel => new LobbyButtonsPanel(player)
+    {
+        GridRow = 1,
+        HorizontalAlignment = HorizontalAlignment.Center,
+        VerticalAlignment = VerticalAlignment.Center,
+    };
 
     private Label CreatedNewLobbyLabel => new Label()
     {
+        GridRow = 1,
         Text = SeaStrike.stringStorage.createdLobbyLabel,
         TextAlign = TextHorizontalAlignment.Center,
         HorizontalAlignment = HorizontalAlignment.Center,
         VerticalAlignment = VerticalAlignment.Center
     };
 
-    private void CreateNewLobby()
+    private void OnBackButtonPressed()
     {
-        player.CreateServer();
-
-        ConnectToLobby();
-
-        game.desktop.Root = CreatedNewLobbyLabel;
+        player.Disconnect();
+        game.screenManager.LoadScreen(new MainMenuScreen(game));
     }
 
-    private void ConnectToLobby() => player.CreateClient();
+    private void ShowCreatedLobbyLabel()
+    {
+        mainGrid.Widgets.RemoveAt(2);
+        mainGrid.Widgets.Add(CreatedNewLobbyLabel);
+    }
 }
