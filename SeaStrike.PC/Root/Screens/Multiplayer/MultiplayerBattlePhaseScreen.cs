@@ -3,6 +3,7 @@ using Myra.Graphics2D.UI;
 using SeaStrike.Core.Entity;
 using SeaStrike.Core.Entity.Game;
 using SeaStrike.PC.Root.Network;
+using SeaStrike.PC.Root.Widgets;
 using SeaStrike.PC.Root.Widgets.BattleGrid;
 using SeaStrike.PC.Root.Widgets.BattleGrid.Multiplayer;
 using Grid = Myra.Graphics2D.UI.Grid;
@@ -12,6 +13,7 @@ namespace SeaStrike.PC.Root.Screens.Multiplayer;
 public class MultiplayerBattlePhaseScreen : BattlePhaseScreen
 {
     private NetPlayer player;
+    private Grid mainGrid;
 
     public MultiplayerBattlePhaseScreen(NetPlayer player, Board opponentBoard)
         : base(player.game)
@@ -30,7 +32,7 @@ public class MultiplayerBattlePhaseScreen : BattlePhaseScreen
 
     public override void LoadContent()
     {
-        Grid mainGrid = new Grid();
+        mainGrid = new Grid();
 
         mainGrid.RowsProportions.Add(new Proportion(ProportionType.Auto));
 
@@ -49,7 +51,7 @@ public class MultiplayerBattlePhaseScreen : BattlePhaseScreen
 
         player.UpdateNetManagers();
 
-        UpdateCurrentTurnLabel();
+        ((CurrentPlayerTurnLabel)mainGrid.Widgets[3]).Update();
     }
 
     protected override OpponentBattleGridPanel OpponentBattleGridPanel =>
@@ -60,29 +62,11 @@ public class MultiplayerBattlePhaseScreen : BattlePhaseScreen
             GridColumn = 1
         };
 
-    private Label CurrentPlayerTurnLabel => new Label()
+    private Label CurrentPlayerTurnLabel => new CurrentPlayerTurnLabel(player)
     {
         Top = -20,
         GridRow = 1,
-        Font = SeaStrike.fontSystem.GetFont(28),
-        TextColor = Color.LawnGreen,
         HorizontalAlignment = HorizontalAlignment.Center,
         VerticalAlignment = VerticalAlignment.Bottom
     };
-
-    private void UpdateCurrentTurnLabel()
-    {
-        Label label = (Label)((Grid)game.desktop.Root).Widgets[3];
-
-        if (player.canShoot)
-        {
-            label.Text = SeaStrike.stringStorage.yourTurnLabel;
-            label.TextColor = Color.LawnGreen;
-        }
-        else
-        {
-            label.Text = SeaStrike.stringStorage.opponentsTurnLabel;
-            label.TextColor = Color.Red;
-        }
-    }
 }

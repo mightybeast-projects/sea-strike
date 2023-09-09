@@ -1,0 +1,37 @@
+using Microsoft.Xna.Framework;
+using Myra.Graphics2D.UI;
+using SeaStrike.PC.Root.Network;
+
+namespace SeaStrike.PC.Root.Widgets;
+
+public class CurrentPlayerTurnLabel : Label
+{
+    private NetPlayer player;
+
+    public CurrentPlayerTurnLabel(NetPlayer player)
+    {
+        this.player = player;
+
+        Font = SeaStrike.fontSystem.GetFont(28);
+    }
+
+    public void Update()
+    {
+        if (player.canShoot)
+            ShowThatPlayerCanShoot();
+        else
+            ShowThatPlayerCannotShoot();
+    }
+
+    private void ShowThatPlayerCanShoot()
+    {
+        Text = SeaStrike.stringStorage.yourTurnLabel;
+        TextColor = Color.LawnGreen;
+    }
+
+    private void ShowThatPlayerCannotShoot()
+    {
+        Text = SeaStrike.stringStorage.opponentsTurnLabel;
+        TextColor = Color.Red;
+    }
+}
