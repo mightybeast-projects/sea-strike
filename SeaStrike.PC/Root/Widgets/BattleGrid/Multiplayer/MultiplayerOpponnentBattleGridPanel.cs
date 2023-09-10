@@ -1,5 +1,3 @@
-using System.Linq;
-using Myra.Graphics2D.UI;
 using SeaStrike.Core.Entity;
 using SeaStrike.Core.Entity.Game;
 using SeaStrike.Core.Entity.Game.Utility;
@@ -29,7 +27,7 @@ public class MultiplayerOpponnentBattleGridPanel : OpponentBattleGridPanel
     {
         ShotResult result = seaStrikeGame.HandleCurrentPlayerShot(tile.notation);
 
-        ((Label)Widgets.Last()).Text = result.ToString();
+        shotResultLabel.Text = result.ToString();
 
         if (seaStrikeGame.isOver)
             player.game.ShowVictoryScreen();

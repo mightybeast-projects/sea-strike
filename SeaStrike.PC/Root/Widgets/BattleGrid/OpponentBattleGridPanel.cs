@@ -5,13 +5,14 @@ using SeaStrike.Core.Entity;
 using SeaStrike.Core.Entity.Game;
 using SeaStrike.Core.Entity.Game.Utility;
 using SeaStrike.PC.Root.Widgets.GridTile;
-using SeaStrike.PC.Root.Widgets.Modal;
 
 namespace SeaStrike.PC.Root.Widgets.BattleGrid;
 
 public class OpponentBattleGridPanel : BattleGridPanel
 {
     protected readonly SeaStrikeGame seaStrikeGame;
+    protected Label shotResultLabel => (Label)Widgets.Last();
+
     private readonly SeaStrike game;
 
     public OpponentBattleGridPanel(
@@ -45,7 +46,7 @@ public class OpponentBattleGridPanel : BattleGridPanel
 
         ShotResult result = seaStrikeGame.HandleCurrentPlayerShot(tileStr);
 
-        ((Label)Widgets.Last()).Text = result.ToString();
+        shotResultLabel.Text = result.ToString();
 
         if (seaStrikeGame.isOver)
             game.ShowVictoryScreen();
