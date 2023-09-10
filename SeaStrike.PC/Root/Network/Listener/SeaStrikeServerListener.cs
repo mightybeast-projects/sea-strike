@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using LiteNetLib;
 
 namespace SeaStrike.PC.Root.Network.Listener;
@@ -15,6 +16,16 @@ public class SeaStrikeServerListener : SeaStrikeListener
 
     public SeaStrikeServerListener(NetPlayer player) : base(player) =>
         playerBoardDatas = new Dictionary<NetPeer, string>();
+
+    public override void OnNetworkReceiveUnconnected(
+        IPEndPoint remoteEndPoint,
+        NetPacketReader reader,
+        UnconnectedMessageType messageType)
+    {
+        server.SendUnconnectedMessage(
+            new SeaStrikeNetDataWriter(NetUtils.discoveredServerMessage),
+            remoteEndPoint);
+    }
 
     public override void OnConnectionRequest(ConnectionRequest request)
     {
