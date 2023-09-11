@@ -3,7 +3,6 @@ using MonoGame.Extended.Screens;
 using Myra.Graphics2D.UI;
 using SeaStrike.PC.Root.Widgets;
 using SeaStrike.PC.Root.Network;
-using FontStashSharp.RichText;
 
 namespace SeaStrike.PC.Root.Screens;
 
@@ -32,13 +31,8 @@ public class LobbyScreen : GameScreen
 
     public override void Draw(GameTime gameTime) { }
 
-    public override void Update(GameTime gameTime)
-    {
-        if (player.isHost)
-            ShowCreatedLobbyLabel();
-
+    public override void Update(GameTime gameTime) =>
         player.UpdateNetManagers();
-    }
 
     private Label ScreenTitleLabel => new Label()
     {
@@ -64,24 +58,10 @@ public class LobbyScreen : GameScreen
         VerticalAlignment = VerticalAlignment.Center,
     };
 
-    private Label CreatedNewLobbyLabel => new Label()
-    {
-        GridRow = 1,
-        Text = SeaStrike.stringStorage.createdLobbyLabel,
-        TextAlign = TextHorizontalAlignment.Center,
-        HorizontalAlignment = HorizontalAlignment.Center,
-        VerticalAlignment = VerticalAlignment.Center
-    };
-
     private void OnBackButtonPressed()
     {
         player.Disconnect();
-        game.screenManager.LoadScreen(new MainMenuScreen(game));
-    }
 
-    private void ShowCreatedLobbyLabel()
-    {
-        mainGrid.Widgets.RemoveAt(2);
-        mainGrid.Widgets.Add(CreatedNewLobbyLabel);
+        game.screenManager.LoadScreen(new MainMenuScreen(game));
     }
 }

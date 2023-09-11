@@ -1,3 +1,5 @@
+using System.Threading.Tasks;
+using FontStashSharp.RichText;
 using Myra.Graphics2D.UI;
 using SeaStrike.PC.Root.Network;
 
@@ -29,12 +31,38 @@ public class LobbyButtonsPanel : VerticalStackPanel
             Text = SeaStrike.stringStorage.connectToLobbyButtonLabel
         };
 
+    private Label CreatedNewLobbyLabel => new Label()
+    {
+        Text = SeaStrike.stringStorage.createdLobbyLabel,
+        TextAlign = TextHorizontalAlignment.Center
+    };
+
+    private Label CannotDiscoverAnyLobbyLabel => new Label()
+    {
+        Text = SeaStrike.stringStorage.cannotDiscoverAnyLobbyLabel,
+        TextAlign = TextHorizontalAlignment.Center,
+    };
+
     private void CreateNewLobby()
     {
         player.CreateServer();
 
         ConnectToLobby();
+
+        Widgets.Clear();
+        Widgets.Add(CreatedNewLobbyLabel);
     }
 
-    private void ConnectToLobby() => player.CreateClient();
+    private void ConnectToLobby()
+    {
+        player.CreateClient();
+
+        Task.Delay(1000).ContinueWith(t => ShowFailedDiscoveryLabel());
+    }
+
+    private void ShowFailedDiscoveryLabel()
+    {
+        if (!player.isHost)
+            Widgets.Add(CannotDiscoverAnyLobbyLabel);
+    }
 }
