@@ -1,6 +1,5 @@
 using System.Linq;
 using Microsoft.Xna.Framework;
-using MonoGame.Extended.Screens;
 using Myra.Graphics2D.UI;
 using SeaStrike.Core.Entity;
 using SeaStrike.PC.Root.Widgets;
@@ -10,19 +9,14 @@ using Grid = Myra.Graphics2D.UI.Grid;
 
 namespace SeaStrike.PC.Root.Screens;
 
-public class DeploymentPhaseScreen : GameScreen
+public class DeploymentPhaseScreen : SeaStrikeScreen
 {
     protected readonly BoardBuilder boardBuilder;
 
-    private readonly SeaStrike game;
     private Grid mainGrid;
 
-    public DeploymentPhaseScreen(SeaStrike game) : base(game)
-    {
-        this.game = game;
-
+    public DeploymentPhaseScreen(SeaStrike game) : base(game) =>
         boardBuilder = new BoardBuilder();
-    }
 
     public override void LoadContent()
     {
@@ -44,8 +38,6 @@ public class DeploymentPhaseScreen : GameScreen
 
     public override void Update(GameTime gameTime) =>
         UpdateStartButtonVisibility();
-
-    public override void Draw(GameTime gameTime) { }
 
     private GameButton BackButton => new GameButton(OnBackButtonPressed)
     {

@@ -1,15 +1,12 @@
 using Microsoft.Xna.Framework;
-using MonoGame.Extended.Screens;
 using Myra.Graphics2D.UI;
 using SeaStrike.PC.Root.Widgets;
 
 namespace SeaStrike.PC.Root.Screens;
 
-public class MainMenuScreen : GameScreen
+public class MainMenuScreen : SeaStrikeScreen
 {
-    private readonly SeaStrike game;
-
-    public MainMenuScreen(SeaStrike game) : base(game) => this.game = game;
+    public MainMenuScreen(SeaStrike game) : base(game) { }
 
     public override void LoadContent()
     {
@@ -22,10 +19,6 @@ public class MainMenuScreen : GameScreen
 
         game.desktop.Root = mainPanel;
     }
-
-    public override void Draw(GameTime gameTime) { }
-
-    public override void Update(GameTime gameTime) { }
 
     private Label TitleLabel => new Label()
     {

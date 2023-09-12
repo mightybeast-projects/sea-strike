@@ -1,5 +1,4 @@
 using Microsoft.Xna.Framework;
-using MonoGame.Extended.Screens;
 using Myra.Graphics2D.UI;
 using SeaStrike.Core.Entity;
 using SeaStrike.Core.Entity.Game;
@@ -10,15 +9,13 @@ using Grid = Myra.Graphics2D.UI.Grid;
 
 namespace SeaStrike.PC.Root.Screens;
 
-public class BattlePhaseScreen : GameScreen
+public class BattlePhaseScreen : SeaStrikeScreen
 {
-    protected SeaStrike game;
     protected SeaStrikeGame seaStrikeGame;
     protected Board playerBoard;
 
     public BattlePhaseScreen(SeaStrike game, Board playerBoard) : base(game)
     {
-        this.game = game;
         this.playerBoard = playerBoard;
 
         seaStrikeGame = new SeaStrikeGame(playerBoard);
@@ -41,10 +38,6 @@ public class BattlePhaseScreen : GameScreen
 
         game.desktop.Root = mainGrid;
     }
-
-    public override void Draw(GameTime gameTime) { }
-
-    public override void Update(GameTime gameTime) { }
 
     protected Label PhaseLabel => new Label()
     {

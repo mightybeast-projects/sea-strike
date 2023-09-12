@@ -1,23 +1,18 @@
 using Microsoft.Xna.Framework;
-using MonoGame.Extended.Screens;
 using Myra.Graphics2D.UI;
 using SeaStrike.PC.Root.Widgets;
 using SeaStrike.PC.Root.Network;
 
 namespace SeaStrike.PC.Root.Screens;
 
-public class LobbyScreen : GameScreen
+public class LobbyScreen : SeaStrikeScreen
 {
-    private SeaStrike game;
     private NetPlayer player;
     private Grid mainGrid;
 
     public LobbyScreen(SeaStrike game) : base(game)
     {
-        this.game = game;
-
         player = new NetPlayer(game);
-
         mainGrid = new Grid();
 
         mainGrid.RowsProportions.Add(new Proportion(ProportionType.Auto));
@@ -28,8 +23,6 @@ public class LobbyScreen : GameScreen
 
         game.desktop.Root = mainGrid;
     }
-
-    public override void Draw(GameTime gameTime) { }
 
     public override void Update(GameTime gameTime) =>
         player.UpdateNetManagers();

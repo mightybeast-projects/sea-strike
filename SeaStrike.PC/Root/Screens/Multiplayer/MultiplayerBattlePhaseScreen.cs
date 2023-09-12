@@ -19,7 +19,6 @@ public class MultiplayerBattlePhaseScreen : BattlePhaseScreen
         : base(player.game)
     {
         this.player = player;
-        this.game = player.game;
         this.playerBoard = player.board;
 
         if (player.isHost)
