@@ -8,7 +8,8 @@ public class ErrorWindow : GameWindow
 {
     private string errorMessage;
 
-    public ErrorWindow(string errorMessage) : base(SeaStrike.stringStorage.errorWindowTitle)
+    public ErrorWindow(string errorMessage)
+        : base(SeaStrike.stringStorage.errorWindowTitle)
     {
         this.errorMessage = errorMessage;
 

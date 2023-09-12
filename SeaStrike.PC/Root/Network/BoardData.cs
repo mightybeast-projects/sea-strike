@@ -24,7 +24,8 @@ public class BoardData
     }
 
     [JsonConstructor]
-    public BoardData(ShipData[] shipDatas) => this.shipDatas = shipDatas.ToList();
+    public BoardData(ShipData[] shipDatas) =>
+        this.shipDatas = shipDatas.ToList();
 
     public Board Build()
     {

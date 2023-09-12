@@ -9,7 +9,8 @@ public class MultiplayerDeploymentPhaseScreen : DeploymentPhaseScreen
     private NetPlayer player;
 
     public MultiplayerDeploymentPhaseScreen(NetPlayer player)
-        : base(player.game) => this.player = player;
+        : base(player.game)
+            => this.player = player;
 
     public override void Update(GameTime gameTime)
     {

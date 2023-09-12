@@ -45,7 +45,7 @@ public class StringStorage
     public string[] bpHelpWindowContent = new[]
     {
         "Sink your opponent ships to win the game.\n",
-        "Choose and click on the tile of your opponent's grid you wish to shoot at."
+        "Choose and click the tile on your opponent's grid you wish to shoot at."
     };
     public string playerOceanGridLabel = "Your ocean grid : ";
     public string opponentOceanGridLabel = "Opponent ocean grid : ";

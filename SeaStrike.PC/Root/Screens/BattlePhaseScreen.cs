@@ -50,7 +50,7 @@ public class BattlePhaseScreen : SeaStrikeScreen
 
     protected GameButton HelpButton =>
         new GameButton(() =>
-            ShowHelpWindow(SeaStrike.stringStorage.dpHelpWindowContent))
+            ShowHelpWindow(SeaStrike.stringStorage.bpHelpWindowContent))
         {
             Width = 40,
             Height = 40,
