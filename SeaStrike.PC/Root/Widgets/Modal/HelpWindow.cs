@@ -1,4 +1,5 @@
 using System.Text;
+using FontStashSharp.RichText;
 using Myra.Graphics2D.UI;
 
 namespace SeaStrike.PC.Root.Widgets.Modal;
@@ -29,6 +30,7 @@ public class HelpWindow : GameWindow
 
     private Label HelpLabel => new Label()
     {
-        Text = labelText
+        Text = labelText,
+        TextAlign = TextHorizontalAlignment.Center
     };
 }

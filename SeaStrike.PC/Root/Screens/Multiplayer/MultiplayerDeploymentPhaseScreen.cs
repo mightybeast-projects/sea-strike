@@ -19,11 +19,9 @@ public class MultiplayerDeploymentPhaseScreen : DeploymentPhaseScreen
         player.UpdateNetManagers();
     }
 
-    protected override void OnBackButtonPressed()
-    {
+    protected override void OnBackButtonPressed() =>
         new DisconnectionWarningWindow(player.Disconnect)
-                .ShowModal(game.desktop);
-    }
+            .ShowModal(game.desktop);
 
     protected override void OnStartButtonPressed()
     {
