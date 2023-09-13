@@ -75,4 +75,9 @@ public class StringStorage
     //Multiplayer battle plhase screen
     public string yourTurnLabel = "Your turn.";
     public string opponentsTurnLabel = "Opponent's turn.";
+
+    //Lobby disconnection warning window
+    public string disconnectionWarningWindowTitle = "Disconnection warning";
+    public string disconnectionWarningLabel = "This action will close lobby you are currently in.\nAll connected players will be disconnected.\nAre you sure you want to proceed?";
+    public string confirmButtonLabel = "Confirm";
 }

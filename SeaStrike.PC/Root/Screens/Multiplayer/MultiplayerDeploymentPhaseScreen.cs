@@ -21,9 +21,8 @@ public class MultiplayerDeploymentPhaseScreen : DeploymentPhaseScreen
 
     protected override void OnBackButtonPressed()
     {
-        player.Disconnect();
-
-        game.screenManager.LoadScreen(new LobbyScreen(game));
+        new DisconnectionWarningWindow(player.Disconnect)
+                .ShowModal(game.desktop);
     }
 
     protected override void OnStartButtonPressed()

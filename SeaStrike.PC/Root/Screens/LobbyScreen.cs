@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Myra.Graphics2D.UI;
 using SeaStrike.PC.Root.Widgets;
 using SeaStrike.PC.Root.Network;
+using SeaStrike.PC.Root.Widgets.Modal;
 
 namespace SeaStrike.PC.Root.Screens;
 
@@ -53,8 +54,10 @@ public class LobbyScreen : SeaStrikeScreen
 
     private void OnBackButtonPressed()
     {
-        player.Disconnect();
-
-        game.screenManager.LoadScreen(new MainMenuScreen(game));
+        if (player.isHost)
+            new DisconnectionWarningWindow(player.Disconnect)
+                .ShowModal(game.desktop);
+        else
+            player.RedirectToMainMenu();
     }
 }
