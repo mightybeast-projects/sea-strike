@@ -10,12 +10,12 @@ using Grid = Myra.Graphics2D.UI.Grid;
 
 namespace SeaStrike.PC.Root.Screens.Multiplayer;
 
-public class MultiplayerBattlePhaseScreen : BattlePhaseScreen
+public class NetBattlePhaseScreen : BattlePhaseScreen
 {
     private NetPlayer player;
     private Grid mainGrid;
 
-    public MultiplayerBattlePhaseScreen(NetPlayer player, Board opponentBoard)
+    public NetBattlePhaseScreen(NetPlayer player, Board opponentBoard)
         : base(player.game)
     {
         this.player = player;
@@ -54,7 +54,7 @@ public class MultiplayerBattlePhaseScreen : BattlePhaseScreen
     }
 
     protected override OpponentBattleGridPanel OpponentBattleGridPanel =>
-        new MultiplayerOpponnentBattleGridPanel(
+        new NetOpponnentBattleGridPanel(
             player, seaStrikeGame, playerBoard.opponentBoard)
         {
             GridRow = 1,

@@ -78,11 +78,11 @@ public class NetPlayer
     public void RedirectToMainMenu() =>
         game.screenManager.LoadScreen(new MainMenuScreen(game));
 
-    public void RedirectToDeploymentScreen() =>
+    public void RedirectToNetDeploymentScreen() =>
         game.screenManager.LoadScreen(
-            new MultiplayerDeploymentPhaseScreen(this));
+            new NetDeploymentPhaseScreen(this));
 
-    public void RedirectToBattleScreen() =>
+    public void RedirectToNetBattleScreen() =>
         game.screenManager.LoadScreen(
-            new MultiplayerBattlePhaseScreen(this, opponentBoardData.Build()));
+            new NetBattlePhaseScreen(this, opponentBoardData.Build()));
 }

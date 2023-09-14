@@ -6,11 +6,11 @@ using SeaStrike.PC.Root.Widgets.GridTile;
 
 namespace SeaStrike.PC.Root.Widgets.BattleGrid.Multiplayer;
 
-public class MultiplayerOpponnentBattleGridPanel : OpponentBattleGridPanel
+public class NetOpponnentBattleGridPanel : OpponentBattleGridPanel
 {
     private NetPlayer player;
 
-    public MultiplayerOpponnentBattleGridPanel(
+    public NetOpponnentBattleGridPanel(
         NetPlayer player,
         SeaStrikeGame seaStrikeGame,
         Board opponentBoard)

@@ -4,11 +4,11 @@ using SeaStrike.PC.Root.Widgets.Modal;
 
 namespace SeaStrike.PC.Root.Screens.Multiplayer;
 
-public class MultiplayerDeploymentPhaseScreen : DeploymentPhaseScreen
+public class NetDeploymentPhaseScreen : DeploymentPhaseScreen
 {
     private NetPlayer player;
 
-    public MultiplayerDeploymentPhaseScreen(NetPlayer player)
+    public NetDeploymentPhaseScreen(NetPlayer player)
         : base(player.game)
             => this.player = player;
 

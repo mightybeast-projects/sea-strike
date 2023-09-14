@@ -35,9 +35,9 @@ public class SeaStrikeClientListener : SeaStrikeListener
         Console.WriteLine("From server: {0}", message);
 
         if (message == NetUtils.deploymentPhaseStartMessage)
-            player.RedirectToDeploymentScreen();
+            player.RedirectToNetDeploymentScreen();
         else if (message == NetUtils.startBattlePhaseMessage)
-            player.RedirectToBattleScreen();
+            player.RedirectToNetBattleScreen();
         else if (MessageIsBoardData(message))
             player.ReceiveOpponentBoardData(message);
         else
