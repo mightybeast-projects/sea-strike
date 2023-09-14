@@ -22,24 +22,24 @@ public class LobbyButtonsPanel : VerticalStackPanel
     private GameButton CreateLobbyButton =>
         new GameButton(() => CreateNewLobby())
         {
-            Text = SeaStrike.stringStorage.createLobbyButtonLabel
+            Text = SeaStrikeGame.stringStorage.createLobbyButtonLabel
         };
 
     private GameButton ConnectToLobbyButton =>
         new GameButton(() => ConnectToLobby())
         {
-            Text = SeaStrike.stringStorage.connectToLobbyButtonLabel
+            Text = SeaStrikeGame.stringStorage.connectToLobbyButtonLabel
         };
 
     private Label CreatedNewLobbyLabel => new Label()
     {
-        Text = SeaStrike.stringStorage.createdLobbyLabel,
+        Text = SeaStrikeGame.stringStorage.createdLobbyLabel,
         TextAlign = TextHorizontalAlignment.Center
     };
 
     private Label CannotDiscoverAnyLobbyLabel => new Label()
     {
-        Text = SeaStrike.stringStorage.cannotDiscoverAnyLobbyLabel,
+        Text = SeaStrikeGame.stringStorage.cannotDiscoverAnyLobbyLabel,
         TextAlign = TextHorizontalAlignment.Center,
     };
 

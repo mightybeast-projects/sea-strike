@@ -6,11 +6,11 @@ namespace SeaStrike.PC.Root.Widgets;
 
 public class GameModesPanel : VerticalStackPanel
 {
-    private SeaStrike game;
+    private SeaStrikeGame seaStrikeGame;
 
-    public GameModesPanel(SeaStrike game)
+    public GameModesPanel(SeaStrikeGame seaStrikeGame)
     {
-        this.game = game;
+        this.seaStrikeGame = seaStrikeGame;
 
         Spacing = 20;
 
@@ -21,8 +21,8 @@ public class GameModesPanel : VerticalStackPanel
 
     private Label GameModeLabel => new Label()
     {
-        Text = SeaStrike.stringStorage.gameModeLabel,
-        Font = SeaStrike.fontSystem.GetFont(30),
+        Text = SeaStrikeGame.stringStorage.gameModeLabel,
+        Font = SeaStrikeGame.fontSystem.GetFont(30),
         TextColor = Color.LawnGreen,
         HorizontalAlignment = HorizontalAlignment.Center
     };
@@ -30,18 +30,18 @@ public class GameModesPanel : VerticalStackPanel
     private GameButton SinglePlayerButton =>
         new GameButton(() => LoadSinglePlayerMode())
         {
-            Text = SeaStrike.stringStorage.singlePlayerButtonLabel
+            Text = SeaStrikeGame.stringStorage.singlePlayerButtonLabel
         };
 
     private GameButton MultiplayerButton =>
         new GameButton(() => LoadMultiplayerMode())
         {
-            Text = SeaStrike.stringStorage.multiplayerButonLabel
+            Text = SeaStrikeGame.stringStorage.multiplayerButonLabel
         };
 
     private void LoadSinglePlayerMode() =>
-        game.screenManager.LoadScreen(new DeploymentPhaseScreen(game));
+        seaStrikeGame.screenManager.LoadScreen(new DeploymentPhaseScreen(seaStrikeGame));
 
     private void LoadMultiplayerMode() =>
-        game.screenManager.LoadScreen(new LobbyScreen(game));
+        seaStrikeGame.screenManager.LoadScreen(new LobbyScreen(seaStrikeGame));
 }

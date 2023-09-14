@@ -1,6 +1,6 @@
-using SeaStrike.Core.Entity.Game.Utility;
+using SeaStrike.Core.Entity.GameLogic.Utility;
 
-namespace SeaStrike.Core.Entity.Game;
+namespace SeaStrike.Core.Entity.GameLogic;
 
 public class Player
 {

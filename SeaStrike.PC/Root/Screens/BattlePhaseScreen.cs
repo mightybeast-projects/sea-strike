@@ -1,27 +1,30 @@
 using Microsoft.Xna.Framework;
 using Myra.Graphics2D.UI;
 using SeaStrike.Core.Entity;
-using SeaStrike.Core.Entity.Game;
 using SeaStrike.PC.Root.Widgets;
 using SeaStrike.PC.Root.Widgets.BattleGrid;
 using SeaStrike.PC.Root.Widgets.Modal;
+
 using Grid = Myra.Graphics2D.UI.Grid;
+using Game = SeaStrike.Core.Entity.GameLogic.Game;
 
 namespace SeaStrike.PC.Root.Screens;
 
 public class BattlePhaseScreen : SeaStrikeScreen
 {
-    protected SeaStrikeGame seaStrikeGame;
+    protected Game game;
     protected Board playerBoard;
 
-    public BattlePhaseScreen(SeaStrike game, Board playerBoard) : base(game)
+    public BattlePhaseScreen(SeaStrikeGame seaStrikeGame, Board playerBoard)
+        : base(seaStrikeGame)
     {
         this.playerBoard = playerBoard;
 
-        seaStrikeGame = new SeaStrikeGame(playerBoard);
+        this.game = new Game(playerBoard);
     }
 
-    protected BattlePhaseScreen(SeaStrike game) : base(game) { }
+    protected BattlePhaseScreen(SeaStrikeGame seaStrikeGame)
+        : base(seaStrikeGame) { }
 
     public override void LoadContent()
     {
@@ -36,25 +39,25 @@ public class BattlePhaseScreen : SeaStrikeScreen
         mainGrid.Widgets.Add(PlayerBattleGridPanel);
         mainGrid.Widgets.Add(OpponentBattleGridPanel);
 
-        game.desktop.Root = mainGrid;
+        base.seaStrikeGame.desktop.Root = mainGrid;
     }
 
     protected Label PhaseLabel => new Label()
     {
-        Text = SeaStrike.stringStorage.battlePhaseScreenTitle,
+        Text = SeaStrikeGame.stringStorage.battlePhaseScreenTitle,
         TextColor = Color.LawnGreen,
-        Font = SeaStrike.fontSystem.GetFont(40),
+        Font = SeaStrikeGame.fontSystem.GetFont(40),
         HorizontalAlignment = HorizontalAlignment.Center,
         GridColumnSpan = 2
     };
 
     protected GameButton HelpButton =>
         new GameButton(() =>
-            ShowHelpWindow(SeaStrike.stringStorage.bpHelpWindowContent))
+            ShowHelpWindow(SeaStrikeGame.stringStorage.bpHelpWindowContent))
         {
             Width = 40,
             Height = 40,
-            Text = SeaStrike.stringStorage.helpButtonLabel,
+            Text = SeaStrikeGame.stringStorage.helpButtonLabel,
             GridColumn = 1,
             HorizontalAlignment = HorizontalAlignment.Right,
             VerticalAlignment = VerticalAlignment.Top,
@@ -68,12 +71,12 @@ public class BattlePhaseScreen : SeaStrikeScreen
 
     protected virtual OpponentBattleGridPanel OpponentBattleGridPanel =>
         new OpponentBattleGridPanel(
-            game, seaStrikeGame, playerBoard.opponentBoard)
+            base.seaStrikeGame, game, playerBoard.opponentBoard)
         {
             GridRow = 1,
             GridColumn = 1
         };
 
     private void ShowHelpWindow(string[] content) =>
-        new HelpWindow(content).ShowModal(game.desktop);
+        new HelpWindow(content).ShowModal(base.seaStrikeGame.desktop);
 }

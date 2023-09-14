@@ -1,10 +1,10 @@
 using FluentAssertions;
 using NUnit.Framework;
 using SeaStrike.Core.Entity;
-using SeaStrike.Core.Entity.Game;
-using SeaStrike.Core.Entity.Game.Utility;
+using SeaStrike.Core.Entity.GameLogic;
+using SeaStrike.Core.Entity.GameLogic.Utility;
 
-namespace SeaStrike.Core.Tests.EntityTests.SeaStrikeGameTests;
+namespace SeaStrike.Core.Tests.EntityTests.GameLogicTests;
 
 [TestFixture]
 public class AIPlayerTests

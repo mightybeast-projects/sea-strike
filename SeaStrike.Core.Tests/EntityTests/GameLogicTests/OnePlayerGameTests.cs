@@ -1,15 +1,15 @@
 using FluentAssertions;
 using NUnit.Framework;
 using SeaStrike.Core.Entity;
-using SeaStrike.Core.Entity.Game;
+using SeaStrike.Core.Entity.GameLogic;
 
-namespace SeaStrike.Core.Tests.EntityTests.SeaStrikeGameTests;
+namespace SeaStrike.Core.Tests.EntityTests.GameLogicTests;
 
 [TestFixture]
 public class OnePlayerGameTests
 {
     private Board playerBoard;
-    private SeaStrikeGame game;
+    private Game game;
 
     [SetUp]
     public void SetUp()
@@ -18,7 +18,7 @@ public class OnePlayerGameTests
             .RandomizeShipsStartingPosition()
             .Build();
 
-        game = new SeaStrikeGame(playerBoard);
+        game = new Game(playerBoard);
     }
 
     [Test]

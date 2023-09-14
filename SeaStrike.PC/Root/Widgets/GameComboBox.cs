@@ -49,7 +49,7 @@ public class GameComboBox : ComboBox
     private LabelStyle DefaultLabelStyle =>
         new LabelStyle(Stylesheet.Current.LabelStyle)
         {
-            Font = SeaStrike.fontSystem.GetFont(24),
+            Font = SeaStrikeGame.fontSystem.GetFont(24),
             Padding = new Thickness(5, 0)
         };
 }

@@ -11,9 +11,9 @@ public class LobbyScreen : SeaStrikeScreen
     private NetPlayer player;
     private Grid mainGrid;
 
-    public LobbyScreen(SeaStrike game) : base(game)
+    public LobbyScreen(SeaStrikeGame seaStrikeGame) : base(seaStrikeGame)
     {
-        player = new NetPlayer(game);
+        player = new NetPlayer(seaStrikeGame);
         mainGrid = new Grid();
 
         mainGrid.RowsProportions.Add(new Proportion(ProportionType.Auto));
@@ -22,7 +22,7 @@ public class LobbyScreen : SeaStrikeScreen
         mainGrid.Widgets.Add(ScreenTitleLabel);
         mainGrid.Widgets.Add(LobbyButtonsPanel);
 
-        game.desktop.Root = mainGrid;
+        seaStrikeGame.desktop.Root = mainGrid;
     }
 
     public override void Update(GameTime gameTime) =>
@@ -30,15 +30,15 @@ public class LobbyScreen : SeaStrikeScreen
 
     private Label ScreenTitleLabel => new Label()
     {
-        Text = SeaStrike.stringStorage.lobbyScreenLabel,
+        Text = SeaStrikeGame.stringStorage.lobbyScreenLabel,
         TextColor = Color.LawnGreen,
-        Font = SeaStrike.fontSystem.GetFont(40),
+        Font = SeaStrikeGame.fontSystem.GetFont(40),
         HorizontalAlignment = HorizontalAlignment.Center
     };
 
     private GameButton BackButton => new GameButton(OnBackButtonPressed)
     {
-        Text = SeaStrike.stringStorage.backButtonLabel,
+        Text = SeaStrikeGame.stringStorage.backButtonLabel,
         Width = 40,
         Height = 40,
         HorizontalAlignment = HorizontalAlignment.Left,
@@ -56,7 +56,7 @@ public class LobbyScreen : SeaStrikeScreen
     {
         if (player.isHost)
             new DisconnectionWarningWindow(player.Disconnect)
-                .ShowModal(game.desktop);
+                .ShowModal(seaStrikeGame.desktop);
         else
             player.RedirectToMainMenu();
     }

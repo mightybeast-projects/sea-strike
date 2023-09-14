@@ -1,4 +1,3 @@
-using System.Net.Mime;
 using System;
 using Microsoft.Xna.Framework;
 using Myra.Graphics2D.Brushes;
@@ -10,7 +9,7 @@ namespace SeaStrike.PC.Root.Widgets.Modal;
 public class DisconnectionWarningWindow : GameWindow
 {
     public DisconnectionWarningWindow(Action onConfirmButtonClicked)
-        : base(SeaStrike.stringStorage.disconnectionWarningWindowTitle)
+        : base(SeaStrikeGame.stringStorage.disconnectionWarningWindowTitle)
     {
         TitleTextColor = Color.Red;
         Border = new SolidBrush(Color.Red);
@@ -29,13 +28,13 @@ public class DisconnectionWarningWindow : GameWindow
 
     private Label WarningLabel = new Label()
     {
-        Text = SeaStrike.stringStorage.disconnectionWarningLabel,
+        Text = SeaStrikeGame.stringStorage.disconnectionWarningLabel,
         TextAlign = TextHorizontalAlignment.Center
     };
 
     private GameButton ConfirmButton(Action onConfirmButtonClicked) =>
         new GameButton(onConfirmButtonClicked)
         {
-            Text = SeaStrike.stringStorage.confirmButtonLabel
+            Text = SeaStrikeGame.stringStorage.confirmButtonLabel
         };
 }

@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 using SeaStrike.Core.Entity;
-using SeaStrike.Core.Entity.Game;
+using SeaStrike.Core.Entity.GameLogic;
 using SeaStrike.PC.Root.Network.Listener;
 using SeaStrike.PC.Root.Network.Manager;
 using SeaStrike.PC.Root.Screens;
@@ -10,18 +10,19 @@ namespace SeaStrike.PC.Root.Network;
 
 public class NetPlayer
 {
-    internal readonly SeaStrike game;
-    internal SeaStrikeGame seaStrikeGame;
+    internal readonly SeaStrikeGame seaStrikeGame;
+    internal Game game;
     internal Board board;
 
-    internal bool canShoot => seaStrikeGame.currentPlayer.board == board;
+    internal bool canShoot => game.currentPlayer.board == board;
     internal bool isHost => server is not null;
 
     private SeaStrikeClient client;
     private SeaStrikeServer server;
     private BoardData opponentBoardData;
 
-    public NetPlayer(SeaStrike game) => this.game = game;
+    public NetPlayer(SeaStrikeGame seaStrikeGame) =>
+        this.seaStrikeGame = seaStrikeGame;
 
     public void CreateServer()
     {
@@ -63,26 +64,27 @@ public class NetPlayer
 
     public void ReceiveOpponentBoardData(string opponentBoardDataJson) =>
         opponentBoardData =
-                JsonConvert.DeserializeObject<BoardData>(opponentBoardDataJson);
+            JsonConvert.DeserializeObject<BoardData>(opponentBoardDataJson);
 
     public void SendShotTile(Tile tile) => client.Send(tile.notation);
 
     public void HandleOpponentShot(string tileStr)
     {
-        seaStrikeGame.HandleCurrentPlayerShot(tileStr);
+        game.HandleCurrentPlayerShot(tileStr);
 
-        if (seaStrikeGame.isOver)
-            game.ShowLostScreen();
+        if (game.isOver)
+            seaStrikeGame.ShowLostScreen();
     }
 
     public void RedirectToMainMenu() =>
-        game.screenManager.LoadScreen(new MainMenuScreen(game));
+        seaStrikeGame.screenManager.LoadScreen(
+            new MainMenuScreen(seaStrikeGame));
 
     public void RedirectToNetDeploymentScreen() =>
-        game.screenManager.LoadScreen(
+        seaStrikeGame.screenManager.LoadScreen(
             new NetDeploymentPhaseScreen(this));
 
     public void RedirectToNetBattleScreen() =>
-        game.screenManager.LoadScreen(
+        seaStrikeGame.screenManager.LoadScreen(
             new NetBattlePhaseScreen(this, opponentBoardData.Build()));
 }

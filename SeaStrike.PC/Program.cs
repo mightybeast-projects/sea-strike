@@ -1,2 +1,2 @@
-﻿using var game = new SeaStrike.PC.Root.SeaStrike();
+﻿using var game = new SeaStrike.PC.Root.SeaStrikeGame();
 game.Run();

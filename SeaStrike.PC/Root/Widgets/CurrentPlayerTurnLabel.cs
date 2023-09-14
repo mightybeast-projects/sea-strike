@@ -12,7 +12,7 @@ public class CurrentPlayerTurnLabel : Label
     {
         this.player = player;
 
-        Font = SeaStrike.fontSystem.GetFont(28);
+        Font = SeaStrikeGame.fontSystem.GetFont(28);
     }
 
     public void Update()
@@ -25,13 +25,13 @@ public class CurrentPlayerTurnLabel : Label
 
     private void ShowThatPlayerCanShoot()
     {
-        Text = SeaStrike.stringStorage.yourTurnLabel;
+        Text = SeaStrikeGame.stringStorage.yourTurnLabel;
         TextColor = Color.LawnGreen;
     }
 
     private void ShowThatPlayerCannotShoot()
     {
-        Text = SeaStrike.stringStorage.opponentsTurnLabel;
+        Text = SeaStrikeGame.stringStorage.opponentsTurnLabel;
         TextColor = Color.Red;
     }
 }

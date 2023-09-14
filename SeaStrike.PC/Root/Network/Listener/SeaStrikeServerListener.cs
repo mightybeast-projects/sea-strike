@@ -12,7 +12,7 @@ public class SeaStrikeServerListener : SeaStrikeListener
 
     private Dictionary<NetPeer, string> playerBoardDatas;
 
-    private bool gameStarted => player.seaStrikeGame is not null;
+    private bool gameStarted => player.game is not null;
 
     public SeaStrikeServerListener(NetPlayer player) : base(player) =>
         playerBoardDatas = new Dictionary<NetPeer, string>();

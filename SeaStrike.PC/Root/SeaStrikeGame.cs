@@ -13,7 +13,7 @@ using SeaStrike.PC.Root.Widgets.Modal;
 
 namespace SeaStrike.PC.Root;
 
-public class SeaStrike : Game
+public class SeaStrikeGame : Game
 {
     internal static FontSystem fontSystem;
     internal static StringStorage stringStorage;
@@ -22,7 +22,7 @@ public class SeaStrike : Game
 
     private readonly GraphicsDeviceManager graphics;
 
-    public SeaStrike()
+    public SeaStrikeGame()
     {
         fontSystem = new FontSystem();
         stringStorage = new StringStorage();

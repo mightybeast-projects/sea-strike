@@ -5,6 +5,7 @@ using Myra.Graphics2D.Brushes;
 using Myra.Graphics2D.UI;
 using SeaStrike.Core.Entity;
 using SeaStrike.PC.Root.Widgets.GridTile;
+
 using Grid = Myra.Graphics2D.UI.Grid;
 using OceanGrid = SeaStrike.Core.Entity.Grid;
 

@@ -9,7 +9,7 @@ public class HelpWindow : GameWindow
     private string labelText;
 
     public HelpWindow(string[] helpLabelContent) :
-        base(SeaStrike.stringStorage.helpWindowTitle)
+        base(SeaStrikeGame.stringStorage.helpWindowTitle)
     {
         DragHandle = null;
 

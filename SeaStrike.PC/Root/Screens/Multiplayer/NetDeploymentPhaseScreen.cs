@@ -9,7 +9,7 @@ public class NetDeploymentPhaseScreen : DeploymentPhaseScreen
     private NetPlayer player;
 
     public NetDeploymentPhaseScreen(NetPlayer player)
-        : base(player.game)
+        : base(player.seaStrikeGame)
             => this.player = player;
 
     public override void Update(GameTime gameTime)
@@ -21,12 +21,12 @@ public class NetDeploymentPhaseScreen : DeploymentPhaseScreen
 
     protected override void OnBackButtonPressed() =>
         new DisconnectionWarningWindow(player.Disconnect)
-            .ShowModal(game.desktop);
+            .ShowModal(seaStrikeGame.desktop);
 
     protected override void OnStartButtonPressed()
     {
         player.SendBoard(boardBuilder.Build());
 
-        new ReadyWindow().ShowModal(game.desktop);
+        new ReadyWindow().ShowModal(seaStrikeGame.desktop);
     }
 }

@@ -10,7 +10,7 @@ public class GameWindow : Window
     public GameWindow(string title)
     {
         Title = title;
-        TitleFont = SeaStrike.fontSystem.GetFont(30);
+        TitleFont = SeaStrikeGame.fontSystem.GetFont(30);
         TitleTextColor = Color.LawnGreen;
 
         TitleGrid.Background = new SolidBrush(Color.Black);

@@ -1,12 +1,13 @@
 using Microsoft.Xna.Framework;
 using Myra.Graphics2D.UI;
 using SeaStrike.Core.Entity;
-using SeaStrike.Core.Entity.Game;
 using SeaStrike.PC.Root.Network;
 using SeaStrike.PC.Root.Widgets;
 using SeaStrike.PC.Root.Widgets.BattleGrid;
 using SeaStrike.PC.Root.Widgets.BattleGrid.Multiplayer;
+
 using Grid = Myra.Graphics2D.UI.Grid;
+using Game = SeaStrike.Core.Entity.GameLogic.Game;
 
 namespace SeaStrike.PC.Root.Screens.Multiplayer;
 
@@ -16,17 +17,17 @@ public class NetBattlePhaseScreen : BattlePhaseScreen
     private Grid mainGrid;
 
     public NetBattlePhaseScreen(NetPlayer player, Board opponentBoard)
-        : base(player.game)
+        : base(player.seaStrikeGame)
     {
         this.player = player;
         this.playerBoard = player.board;
 
         if (player.isHost)
-            seaStrikeGame = new SeaStrikeGame(playerBoard, opponentBoard);
+            game = new Game(playerBoard, opponentBoard);
         else
-            seaStrikeGame = new SeaStrikeGame(playerBoard, opponentBoard, true);
+            game = new Game(playerBoard, opponentBoard, true);
 
-        player.seaStrikeGame = seaStrikeGame;
+        player.game = game;
     }
 
     public override void LoadContent()
@@ -41,7 +42,7 @@ public class NetBattlePhaseScreen : BattlePhaseScreen
         mainGrid.Widgets.Add(CurrentPlayerTurnLabel);
         mainGrid.Widgets.Add(OpponentBattleGridPanel);
 
-        game.desktop.Root = mainGrid;
+        seaStrikeGame.desktop.Root = mainGrid;
     }
 
     public override void Update(GameTime gameTime)
@@ -55,7 +56,7 @@ public class NetBattlePhaseScreen : BattlePhaseScreen
 
     protected override OpponentBattleGridPanel OpponentBattleGridPanel =>
         new NetOpponnentBattleGridPanel(
-            player, seaStrikeGame, playerBoard.opponentBoard)
+            player, game, playerBoard.opponentBoard)
         {
             GridRow = 1,
             GridColumn = 1

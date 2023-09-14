@@ -1,17 +1,17 @@
 using FluentAssertions;
 using NUnit.Framework;
 using SeaStrike.Core.Entity;
-using SeaStrike.Core.Entity.Game;
-using SeaStrike.Core.Entity.Game.Utility;
+using SeaStrike.Core.Entity.GameLogic;
+using SeaStrike.Core.Entity.GameLogic.Utility;
 
-namespace SeaStrike.Core.Tests.EntityTests.SeaStrikeGameTests;
+namespace SeaStrike.Core.Tests.EntityTests.GameLogicTests;
 
 [TestFixture]
 public class TwoPlayerGameTests
 {
     private Board playerBoard;
     private Board opponentBoard;
-    private SeaStrikeGame game;
+    private Game game;
 
     [SetUp]
     public void SetUp()
@@ -25,7 +25,7 @@ public class TwoPlayerGameTests
                 .AtPosition("A1")
             .Build();
 
-        game = new SeaStrikeGame(playerBoard, opponentBoard);
+        game = new Game(playerBoard, opponentBoard);
     }
 
     [Test]
@@ -41,7 +41,7 @@ public class TwoPlayerGameTests
     [Test]
     public void Game_CanBeInitialized_WithOpponent_AsCurrentPlayer()
     {
-        game = new SeaStrikeGame(playerBoard, opponentBoard, true);
+        game = new Game(playerBoard, opponentBoard, true);
 
         game.currentPlayer.Should().Be(game.opponent);
     }

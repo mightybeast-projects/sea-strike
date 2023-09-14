@@ -1,6 +1,6 @@
 using System.Text;
 
-namespace SeaStrike.Core.Entity.Game.Utility;
+namespace SeaStrike.Core.Entity.GameLogic.Utility;
 
 public class ShotResult
 {

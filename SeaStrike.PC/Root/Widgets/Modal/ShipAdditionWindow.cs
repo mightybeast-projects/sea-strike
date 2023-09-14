@@ -1,6 +1,7 @@
 using System;
 using Myra.Graphics2D.UI;
 using SeaStrike.Core.Entity;
+
 using Grid = Myra.Graphics2D.UI.Grid;
 
 namespace SeaStrike.PC.Root.Widgets.Modal;
@@ -13,7 +14,7 @@ public class ShipAdditionWindow : GameWindow
     private readonly BoardBuilder boardBuilder;
 
     public ShipAdditionWindow(string position, BoardBuilder boardBuilder)
-        : base(SeaStrike.stringStorage.shipAdditionWindowTitle)
+        : base(SeaStrikeGame.stringStorage.shipAdditionWindowTitle)
     {
         this.position = position;
         this.boardBuilder = boardBuilder;
@@ -36,14 +37,14 @@ public class ShipAdditionWindow : GameWindow
 
     private Label SelectedTileLabel => new Label()
     {
-        Text = SeaStrike.stringStorage.selectedPositionLabel + position,
+        Text = SeaStrikeGame.stringStorage.selectedPositionLabel + position,
         HorizontalAlignment = HorizontalAlignment.Center,
         GridColumnSpan = 2
     };
 
     private Label ShipTypeLabel => new Label()
     {
-        Text = SeaStrike.stringStorage.shipTypeLabel,
+        Text = SeaStrikeGame.stringStorage.shipTypeLabel,
         GridRow = 1
     };
 
@@ -57,12 +58,12 @@ public class ShipAdditionWindow : GameWindow
 
     private Label ShipOrientationLabel => new Label()
     {
-        Text = SeaStrike.stringStorage.shipOrientationLabel,
+        Text = SeaStrikeGame.stringStorage.shipOrientationLabel,
         GridRow = 2,
     };
 
     private GameComboBox ShipOrientationComboBox =>
-        new GameComboBox(SeaStrike.stringStorage.orientationBoxItems)
+        new GameComboBox(SeaStrikeGame.stringStorage.orientationBoxItems)
         {
             Id = orientationBoxId,
             GridRow = 2,
@@ -72,7 +73,7 @@ public class ShipAdditionWindow : GameWindow
 
     private GameButton CreateShipButton => new GameButton(AddNewShip)
     {
-        Text = SeaStrike.stringStorage.createShipButtonLabel,
+        Text = SeaStrikeGame.stringStorage.createShipButtonLabel,
         GridRow = 3,
         GridColumnSpan = 2,
         HorizontalAlignment = HorizontalAlignment.Center
@@ -108,7 +109,7 @@ public class ShipAdditionWindow : GameWindow
             Ship ship = boardBuilder.shipsPool[i];
             ships[i] = ship.GetType().Name +
                         " (" +
-                        SeaStrike.stringStorage.shipWidthLabel +
+                        SeaStrikeGame.stringStorage.shipWidthLabel +
                         ship.width +
                         ")";
         }

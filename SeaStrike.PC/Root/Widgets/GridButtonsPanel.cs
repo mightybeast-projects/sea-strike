@@ -24,12 +24,12 @@ public class GridButtonsPanel : HorizontalStackPanel
     private GameButton RandomizeShipsButton =>
         new GameButton(() => boardBuilder.RandomizeShipsStartingPosition())
         {
-            Text = SeaStrike.stringStorage.randomizeButtonString
+            Text = SeaStrikeGame.stringStorage.randomizeButtonString
         };
 
     private GameButton ClearShipsButton =>
         new GameButton(() => boardBuilder.ClearOceanGrid())
         {
-            Text = SeaStrike.stringStorage.clearButtonString
+            Text = SeaStrikeGame.stringStorage.clearButtonString
         };
 }

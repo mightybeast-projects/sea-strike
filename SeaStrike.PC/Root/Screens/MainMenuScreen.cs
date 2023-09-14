@@ -6,7 +6,7 @@ namespace SeaStrike.PC.Root.Screens;
 
 public class MainMenuScreen : SeaStrikeScreen
 {
-    public MainMenuScreen(SeaStrike game) : base(game) { }
+    public MainMenuScreen(SeaStrikeGame seaStrikeGame) : base(seaStrikeGame) { }
 
     public override void LoadContent()
     {
@@ -17,20 +17,20 @@ public class MainMenuScreen : SeaStrikeScreen
         mainPanel.Widgets.Add(TitleLabel);
         mainPanel.Widgets.Add(GameModesPanel);
 
-        game.desktop.Root = mainPanel;
+        seaStrikeGame.desktop.Root = mainPanel;
     }
 
     private Label TitleLabel => new Label()
     {
         Top = 100,
-        Text = SeaStrike.stringStorage.gameTitle,
+        Text = SeaStrikeGame.stringStorage.gameTitle,
         TextColor = Color.LawnGreen,
-        Font = SeaStrike.fontSystem.GetFont(56),
+        Font = SeaStrikeGame.fontSystem.GetFont(56),
         HorizontalAlignment = HorizontalAlignment.Center,
         VerticalAlignment = VerticalAlignment.Top,
     };
 
-    private GameModesPanel GameModesPanel => new GameModesPanel(game)
+    private GameModesPanel GameModesPanel => new GameModesPanel(seaStrikeGame)
     {
         Top = -100,
         VerticalAlignment = VerticalAlignment.Bottom

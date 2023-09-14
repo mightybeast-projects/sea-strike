@@ -1,6 +1,6 @@
 using SeaStrike.Core.Entity;
-using SeaStrike.Core.Entity.Game;
-using SeaStrike.Core.Entity.Game.Utility;
+using SeaStrike.Core.Entity.GameLogic;
+using SeaStrike.Core.Entity.GameLogic.Utility;
 using SeaStrike.PC.Root.Network;
 using SeaStrike.PC.Root.Widgets.GridTile;
 
@@ -12,9 +12,9 @@ public class NetOpponnentBattleGridPanel : OpponentBattleGridPanel
 
     public NetOpponnentBattleGridPanel(
         NetPlayer player,
-        SeaStrikeGame seaStrikeGame,
+        Game game,
         Board opponentBoard)
-        : base(player.game, seaStrikeGame, opponentBoard) =>
+        : base(player.seaStrikeGame, game, opponentBoard) =>
             this.player = player;
 
     protected override void ShootTile(object sender)
@@ -25,12 +25,12 @@ public class NetOpponnentBattleGridPanel : OpponentBattleGridPanel
 
     private void MakeShot(Tile tile)
     {
-        ShotResult result = seaStrikeGame.HandleCurrentPlayerShot(tile.notation);
+        ShotResult result = game.HandleCurrentPlayerShot(tile.notation);
 
         shotResultLabel.Text = result.ToString();
 
-        if (seaStrikeGame.isOver)
-            player.game.ShowVictoryScreen();
+        if (game.isOver)
+            player.seaStrikeGame.ShowVictoryScreen();
 
         player.SendShotTile(result.tile);
     }

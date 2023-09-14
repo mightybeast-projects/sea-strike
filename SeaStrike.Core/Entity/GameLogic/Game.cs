@@ -1,8 +1,8 @@
-using SeaStrike.Core.Entity.Game.Utility;
+using SeaStrike.Core.Entity.GameLogic.Utility;
 
-namespace SeaStrike.Core.Entity.Game;
+namespace SeaStrike.Core.Entity.GameLogic;
 
-public class SeaStrikeGame
+public class Game
 {
     public Player currentPlayer { get; private set; }
     internal readonly Player player;
@@ -10,7 +10,7 @@ public class SeaStrikeGame
 
     public bool isOver => currentPlayer.board.opponentBoard.shipsAreSunk;
 
-    public SeaStrikeGame(Board playerBoard)
+    public Game(Board playerBoard)
     {
         player = new Player(playerBoard);
         opponent = new AIPlayer();
@@ -18,7 +18,7 @@ public class SeaStrikeGame
         StartGame(player);
     }
 
-    public SeaStrikeGame(
+    public Game(
         Board playerBoard,
         Board opponentBoard,
         bool opponentMovesFirst = false)

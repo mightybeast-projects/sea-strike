@@ -23,7 +23,7 @@ public abstract class BattleGridPanel : VerticalStackPanel
     private Label GridLabel => new Label()
     {
         Text = gridLabel,
-        Font = SeaStrike.fontSystem.GetFont(28),
+        Font = SeaStrikeGame.fontSystem.GetFont(28),
         TextColor = Color.LawnGreen,
         HorizontalAlignment = HorizontalAlignment.Center
     };

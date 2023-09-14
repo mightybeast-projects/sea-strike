@@ -4,7 +4,7 @@ namespace SeaStrike.PC.Root.Widgets.Modal;
 
 public class ReadyWindow : GameWindow
 {
-    public ReadyWindow() : base(SeaStrike.stringStorage.readyWindowTitle)
+    public ReadyWindow() : base(SeaStrikeGame.stringStorage.readyWindowTitle)
     {
         DragHandle = null;
         CloseButton.Visible = false;
@@ -14,6 +14,6 @@ public class ReadyWindow : GameWindow
 
     private Label ContentLabel => new Label()
     {
-        Text = SeaStrike.stringStorage.readyWindowContentLabel
+        Text = SeaStrikeGame.stringStorage.readyWindowContentLabel
     };
 }

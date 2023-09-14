@@ -4,11 +4,12 @@ namespace SeaStrike.PC.Root.Widgets.Modal;
 
 public class GameOverWindow : GameWindow
 {
-    private readonly SeaStrike game;
+    private readonly SeaStrikeGame seaStrikeGame;
 
-    public GameOverWindow(SeaStrike game, string title) : base(title)
+    public GameOverWindow(SeaStrikeGame seaStrikeGame, string title)
+        : base(title)
     {
-        this.game = game;
+        this.seaStrikeGame = seaStrikeGame;
 
         DragHandle = null;
         CloseButton.Visible = false;
@@ -18,9 +19,9 @@ public class GameOverWindow : GameWindow
 
     private GameButton RestartButton => new GameButton(RestartGame)
     {
-        Text = SeaStrike.stringStorage.restartButtonLabel
+        Text = SeaStrikeGame.stringStorage.restartButtonLabel
     };
 
     private void RestartGame() =>
-        game.screenManager.LoadScreen(new MainMenuScreen(game));
+        seaStrikeGame.screenManager.LoadScreen(new MainMenuScreen(seaStrikeGame));
 }
