@@ -51,12 +51,15 @@ public class OpponentBattleGridPanel : BattleGridPanel
 
         if (game.isOver)
             seaStrikeGame.ShowVictoryScreen();
-        else
-            MakeAIPlayerShoot();
+
+        MakeAIPlayerShoot();
     }
 
     private void MakeAIPlayerShoot()
     {
+        if (game.isOver)
+            return;
+
         game.HandleAIPlayerShot();
 
         if (game.isOver)
