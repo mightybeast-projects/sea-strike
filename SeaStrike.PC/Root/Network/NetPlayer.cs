@@ -48,12 +48,7 @@ public class NetPlayer : SeaStrikePlayer
         server?.Stop();
     }
 
-    public void SendBoard(Board board)
-    {
-        this.board = board;
-
-        client.Send(new BoardData(board).ToJson());
-    }
+    public void SendBoard() => client.Send(new BoardData(board).ToJson());
 
     public void ReceiveOpponentBoardData(string opponentBoardDataJson) =>
         opponentBoardData =

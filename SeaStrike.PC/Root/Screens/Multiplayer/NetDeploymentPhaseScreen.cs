@@ -25,7 +25,8 @@ public class NetDeploymentPhaseScreen : DeploymentPhaseScreen
 
     protected override void OnStartButtonPressed()
     {
-        player.SendBoard(boardBuilder.Build());
+        player.board = boardBuilder.Build();
+        player.SendBoard();
 
         new ReadyWindow().ShowModal(seaStrikeGame.desktop);
     }
