@@ -1,13 +1,11 @@
 using Microsoft.Xna.Framework;
 using Myra.Graphics2D.UI;
-using SeaStrike.Core.Entity;
 using SeaStrike.PC.Root.Network;
 using SeaStrike.PC.Root.Widgets;
 using SeaStrike.PC.Root.Widgets.BattleGrid;
 using SeaStrike.PC.Root.Widgets.BattleGrid.Multiplayer;
 
 using Grid = Myra.Graphics2D.UI.Grid;
-using Game = SeaStrike.Core.Entity.GameLogic.Game;
 
 namespace SeaStrike.PC.Root.Screens.Multiplayer;
 

@@ -71,15 +71,14 @@ public class DeploymentPhaseScreen : SeaStrikeScreen
     private GridButtonsPanel GridButtonsPanel =>
         new GridButtonsPanel(boardBuilder);
 
-    private GridPanel OceanGridPanel =>
-        new GridPanel(boardBuilder.Build(), true)
-        {
-            GridRow = 1,
-            HorizontalAlignment = HorizontalAlignment.Center,
-            VerticalAlignment = VerticalAlignment.Center,
-            OnEmptyTileClicked = ShowShipAdditionDialog,
-            OnAllyShipClicked = RemoveShip
-        };
+    private GridPanel OceanGridPanel => new GridPanel(player.board, true)
+    {
+        GridRow = 1,
+        HorizontalAlignment = HorizontalAlignment.Center,
+        VerticalAlignment = VerticalAlignment.Center,
+        OnEmptyTileClicked = ShowShipAdditionDialog,
+        OnAllyShipClicked = RemoveShip
+    };
 
     private GameButton StartGameButton => new GameButton(OnStartButtonPressed)
     {

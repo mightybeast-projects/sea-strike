@@ -9,13 +9,12 @@ namespace SeaStrike.PC.Root.Screens;
 public class LobbyScreen : SeaStrikeScreen
 {
     private new NetPlayer player;
-    private Grid mainGrid;
 
     public LobbyScreen(SeaStrikePlayer player) : base(player)
     {
         this.player = new NetPlayer(seaStrikeGame);
 
-        mainGrid = new Grid();
+        Grid mainGrid = new Grid();
 
         mainGrid.RowsProportions.Add(new Proportion(ProportionType.Auto));
 

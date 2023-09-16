@@ -1,5 +1,3 @@
-using SeaStrike.PC.Root.Screens;
-
 namespace SeaStrike.PC.Root.Widgets.Modal;
 
 public class GameOverWindow : GameWindow

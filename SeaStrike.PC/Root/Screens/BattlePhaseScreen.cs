@@ -1,20 +1,15 @@
 using Microsoft.Xna.Framework;
 using Myra.Graphics2D.UI;
-using SeaStrike.Core.Entity;
 using SeaStrike.PC.Root.Widgets;
 using SeaStrike.PC.Root.Widgets.BattleGrid;
 using SeaStrike.PC.Root.Widgets.Modal;
 
 using Grid = Myra.Graphics2D.UI.Grid;
-using Game = SeaStrike.Core.Entity.GameLogic.Game;
 
 namespace SeaStrike.PC.Root.Screens;
 
 public class BattlePhaseScreen : SeaStrikeScreen
 {
-    protected Game game => player.game;
-    protected Board playerBoard => player.board;
-
     public BattlePhaseScreen(SeaStrikePlayer player) : base(player) { }
 
     public override void LoadContent()
