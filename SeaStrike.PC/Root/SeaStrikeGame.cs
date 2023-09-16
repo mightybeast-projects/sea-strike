@@ -8,6 +8,7 @@ using Myra;
 using Myra.Graphics2D.UI;
 using Myra.Graphics2D.UI.Styles;
 using SeaStrike.Core.Exceptions;
+using SeaStrike.PC.Root.Screens;
 using SeaStrike.PC.Root.Widgets.Modal;
 
 namespace SeaStrike.PC.Root;
@@ -66,7 +67,7 @@ public class SeaStrikeGame : Game
     {
         base.Initialize();
 
-        player.RedirectToMainMenuScreen();
+        player.RedirectTo<MainMenuScreen>();
     }
 
     protected override void Draw(GameTime gameTime)

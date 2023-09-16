@@ -1,3 +1,4 @@
+using System;
 using SeaStrike.Core.Entity;
 using SeaStrike.Core.Entity.GameLogic;
 using SeaStrike.PC.Root.Screens;
@@ -16,6 +17,10 @@ public class SeaStrikePlayer
         this.seaStrikeGame = seaStrikeGame;
 
     public virtual void StartCoreGame() => game = new Game(board);
+
+    public void RedirectTo<T>() where T : SeaStrikeScreen =>
+        seaStrikeGame.screenManager.LoadScreen(
+            (T)Activator.CreateInstance(typeof(T), this));
 
     public void RedirectToMainMenuScreen() =>
         seaStrikeGame.screenManager.LoadScreen(new MainMenuScreen(this));
