@@ -7,13 +7,15 @@ namespace SeaStrike.PC.Root;
 public class SeaStrikePlayer
 {
     public readonly SeaStrikeGame seaStrikeGame;
+    public Game game { get; protected set; }
     public BoardBuilder boardBuilder;
-    public Game game;
 
     public Board board => boardBuilder.Build();
 
     public SeaStrikePlayer(SeaStrikeGame seaStrikeGame) =>
         this.seaStrikeGame = seaStrikeGame;
+
+    public virtual void StartCoreGame() => game = new Game(board);
 
     public void RedirectToMainMenuScreen() =>
         seaStrikeGame.screenManager.LoadScreen(new MainMenuScreen(this));

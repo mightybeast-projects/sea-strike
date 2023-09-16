@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using SeaStrike.Core.Entity;
+using SeaStrike.Core.Entity.GameLogic;
 using SeaStrike.PC.Root.Network.Listener;
 using SeaStrike.PC.Root.Network.Manager;
 using SeaStrike.PC.Root.Screens.Multiplayer;
@@ -16,6 +17,21 @@ public class NetPlayer : SeaStrikePlayer
     private BoardData opponentBoardData;
 
     public NetPlayer(SeaStrikeGame seaStrikeGame) : base(seaStrikeGame) { }
+
+    public override void StartCoreGame()
+    {
+        if (isHost)
+            game = new Game(board, opponentBoardData.Build());
+        else
+            game = new Game(board, opponentBoardData.Build(), true);
+    }
+
+    public override void RedirectToDeploymentScreen() =>
+        seaStrikeGame.screenManager.LoadScreen(
+            new NetDeploymentPhaseScreen(this));
+
+    public override void RedirectToBattleScreen() =>
+        seaStrikeGame.screenManager.LoadScreen(new NetBattlePhaseScreen(this));
 
     public void CreateServer()
     {
@@ -63,12 +79,4 @@ public class NetPlayer : SeaStrikePlayer
         if (game.isOver)
             seaStrikeGame.ShowLostScreen();
     }
-
-    public override void RedirectToDeploymentScreen() =>
-        seaStrikeGame.screenManager.LoadScreen(
-            new NetDeploymentPhaseScreen(this));
-
-    public override void RedirectToBattleScreen() =>
-        seaStrikeGame.screenManager.LoadScreen(
-            new NetBattlePhaseScreen(this, opponentBoardData.Build()));
 }

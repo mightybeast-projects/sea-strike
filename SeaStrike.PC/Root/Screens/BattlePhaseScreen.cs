@@ -15,12 +15,11 @@ public class BattlePhaseScreen : SeaStrikeScreen
     protected Game game => player.game;
     protected Board playerBoard => player.board;
 
-    public BattlePhaseScreen(SeaStrikePlayer player) : base(player) =>
-        player.game = new Game(playerBoard);
+    public BattlePhaseScreen(SeaStrikePlayer player) : base(player) { }
 
     public override void LoadContent()
     {
-        base.LoadContent();
+        player.StartCoreGame();
 
         Grid mainGrid = new Grid();
 
@@ -31,7 +30,7 @@ public class BattlePhaseScreen : SeaStrikeScreen
         mainGrid.Widgets.Add(PlayerBattleGridPanel);
         mainGrid.Widgets.Add(OpponentBattleGridPanel);
 
-        base.seaStrikeGame.desktop.Root = mainGrid;
+        seaStrikeGame.desktop.Root = mainGrid;
     }
 
     protected Label PhaseLabel => new Label()

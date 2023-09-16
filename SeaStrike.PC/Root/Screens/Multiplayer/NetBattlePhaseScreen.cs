@@ -16,19 +16,13 @@ public class NetBattlePhaseScreen : BattlePhaseScreen
     private new NetPlayer player;
     private Grid mainGrid;
 
-    public NetBattlePhaseScreen(NetPlayer player, Board opponentBoard)
-        : base(player)
-    {
+    public NetBattlePhaseScreen(NetPlayer player) : base(player) =>
         this.player = player;
-
-        if (player.isHost)
-            player.game = new Game(playerBoard, opponentBoard);
-        else
-            player.game = new Game(playerBoard, opponentBoard, true);
-    }
 
     public override void LoadContent()
     {
+        player.StartCoreGame();
+
         mainGrid = new Grid();
 
         mainGrid.RowsProportions.Add(new Proportion(ProportionType.Auto));
