@@ -18,10 +18,10 @@ public class SeaStrikePlayer
     public void RedirectToMainMenuScreen() =>
         seaStrikeGame.screenManager.LoadScreen(new MainMenuScreen(this));
 
-    public void RedirectToDeploymentPhaseScreen() =>
+    public virtual void RedirectToDeploymentScreen() =>
         seaStrikeGame.screenManager.LoadScreen(new DeploymentPhaseScreen(this));
 
-    public void RedirectToBattleScreen() =>
+    public virtual void RedirectToBattleScreen() =>
         seaStrikeGame.screenManager.LoadScreen(new BattlePhaseScreen(this));
 
     public void RedirectToLobbyScreen() =>

@@ -27,7 +27,7 @@ public class GameModesPanel : VerticalStackPanel
     };
 
     private GameButton SinglePlayerButton =>
-        new GameButton(player.RedirectToDeploymentPhaseScreen)
+        new GameButton(player.RedirectToDeploymentScreen)
         {
             Text = SeaStrikeGame.stringStorage.singlePlayerButtonLabel
         };

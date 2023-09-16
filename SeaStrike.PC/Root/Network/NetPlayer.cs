@@ -64,11 +64,11 @@ public class NetPlayer : SeaStrikePlayer
             seaStrikeGame.ShowLostScreen();
     }
 
-    public void RedirectToNetDeploymentScreen() =>
+    public override void RedirectToDeploymentScreen() =>
         seaStrikeGame.screenManager.LoadScreen(
             new NetDeploymentPhaseScreen(this));
 
-    public void RedirectToNetBattleScreen() =>
+    public override void RedirectToBattleScreen() =>
         seaStrikeGame.screenManager.LoadScreen(
             new NetBattlePhaseScreen(this, opponentBoardData.Build()));
 }
