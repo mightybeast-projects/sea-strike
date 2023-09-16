@@ -15,10 +15,10 @@ namespace SeaStrike.PC.Root;
 
 public class SeaStrikeGame : Game
 {
-    internal static FontSystem fontSystem;
-    internal static StringStorage stringStorage;
-    internal Desktop desktop;
-    internal ScreenManager screenManager;
+    public static FontSystem fontSystem;
+    public static StringStorage stringStorage;
+    public Desktop desktop;
+    public ScreenManager screenManager;
 
     private readonly GraphicsDeviceManager graphics;
     private readonly SeaStrikePlayer player;
@@ -67,7 +67,7 @@ public class SeaStrikeGame : Game
     {
         base.Initialize();
 
-        screenManager.LoadScreen(new MainMenuScreen(player));
+        player.RedirectToMainMenuScreen();
     }
 
     protected override void Draw(GameTime gameTime)

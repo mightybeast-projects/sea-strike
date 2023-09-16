@@ -92,7 +92,7 @@ public class DeploymentPhaseScreen : SeaStrikeScreen
     };
 
     protected virtual void OnBackButtonPressed() =>
-        seaStrikeGame.screenManager.LoadScreen(new MainMenuScreen(player));
+        player.RedirectToMainMenuScreen();
 
     protected virtual void OnStartButtonPressed() =>
         player.RedirectToBattleScreen();
