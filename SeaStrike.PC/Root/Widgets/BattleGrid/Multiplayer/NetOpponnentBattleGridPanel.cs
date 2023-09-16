@@ -1,5 +1,4 @@
 using SeaStrike.Core.Entity;
-using SeaStrike.Core.Entity.GameLogic;
 using SeaStrike.Core.Entity.GameLogic.Utility;
 using SeaStrike.PC.Root.Network;
 using SeaStrike.PC.Root.Widgets.GridTile;
@@ -8,14 +7,10 @@ namespace SeaStrike.PC.Root.Widgets.BattleGrid.Multiplayer;
 
 public class NetOpponnentBattleGridPanel : OpponentBattleGridPanel
 {
-    private NetPlayer player;
+    private new NetPlayer player;
 
-    public NetOpponnentBattleGridPanel(
-        NetPlayer player,
-        Game game,
-        Board opponentBoard)
-        : base(player.seaStrikeGame, game, opponentBoard) =>
-            this.player = player;
+    public NetOpponnentBattleGridPanel(NetPlayer player) : base(player) =>
+        this.player = player;
 
     protected override void ShootTile(object sender)
     {

@@ -7,12 +7,16 @@ namespace SeaStrike.PC.Root.Widgets.BattleGrid;
 
 public abstract class BattleGridPanel : VerticalStackPanel
 {
+    protected SeaStrikePlayer player;
     protected string gridLabel;
-    protected Board playerBoard;
     protected bool showShips;
     protected Action<object> OnEmptyTileClicked;
 
-    public void Initialize()
+    protected abstract Board playerBoard { get; }
+
+    protected BattleGridPanel(SeaStrikePlayer player) => this.player = player;
+
+    protected void Initialize()
     {
         Spacing = 10;
 

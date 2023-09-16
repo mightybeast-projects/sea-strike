@@ -4,10 +4,10 @@ namespace SeaStrike.PC.Root.Widgets.BattleGrid;
 
 public class PlayerBattleGridPanel : BattleGridPanel
 {
-    public PlayerBattleGridPanel(Board playerBoard)
-    {
-        this.playerBoard = playerBoard;
+    protected override Board playerBoard => player.board;
 
+    public PlayerBattleGridPanel(SeaStrikePlayer player) : base(player)
+    {
         gridLabel = SeaStrikeGame.stringStorage.playerOceanGridLabel;
         showShips = true;
 

@@ -11,20 +11,14 @@ namespace SeaStrike.PC.Root.Widgets.BattleGrid;
 
 public class OpponentBattleGridPanel : BattleGridPanel
 {
-    protected readonly Game game;
+    protected override Board playerBoard => player.board.opponentBoard;
+    protected Game game => player.game;
     protected Label shotResultLabel => (Label)Widgets.Last();
 
-    private readonly SeaStrikeGame seaStrikeGame;
+    private SeaStrikeGame seaStrikeGame => player.seaStrikeGame;
 
-    public OpponentBattleGridPanel(
-        SeaStrikeGame seaStrikeGame,
-        Game game,
-        Board opponentBoard)
+    public OpponentBattleGridPanel(SeaStrikePlayer player) : base(player)
     {
-        this.seaStrikeGame = seaStrikeGame;
-        this.game = game;
-
-        playerBoard = opponentBoard;
         gridLabel = SeaStrikeGame.stringStorage.opponentOceanGridLabel;
         OnEmptyTileClicked += ShootTile;
         showShips = false;
@@ -33,13 +27,6 @@ public class OpponentBattleGridPanel : BattleGridPanel
 
         Widgets.Add(HitResultLabel);
     }
-
-    private Label HitResultLabel => new Label()
-    {
-        Font = SeaStrikeGame.fontSystem.GetFont(28),
-        TextColor = Color.LawnGreen,
-        HorizontalAlignment = HorizontalAlignment.Center,
-    };
 
     protected virtual void ShootTile(object sender)
     {
@@ -54,6 +41,13 @@ public class OpponentBattleGridPanel : BattleGridPanel
         else
             MakeAIPlayerShoot();
     }
+
+    private Label HitResultLabel => new Label()
+    {
+        Font = SeaStrikeGame.fontSystem.GetFont(28),
+        TextColor = Color.LawnGreen,
+        HorizontalAlignment = HorizontalAlignment.Center,
+    };
 
     private void MakeAIPlayerShoot()
     {

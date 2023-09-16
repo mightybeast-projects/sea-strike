@@ -56,14 +56,13 @@ public class BattlePhaseScreen : SeaStrikeScreen
         };
 
     protected PlayerBattleGridPanel PlayerBattleGridPanel =>
-        new PlayerBattleGridPanel(playerBoard)
+        new PlayerBattleGridPanel(player)
         {
             GridRow = 1
         };
 
     protected virtual OpponentBattleGridPanel OpponentBattleGridPanel =>
-        new OpponentBattleGridPanel(
-            base.seaStrikeGame, game, playerBoard.opponentBoard)
+        new OpponentBattleGridPanel(player)
         {
             GridRow = 1,
             GridColumn = 1

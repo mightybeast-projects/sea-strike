@@ -52,8 +52,7 @@ public class NetBattlePhaseScreen : BattlePhaseScreen
     }
 
     protected override OpponentBattleGridPanel OpponentBattleGridPanel =>
-        new NetOpponnentBattleGridPanel(
-            player, game, playerBoard.opponentBoard)
+        new NetOpponnentBattleGridPanel(player)
         {
             GridRow = 1,
             GridColumn = 1
