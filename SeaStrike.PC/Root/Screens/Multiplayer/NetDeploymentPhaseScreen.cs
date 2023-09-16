@@ -6,11 +6,10 @@ namespace SeaStrike.PC.Root.Screens.Multiplayer;
 
 public class NetDeploymentPhaseScreen : DeploymentPhaseScreen
 {
-    private NetPlayer player;
+    private new NetPlayer player;
 
-    public NetDeploymentPhaseScreen(NetPlayer player)
-        : base(player.seaStrikeGame)
-            => this.player = player;
+    public NetDeploymentPhaseScreen(NetPlayer player) : base(player) =>
+        this.player = player;
 
     public override void Update(GameTime gameTime)
     {
@@ -25,7 +24,6 @@ public class NetDeploymentPhaseScreen : DeploymentPhaseScreen
 
     protected override void OnStartButtonPressed()
     {
-        player.board = boardBuilder.Build();
         player.SendBoard();
 
         new ReadyWindow().ShowModal(seaStrikeGame.desktop);

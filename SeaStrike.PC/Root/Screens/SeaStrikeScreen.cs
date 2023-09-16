@@ -5,10 +5,11 @@ namespace SeaStrike.PC.Root.Screens;
 
 public class SeaStrikeScreen : GameScreen
 {
-    protected SeaStrikeGame seaStrikeGame;
+    protected SeaStrikePlayer player;
+    protected SeaStrikeGame seaStrikeGame => player.seaStrikeGame;
 
-    public SeaStrikeScreen(SeaStrikeGame seaStrikeGame) : base(seaStrikeGame)
-        => this.seaStrikeGame = seaStrikeGame;
+    public SeaStrikeScreen(SeaStrikePlayer player)
+        : base(player.seaStrikeGame) => this.player = player;
 
     public override void Draw(GameTime gameTime) { }
 

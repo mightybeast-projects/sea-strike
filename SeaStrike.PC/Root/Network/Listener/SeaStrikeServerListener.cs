@@ -68,7 +68,7 @@ public class SeaStrikeServerListener : SeaStrikeListener
 
     public override void OnPeerDisconnected(
         NetPeer peer,
-        DisconnectInfo disconnectInfo) => player.RedirectToMainMenu();
+        DisconnectInfo disconnectInfo) => player.RedirectToMainMenuScreen();
 
     private void StartDeploymentPhase() =>
         server.SendToAll(

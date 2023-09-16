@@ -12,19 +12,11 @@ namespace SeaStrike.PC.Root.Screens;
 
 public class BattlePhaseScreen : SeaStrikeScreen
 {
-    protected Game game;
-    protected Board playerBoard;
+    protected Game game => player.game;
+    protected Board playerBoard => player.board;
 
-    public BattlePhaseScreen(SeaStrikeGame seaStrikeGame, Board playerBoard)
-        : base(seaStrikeGame)
-    {
-        this.playerBoard = playerBoard;
-
-        this.game = new Game(playerBoard);
-    }
-
-    protected BattlePhaseScreen(SeaStrikeGame seaStrikeGame)
-        : base(seaStrikeGame) { }
+    public BattlePhaseScreen(SeaStrikePlayer player) : base(player) =>
+        player.game = new Game(playerBoard);
 
     public override void LoadContent()
     {

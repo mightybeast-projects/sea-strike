@@ -12,13 +12,12 @@ namespace SeaStrike.PC.Root.Screens;
 
 public class DeploymentPhaseScreen : SeaStrikeScreen
 {
-    protected readonly BoardBuilder boardBuilder;
+    protected BoardBuilder boardBuilder => player.boardBuilder;
 
     private Grid mainGrid;
 
-    public DeploymentPhaseScreen(SeaStrikeGame seaStrikeGame)
-        : base(seaStrikeGame) =>
-            boardBuilder = new BoardBuilder();
+    public DeploymentPhaseScreen(SeaStrikePlayer player) : base(player) =>
+        player.boardBuilder = new BoardBuilder();
 
     public override void LoadContent()
     {
@@ -93,11 +92,10 @@ public class DeploymentPhaseScreen : SeaStrikeScreen
     };
 
     protected virtual void OnBackButtonPressed() =>
-        seaStrikeGame.screenManager.LoadScreen(new MainMenuScreen(seaStrikeGame));
+        seaStrikeGame.screenManager.LoadScreen(new MainMenuScreen(player));
 
     protected virtual void OnStartButtonPressed() =>
-        seaStrikeGame.screenManager
-            .LoadScreen(new BattlePhaseScreen(seaStrikeGame, boardBuilder.Build()));
+        player.RedirectToBattleScreen();
 
     private void ShowHelpWindow(string[] content) =>
         new HelpWindow(content).ShowModal(seaStrikeGame.desktop);

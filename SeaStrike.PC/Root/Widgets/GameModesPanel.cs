@@ -1,16 +1,15 @@
 using Microsoft.Xna.Framework;
 using Myra.Graphics2D.UI;
-using SeaStrike.PC.Root.Screens;
 
 namespace SeaStrike.PC.Root.Widgets;
 
 public class GameModesPanel : VerticalStackPanel
 {
-    private SeaStrikeGame seaStrikeGame;
+    private readonly SeaStrikePlayer player;
 
-    public GameModesPanel(SeaStrikeGame seaStrikeGame)
+    public GameModesPanel(SeaStrikePlayer player)
     {
-        this.seaStrikeGame = seaStrikeGame;
+        this.player = player;
 
         Spacing = 20;
 
@@ -28,20 +27,14 @@ public class GameModesPanel : VerticalStackPanel
     };
 
     private GameButton SinglePlayerButton =>
-        new GameButton(() => LoadSinglePlayerMode())
+        new GameButton(player.RedirectToDeploymentPhaseScreen)
         {
             Text = SeaStrikeGame.stringStorage.singlePlayerButtonLabel
         };
 
     private GameButton MultiplayerButton =>
-        new GameButton(() => LoadMultiplayerMode())
+        new GameButton(player.RedirectToLobbyScreen)
         {
             Text = SeaStrikeGame.stringStorage.multiplayerButonLabel
         };
-
-    private void LoadSinglePlayerMode() =>
-        seaStrikeGame.screenManager.LoadScreen(new DeploymentPhaseScreen(seaStrikeGame));
-
-    private void LoadMultiplayerMode() =>
-        seaStrikeGame.screenManager.LoadScreen(new LobbyScreen(seaStrikeGame));
 }

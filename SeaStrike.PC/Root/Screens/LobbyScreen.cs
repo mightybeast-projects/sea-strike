@@ -8,12 +8,13 @@ namespace SeaStrike.PC.Root.Screens;
 
 public class LobbyScreen : SeaStrikeScreen
 {
-    private NetPlayer player;
+    private new NetPlayer player;
     private Grid mainGrid;
 
-    public LobbyScreen(SeaStrikeGame seaStrikeGame) : base(seaStrikeGame)
+    public LobbyScreen(SeaStrikePlayer player) : base(player)
     {
-        player = new NetPlayer(seaStrikeGame);
+        this.player = new NetPlayer(seaStrikeGame);
+
         mainGrid = new Grid();
 
         mainGrid.RowsProportions.Add(new Proportion(ProportionType.Auto));
@@ -58,6 +59,6 @@ public class LobbyScreen : SeaStrikeScreen
             new DisconnectionWarningWindow(player.Disconnect)
                 .ShowModal(seaStrikeGame.desktop);
         else
-            player.RedirectToMainMenu();
+            player.RedirectToMainMenuScreen();
     }
 }

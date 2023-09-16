@@ -49,7 +49,7 @@ public class SeaStrikeClientListener : SeaStrikeListener
     public override void OnPeerDisconnected(
         NetPeer peer,
         DisconnectInfo disconnectInfo)
-            => player.RedirectToMainMenu();
+            => player.RedirectToMainMenuScreen();
 
     public override void OnConnectionRequest(ConnectionRequest request) =>
         request.Reject();

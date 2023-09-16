@@ -6,7 +6,7 @@ namespace SeaStrike.PC.Root.Screens;
 
 public class MainMenuScreen : SeaStrikeScreen
 {
-    public MainMenuScreen(SeaStrikeGame seaStrikeGame) : base(seaStrikeGame) { }
+    public MainMenuScreen(SeaStrikePlayer player) : base(player) { }
 
     public override void LoadContent()
     {
@@ -30,7 +30,7 @@ public class MainMenuScreen : SeaStrikeScreen
         VerticalAlignment = VerticalAlignment.Top,
     };
 
-    private GameModesPanel GameModesPanel => new GameModesPanel(seaStrikeGame)
+    private GameModesPanel GameModesPanel => new GameModesPanel(player)
     {
         Top = -100,
         VerticalAlignment = VerticalAlignment.Bottom

@@ -13,21 +13,18 @@ namespace SeaStrike.PC.Root.Screens.Multiplayer;
 
 public class NetBattlePhaseScreen : BattlePhaseScreen
 {
-    private NetPlayer player;
+    private new NetPlayer player;
     private Grid mainGrid;
 
     public NetBattlePhaseScreen(NetPlayer player, Board opponentBoard)
-        : base(player.seaStrikeGame)
+        : base(player)
     {
         this.player = player;
-        this.playerBoard = player.board;
 
         if (player.isHost)
-            game = new Game(playerBoard, opponentBoard);
+            player.game = new Game(playerBoard, opponentBoard);
         else
-            game = new Game(playerBoard, opponentBoard, true);
-
-        player.game = game;
+            player.game = new Game(playerBoard, opponentBoard, true);
     }
 
     public override void LoadContent()
