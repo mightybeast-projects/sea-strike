@@ -91,10 +91,10 @@ public class DeploymentPhaseScreen : SeaStrikeScreen
     };
 
     protected virtual void OnBackButtonPressed() =>
-        player.RedirectToMainMenuScreen();
+        player.RedirectTo<MainMenuScreen>();
 
     protected virtual void OnStartButtonPressed() =>
-        player.RedirectToBattleScreen();
+        player.RedirectTo<BattlePhaseScreen>();
 
     private void ShowHelpWindow(string[] content) =>
         new HelpWindow(content).ShowModal(seaStrikeGame.desktop);

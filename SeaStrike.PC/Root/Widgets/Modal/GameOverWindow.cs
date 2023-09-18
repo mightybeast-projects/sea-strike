@@ -1,3 +1,5 @@
+using SeaStrike.PC.Root.Screens;
+
 namespace SeaStrike.PC.Root.Widgets.Modal;
 
 public class GameOverWindow : GameWindow
@@ -16,7 +18,7 @@ public class GameOverWindow : GameWindow
     }
 
     private GameButton RestartButton =>
-        new GameButton(player.RedirectToMainMenuScreen)
+        new GameButton(player.RedirectTo<MainMenuScreen>)
         {
             Text = SeaStrikeGame.stringStorage.restartButtonLabel
         };

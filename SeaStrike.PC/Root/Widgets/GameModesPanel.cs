@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Myra.Graphics2D.UI;
+using SeaStrike.PC.Root.Screens;
 
 namespace SeaStrike.PC.Root.Widgets;
 
@@ -27,13 +28,13 @@ public class GameModesPanel : VerticalStackPanel
     };
 
     private GameButton SinglePlayerButton =>
-        new GameButton(player.RedirectToDeploymentScreen)
+        new GameButton(player.RedirectTo<DeploymentPhaseScreen>)
         {
             Text = SeaStrikeGame.stringStorage.singlePlayerButtonLabel
         };
 
     private GameButton MultiplayerButton =>
-        new GameButton(player.RedirectToLobbyScreen)
+        new GameButton(player.RedirectTo<LobbyScreen>)
         {
             Text = SeaStrikeGame.stringStorage.multiplayerButonLabel
         };

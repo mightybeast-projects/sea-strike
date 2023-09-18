@@ -26,13 +26,6 @@ public class NetPlayer : SeaStrikePlayer
             game = new Game(board, opponentBoardData.Build(), true);
     }
 
-    public override void RedirectToDeploymentScreen() =>
-        seaStrikeGame.screenManager.LoadScreen(
-            new NetDeploymentPhaseScreen(this));
-
-    public override void RedirectToBattleScreen() =>
-        seaStrikeGame.screenManager.LoadScreen(new NetBattlePhaseScreen(this));
-
     public void CreateServer()
     {
         var server = new SeaStrikeServer(new SeaStrikeServerListener(this));

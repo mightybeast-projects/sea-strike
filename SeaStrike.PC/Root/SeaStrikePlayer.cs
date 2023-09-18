@@ -21,16 +21,4 @@ public class SeaStrikePlayer
     public void RedirectTo<T>() where T : SeaStrikeScreen =>
         seaStrikeGame.screenManager.LoadScreen(
             (T)Activator.CreateInstance(typeof(T), this));
-
-    public void RedirectToMainMenuScreen() =>
-        seaStrikeGame.screenManager.LoadScreen(new MainMenuScreen(this));
-
-    public virtual void RedirectToDeploymentScreen() =>
-        seaStrikeGame.screenManager.LoadScreen(new DeploymentPhaseScreen(this));
-
-    public virtual void RedirectToBattleScreen() =>
-        seaStrikeGame.screenManager.LoadScreen(new BattlePhaseScreen(this));
-
-    public void RedirectToLobbyScreen() =>
-        seaStrikeGame.screenManager.LoadScreen(new LobbyScreen(this));
 }

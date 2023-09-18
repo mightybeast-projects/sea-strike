@@ -58,6 +58,6 @@ public class LobbyScreen : SeaStrikeScreen
             new DisconnectionWarningWindow(player.Disconnect)
                 .ShowModal(seaStrikeGame.desktop);
         else
-            player.RedirectToMainMenuScreen();
+            player.RedirectTo<MainMenuScreen>();
     }
 }

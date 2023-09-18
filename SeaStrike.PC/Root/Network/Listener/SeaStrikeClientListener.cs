@@ -2,6 +2,8 @@ using System;
 using System.Net;
 using LiteNetLib;
 using SeaStrike.PC.Root.Network.Manager;
+using SeaStrike.PC.Root.Screens;
+using SeaStrike.PC.Root.Screens.Multiplayer;
 
 namespace SeaStrike.PC.Root.Network.Listener;
 
@@ -35,9 +37,9 @@ public class SeaStrikeClientListener : SeaStrikeListener
         Console.WriteLine("From server: {0}", message);
 
         if (message == NetUtils.deploymentPhaseStartMessage)
-            player.RedirectToDeploymentScreen();
+            player.RedirectTo<NetDeploymentPhaseScreen>();
         else if (message == NetUtils.startBattlePhaseMessage)
-            player.RedirectToBattleScreen();
+            player.RedirectTo<NetBattlePhaseScreen>();
         else if (MessageIsBoardData(message))
             player.ReceiveOpponentBoardData(message);
         else
@@ -49,7 +51,7 @@ public class SeaStrikeClientListener : SeaStrikeListener
     public override void OnPeerDisconnected(
         NetPeer peer,
         DisconnectInfo disconnectInfo)
-            => player.RedirectToMainMenuScreen();
+            => player.RedirectTo<MainMenuScreen>();
 
     public override void OnConnectionRequest(ConnectionRequest request) =>
         request.Reject();
