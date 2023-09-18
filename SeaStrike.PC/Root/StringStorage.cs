@@ -55,7 +55,7 @@ public class StringStorage
     public string helpWindowTitle = "Help";
     public string victoryScreenTitle = "You won!";
     public string loseScreenTitle = "You lost!";
-    public string restartButtonLabel = "Start new game";
+    public string exitButtonLabel = "Exit to main menu";
 
     //Game button strings
     public string backButtonLabel = "<=";

@@ -14,12 +14,12 @@ public class GameOverWindow : GameWindow
         DragHandle = null;
         CloseButton.Visible = false;
 
-        Content = RestartButton;
+        Content = ExitButton;
     }
 
-    private GameButton RestartButton =>
+    private GameButton ExitButton =>
         new GameButton(player.RedirectTo<MainMenuScreen>)
         {
-            Text = SeaStrikeGame.stringStorage.restartButtonLabel
+            Text = SeaStrikeGame.stringStorage.exitButtonLabel
         };
 }
