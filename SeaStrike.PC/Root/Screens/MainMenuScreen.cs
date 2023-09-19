@@ -32,7 +32,7 @@ public class MainMenuScreen : SeaStrikeScreen
 
     private GameModesPanel GameModesPanel => new GameModesPanel(player)
     {
-        Top = -100,
-        VerticalAlignment = VerticalAlignment.Bottom
+        Top = 50,
+        VerticalAlignment = VerticalAlignment.Center
     };
 }

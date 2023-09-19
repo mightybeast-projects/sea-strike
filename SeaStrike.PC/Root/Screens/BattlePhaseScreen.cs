@@ -52,14 +52,14 @@ public class BattlePhaseScreen : SeaStrikeScreen
     protected PlayerBattleGridPanel PlayerBattleGridPanel =>
         new PlayerBattleGridPanel(player)
         {
-            GridRow = 1
+            GridRow = 1,
         };
 
     protected virtual OpponentBattleGridPanel OpponentBattleGridPanel =>
         new OpponentBattleGridPanel(player)
         {
             GridRow = 1,
-            GridColumn = 1
+            GridColumn = 1,
         };
 
     private void ShowHelpWindow(string[] content) =>

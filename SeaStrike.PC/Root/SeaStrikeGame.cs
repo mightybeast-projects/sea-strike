@@ -33,6 +33,7 @@ public class SeaStrikeGame : Game
 
         Content.RootDirectory = stringStorage.contentPath;
         IsMouseVisible = true;
+        Window.AllowUserResizing = true;
         MyraEnvironment.Game = this;
 
         Components.Add(screenManager);
