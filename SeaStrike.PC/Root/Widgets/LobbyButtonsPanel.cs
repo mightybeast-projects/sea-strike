@@ -62,7 +62,7 @@ public class LobbyButtonsPanel : VerticalStackPanel
 
     private void ShowFailedDiscoveryLabel()
     {
-        if (!player.isHost)
+        if (!player.isHost && Widgets.Count != 3)
             Widgets.Add(CannotDiscoverAnyLobbyLabel);
     }
 }
