@@ -16,7 +16,7 @@ public class SeaStrikePlayer
     public SeaStrikePlayer(SeaStrikeGame seaStrikeGame) =>
         this.seaStrikeGame = seaStrikeGame;
 
-    public virtual void StartCoreGame() => game = new Game(board);
+    public void StartCoreGame() => game = new Game(board);
 
     public void RedirectTo<T>() where T : SeaStrikeScreen =>
         seaStrikeGame.screenManager.LoadScreen(

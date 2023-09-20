@@ -18,7 +18,7 @@ public class NetPlayer : SeaStrikePlayer
 
     public NetPlayer(SeaStrikeGame seaStrikeGame) : base(seaStrikeGame) { }
 
-    public override void StartCoreGame()
+    public new void StartCoreGame()
     {
         if (isHost)
             game = new Game(board, opponentBoardData.Build());
