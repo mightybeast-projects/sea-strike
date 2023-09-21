@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Myra.Graphics2D.UI;
 using SeaStrike.PC.Root.Screens;
+using SeaStrike.PC.Root.Screens.Multiplayer;
 
 namespace SeaStrike.PC.Root.Widgets;
 

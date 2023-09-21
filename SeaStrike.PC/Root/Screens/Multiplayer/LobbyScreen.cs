@@ -4,17 +4,15 @@ using SeaStrike.PC.Root.Widgets;
 using SeaStrike.PC.Root.Network;
 using SeaStrike.PC.Root.Widgets.Modal;
 
-namespace SeaStrike.PC.Root.Screens;
+namespace SeaStrike.PC.Root.Screens.Multiplayer;
 
 public class LobbyScreen : SeaStrikeScreen
 {
     private new NetPlayer player => (NetPlayer)base.player;
 
-    public LobbyScreen(SeaStrikePlayer player) : base(player)
+    public LobbyScreen(SeaStrikePlayer player)
+        : base(new NetPlayer(player.seaStrikeGame))
     {
-        if (PlayerIsNotNetPlayer())
-            base.player = new NetPlayer(seaStrikeGame);
-
         Grid mainGrid = new Grid();
 
         mainGrid.RowsProportions.Add(new Proportion(ProportionType.Auto));
@@ -61,7 +59,4 @@ public class LobbyScreen : SeaStrikeScreen
         else
             player.RedirectTo<MainMenuScreen>();
     }
-
-    private bool PlayerIsNotNetPlayer() =>
-        base.player.GetType() != typeof(NetPlayer);
 }
