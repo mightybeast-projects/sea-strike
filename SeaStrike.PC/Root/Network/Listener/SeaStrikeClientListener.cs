@@ -10,7 +10,6 @@ namespace SeaStrike.PC.Root.Network.Listener;
 public class SeaStrikeClientListener : SeaStrikeListener
 {
     internal SeaStrikeClient client;
-    private bool connected;
 
     public SeaStrikeClientListener(NetPlayer player) : base(player) { }
 
@@ -19,11 +18,8 @@ public class SeaStrikeClientListener : SeaStrikeListener
         NetPacketReader reader,
         UnconnectedMessageType messageType)
     {
-        if (ServerDiscovered(reader.GetString(), messageType))
-        {
-            connected = true;
+        if (reader.GetString() == NetUtils.discoveredServerMessage)
             client.Connect(remoteEndPoint, NetUtils.connectionKey);
-        }
     }
 
     public override void OnNetworkReceive(
@@ -50,16 +46,9 @@ public class SeaStrikeClientListener : SeaStrikeListener
 
     public override void OnPeerDisconnected(
         NetPeer peer,
-        DisconnectInfo disconnectInfo)
-            => player.RedirectTo<MainMenuScreen>();
+        DisconnectInfo disconnectInfo) =>
+            player.Disconnect();
 
     public override void OnConnectionRequest(ConnectionRequest request) =>
         request.Reject();
-
-    private bool ServerDiscovered(
-        string message,
-        UnconnectedMessageType messageType) =>
-            message == NetUtils.discoveredServerMessage &&
-            messageType == UnconnectedMessageType.BasicMessage &&
-            !connected;
 }

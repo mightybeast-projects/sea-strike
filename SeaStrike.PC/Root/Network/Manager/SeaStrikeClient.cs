@@ -11,11 +11,14 @@ public class SeaStrikeClient : NetManager
 
         UnconnectedMessagesEnabled = true;
         DisconnectTimeout = 3000;
+        IPv6Enabled = false;
+        ReuseAddress = true;
     }
 
     public new void Start()
     {
-        base.Start();
+        if (!IsRunning)
+            base.Start();
 
         var result = base.SendBroadcast(
             new SeaStrikeNetDataWriter(NetUtils.serverDiscoveryMessage),

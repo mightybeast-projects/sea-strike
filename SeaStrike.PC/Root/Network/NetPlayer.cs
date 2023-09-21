@@ -3,6 +3,7 @@ using SeaStrike.Core.Entity;
 using SeaStrike.Core.Entity.GameLogic;
 using SeaStrike.PC.Root.Network.Listener;
 using SeaStrike.PC.Root.Network.Manager;
+using SeaStrike.PC.Root.Screens;
 using SeaStrike.PC.Root.Screens.Multiplayer;
 
 namespace SeaStrike.PC.Root.Network;
@@ -28,18 +29,14 @@ public class NetPlayer : SeaStrikePlayer
 
     public void CreateServer()
     {
-        var server = new SeaStrikeServer(new SeaStrikeServerListener(this));
-
-        this.server = server;
+        server = new SeaStrikeServer(new SeaStrikeServerListener(this));
 
         server.Start();
     }
 
     public void CreateClient()
     {
-        var client = new SeaStrikeClient(new SeaStrikeClientListener(this));
-
-        this.client = client;
+        client = new SeaStrikeClient(new SeaStrikeClientListener(this));
 
         client.Start();
     }
@@ -54,7 +51,14 @@ public class NetPlayer : SeaStrikePlayer
     {
         client?.DisconnectAll();
         server?.DisconnectAll();
+
+        client?.Stop();
         server?.Stop();
+
+        client = null;
+        server = null;
+
+        RedirectTo<MainMenuScreen>();
     }
 
     public void SendBoard() => client.Send(new BoardData(board).ToJson());

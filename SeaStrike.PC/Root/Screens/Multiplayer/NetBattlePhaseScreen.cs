@@ -11,11 +11,10 @@ namespace SeaStrike.PC.Root.Screens.Multiplayer;
 
 public class NetBattlePhaseScreen : BattlePhaseScreen
 {
-    private new NetPlayer player;
+    private new NetPlayer player => (NetPlayer)base.player;
     private Grid mainGrid;
 
-    public NetBattlePhaseScreen(NetPlayer player) : base(player) =>
-        this.player = player;
+    public NetBattlePhaseScreen(NetPlayer player) : base(player) { }
 
     public override void LoadContent()
     {

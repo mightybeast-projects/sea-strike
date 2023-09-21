@@ -6,10 +6,9 @@ namespace SeaStrike.PC.Root.Screens.Multiplayer;
 
 public class NetDeploymentPhaseScreen : DeploymentPhaseScreen
 {
-    private new NetPlayer player;
+    private new NetPlayer player => (NetPlayer)base.player;
 
-    public NetDeploymentPhaseScreen(NetPlayer player) : base(player) =>
-        this.player = player;
+    public NetDeploymentPhaseScreen(NetPlayer player) : base(player) { }
 
     public override void Update(GameTime gameTime)
     {

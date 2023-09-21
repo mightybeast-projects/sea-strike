@@ -8,11 +8,12 @@ namespace SeaStrike.PC.Root.Screens;
 
 public class LobbyScreen : SeaStrikeScreen
 {
-    private new NetPlayer player;
+    private new NetPlayer player => (NetPlayer)base.player;
 
     public LobbyScreen(SeaStrikePlayer player) : base(player)
     {
-        this.player = new NetPlayer(seaStrikeGame);
+        if (PlayerIsNotNetPlayer())
+            base.player = new NetPlayer(seaStrikeGame);
 
         Grid mainGrid = new Grid();
 
@@ -60,4 +61,7 @@ public class LobbyScreen : SeaStrikeScreen
         else
             player.RedirectTo<MainMenuScreen>();
     }
+
+    private bool PlayerIsNotNetPlayer() =>
+        base.player.GetType() != typeof(NetPlayer);
 }

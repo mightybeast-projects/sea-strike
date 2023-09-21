@@ -11,7 +11,13 @@ public class SeaStrikeServer : NetManager
 
         BroadcastReceiveEnabled = true;
         DisconnectTimeout = 3000;
+        IPv6Enabled = false;
+        ReuseAddress = true;
     }
 
-    public new void Start() => base.Start(NetUtils.port);
+    public new void Start()
+    {
+        if (!IsRunning)
+            base.Start(NetUtils.port);
+    }
 }
