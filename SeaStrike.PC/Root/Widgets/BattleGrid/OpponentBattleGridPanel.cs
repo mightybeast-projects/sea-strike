@@ -37,7 +37,7 @@ public class OpponentBattleGridPanel : BattleGridPanel
         shotResultLabel.Text = result.ToString();
 
         if (game.isOver)
-            seaStrikeGame.ShowVictoryScreen();
+            player.ShowVictoryScreen();
         else
             MakeAIPlayerShoot();
     }
@@ -54,6 +54,6 @@ public class OpponentBattleGridPanel : BattleGridPanel
         game.HandleAIPlayerShot();
 
         if (game.isOver)
-            seaStrikeGame.ShowLostScreen();
+            player.ShowLostScreen();
     }
 }

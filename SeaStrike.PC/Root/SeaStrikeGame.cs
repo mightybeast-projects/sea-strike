@@ -39,18 +39,6 @@ public class SeaStrikeGame : Game
         Components.Add(screenManager);
     }
 
-    public void ShowVictoryScreen() =>
-        new GameOverWindow(player, stringStorage.victoryScreenTitle)
-        {
-            TitleTextColor = Color.LawnGreen
-        }.ShowModal(desktop);
-
-    public void ShowLostScreen() =>
-        new GameOverWindow(player, stringStorage.loseScreenTitle)
-        {
-            TitleTextColor = Color.Red
-        }.ShowModal(desktop);
-
     protected override void LoadContent()
     {
         base.LoadContent();

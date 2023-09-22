@@ -74,6 +74,6 @@ public class NetPlayer : SeaStrikePlayer
         game.HandleCurrentPlayerShot(tileStr);
 
         if (game.isOver)
-            seaStrikeGame.ShowLostScreen();
+            ShowLostScreen();
     }
 }
