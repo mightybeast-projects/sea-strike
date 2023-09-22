@@ -6,6 +6,8 @@ namespace SeaStrike.PC.Root.Screens;
 
 public class MainMenuScreen : SeaStrikeScreen
 {
+    public MainMenuScreen(SeaStrikeGame seaStrikeGame)
+        : base(new SeaStrikePlayer(seaStrikeGame)) { }
     public MainMenuScreen(SeaStrikePlayer player) : base(player) { }
 
     public override void LoadContent()

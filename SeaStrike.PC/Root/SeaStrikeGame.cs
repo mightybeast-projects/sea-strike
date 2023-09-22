@@ -21,7 +21,6 @@ public class SeaStrikeGame : Game
     public ScreenManager screenManager;
 
     private readonly GraphicsDeviceManager graphics;
-    private readonly SeaStrikePlayer player;
 
     public SeaStrikeGame()
     {
@@ -29,7 +28,6 @@ public class SeaStrikeGame : Game
         stringStorage = new StringStorage();
         screenManager = new ScreenManager();
         graphics = new GraphicsDeviceManager(this);
-        player = new SeaStrikePlayer(this);
 
         Content.RootDirectory = stringStorage.contentPath;
         IsMouseVisible = true;
@@ -56,7 +54,7 @@ public class SeaStrikeGame : Game
     {
         base.Initialize();
 
-        player.RedirectTo<MainMenuScreen>();
+        screenManager.LoadScreen(new MainMenuScreen(this));
     }
 
     protected override void Draw(GameTime gameTime)
