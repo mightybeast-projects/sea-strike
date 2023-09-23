@@ -1,15 +1,16 @@
+using System;
 using SeaStrike.PC.Root.Screens;
 
 namespace SeaStrike.PC.Root.Widgets.Modal;
 
 public class GameOverWindow : GameWindow
 {
-    private readonly SeaStrikePlayer player;
+    private readonly Action onExitButtonClicked;
 
-    public GameOverWindow(SeaStrikePlayer player, string title)
+    public GameOverWindow(string title, Action onExitButtonClicked)
         : base(title)
     {
-        this.player = player;
+        this.onExitButtonClicked = onExitButtonClicked;
 
         DragHandle = null;
         CloseButton.Visible = false;
@@ -17,9 +18,8 @@ public class GameOverWindow : GameWindow
         Content = ExitButton;
     }
 
-    private GameButton ExitButton =>
-        new GameButton(player.RedirectTo<MainMenuScreen>)
-        {
-            Text = SeaStrikeGame.stringStorage.exitButtonLabel
-        };
+    private GameButton ExitButton => new GameButton(onExitButtonClicked)
+    {
+        Text = SeaStrikeGame.stringStorage.exitButtonLabel
+    };
 }

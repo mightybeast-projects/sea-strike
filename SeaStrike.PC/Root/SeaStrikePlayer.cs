@@ -16,6 +16,9 @@ public class SeaStrikePlayer
 
     public Board board => boardBuilder.Build();
 
+    protected virtual Action onGameOverScreenExitButtonClicked =>
+        RedirectTo<MainMenuScreen>;
+
     public SeaStrikePlayer(SeaStrikeGame seaStrikeGame) =>
         this.seaStrikeGame = seaStrikeGame;
 
@@ -25,14 +28,18 @@ public class SeaStrikePlayer
         seaStrikeGame.screenManager.LoadScreen(
             (T)Activator.CreateInstance(typeof(T), this));
 
-    public void ShowVictoryScreen() =>
-        new GameOverWindow(this, SeaStrikeGame.stringStorage.victoryScreenTitle)
+    public virtual void ShowVictoryScreen() =>
+        new GameOverWindow(
+            SeaStrikeGame.stringStorage.victoryScreenTitle,
+            onGameOverScreenExitButtonClicked)
         {
             TitleTextColor = Color.LawnGreen
         }.ShowModal(seaStrikeGame.desktop);
 
-    public void ShowLostScreen() =>
-        new GameOverWindow(this, SeaStrikeGame.stringStorage.loseScreenTitle)
+    public virtual void ShowLostScreen() =>
+        new GameOverWindow(
+            SeaStrikeGame.stringStorage.loseScreenTitle,
+            onGameOverScreenExitButtonClicked)
         {
             TitleTextColor = Color.Red
         }.ShowModal(seaStrikeGame.desktop);

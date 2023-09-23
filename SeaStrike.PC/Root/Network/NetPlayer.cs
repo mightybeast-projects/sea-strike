@@ -1,17 +1,22 @@
+using System;
 using Newtonsoft.Json;
 using SeaStrike.Core.Entity;
 using SeaStrike.Core.Entity.GameLogic;
 using SeaStrike.PC.Root.Network.Listener;
 using SeaStrike.PC.Root.Network.Manager;
 using SeaStrike.PC.Root.Screens;
-using SeaStrike.PC.Root.Screens.Multiplayer;
+using SeaStrike.PC.Root.Widgets.Modal;
+
+using Color = Microsoft.Xna.Framework.Color;
 
 namespace SeaStrike.PC.Root.Network;
 
 public class NetPlayer : SeaStrikePlayer
 {
-    internal bool canShoot => game.currentPlayer.board == board;
-    internal bool isHost => server is not null;
+    public bool canShoot => game.currentPlayer.board == board;
+    public bool isHost => server is not null;
+
+    protected override Action onGameOverScreenExitButtonClicked => Disconnect;
 
     private SeaStrikeClient client;
     private SeaStrikeServer server;
