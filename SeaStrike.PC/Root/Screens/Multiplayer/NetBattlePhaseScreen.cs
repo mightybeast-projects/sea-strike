@@ -27,7 +27,6 @@ public class NetBattlePhaseScreen : BattlePhaseScreen
         mainGrid.Widgets.Add(PhaseLabel);
         mainGrid.Widgets.Add(HelpButton);
         mainGrid.Widgets.Add(PlayerBattleGridPanel);
-        mainGrid.Widgets.Add(CurrentPlayerTurnLabel);
         mainGrid.Widgets.Add(OpponentBattleGridPanel);
 
         seaStrikeGame.desktop.Root = mainGrid;
@@ -39,8 +38,14 @@ public class NetBattlePhaseScreen : BattlePhaseScreen
 
         player.UpdateNetManagers();
 
-        ((CurrentPlayerTurnLabel)mainGrid.Widgets[3]).Update();
+        ((NetPlayerBattleGridPanel)mainGrid.Widgets[2]).Update();
     }
+
+    protected override PlayerBattleGridPanel PlayerBattleGridPanel =>
+        new NetPlayerBattleGridPanel(player)
+        {
+            GridRow = 1
+        };
 
     protected override OpponentBattleGridPanel OpponentBattleGridPanel =>
         new NetOpponnentBattleGridPanel(player)
@@ -48,12 +53,4 @@ public class NetBattlePhaseScreen : BattlePhaseScreen
             GridRow = 1,
             GridColumn = 1
         };
-
-    private Label CurrentPlayerTurnLabel => new CurrentPlayerTurnLabel(player)
-    {
-        Top = -20,
-        GridRow = 1,
-        HorizontalAlignment = HorizontalAlignment.Center,
-        VerticalAlignment = VerticalAlignment.Bottom
-    };
 }

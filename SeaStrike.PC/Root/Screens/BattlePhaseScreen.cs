@@ -49,7 +49,7 @@ public class BattlePhaseScreen : SeaStrikeScreen
             VerticalAlignment = VerticalAlignment.Top,
         };
 
-    protected PlayerBattleGridPanel PlayerBattleGridPanel =>
+    protected virtual PlayerBattleGridPanel PlayerBattleGridPanel =>
         new PlayerBattleGridPanel(player)
         {
             GridRow = 1,
