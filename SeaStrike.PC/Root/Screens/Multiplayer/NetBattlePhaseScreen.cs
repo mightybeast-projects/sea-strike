@@ -44,13 +44,15 @@ public class NetBattlePhaseScreen : BattlePhaseScreen
     protected override PlayerBattleGridPanel PlayerBattleGridPanel =>
         new NetPlayerBattleGridPanel(player)
         {
-            GridRow = 1
+            GridRow = 1,
+            VerticalAlignment = VerticalAlignment.Center
         };
 
     protected override OpponentBattleGridPanel OpponentBattleGridPanel =>
         new NetOpponnentBattleGridPanel(player)
         {
             GridRow = 1,
-            GridColumn = 1
+            GridColumn = 1,
+            VerticalAlignment = VerticalAlignment.Center
         };
 }

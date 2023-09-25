@@ -52,7 +52,9 @@ public class BattlePhaseScreen : SeaStrikeScreen
     protected virtual PlayerBattleGridPanel PlayerBattleGridPanel =>
         new PlayerBattleGridPanel(player)
         {
+            Top = -20,
             GridRow = 1,
+            VerticalAlignment = VerticalAlignment.Center
         };
 
     protected virtual OpponentBattleGridPanel OpponentBattleGridPanel =>
@@ -60,6 +62,7 @@ public class BattlePhaseScreen : SeaStrikeScreen
         {
             GridRow = 1,
             GridColumn = 1,
+            VerticalAlignment = VerticalAlignment.Center
         };
 
     private void ShowHelpWindow(string[] content) =>
