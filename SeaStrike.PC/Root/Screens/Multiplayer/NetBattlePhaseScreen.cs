@@ -20,7 +20,10 @@ public class NetBattlePhaseScreen : BattlePhaseScreen
     {
         player.StartCoreGame();
 
-        mainGrid = new Grid();
+        mainGrid = new Grid()
+        {
+            ColumnSpacing = 40
+        };
 
         mainGrid.RowsProportions.Add(new Proportion(ProportionType.Auto));
 
@@ -45,7 +48,8 @@ public class NetBattlePhaseScreen : BattlePhaseScreen
         new NetPlayerBattleGridPanel(player)
         {
             GridRow = 1,
-            VerticalAlignment = VerticalAlignment.Center
+            VerticalAlignment = VerticalAlignment.Center,
+            HorizontalAlignment = HorizontalAlignment.Right
         };
 
     protected override OpponentBattleGridPanel OpponentBattleGridPanel =>
@@ -53,6 +57,7 @@ public class NetBattlePhaseScreen : BattlePhaseScreen
         {
             GridRow = 1,
             GridColumn = 1,
-            VerticalAlignment = VerticalAlignment.Center
+            VerticalAlignment = VerticalAlignment.Center,
+            HorizontalAlignment = HorizontalAlignment.Left
         };
 }

@@ -16,7 +16,10 @@ public class BattlePhaseScreen : SeaStrikeScreen
     {
         player.StartCoreGame();
 
-        Grid mainGrid = new Grid();
+        Grid mainGrid = new Grid()
+        {
+            ColumnSpacing = 40
+        };
 
         mainGrid.RowsProportions.Add(new Proportion(ProportionType.Auto));
 
@@ -52,9 +55,10 @@ public class BattlePhaseScreen : SeaStrikeScreen
     protected virtual PlayerBattleGridPanel PlayerBattleGridPanel =>
         new PlayerBattleGridPanel(player)
         {
-            Top = -20,
+            Top = -19,
             GridRow = 1,
-            VerticalAlignment = VerticalAlignment.Center
+            VerticalAlignment = VerticalAlignment.Center,
+            HorizontalAlignment = HorizontalAlignment.Right
         };
 
     protected virtual OpponentBattleGridPanel OpponentBattleGridPanel =>
@@ -62,7 +66,8 @@ public class BattlePhaseScreen : SeaStrikeScreen
         {
             GridRow = 1,
             GridColumn = 1,
-            VerticalAlignment = VerticalAlignment.Center
+            VerticalAlignment = VerticalAlignment.Center,
+            HorizontalAlignment = HorizontalAlignment.Left
         };
 
     private void ShowHelpWindow(string[] content) =>
