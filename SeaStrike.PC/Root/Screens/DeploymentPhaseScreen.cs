@@ -23,9 +23,12 @@ public class DeploymentPhaseScreen : SeaStrikeScreen
     {
         base.LoadContent();
 
-        mainGrid = new Grid();
+        mainGrid = new Grid()
+        {
+            RowSpacing = 10
+        };
 
-        mainGrid.RowsProportions.Add(new Proportion(ProportionType.Auto));
+        AddGridProportions();
 
         mainGrid.Widgets.Add(BackButton);
         mainGrid.Widgets.Add(PhaseLabel);
@@ -35,6 +38,15 @@ public class DeploymentPhaseScreen : SeaStrikeScreen
         mainGrid.Widgets.Add(StartGameButton);
 
         seaStrikeGame.desktop.Root = mainGrid;
+    }
+
+    private void AddGridProportions()
+    {
+        for (int i = 0; i < 2; i++)
+        {
+            mainGrid.RowsProportions.Add(new Proportion(ProportionType.Auto));
+            mainGrid.RowsProportions.Add(new Proportion(ProportionType.Part, 1));
+        }
     }
 
     public override void Update(GameTime gameTime) =>
@@ -69,11 +81,16 @@ public class DeploymentPhaseScreen : SeaStrikeScreen
         };
 
     private GridButtonsPanel GridButtonsPanel =>
-        new GridButtonsPanel(boardBuilder);
+        new GridButtonsPanel(boardBuilder)
+        {
+            GridRow = 1,
+            VerticalAlignment = VerticalAlignment.Bottom,
+            HorizontalAlignment = HorizontalAlignment.Center
+        };
 
     private GridPanel OceanGridPanel => new GridPanel(player.board, true)
     {
-        GridRow = 1,
+        GridRow = 2,
         HorizontalAlignment = HorizontalAlignment.Center,
         VerticalAlignment = VerticalAlignment.Center,
         OnEmptyTileClicked = ShowShipAdditionDialog,
@@ -82,12 +99,11 @@ public class DeploymentPhaseScreen : SeaStrikeScreen
 
     private GameButton StartGameButton => new GameButton(OnStartButtonPressed)
     {
-        Text = SeaStrikeGame.stringStorage.startGameButtonLabel,
-        Top = -10,
+        GridRow = 3,
         Visible = false,
-        GridRow = 1,
+        Text = SeaStrikeGame.stringStorage.startGameButtonLabel,
         HorizontalAlignment = HorizontalAlignment.Center,
-        VerticalAlignment = VerticalAlignment.Bottom
+        VerticalAlignment = VerticalAlignment.Top
     };
 
     protected virtual void OnBackButtonPressed() =>

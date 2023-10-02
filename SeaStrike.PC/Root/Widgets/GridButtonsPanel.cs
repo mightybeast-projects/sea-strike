@@ -11,10 +11,6 @@ public class GridButtonsPanel : HorizontalStackPanel
     {
         this.boardBuilder = boardBuilder;
 
-        Top = 10;
-        HorizontalAlignment = HorizontalAlignment.Center;
-        VerticalAlignment = VerticalAlignment.Top;
-        GridRow = 1;
         Spacing = 50;
 
         Widgets.Add(RandomizeShipsButton);
