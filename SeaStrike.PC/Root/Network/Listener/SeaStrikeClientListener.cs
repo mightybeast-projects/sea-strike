@@ -2,7 +2,6 @@ using System;
 using System.Net;
 using LiteNetLib;
 using SeaStrike.PC.Root.Network.Manager;
-using SeaStrike.PC.Root.Screens;
 using SeaStrike.PC.Root.Screens.Multiplayer;
 
 namespace SeaStrike.PC.Root.Network.Listener;

@@ -5,9 +5,6 @@ using SeaStrike.Core.Entity.GameLogic;
 using SeaStrike.PC.Root.Network.Listener;
 using SeaStrike.PC.Root.Network.Manager;
 using SeaStrike.PC.Root.Screens;
-using SeaStrike.PC.Root.Widgets.Modal;
-
-using Color = Microsoft.Xna.Framework.Color;
 
 namespace SeaStrike.PC.Root.Network;
 
