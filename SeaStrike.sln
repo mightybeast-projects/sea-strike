@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeaStrike.Core.Tests", "Sea
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeaStrike.PC", "SeaStrike.PC\SeaStrike.PC.csproj", "{27676618-C35F-4183-B6D8-CF7D2942507A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeaStrike.Android", "SeaStrike.Android\SeaStrike.Android.csproj", "{35A7C443-DE23-4896-AB13-709780D642CD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{27676618-C35F-4183-B6D8-CF7D2942507A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{27676618-C35F-4183-B6D8-CF7D2942507A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{27676618-C35F-4183-B6D8-CF7D2942507A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35A7C443-DE23-4896-AB13-709780D642CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35A7C443-DE23-4896-AB13-709780D642CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35A7C443-DE23-4896-AB13-709780D642CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35A7C443-DE23-4896-AB13-709780D642CD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
