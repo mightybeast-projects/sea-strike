@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework;
 using Myra.Graphics2D.Brushes;
 using Myra.Graphics2D.UI;
 
-namespace SeaStrike.PC.Root.Widgets.Modal;
+namespace SeaStrike.GameCore.Root.Widgets.Modal;
 
 public class ErrorWindow : GameWindow
 {

@@ -1,9 +1,9 @@
 using System.Threading.Tasks;
 using FontStashSharp.RichText;
 using Myra.Graphics2D.UI;
-using SeaStrike.PC.Root.Network;
+using SeaStrike.GameCore.Root.Network;
 
-namespace SeaStrike.PC.Root.Widgets;
+namespace SeaStrike.GameCore.Root.Widgets;
 
 public class LobbyButtonsPanel : VerticalStackPanel
 {

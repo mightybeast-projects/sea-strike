@@ -1,8 +1,8 @@
 using Microsoft.Xna.Framework;
-using SeaStrike.PC.Root.Network;
-using SeaStrike.PC.Root.Widgets.Modal;
+using SeaStrike.GameCore.Root.Network;
+using SeaStrike.GameCore.Root.Widgets.Modal;
 
-namespace SeaStrike.PC.Root.Screens.Multiplayer;
+namespace SeaStrike.GameCore.Root.Screens.Multiplayer;
 
 public class NetDeploymentPhaseScreen : DeploymentPhaseScreen
 {

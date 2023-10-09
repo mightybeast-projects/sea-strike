@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using Myra.Graphics2D.UI;
 using SeaStrike.Core.Entity;
 
-namespace SeaStrike.PC.Root.Widgets.BattleGrid;
+namespace SeaStrike.GameCore.Root.Widgets.BattleGrid;
 
 public abstract class BattleGridPanel : VerticalStackPanel
 {

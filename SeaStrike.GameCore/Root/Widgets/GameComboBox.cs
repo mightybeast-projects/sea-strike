@@ -4,7 +4,7 @@ using Myra.Graphics2D.Brushes;
 using Myra.Graphics2D.UI;
 using Myra.Graphics2D.UI.Styles;
 
-namespace SeaStrike.PC.Root.Widgets;
+namespace SeaStrike.GameCore.Root.Widgets;
 
 public class GameComboBox : ComboBox
 {

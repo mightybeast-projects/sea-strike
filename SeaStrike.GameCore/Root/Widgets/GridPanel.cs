@@ -1,15 +1,13 @@
-using System;
 using Microsoft.Xna.Framework;
 using Myra.Graphics2D;
 using Myra.Graphics2D.Brushes;
 using Myra.Graphics2D.UI;
 using SeaStrike.Core.Entity;
-using SeaStrike.PC.Root.Widgets.GridTile;
-
+using SeaStrike.GameCore.Root.Widgets.GridTile;
 using Grid = Myra.Graphics2D.UI.Grid;
 using OceanGrid = SeaStrike.Core.Entity.Grid;
 
-namespace SeaStrike.PC.Root.Widgets;
+namespace SeaStrike.GameCore.Root.Widgets;
 
 public class GridPanel : Panel, IBoardObserver
 {
@@ -108,7 +106,7 @@ public class GridPanel : Panel, IBoardObserver
         Value = (float)Height / (oceanGrid.height + 1)
     };
 
-    private Func<int, Label> NumberLabel = (int i) => new Label()
+    private Func<int, Label> NumberLabel = (i) => new Label()
     {
         Text = i.ToString(),
         GridColumn = i,
@@ -116,7 +114,7 @@ public class GridPanel : Panel, IBoardObserver
         VerticalAlignment = VerticalAlignment.Center
     };
 
-    private Func<int, Label> LetterLabel = (int i) => new Label()
+    private Func<int, Label> LetterLabel = (i) => new Label()
     {
         Text = ((char)(i + 64)).ToString(),
         GridRow = i,

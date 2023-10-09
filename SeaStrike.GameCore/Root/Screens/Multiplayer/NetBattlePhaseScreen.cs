@@ -1,12 +1,12 @@
 using Microsoft.Xna.Framework;
 using Myra.Graphics2D.UI;
-using SeaStrike.PC.Root.Network;
-using SeaStrike.PC.Root.Widgets.BattleGrid;
-using SeaStrike.PC.Root.Widgets.BattleGrid.Multiplayer;
+using SeaStrike.GameCore.Root.Network;
+using SeaStrike.GameCore.Root.Widgets.BattleGrid;
+using SeaStrike.GameCore.Root.Widgets.BattleGrid.Multiplayer;
 
 using Grid = Myra.Graphics2D.UI.Grid;
 
-namespace SeaStrike.PC.Root.Screens.Multiplayer;
+namespace SeaStrike.GameCore.Root.Screens.Multiplayer;
 
 public class NetBattlePhaseScreen : BattlePhaseScreen
 {

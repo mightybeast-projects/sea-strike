@@ -1,6 +1,6 @@
 using LiteNetLib.Utils;
 
-namespace SeaStrike.PC.Root.Network;
+namespace SeaStrike.GameCore.Root.Network;
 
 public class SeaStrikeNetDataWriter : NetDataWriter
 {

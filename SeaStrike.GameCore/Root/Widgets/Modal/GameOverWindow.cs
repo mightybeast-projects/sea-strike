@@ -1,6 +1,6 @@
 using System;
 
-namespace SeaStrike.PC.Root.Widgets.Modal;
+namespace SeaStrike.GameCore.Root.Widgets.Modal;
 
 public class GameOverWindow : GameWindow
 {

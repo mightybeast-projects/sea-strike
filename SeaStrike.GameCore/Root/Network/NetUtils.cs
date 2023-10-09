@@ -1,4 +1,4 @@
-namespace SeaStrike.PC.Root.Network;
+namespace SeaStrike.GameCore.Root.Network;
 
 public class NetUtils
 {

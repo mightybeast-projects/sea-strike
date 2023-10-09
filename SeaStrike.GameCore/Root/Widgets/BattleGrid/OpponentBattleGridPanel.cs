@@ -3,11 +3,11 @@ using Microsoft.Xna.Framework;
 using Myra.Graphics2D.UI;
 using SeaStrike.Core.Entity;
 using SeaStrike.Core.Entity.GameLogic.Utility;
-using SeaStrike.PC.Root.Widgets.GridTile;
+using SeaStrike.GameCore.Root.Widgets.GridTile;
 
 using Game = SeaStrike.Core.Entity.GameLogic.Game;
 
-namespace SeaStrike.PC.Root.Widgets.BattleGrid;
+namespace SeaStrike.GameCore.Root.Widgets.BattleGrid;
 
 public class OpponentBattleGridPanel : BattleGridPanel
 {

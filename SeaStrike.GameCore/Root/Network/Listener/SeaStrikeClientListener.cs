@@ -1,10 +1,9 @@
-using System;
 using System.Net;
 using LiteNetLib;
-using SeaStrike.PC.Root.Network.Manager;
-using SeaStrike.PC.Root.Screens.Multiplayer;
+using SeaStrike.GameCore.Root.Network.Manager;
+using SeaStrike.GameCore.Root.Screens.Multiplayer;
 
-namespace SeaStrike.PC.Root.Network.Listener;
+namespace SeaStrike.GameCore.Root.Network.Listener;
 
 public class SeaStrikeClientListener : SeaStrikeListener
 {

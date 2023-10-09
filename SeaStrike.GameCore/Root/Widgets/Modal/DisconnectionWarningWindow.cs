@@ -4,7 +4,7 @@ using Myra.Graphics2D.Brushes;
 using Myra.Graphics2D.UI;
 using FontStashSharp.RichText;
 
-namespace SeaStrike.PC.Root.Widgets.Modal;
+namespace SeaStrike.GameCore.Root.Widgets.Modal;
 
 public class DisconnectionWarningWindow : GameWindow
 {

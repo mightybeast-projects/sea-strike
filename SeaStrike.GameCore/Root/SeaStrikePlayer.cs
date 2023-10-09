@@ -1,12 +1,10 @@
-using System;
 using SeaStrike.Core.Entity;
 using SeaStrike.Core.Entity.GameLogic;
-using SeaStrike.PC.Root.Screens;
-using SeaStrike.PC.Root.Widgets.Modal;
-
+using SeaStrike.GameCore.Root.Screens;
+using SeaStrike.GameCore.Root.Widgets.Modal;
 using Color = Microsoft.Xna.Framework.Color;
 
-namespace SeaStrike.PC.Root;
+namespace SeaStrike.GameCore.Root;
 
 public class SeaStrikePlayer
 {

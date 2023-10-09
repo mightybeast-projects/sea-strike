@@ -1,7 +1,8 @@
 using LiteNetLib;
-using SeaStrike.PC.Root.Network.Listener;
+using SeaStrike.GameCore.Root.Network;
+using SeaStrike.GameCore.Root.Network.Listener;
 
-namespace SeaStrike.PC.Root.Network.Manager;
+namespace SeaStrike.GameCore.Root.Network.Manager;
 
 public class SeaStrikeServer : NetManager
 {
@@ -18,6 +19,6 @@ public class SeaStrikeServer : NetManager
     public new void Start()
     {
         if (!IsRunning)
-            base.Start(NetUtils.port);
+            Start(NetUtils.port);
     }
 }

@@ -1,8 +1,8 @@
 using System.Linq;
 using Myra.Graphics2D.UI;
-using SeaStrike.PC.Root.Network;
+using SeaStrike.GameCore.Root.Network;
 
-namespace SeaStrike.PC.Root.Widgets.BattleGrid.Multiplayer;
+namespace SeaStrike.GameCore.Root.Widgets.BattleGrid.Multiplayer;
 
 public class NetPlayerBattleGridPanel : PlayerBattleGridPanel
 {

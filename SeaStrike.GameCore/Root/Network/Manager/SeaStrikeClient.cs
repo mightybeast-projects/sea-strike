@@ -1,7 +1,7 @@
 using LiteNetLib;
-using SeaStrike.PC.Root.Network.Listener;
+using SeaStrike.GameCore.Root.Network.Listener;
 
-namespace SeaStrike.PC.Root.Network.Manager;
+namespace SeaStrike.GameCore.Root.Network.Manager;
 
 public class SeaStrikeClient : NetManager
 {
@@ -20,7 +20,7 @@ public class SeaStrikeClient : NetManager
         if (!IsRunning)
             base.Start();
 
-        var result = base.SendBroadcast(
+        var result = SendBroadcast(
             new SeaStrikeNetDataWriter(NetUtils.serverDiscoveryMessage),
             NetUtils.port);
     }

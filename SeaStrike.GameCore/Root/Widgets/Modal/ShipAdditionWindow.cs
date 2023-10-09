@@ -1,10 +1,11 @@
 using System;
 using Myra.Graphics2D.UI;
 using SeaStrike.Core.Entity;
+using SeaStrike.GameCore.Root.Widgets;
 
 using Grid = Myra.Graphics2D.UI.Grid;
 
-namespace SeaStrike.PC.Root.Widgets.Modal;
+namespace SeaStrike.GameCore.Root.Widgets.Modal;
 
 public class ShipAdditionWindow : GameWindow
 {

@@ -2,7 +2,7 @@ using System.Net;
 using System.Net.Sockets;
 using LiteNetLib;
 
-namespace SeaStrike.PC.Root.Network.Listener;
+namespace SeaStrike.GameCore.Root.Network.Listener;
 
 public abstract class SeaStrikeListener : INetEventListener
 {

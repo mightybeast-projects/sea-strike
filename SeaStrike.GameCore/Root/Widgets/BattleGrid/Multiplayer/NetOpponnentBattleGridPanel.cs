@@ -1,9 +1,10 @@
 using SeaStrike.Core.Entity;
 using SeaStrike.Core.Entity.GameLogic.Utility;
-using SeaStrike.PC.Root.Network;
-using SeaStrike.PC.Root.Widgets.GridTile;
+using SeaStrike.GameCore.Root.Network;
+using SeaStrike.GameCore.Root.Widgets.BattleGrid;
+using SeaStrike.GameCore.Root.Widgets.GridTile;
 
-namespace SeaStrike.PC.Root.Widgets.BattleGrid.Multiplayer;
+namespace SeaStrike.GameCore.Root.Widgets.BattleGrid.Multiplayer;
 
 public class NetOpponnentBattleGridPanel : OpponentBattleGridPanel
 {

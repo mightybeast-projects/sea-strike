@@ -1,7 +1,7 @@
 using Myra.Graphics2D.UI;
 using SeaStrike.Core.Entity;
 
-namespace SeaStrike.PC.Root.Widgets;
+namespace SeaStrike.GameCore.Root.Widgets;
 
 public class GridButtonsPanel : HorizontalStackPanel
 {

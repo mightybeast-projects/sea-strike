@@ -1,10 +1,10 @@
 using Microsoft.Xna.Framework;
 using Myra.Graphics2D.UI;
-using SeaStrike.PC.Root.Widgets;
-using SeaStrike.PC.Root.Network;
-using SeaStrike.PC.Root.Widgets.Modal;
+using SeaStrike.GameCore.Root.Widgets;
+using SeaStrike.GameCore.Root.Network;
+using SeaStrike.GameCore.Root.Widgets.Modal;
 
-namespace SeaStrike.PC.Root.Screens.Multiplayer;
+namespace SeaStrike.GameCore.Root.Screens.Multiplayer;
 
 public class LobbyScreen : SeaStrikeScreen
 {

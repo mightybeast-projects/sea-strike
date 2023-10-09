@@ -1,4 +1,4 @@
-namespace SeaStrike.PC.Root;
+namespace SeaStrike.GameCore.Root;
 
 public class StringStorage
 {

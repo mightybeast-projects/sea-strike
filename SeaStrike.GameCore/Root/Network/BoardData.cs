@@ -5,7 +5,7 @@ using System.Runtime.Remoting;
 using Newtonsoft.Json;
 using SeaStrike.Core.Entity;
 
-namespace SeaStrike.PC.Root.Network;
+namespace SeaStrike.GameCore.Root.Network;
 
 public class BoardData
 {
@@ -39,7 +39,7 @@ public class BoardData
 
     public string ToJson() => JsonConvert.SerializeObject(this);
 
-    private Func<Ship, ShipData> NewShipData = (Ship ship) => new ShipData()
+    private Func<Ship, ShipData> NewShipData = (ship) => new ShipData()
     {
         orientation = ship.orientation.ToString(),
         shipType = ship.GetType().Name,

@@ -1,6 +1,6 @@
 using SeaStrike.Core.Entity;
 
-namespace SeaStrike.PC.Root.Widgets.BattleGrid;
+namespace SeaStrike.GameCore.Root.Widgets.BattleGrid;
 
 public class PlayerBattleGridPanel : BattleGridPanel
 {

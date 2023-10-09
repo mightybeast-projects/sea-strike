@@ -1,8 +1,8 @@
 using Microsoft.Xna.Framework;
 using Myra.Graphics2D.UI;
-using SeaStrike.PC.Root.Widgets;
+using SeaStrike.GameCore.Root.Widgets;
 
-namespace SeaStrike.PC.Root.Screens;
+namespace SeaStrike.GameCore.Root.Screens;
 
 public class MainMenuScreen : SeaStrikeScreen
 {

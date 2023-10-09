@@ -1,6 +1,4 @@
-﻿using System;
-using System.IO;
-using FontStashSharp;
+﻿using FontStashSharp;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended.Screens;
@@ -8,10 +6,10 @@ using Myra;
 using Myra.Graphics2D.UI;
 using Myra.Graphics2D.UI.Styles;
 using SeaStrike.Core.Exceptions;
-using SeaStrike.PC.Root.Screens;
-using SeaStrike.PC.Root.Widgets.Modal;
+using SeaStrike.GameCore.Root.Screens;
+using SeaStrike.GameCore.Root.Widgets.Modal;
 
-namespace SeaStrike.PC.Root;
+namespace SeaStrike.GameCore.Root;
 
 public class SeaStrikeGame : Game
 {

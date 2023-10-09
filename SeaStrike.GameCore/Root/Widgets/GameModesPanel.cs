@@ -1,9 +1,10 @@
 using Microsoft.Xna.Framework;
 using Myra.Graphics2D.UI;
-using SeaStrike.PC.Root.Screens;
-using SeaStrike.PC.Root.Screens.Multiplayer;
+using SeaStrike.GameCore.Root;
+using SeaStrike.GameCore.Root.Screens;
+using SeaStrike.GameCore.Root.Screens.Multiplayer;
 
-namespace SeaStrike.PC.Root.Widgets;
+namespace SeaStrike.GameCore.Root.Widgets;
 
 public class GameModesPanel : VerticalStackPanel
 {

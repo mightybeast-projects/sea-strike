@@ -1,12 +1,11 @@
-using System;
 using Newtonsoft.Json;
 using SeaStrike.Core.Entity;
 using SeaStrike.Core.Entity.GameLogic;
-using SeaStrike.PC.Root.Network.Listener;
-using SeaStrike.PC.Root.Network.Manager;
-using SeaStrike.PC.Root.Screens;
+using SeaStrike.GameCore.Root.Network.Listener;
+using SeaStrike.GameCore.Root.Network.Manager;
+using SeaStrike.GameCore.Root.Screens;
 
-namespace SeaStrike.PC.Root.Network;
+namespace SeaStrike.GameCore.Root.Network;
 
 public class NetPlayer : SeaStrikePlayer
 {

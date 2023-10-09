@@ -1,7 +1,7 @@
 using Microsoft.Xna.Framework;
 using MonoGame.Extended.Screens;
 
-namespace SeaStrike.PC.Root.Screens;
+namespace SeaStrike.GameCore.Root.Screens;
 
 public class SeaStrikeScreen : GameScreen
 {

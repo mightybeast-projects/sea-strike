@@ -2,7 +2,7 @@ using System.Text;
 using FontStashSharp.RichText;
 using Myra.Graphics2D.UI;
 
-namespace SeaStrike.PC.Root.Widgets.Modal;
+namespace SeaStrike.GameCore.Root.Widgets.Modal;
 
 public class HelpWindow : GameWindow
 {

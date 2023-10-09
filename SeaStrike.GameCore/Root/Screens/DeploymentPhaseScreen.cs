@@ -1,14 +1,12 @@
-using System.Linq;
 using Microsoft.Xna.Framework;
 using Myra.Graphics2D.UI;
 using SeaStrike.Core.Entity;
-using SeaStrike.PC.Root.Widgets;
-using SeaStrike.PC.Root.Widgets.GridTile;
-using SeaStrike.PC.Root.Widgets.Modal;
-
+using SeaStrike.GameCore.Root.Widgets;
+using SeaStrike.GameCore.Root.Widgets.GridTile;
+using SeaStrike.GameCore.Root.Widgets.Modal;
 using Grid = Myra.Graphics2D.UI.Grid;
 
-namespace SeaStrike.PC.Root.Screens;
+namespace SeaStrike.GameCore.Root.Screens;
 
 public class DeploymentPhaseScreen : SeaStrikeScreen
 {

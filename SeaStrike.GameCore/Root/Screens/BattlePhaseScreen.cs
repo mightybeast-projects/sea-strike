@@ -1,12 +1,11 @@
 using Microsoft.Xna.Framework;
 using Myra.Graphics2D.UI;
-using SeaStrike.PC.Root.Widgets;
-using SeaStrike.PC.Root.Widgets.BattleGrid;
-using SeaStrike.PC.Root.Widgets.Modal;
-
+using SeaStrike.GameCore.Root.Widgets;
+using SeaStrike.GameCore.Root.Widgets.BattleGrid;
+using SeaStrike.GameCore.Root.Widgets.Modal;
 using Grid = Myra.Graphics2D.UI.Grid;
 
-namespace SeaStrike.PC.Root.Screens;
+namespace SeaStrike.GameCore.Root.Screens;
 
 public class BattlePhaseScreen : SeaStrikeScreen
 {
@@ -69,5 +68,5 @@ public class BattlePhaseScreen : SeaStrikeScreen
         };
 
     private void ShowHelpWindow(string[] content) =>
-        new HelpWindow(content).ShowModal(base.seaStrikeGame.desktop);
+        new HelpWindow(content).ShowModal(seaStrikeGame.desktop);
 }
