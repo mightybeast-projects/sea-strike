@@ -1,17 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net6.0-android</TargetFramework>
-    <SupportedOSPlatformVersion>23</SupportedOSPlatformVersion>
+    <TargetFramework>net7.0-android</TargetFramework>
     <OutputType>Exe</OutputType>
     <ApplicationId>com.companyname.SeaStrike.Android</ApplicationId>
     <ApplicationVersion>1</ApplicationVersion>
     <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <AndroidPackageFormat>apk</AndroidPackageFormat>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.1.303" />
