@@ -41,7 +41,8 @@ public class SeaStrikeGame : Game
 
         desktop = new Desktop();
 
-        string path = stringStorage.fontPath;
+        string path = OperatingSystem.IsAndroid() ?
+            stringStorage.androidFontPath : stringStorage.pcFontPath;
         byte[] ttf = File.ReadAllBytes(path);
         fontSystem.AddFont(ttf);
 
