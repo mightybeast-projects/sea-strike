@@ -7,11 +7,8 @@
   <ItemGroup>
     <PackageReference Include="LiteNetLib" Version="1.1.0" />
     <PackageReference Include="MonoGame.Extended" Version="3.8.0" />
-    <PackageReference Include="MonoGame.Extended.Content.Pipeline" Version="3.8.0" />
-    <PackageReference Include="MonoGame.Extended.Input" Version="3.8.0" />
     <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.1.303" />
     <PackageReference Include="Myra" Version="1.4.5" />
-    <PackageReference Include="NetCoreServer" Version="7.0.0" />
     <Reference Include="SeaStrike">
       <HintPath>../SeaStrike.Core/bin/Debug/net7.0/SeaStrike.Core.dll</HintPath>
     </Reference>
