@@ -43,7 +43,15 @@ public class SeaStrikeGame : Game
 
         string path = OperatingSystem.IsAndroid() ?
             stringStorage.androidFontPath : stringStorage.pcFontPath;
-        byte[] ttf = File.ReadAllBytes(path);
+        byte[] ttf;
+        using (var stream = TitleContainer.OpenStream(path))
+        {
+            using (var ms = new MemoryStream())
+            {
+                stream.CopyTo(ms);
+                ttf = ms.ToArray();
+            }
+        }
         fontSystem.AddFont(ttf);
 
         Stylesheet.Current.LabelStyle.Font = fontSystem.GetFont(24);
