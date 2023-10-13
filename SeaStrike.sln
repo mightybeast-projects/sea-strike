@@ -9,9 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeaStrike.Core.Tests", "Sea
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeaStrike.PC", "SeaStrike.PC\SeaStrike.PC.csproj", "{27676618-C35F-4183-B6D8-CF7D2942507A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeaStrike.GameCore", "SeaStrike.GameCore\SeaStrike.GameCore.csproj", "{074B5E11-5193-4F61-A45C-96BA39DB5E81}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeaStrike.Android", "SeaStrike.Android\SeaStrike.Android.csproj", "{0F7A0C7D-77A6-41A0-B860-B3051111B279}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeaStrike.Android", "SeaStrike.Android\SeaStrike.Android.csproj", "{0F7A0C7D-77A6-41A0-B860-B3051111B279}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeaStrike.GameCore", "SeaStrike.GameCore\SeaStrike.GameCore.csproj", "{395485D4-EA82-4CC9-B1E7-D0BF0A5DA66C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,16 +31,16 @@ Global
 		{27676618-C35F-4183-B6D8-CF7D2942507A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{27676618-C35F-4183-B6D8-CF7D2942507A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{27676618-C35F-4183-B6D8-CF7D2942507A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{074B5E11-5193-4F61-A45C-96BA39DB5E81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{074B5E11-5193-4F61-A45C-96BA39DB5E81}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{074B5E11-5193-4F61-A45C-96BA39DB5E81}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{074B5E11-5193-4F61-A45C-96BA39DB5E81}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0F7A0C7D-77A6-41A0-B860-B3051111B279}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0F7A0C7D-77A6-41A0-B860-B3051111B279}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0F7A0C7D-77A6-41A0-B860-B3051111B279}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
 		{0F7A0C7D-77A6-41A0-B860-B3051111B279}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0F7A0C7D-77A6-41A0-B860-B3051111B279}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0F7A0C7D-77A6-41A0-B860-B3051111B279}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{395485D4-EA82-4CC9-B1E7-D0BF0A5DA66C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{395485D4-EA82-4CC9-B1E7-D0BF0A5DA66C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{395485D4-EA82-4CC9-B1E7-D0BF0A5DA66C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{395485D4-EA82-4CC9-B1E7-D0BF0A5DA66C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

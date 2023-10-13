@@ -1,17 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
+	  <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="LiteNetLib" Version="1.1.0" />
-    <PackageReference Include="MonoGame.Extended" Version="3.8.0" />
-    <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.1.303" />
+    <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.1.303">
+      <PrivateAssets>All</PrivateAssets>
+    </PackageReference>
     <PackageReference Include="Myra" Version="1.4.5" />
-    <Reference Include="SeaStrike">
-      <HintPath>../SeaStrike.Core/bin/Debug/net7.0/SeaStrike.Core.dll</HintPath>
-    </Reference>
+	  <PackageReference Include="MonoGame.Extended" Version="3.8.0" />
+	  <PackageReference Include="LiteNetLib" Version="1.1.0" />
   </ItemGroup>
-
+  <ItemGroup>
+    <ProjectReference Include="..\SeaStrike.Core\SeaStrike.Core.csproj" />
+  </ItemGroup>
 </Project>
