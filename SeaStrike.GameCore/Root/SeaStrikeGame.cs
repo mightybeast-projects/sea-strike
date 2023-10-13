@@ -33,6 +33,15 @@ public class SeaStrikeGame : Game
         MyraEnvironment.Game = this;
 
         Components.Add(screenManager);
+
+        if (OperatingSystem.IsAndroid())
+            graphics.IsFullScreen = true;
+        else
+        {
+            graphics.PreferredBackBufferWidth = 1280;
+            graphics.PreferredBackBufferHeight = 720;
+            graphics.ApplyChanges();
+        }
     }
 
     protected override void LoadContent()

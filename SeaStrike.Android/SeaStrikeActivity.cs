@@ -13,10 +13,10 @@ namespace SeaStrike.Android
         Icon = "@drawable/icon",
         AlwaysRetainTaskState = true,
         LaunchMode = LaunchMode.SingleInstance,
-        ScreenOrientation = ScreenOrientation.FullUser,
+        ScreenOrientation = ScreenOrientation.Landscape,
         ConfigurationChanges = ConfigChanges.Orientation | ConfigChanges.Keyboard | ConfigChanges.KeyboardHidden | ConfigChanges.ScreenSize
     )]
-    public class Activity1 : AndroidGameActivity
+    public class SeaStrikeActivity : AndroidGameActivity
     {
         private SeaStrikeGame _game;
         private View _view;
