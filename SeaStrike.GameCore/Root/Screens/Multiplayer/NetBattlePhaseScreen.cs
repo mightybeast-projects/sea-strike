@@ -48,7 +48,7 @@ public class NetBattlePhaseScreen : BattlePhaseScreen
         {
             GridRow = 1,
             VerticalAlignment = VerticalAlignment.Center,
-            HorizontalAlignment = HorizontalAlignment.Right
+            HorizontalAlignment = HorizontalAlignment.Center
         };
 
     protected override OpponentBattleGridPanel OpponentBattleGridPanel =>
@@ -57,6 +57,6 @@ public class NetBattlePhaseScreen : BattlePhaseScreen
             GridRow = 1,
             GridColumn = 1,
             VerticalAlignment = VerticalAlignment.Center,
-            HorizontalAlignment = HorizontalAlignment.Left
+            HorizontalAlignment = HorizontalAlignment.Center
         };
 }
