@@ -35,13 +35,19 @@ public class SeaStrikeGame : Game
         Components.Add(screenManager);
 
         if (OperatingSystem.IsAndroid())
+        {
             graphics.IsFullScreen = true;
+            graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+            graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+            graphics.SupportedOrientations = DisplayOrientation.LandscapeLeft | DisplayOrientation.LandscapeRight;
+        }
         else
         {
             graphics.PreferredBackBufferWidth = 1280;
             graphics.PreferredBackBufferHeight = 720;
-            graphics.ApplyChanges();
         }
+
+        graphics.ApplyChanges();
     }
 
     protected override void LoadContent()

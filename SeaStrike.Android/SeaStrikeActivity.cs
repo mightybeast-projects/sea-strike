@@ -5,31 +5,29 @@ using Android.Views;
 using Microsoft.Xna.Framework;
 using SeaStrike.GameCore.Root;
 
-namespace SeaStrike.Android
+using Point = Android.Graphics.Point;
+
+namespace SeaStrike.Android;
+
+[Activity(
+    Label = "@string/app_name",
+    MainLauncher = true,
+    Icon = "@drawable/icon",
+    AlwaysRetainTaskState = true,
+    LaunchMode = LaunchMode.SingleInstance,
+    ScreenOrientation = ScreenOrientation.Landscape,
+    ConfigurationChanges = ConfigChanges.Orientation | ConfigChanges.Keyboard | ConfigChanges.KeyboardHidden | ConfigChanges.ScreenSize
+)]
+public class SeaStrikeActivity : AndroidGameActivity
 {
-    [Activity(
-        Label = "@string/app_name",
-        MainLauncher = true,
-        Icon = "@drawable/icon",
-        AlwaysRetainTaskState = true,
-        LaunchMode = LaunchMode.SingleInstance,
-        ScreenOrientation = ScreenOrientation.Landscape,
-        ConfigurationChanges = ConfigChanges.Orientation | ConfigChanges.Keyboard | ConfigChanges.KeyboardHidden | ConfigChanges.ScreenSize
-    )]
-    public class SeaStrikeActivity : AndroidGameActivity
+    protected override void OnCreate(Bundle bundle)
     {
-        private SeaStrikeGame _game;
-        private View _view;
+        base.OnCreate(bundle);
 
-        protected override void OnCreate(Bundle bundle)
-        {
-            base.OnCreate(bundle);
+        SeaStrikeGame game = new SeaStrikeGame();
+        View view = game.Services.GetService(typeof(View)) as View;
 
-            _game = new SeaStrikeGame();
-            _view = _game.Services.GetService(typeof(View)) as View;
-
-            SetContentView(_view);
-            _game.Run();
-        }
+        SetContentView(view);
+        game.Run();
     }
 }
