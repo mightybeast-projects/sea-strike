@@ -1,5 +1,6 @@
 ﻿using FontStashSharp;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended.Screens;
 using Myra;
@@ -61,6 +62,9 @@ public class SeaStrikeGame : Game
             }
         }
         fontSystem.AddFont(ttf);
+
+        SoundEffect soundEffect = Content.Load<SoundEffect>("SFX/hit");
+        soundEffect.Play();
 
         Stylesheet.Current.LabelStyle.Font = fontSystem.GetFont(24);
     }
