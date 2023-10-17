@@ -34,20 +34,14 @@ public class SeaStrikeGame : Game
 
         Components.Add(screenManager);
 
-        if (OperatingSystem.IsAndroid())
-        {
-            graphics.IsFullScreen = true;
-            graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-            graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
-            graphics.SupportedOrientations = DisplayOrientation.LandscapeLeft | DisplayOrientation.LandscapeRight;
-        }
-        else
-        {
-            graphics.PreferredBackBufferWidth = 1280;
-            graphics.PreferredBackBufferHeight = 720;
-        }
+        ChangeGraphicsSettings();
+    }
 
-        graphics.ApplyChanges();
+    protected override void Initialize()
+    {
+        base.Initialize();
+
+        screenManager.LoadScreen(new MainMenuScreen(this));
     }
 
     protected override void LoadContent()
@@ -56,8 +50,7 @@ public class SeaStrikeGame : Game
 
         desktop = new Desktop();
 
-        string path = OperatingSystem.IsAndroid() ?
-            stringStorage.androidFontPath : stringStorage.pcFontPath;
+        string path = stringStorage.fontPath;
         byte[] ttf;
         using (var stream = TitleContainer.OpenStream(path))
         {
@@ -72,13 +65,6 @@ public class SeaStrikeGame : Game
         Stylesheet.Current.LabelStyle.Font = fontSystem.GetFont(24);
     }
 
-    protected override void Initialize()
-    {
-        base.Initialize();
-
-        screenManager.LoadScreen(new MainMenuScreen(this));
-    }
-
     protected override void Draw(GameTime gameTime)
     {
         base.Draw(gameTime);
@@ -88,6 +74,28 @@ public class SeaStrikeGame : Game
         try { desktop.Render(); }
         catch (SeaStrikeCoreException e) { ShowCoreLibraryError(e); }
         catch (Exception e) { ShowSystemError(e); }
+    }
+
+    private void ChangeGraphicsSettings()
+    {
+        if (OperatingSystem.IsAndroid())
+        {
+            graphics.IsFullScreen = true;
+            graphics.PreferredBackBufferWidth =
+                GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+            graphics.PreferredBackBufferHeight =
+                GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+            graphics.SupportedOrientations =
+                DisplayOrientation.LandscapeLeft |
+                DisplayOrientation.LandscapeRight;
+        }
+        else
+        {
+            graphics.PreferredBackBufferWidth = 1280;
+            graphics.PreferredBackBufferHeight = 720;
+        }
+
+        graphics.ApplyChanges();
     }
 
     private void ShowCoreLibraryError(Exception e) =>

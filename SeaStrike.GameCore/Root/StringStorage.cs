@@ -4,8 +4,7 @@ public class StringStorage
 {
     //General strings
     public string contentPath = "Content";
-    public string pcFontPath = "Content/Font/Tektur.ttf";
-    public string androidFontPath = "Font/Tektur.ttf";
+    public string fontPath = "Content/Font/Tektur.ttf";
 
     //Main menu screen strings
     public string gameTitle = "SEA STRIKE";
