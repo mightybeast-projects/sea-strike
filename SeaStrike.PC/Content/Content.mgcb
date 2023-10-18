@@ -38,11 +38,17 @@
 /processorParam:Quality=Best
 /build:OST/victory_ost.ogg
 
-#begin SFX/button_click.ogg
-/importer:OggImporter
+#begin SFX/button_click.mp3
+/importer:Mp3Importer
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:SFX/button_click.ogg
+/build:SFX/button_click.mp3
+
+#begin SFX/combo_box_select.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SFX/combo_box_select.mp3
 
 #begin SFX/hit.wav
 /importer:WavImporter

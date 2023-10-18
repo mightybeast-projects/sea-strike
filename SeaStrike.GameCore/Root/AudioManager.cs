@@ -6,6 +6,7 @@ namespace SeaStrike.GameCore.Root;
 public class AudioManager
 {
     public SoundEffect buttonClickSFX;
+    public SoundEffect comboBoxSFX;
 
     private readonly SeaStrikeGame game;
     private Song mainOST;
@@ -23,6 +24,7 @@ public class AudioManager
         lostOST = game.Content.Load<Song>("OST/lost_ost");
 
         buttonClickSFX = game.Content.Load<SoundEffect>("SFX/button_click");
+        comboBoxSFX = game.Content.Load<SoundEffect>("SFX/combo_box_select");
     }
 
     public void PlayMainOST() => PlaySong(mainOST, true);
