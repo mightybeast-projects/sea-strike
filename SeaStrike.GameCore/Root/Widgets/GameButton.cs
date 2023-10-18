@@ -19,5 +19,6 @@ public class GameButton : TextButton
         Padding = new Thickness(5, 0);
 
         TouchUp += (s, a) => onClick?.Invoke();
+        TouchUp += (s, a) => SeaStrikeGame.audioManager.buttonClickSFX.Play();
     }
 }
