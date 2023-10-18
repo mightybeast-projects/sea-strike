@@ -5,7 +5,6 @@ namespace SeaStrike.GameCore.Root;
 
 public class AudioManager
 {
-    public bool audioLoaded;
     public SoundEffect buttonClickSFX;
 
     private readonly SeaStrikeGame game;
@@ -18,13 +17,12 @@ public class AudioManager
 
     public void LoadAudio()
     {
-        mainOST = game.Content.Load<Song>("SFX/main_ost");
-        battleOST = game.Content.Load<Song>("SFX/battle_ost");
-        victoryOST = game.Content.Load<Song>("SFX/victory_ost");
-        lostOST = game.Content.Load<Song>("SFX/lost_ost");
-        buttonClickSFX = game.Content.Load<SoundEffect>("SFX/button_click");
+        mainOST = game.Content.Load<Song>("OST/main_ost");
+        battleOST = game.Content.Load<Song>("OST/battle_ost");
+        victoryOST = game.Content.Load<Song>("OST/victory_ost");
+        lostOST = game.Content.Load<Song>("OST/lost_ost");
 
-        audioLoaded = true;
+        buttonClickSFX = game.Content.Load<SoundEffect>("SFX/button_click");
     }
 
     public void PlayMainOST() => PlaySong(mainOST, true);
@@ -37,10 +35,11 @@ public class AudioManager
 
     private void PlaySong(Song song, bool loop)
     {
-        if (MediaPlayer.Queue.ActiveSong != song)
+        if (MediaPlayer.State != MediaState.Playing ||
+            MediaPlayer.Queue.ActiveSong != song)
         {
-            MediaPlayer.Play(song);
             MediaPlayer.IsRepeating = loop;
+            MediaPlayer.Play(song);
         }
     }
 }
