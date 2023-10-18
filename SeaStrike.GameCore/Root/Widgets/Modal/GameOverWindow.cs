@@ -1,8 +1,6 @@
-using System;
-
 namespace SeaStrike.GameCore.Root.Widgets.Modal;
 
-public class GameOverWindow : GameWindow
+public abstract class GameOverWindow : GameWindow
 {
     private readonly Action onExitButtonClicked;
 
