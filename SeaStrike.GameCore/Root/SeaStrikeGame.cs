@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Media;
 using MonoGame.Extended.Screens;
 using Myra;
 using Myra.Graphics2D.UI;
@@ -62,6 +63,10 @@ public class SeaStrikeGame : Game
             }
         }
         fontSystem.AddFont(ttf);
+
+        Song mainOST = Content.Load<Song>("SFX/main_ost");
+        MediaPlayer.Play(mainOST);
+        MediaPlayer.IsRepeating = true;
 
         SoundEffect soundEffect = Content.Load<SoundEffect>("SFX/hit");
         soundEffect.Play();

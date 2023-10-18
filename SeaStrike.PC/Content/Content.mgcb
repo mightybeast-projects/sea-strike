@@ -14,9 +14,33 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin SFX/button_click.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SFX/button_click.mp3
+
 #begin SFX/hit.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:SFX/hit.wav
+
+#begin SFX/main_ost.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:SFX/main_ost.mp3
+
+#begin SFX/miss.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SFX/miss.wav
+
+#begin SFX/sunk.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SFX/sunk.wav
 
