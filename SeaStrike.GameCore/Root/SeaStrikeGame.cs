@@ -1,8 +1,6 @@
 ﻿using FontStashSharp;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Media;
 using MonoGame.Extended.Screens;
 using Myra;
 using Myra.Graphics2D.UI;
@@ -17,6 +15,7 @@ public class SeaStrikeGame : Game
 {
     public static FontSystem fontSystem;
     public static StringStorage stringStorage;
+    public static AudioManager audioManager;
     public Desktop desktop;
     public ScreenManager screenManager;
 
@@ -26,6 +25,7 @@ public class SeaStrikeGame : Game
     {
         fontSystem = new FontSystem();
         stringStorage = new StringStorage();
+        audioManager = new AudioManager(this);
         screenManager = new ScreenManager();
         graphics = new GraphicsDeviceManager(this);
 
@@ -64,14 +64,10 @@ public class SeaStrikeGame : Game
         }
         fontSystem.AddFont(ttf);
 
-        Song mainOST = Content.Load<Song>("SFX/main_ost");
-        MediaPlayer.Play(mainOST);
-        MediaPlayer.IsRepeating = true;
-
-        SoundEffect soundEffect = Content.Load<SoundEffect>("SFX/hit");
-        soundEffect.Play();
-
         Stylesheet.Current.LabelStyle.Font = fontSystem.GetFont(24);
+
+        audioManager.LoadAudio();
+        audioManager.PlayOST();
     }
 
     protected override void Draw(GameTime gameTime)
