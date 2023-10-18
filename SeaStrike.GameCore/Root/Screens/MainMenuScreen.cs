@@ -14,6 +14,8 @@ public class MainMenuScreen : SeaStrikeScreen
     {
         base.LoadContent();
 
+        SeaStrikeGame.audioManager.PlayMainOST();
+
         Panel mainPanel = new Panel();
 
         mainPanel.Widgets.Add(TitleLabel);

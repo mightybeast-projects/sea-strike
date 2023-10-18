@@ -26,19 +26,17 @@ public class SeaStrikePlayer
         seaStrikeGame.screenManager.LoadScreen(
             (T)Activator.CreateInstance(typeof(T), this));
 
-    public virtual void ShowVictoryScreen() =>
-        new GameOverWindow(
-            SeaStrikeGame.stringStorage.victoryScreenTitle,
-            onGameOverScreenExitButtonClicked)
-        {
-            TitleTextColor = Color.LawnGreen
-        }.ShowModal(seaStrikeGame.desktop);
+    public void ShowVictoryScreen() => new GameOverWindow(
+        SeaStrikeGame.stringStorage.victoryScreenTitle,
+        onGameOverScreenExitButtonClicked)
+    {
+        TitleTextColor = Color.LawnGreen
+    }.ShowModal(seaStrikeGame.desktop);
 
-    public virtual void ShowLostScreen() =>
-        new GameOverWindow(
-            SeaStrikeGame.stringStorage.loseScreenTitle,
-            onGameOverScreenExitButtonClicked)
-        {
-            TitleTextColor = Color.Red
-        }.ShowModal(seaStrikeGame.desktop);
+    public void ShowLostScreen() => new GameOverWindow(
+        SeaStrikeGame.stringStorage.loseScreenTitle,
+        onGameOverScreenExitButtonClicked)
+    {
+        TitleTextColor = Color.Red
+    }.ShowModal(seaStrikeGame.desktop);
 }

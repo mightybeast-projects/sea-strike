@@ -64,10 +64,9 @@ public class SeaStrikeGame : Game
         }
         fontSystem.AddFont(ttf);
 
-        Stylesheet.Current.LabelStyle.Font = fontSystem.GetFont(24);
-
         audioManager.LoadAudio();
-        audioManager.PlayOST();
+
+        Stylesheet.Current.LabelStyle.Font = fontSystem.GetFont(24);
     }
 
     protected override void Draw(GameTime gameTime)

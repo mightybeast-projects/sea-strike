@@ -5,22 +5,38 @@ namespace SeaStrike.GameCore.Root;
 
 public class AudioManager
 {
+    public bool audioLoaded;
     public SoundEffect buttonClickSFX;
 
     private readonly SeaStrikeGame game;
     private Song mainOST;
+    private Song battleOST;
+    private Song victoryOST;
 
     public AudioManager(SeaStrikeGame game) => this.game = game;
 
     public void LoadAudio()
     {
         mainOST = game.Content.Load<Song>("SFX/main_ost");
+        battleOST = game.Content.Load<Song>("SFX/battle_ost");
+        victoryOST = game.Content.Load<Song>("SFX/victory_ost");
         buttonClickSFX = game.Content.Load<SoundEffect>("SFX/button_click");
+
+        audioLoaded = true;
     }
 
-    public void PlayOST()
+    public void PlayMainOST() => PlaySong(mainOST, true);
+
+    public void PlayBattleOST() => PlaySong(battleOST, true);
+
+    public void PlayVictoryOST() => PlaySong(victoryOST, false);
+
+    private void PlaySong(Song song, bool loop)
     {
-        MediaPlayer.Play(mainOST);
-        MediaPlayer.IsRepeating = true;
+        if (MediaPlayer.Queue.ActiveSong != song)
+        {
+            MediaPlayer.Play(song);
+            MediaPlayer.IsRepeating = true;
+        }
     }
 }
