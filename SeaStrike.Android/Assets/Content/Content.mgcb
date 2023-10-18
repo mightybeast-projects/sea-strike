@@ -13,9 +13,57 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin OST/battle_ost.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:OST/battle_ost.ogg
+
+#begin OST/lost_ost.wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:OST/lost_ost.wav
+
+#begin OST/main_ost.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:OST/main_ost.mp3
+
+#begin OST/victory_ost.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:OST/victory_ost.ogg
+
+#begin SFX/button_click.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SFX/button_click.mp3
+
+#begin SFX/combo_box_select.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SFX/combo_box_select.mp3
+
 #begin SFX/hit.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:SFX/hit.wav
+
+#begin SFX/miss.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SFX/miss.wav
+
+#begin SFX/sunk.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SFX/sunk.wav
 
