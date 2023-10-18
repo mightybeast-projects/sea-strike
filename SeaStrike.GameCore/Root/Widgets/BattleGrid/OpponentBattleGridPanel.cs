@@ -36,6 +36,8 @@ public class OpponentBattleGridPanel : BattleGridPanel
 
         shotResultLabel.Text = result.ToString();
 
+        SeaStrikeGame.audioManager.PlayShotResultSFX(result);
+
         if (game.isOver)
             player.ShowVictoryScreen();
         else

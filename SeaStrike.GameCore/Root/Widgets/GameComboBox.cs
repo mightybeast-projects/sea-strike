@@ -19,9 +19,9 @@ public class GameComboBox : ComboBox
 
         ListBox.ApplyListBoxStyle(DefaultListBoxStyle);
 
-        TouchUp += (s, a) => SeaStrikeGame.audioManager.buttonClickSFX.Play();
+        TouchUp += (s, a) => SeaStrikeGame.audioManager.PlayButtonClickSFX();
         SelectedIndexChanged += (s, a) =>
-            SeaStrikeGame.audioManager.comboBoxSFX.Play();
+            SeaStrikeGame.audioManager.PlayComboBoxSFX();
     }
 
     private ComboBoxStyle DefaultComboBoxStyle =>
