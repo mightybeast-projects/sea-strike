@@ -1,6 +1,7 @@
 using Newtonsoft.Json;
 using SeaStrike.Core.Entity;
 using SeaStrike.Core.Entity.GameLogic;
+using SeaStrike.Core.Entity.GameLogic.Utility;
 using SeaStrike.GameCore.Root.Network.Listener;
 using SeaStrike.GameCore.Root.Network.Manager;
 using SeaStrike.GameCore.Root.Screens;
@@ -72,7 +73,9 @@ public class NetPlayer : SeaStrikePlayer
 
     public void HandleOpponentShot(string tileStr)
     {
-        game.HandleCurrentPlayerShot(tileStr);
+        ShotResult result = game.HandleCurrentPlayerShot(tileStr);
+
+        SeaStrikeGame.audioManager.PlayShotResultSFX(result);
 
         if (game.isOver)
             ShowLostScreen();

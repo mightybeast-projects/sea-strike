@@ -25,9 +25,11 @@ public class NetOpponnentBattleGridPanel : OpponentBattleGridPanel
 
         shotResultLabel.Text = result.ToString();
 
-        if (game.isOver)
-            player.ShowVictoryScreen();
+        SeaStrikeGame.audioManager.PlayShotResultSFX(result);
 
         player.SendShotTile(result.tile);
+
+        if (game.isOver)
+            player.ShowVictoryScreen();
     }
 }
