@@ -10,7 +10,7 @@ public class AIPlayer : Player
         .Build();
 
     private readonly Random rnd;
-    private List<ShotResult> anchorShots = new List<ShotResult>();
+    private readonly List<ShotResult> anchorShots = new List<ShotResult>();
     private ShotVector shotVector = new ShotVector();
     private bool vectorizedHit;
 
@@ -31,7 +31,7 @@ public class AIPlayer : Player
     private ShotResult ShootRandomTile()
     {
         Tile randomTile = ChooseRandomTile();
-        ShotResult shotResult = base.Shoot(randomTile.notation);
+        ShotResult shotResult = Shoot(randomTile.notation);
 
         if (shotResult.hit)
         {
@@ -53,7 +53,7 @@ public class AIPlayer : Player
             return Shoot();
         }
 
-        ShotResult shotResult = base.Shoot(nextTile.notation);
+        ShotResult shotResult = Shoot(nextTile.notation);
 
         if (shotResult.hit)
         {

@@ -5,7 +5,7 @@ namespace SeaStrike.GameCore.Root.Widgets.BattleGrid.Multiplayer;
 
 public class NetPlayerBattleGridPanel : PlayerBattleGridPanel
 {
-    private new NetPlayer player;
+    private new readonly NetPlayer player;
 
     public NetPlayerBattleGridPanel(NetPlayer player) : base(player)
     {

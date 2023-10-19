@@ -14,8 +14,6 @@ public class OpponentBattleGridPanel : BattleGridPanel
     protected Game game => player.game;
     protected Label shotResultLabel => (Label)Widgets.Last();
 
-    private SeaStrikeGame seaStrikeGame => player.seaStrikeGame;
-
     public OpponentBattleGridPanel(SeaStrikePlayer player) : base(player)
     {
         gridLabel = SeaStrikeGame.stringStorage.opponentOceanGridLabel;

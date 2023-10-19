@@ -216,7 +216,7 @@ public class AIPlayerTests
         shotResult.sunk.Should().BeTrue();
     }
 
-    private static TestCaseData[] cases =
+    private static readonly TestCaseData[] cases =
     {
         new TestCaseData(001, "B3"),
         new TestCaseData(002, "E8"),

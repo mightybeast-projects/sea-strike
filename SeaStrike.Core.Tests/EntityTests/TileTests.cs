@@ -22,14 +22,14 @@ public class TileTests
     public string TileNotation_IsCorrect(int i, int j) =>
         new Tile(i, j).notation;
 
-    private static TestCaseData[] tileCoordinatesCases =
+    private static readonly TestCaseData[] tileCoordinatesCases =
     {
         new TestCaseData(0, 0),
         new TestCaseData(0, 1),
         new TestCaseData(1, 0)
     };
 
-    private static TestCaseData[] tileNotationCases =
+    private static readonly TestCaseData[] tileNotationCases =
     {
         new TestCaseData(0, 0).Returns("A1"),
         new TestCaseData(0, 1).Returns("B1"),

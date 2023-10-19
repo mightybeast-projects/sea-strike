@@ -6,7 +6,7 @@ namespace SeaStrike.GameCore.Root.Widgets;
 
 public class CurrentPlayerTurnLabel : Label
 {
-    private NetPlayer player;
+    private readonly NetPlayer player;
 
     public CurrentPlayerTurnLabel(NetPlayer player)
     {

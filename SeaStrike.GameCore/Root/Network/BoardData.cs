@@ -9,8 +9,8 @@ public class BoardData
     public List<ShipData> shipDatas;
 
     private BoardBuilder boardBuilder;
-    private string coreAsseblyName = "SeaStrike.Core";
-    private string shipsNamespace = "SeaStrike.Core.Entity.";
+    private readonly string coreAsseblyName = "SeaStrike.Core";
+    private readonly string shipsNamespace = "SeaStrike.Core.Entity.";
 
     public BoardData(Board board)
     {
@@ -36,7 +36,7 @@ public class BoardData
 
     public string ToJson() => JsonConvert.SerializeObject(this);
 
-    private Func<Ship, ShipData> NewShipData = (ship) => new ShipData()
+    private readonly Func<Ship, ShipData> NewShipData = (ship) => new ShipData()
     {
         orientation = ship.orientation.ToString(),
         shipType = ship.GetType().Name,

@@ -6,7 +6,7 @@ namespace SeaStrike.GameCore.Root.Widgets;
 
 public class LobbyButtonsPanel : VerticalStackPanel
 {
-    private NetPlayer player;
+    private readonly NetPlayer player;
 
     public LobbyButtonsPanel(NetPlayer player)
     {
@@ -18,17 +18,15 @@ public class LobbyButtonsPanel : VerticalStackPanel
         Widgets.Add(ConnectToLobbyButton);
     }
 
-    private GameButton CreateLobbyButton =>
-        new GameButton(() => CreateNewLobby())
-        {
-            Text = SeaStrikeGame.stringStorage.createLobbyButtonLabel
-        };
+    private GameButton CreateLobbyButton => new GameButton(CreateNewLobby)
+    {
+        Text = SeaStrikeGame.stringStorage.createLobbyButtonLabel
+    };
 
-    private GameButton ConnectToLobbyButton =>
-        new GameButton(() => ConnectToLobby())
-        {
-            Text = SeaStrikeGame.stringStorage.connectToLobbyButtonLabel
-        };
+    private GameButton ConnectToLobbyButton => new GameButton(ConnectToLobby)
+    {
+        Text = SeaStrikeGame.stringStorage.connectToLobbyButtonLabel
+    };
 
     private Label CreatedNewLobbyLabel => new Label()
     {

@@ -25,7 +25,7 @@ public class DisconnectionWarningWindow : GameWindow
         Content = content;
     }
 
-    private Label WarningLabel = new Label()
+    private readonly Label WarningLabel = new Label()
     {
         Text = SeaStrikeGame.stringStorage.disconnectionWarningLabel,
         TextAlign = TextHorizontalAlignment.Center

@@ -19,7 +19,7 @@ public class ShipTests
     public void Ship_ToString_IsCorrect(Ship ship, string result) =>
         ship.ToString().Should().Be(result);
 
-    private static TestCaseData[] shipInitializationCases =
+    private static readonly TestCaseData[] shipInitializationCases =
     {
         new TestCaseData(new Destroyer(), 2),
         new TestCaseData(new Cruiser(), 3),
@@ -28,7 +28,7 @@ public class ShipTests
         new TestCaseData(new Carrier(), 5)
     };
 
-    private static TestCaseData[] shipToStringCases =
+    private static readonly TestCaseData[] shipToStringCases =
     {
         new TestCaseData(new Destroyer(), "Destroyer (Width : 2)."),
         new TestCaseData(new Cruiser(), "Cruiser (Width : 3)."),

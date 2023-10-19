@@ -39,14 +39,14 @@ public class GridTests
         .Invoking(g => g.GetTile(notation))
         .Should().Throw<CannotFindSpecifiedTileException>();
 
-    private static TestCaseData[] correctGridTileNotationCases =
+    private static readonly TestCaseData[] correctGridTileNotationCases =
     {
         new TestCaseData("A1", new Tile(0, 0)),
         new TestCaseData("D1", new Tile(0, 3)),
         new TestCaseData("E8", new Tile(7, 4)),
     };
 
-    private static TestCaseData[] incorrectGridTileNotationCases =
+    private static readonly TestCaseData[] incorrectGridTileNotationCases =
     {
         new TestCaseData("a1"),
         new TestCaseData("z0"),

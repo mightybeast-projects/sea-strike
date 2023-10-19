@@ -7,7 +7,7 @@ public class SeaStrikeServerListener : SeaStrikeListener
 {
     internal NetManager server;
 
-    private Dictionary<NetPeer, string> playerBoardDatas;
+    private readonly Dictionary<NetPeer, string> playerBoardDatas;
 
     private bool gameStarted => player.game is not null;
 
@@ -74,8 +74,7 @@ public class SeaStrikeServerListener : SeaStrikeListener
             DeliveryMethod.ReliableOrdered);
 
     private void ExchangeBoardDatas() =>
-        playerBoardDatas.ToList().ForEach(
-            playerData => SendOpponentBoard(playerData));
+        playerBoardDatas.ToList().ForEach(SendOpponentBoard);
 
     private void SendOpponentBoard(KeyValuePair<NetPeer, string> item) =>
         server.SendToAll(

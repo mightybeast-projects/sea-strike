@@ -6,7 +6,7 @@ namespace SeaStrike.GameCore.Root.Widgets.Modal;
 
 public class ErrorWindow : GameWindow
 {
-    private string errorMessage;
+    private readonly string errorMessage;
 
     public ErrorWindow(string errorMessage)
         : base(SeaStrikeGame.stringStorage.errorWindowTitle)

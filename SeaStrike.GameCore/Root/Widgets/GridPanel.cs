@@ -106,7 +106,7 @@ public class GridPanel : Panel, IBoardObserver
         Value = (float)Height / (oceanGrid.height + 1)
     };
 
-    private Func<int, Label> NumberLabel = (i) => new Label()
+    private readonly Func<int, Label> NumberLabel = (i) => new Label()
     {
         Text = i.ToString(),
         GridColumn = i,
@@ -114,7 +114,7 @@ public class GridPanel : Panel, IBoardObserver
         VerticalAlignment = VerticalAlignment.Center
     };
 
-    private Func<int, Label> LetterLabel = (i) => new Label()
+    private readonly Func<int, Label> LetterLabel = (i) => new Label()
     {
         Text = ((char)(i + 64)).ToString(),
         GridRow = i,
