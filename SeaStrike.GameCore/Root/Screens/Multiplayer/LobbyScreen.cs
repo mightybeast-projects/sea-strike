@@ -19,7 +19,7 @@ public class LobbyScreen : SeaStrikeScreen
 
         mainGrid.Widgets.Add(BackButton);
         mainGrid.Widgets.Add(ScreenTitleLabel);
-        mainGrid.Widgets.Add(LobbyButtonsPanel);
+        mainGrid.Widgets.Add(CreateLobbyWidget);
 
         seaStrikeGame.desktop.Root = mainGrid;
 
@@ -28,8 +28,8 @@ public class LobbyScreen : SeaStrikeScreen
 
     public override void Update(GameTime gameTime)
     {
-        player.UpdateNetManagers();
         player.DiscoverServer();
+        player.UpdateNetManagers();
     }
 
     private Label ScreenTitleLabel => new Label()
@@ -49,7 +49,7 @@ public class LobbyScreen : SeaStrikeScreen
         VerticalAlignment = VerticalAlignment.Top
     };
 
-    private LobbyButtonsPanel LobbyButtonsPanel => new LobbyButtonsPanel(player)
+    private CreateLobbyWidget CreateLobbyWidget => new CreateLobbyWidget(player)
     {
         GridRow = 1,
         HorizontalAlignment = HorizontalAlignment.Center,

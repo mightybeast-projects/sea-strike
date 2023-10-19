@@ -64,9 +64,7 @@ public class StringStorage
     //Lobby screen strings
     public string lobbyScreenLabel = "Lobby screen";
     public string createLobbyButtonLabel = "Create new lobby";
-    public string connectToLobbyButtonLabel = "Connect to existing lobby";
     public string createdLobbyLabel = "Created new lobby.\nWaiting for another player to connect...";
-    public string cannotDiscoverAnyLobbyLabel = "Cannot discover any lobbies in your local network.\nCreate one or try again later.";
 
     //Multiplayer deployment phase screen
     public string readyWindowTitle = "Ships deployed!";

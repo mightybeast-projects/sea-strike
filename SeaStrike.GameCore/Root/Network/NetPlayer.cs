@@ -31,6 +31,8 @@ public class NetPlayer : SeaStrikePlayer
 
     public void CreateServer()
     {
+        DiscoverServer();
+
         server = new SeaStrikeServer(new SeaStrikeServerListener(this));
 
         server.Start();
