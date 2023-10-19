@@ -19,10 +19,6 @@ public class SeaStrikeClient : NetManager
     {
         if (!IsRunning)
             base.Start();
-
-        var result = SendBroadcast(
-            new SeaStrikeNetDataWriter(NetUtils.serverDiscoveryMessage),
-            NetUtils.port);
     }
 
     public void Send(string message) =>

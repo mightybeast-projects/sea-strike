@@ -22,10 +22,15 @@ public class LobbyScreen : SeaStrikeScreen
         mainGrid.Widgets.Add(LobbyButtonsPanel);
 
         seaStrikeGame.desktop.Root = mainGrid;
+
+        this.player.CreateClient();
     }
 
-    public override void Update(GameTime gameTime) =>
+    public override void Update(GameTime gameTime)
+    {
         player.UpdateNetManagers();
+        player.DiscoverServer();
+    }
 
     private Label ScreenTitleLabel => new Label()
     {

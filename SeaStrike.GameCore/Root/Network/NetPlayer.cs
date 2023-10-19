@@ -41,7 +41,13 @@ public class NetPlayer : SeaStrikePlayer
         client = new SeaStrikeClient(new SeaStrikeClientListener(this));
 
         client.Start();
+
+        DiscoverServer();
     }
+
+    public void DiscoverServer() => client.SendBroadcast(
+        new SeaStrikeNetDataWriter(NetUtils.serverDiscoveryMessage),
+        NetUtils.port);
 
     public void UpdateNetManagers()
     {
