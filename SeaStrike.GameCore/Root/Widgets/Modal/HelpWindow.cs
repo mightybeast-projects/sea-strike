@@ -1,6 +1,6 @@
-using System.Text;
 using FontStashSharp.RichText;
 using Myra.Graphics2D.UI;
+using System.Text;
 
 namespace SeaStrike.GameCore.Root.Widgets.Modal;
 

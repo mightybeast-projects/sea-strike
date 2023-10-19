@@ -2,7 +2,6 @@ using SeaStrike.Core.Entity;
 using SeaStrike.Core.Entity.GameLogic;
 using SeaStrike.GameCore.Root.Screens;
 using SeaStrike.GameCore.Root.Widgets.Modal;
-using Color = Microsoft.Xna.Framework.Color;
 
 namespace SeaStrike.GameCore.Root;
 

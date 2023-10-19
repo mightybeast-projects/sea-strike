@@ -1,5 +1,5 @@
-using System.Net;
 using LiteNetLib;
+using System.Net;
 
 namespace SeaStrike.GameCore.Root.Network.Listener;
 

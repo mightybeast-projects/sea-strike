@@ -1,7 +1,7 @@
 using Microsoft.Xna.Framework;
 using Myra.Graphics2D.UI;
-using SeaStrike.GameCore.Root.Widgets;
 using SeaStrike.GameCore.Root.Network;
+using SeaStrike.GameCore.Root.Widgets;
 using SeaStrike.GameCore.Root.Widgets.Modal;
 
 namespace SeaStrike.GameCore.Root.Screens.Multiplayer;

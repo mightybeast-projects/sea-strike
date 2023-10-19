@@ -1,7 +1,7 @@
-using System.Net;
 using LiteNetLib;
 using SeaStrike.GameCore.Root.Network.Manager;
 using SeaStrike.GameCore.Root.Screens.Multiplayer;
+using System.Net;
 
 namespace SeaStrike.GameCore.Root.Network.Listener;
 

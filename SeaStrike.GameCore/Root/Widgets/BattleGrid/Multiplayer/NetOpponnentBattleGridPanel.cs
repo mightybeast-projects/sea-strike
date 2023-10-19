@@ -1,7 +1,6 @@
 using SeaStrike.Core.Entity;
 using SeaStrike.Core.Entity.GameLogic.Utility;
 using SeaStrike.GameCore.Root.Network;
-using SeaStrike.GameCore.Root.Widgets.BattleGrid;
 using SeaStrike.GameCore.Root.Widgets.GridTile;
 
 namespace SeaStrike.GameCore.Root.Widgets.BattleGrid.Multiplayer;

@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using FontStashSharp.RichText;
 using Myra.Graphics2D.UI;
 using SeaStrike.GameCore.Root.Network;

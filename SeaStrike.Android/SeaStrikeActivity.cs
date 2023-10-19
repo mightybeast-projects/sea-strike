@@ -5,8 +5,6 @@ using Android.Views;
 using Microsoft.Xna.Framework;
 using SeaStrike.GameCore.Root;
 
-using Point = Android.Graphics.Point;
-
 namespace SeaStrike.Android;
 
 [Activity(

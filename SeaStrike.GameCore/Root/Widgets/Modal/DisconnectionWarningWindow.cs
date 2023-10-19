@@ -1,8 +1,7 @@
-using System;
+using FontStashSharp.RichText;
 using Microsoft.Xna.Framework;
 using Myra.Graphics2D.Brushes;
 using Myra.Graphics2D.UI;
-using FontStashSharp.RichText;
 
 namespace SeaStrike.GameCore.Root.Widgets.Modal;
 

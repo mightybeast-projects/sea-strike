@@ -1,4 +1,3 @@
-using System;
 using Microsoft.Xna.Framework;
 using Myra.Graphics2D.UI;
 using SeaStrike.Core.Entity;

@@ -1,6 +1,6 @@
+using LiteNetLib;
 using System.Net;
 using System.Net.Sockets;
-using LiteNetLib;
 
 namespace SeaStrike.GameCore.Root.Network.Listener;
 

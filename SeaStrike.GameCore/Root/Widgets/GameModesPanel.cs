@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework;
 using Myra.Graphics2D.UI;
-using SeaStrike.GameCore.Root;
 using SeaStrike.GameCore.Root.Screens;
 using SeaStrike.GameCore.Root.Screens.Multiplayer;
 
