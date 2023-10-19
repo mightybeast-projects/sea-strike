@@ -63,7 +63,7 @@ public class DeploymentPhaseScreen : SeaStrikeScreen
     {
         Text = SeaStrikeGame.stringStorage.deploymentPhaseScreenTitle,
         TextColor = Color.LawnGreen,
-        Font = SeaStrikeGame.fontSystem.GetFont(40),
+        Font = SeaStrikeGame.fontManager.GetFont(40),
         HorizontalAlignment = HorizontalAlignment.Center
     };
 

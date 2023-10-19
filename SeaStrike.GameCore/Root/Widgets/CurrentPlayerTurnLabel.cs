@@ -12,7 +12,7 @@ public class CurrentPlayerTurnLabel : Label
     {
         this.player = player;
 
-        Font = SeaStrikeGame.fontSystem.GetFont(28);
+        Font = SeaStrikeGame.fontManager.GetFont(28);
     }
 
     public void Update()

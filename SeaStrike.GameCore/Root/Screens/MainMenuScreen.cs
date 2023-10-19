@@ -29,7 +29,7 @@ public class MainMenuScreen : SeaStrikeScreen
         Top = 100,
         Text = SeaStrikeGame.stringStorage.gameTitle,
         TextColor = Color.LawnGreen,
-        Font = SeaStrikeGame.fontSystem.GetFont(56),
+        Font = SeaStrikeGame.fontManager.GetFont(56),
         HorizontalAlignment = HorizontalAlignment.Center,
         VerticalAlignment = VerticalAlignment.Top,
     };

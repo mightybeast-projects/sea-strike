@@ -33,7 +33,7 @@ public class BattlePhaseScreen : SeaStrikeScreen
     {
         Text = SeaStrikeGame.stringStorage.battlePhaseScreenTitle,
         TextColor = Color.LawnGreen,
-        Font = SeaStrikeGame.fontSystem.GetFont(40),
+        Font = SeaStrikeGame.fontManager.GetFont(40),
         HorizontalAlignment = HorizontalAlignment.Center,
         GridColumnSpan = 2
     };

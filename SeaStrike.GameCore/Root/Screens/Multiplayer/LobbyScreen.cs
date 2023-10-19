@@ -31,7 +31,7 @@ public class LobbyScreen : SeaStrikeScreen
     {
         Text = SeaStrikeGame.stringStorage.lobbyScreenLabel,
         TextColor = Color.LawnGreen,
-        Font = SeaStrikeGame.fontSystem.GetFont(40),
+        Font = SeaStrikeGame.fontManager.GetFont(40),
         HorizontalAlignment = HorizontalAlignment.Center
     };
 

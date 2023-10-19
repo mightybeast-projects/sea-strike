@@ -24,7 +24,7 @@ public class GameModesPanel : VerticalStackPanel
     private Label GameModeLabel => new Label()
     {
         Text = SeaStrikeGame.stringStorage.gameModeLabel,
-        Font = SeaStrikeGame.fontSystem.GetFont(30),
+        Font = SeaStrikeGame.fontManager.GetFont(30),
         TextColor = Color.LawnGreen,
         HorizontalAlignment = HorizontalAlignment.Center
     };

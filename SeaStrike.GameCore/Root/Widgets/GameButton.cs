@@ -12,7 +12,7 @@ public class GameButton : TextButton
     {
         HorizontalAlignment = HorizontalAlignment.Center;
         Background = new SolidBrush(Color.Black);
-        Font = SeaStrikeGame.fontSystem.GetFont(24);
+        Font = SeaStrikeGame.fontManager.GetFont(24);
         Border = new SolidBrush(Color.LawnGreen);
         BorderThickness = new Thickness(2);
         PressedBackground = new SolidBrush(Color.DarkGreen);

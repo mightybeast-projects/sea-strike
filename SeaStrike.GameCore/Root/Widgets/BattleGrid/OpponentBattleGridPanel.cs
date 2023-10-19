@@ -46,7 +46,7 @@ public class OpponentBattleGridPanel : BattleGridPanel
 
     private Label HitResultLabel => new Label()
     {
-        Font = SeaStrikeGame.fontSystem.GetFont(28),
+        Font = SeaStrikeGame.fontManager.GetFont(28),
         TextColor = Color.LawnGreen,
         HorizontalAlignment = HorizontalAlignment.Center,
     };

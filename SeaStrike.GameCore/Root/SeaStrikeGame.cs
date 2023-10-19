@@ -13,7 +13,7 @@ namespace SeaStrike.GameCore.Root;
 
 public class SeaStrikeGame : Game
 {
-    public static FontSystem fontSystem;
+    public static FontManager fontManager;
     public static StringStorage stringStorage;
     public static AudioManager audioManager;
     public Desktop desktop;
@@ -23,7 +23,7 @@ public class SeaStrikeGame : Game
 
     public SeaStrikeGame()
     {
-        fontSystem = new FontSystem();
+        fontManager = new FontManager();
         stringStorage = new StringStorage();
         audioManager = new AudioManager(this);
         screenManager = new ScreenManager();
@@ -52,21 +52,10 @@ public class SeaStrikeGame : Game
 
         desktop = new Desktop();
 
-        string path = stringStorage.fontPath;
-        byte[] ttf;
-        using (var stream = TitleContainer.OpenStream(path))
-        {
-            using (var ms = new MemoryStream())
-            {
-                stream.CopyTo(ms);
-                ttf = ms.ToArray();
-            }
-        }
-        fontSystem.AddFont(ttf);
-
+        fontManager.LoadFont();
         audioManager.LoadAudio();
 
-        Stylesheet.Current.LabelStyle.Font = fontSystem.GetFont(24);
+        Stylesheet.Current.LabelStyle.Font = fontManager.GetFont(24);
     }
 
     protected override void Draw(GameTime gameTime)
