@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Media;
 using SeaStrike.Core.Entity.GameLogic.Utility;
 
-namespace SeaStrike.GameCore.Root;
+namespace SeaStrike.GameCore.Root.Manager;
 
 public class AudioManager
 {

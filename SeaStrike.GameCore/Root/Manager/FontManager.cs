@@ -1,7 +1,7 @@
 using FontStashSharp;
 using Microsoft.Xna.Framework;
 
-namespace SeaStrike.GameCore.Root;
+namespace SeaStrike.GameCore.Root.Manager;
 
 public class FontManager
 {

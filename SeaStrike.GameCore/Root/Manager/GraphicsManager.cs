@@ -1,7 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace SeaStrike.GameCore.Root;
+namespace SeaStrike.GameCore.Root.Manager;
 
 public class GraphicsManager
 {
