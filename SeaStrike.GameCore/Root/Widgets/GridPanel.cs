@@ -126,6 +126,8 @@ public class GridPanel : Panel, IBoardObserver
     {
         if (!tile.isOccupied && tile.hasBeenHit)
             return new MissGridTileImage(tile);
+        else if (tile.isOccupied && tile.occupiedBy.isSunk)
+            return new SunkShipGridTileButton(tile);
         else if (tile.isOccupied && tile.hasBeenHit)
             return new EnemyShipGridTileImage(tile);
         else if (tile.isOccupied && !tile.hasBeenHit && showShips)
