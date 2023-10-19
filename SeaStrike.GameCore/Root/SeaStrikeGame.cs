@@ -19,7 +19,7 @@ public class SeaStrikeGame : Game
     public Desktop desktop;
     public ScreenManager screenManager;
 
-    private readonly GraphicsDeviceManager graphics;
+    private readonly GraphicsManager graphicsManager;
 
     public SeaStrikeGame()
     {
@@ -27,7 +27,9 @@ public class SeaStrikeGame : Game
         stringStorage = new StringStorage();
         audioManager = new AudioManager(this);
         screenManager = new ScreenManager();
-        graphics = new GraphicsDeviceManager(this);
+        graphicsManager = new GraphicsManager(this);
+
+        graphicsManager.InitializeGraphics();
 
         Content.RootDirectory = stringStorage.contentPath;
         IsMouseVisible = true;
@@ -35,8 +37,6 @@ public class SeaStrikeGame : Game
         MyraEnvironment.Game = this;
 
         Components.Add(screenManager);
-
-        ChangeGraphicsSettings();
     }
 
     protected override void Initialize()
@@ -80,26 +80,11 @@ public class SeaStrikeGame : Game
         catch (Exception e) { ShowSystemError(e); }
     }
 
-    private void ChangeGraphicsSettings()
+    protected override void Update(GameTime gameTime)
     {
-        if (OperatingSystem.IsAndroid())
-        {
-            graphics.IsFullScreen = true;
-            graphics.PreferredBackBufferWidth =
-                GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-            graphics.PreferredBackBufferHeight =
-                GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
-            graphics.SupportedOrientations =
-                DisplayOrientation.LandscapeLeft |
-                DisplayOrientation.LandscapeRight;
-        }
-        else
-        {
-            graphics.PreferredBackBufferWidth = 1280;
-            graphics.PreferredBackBufferHeight = 720;
-        }
+        base.Update(gameTime);
 
-        graphics.ApplyChanges();
+        graphicsManager.UpdateScreenViewport();
     }
 
     private void ShowCoreLibraryError(Exception e) =>
