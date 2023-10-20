@@ -17,6 +17,8 @@ public class NetBattlePhaseScreen : BattlePhaseScreen
 
     public override void LoadContent()
     {
+        SeaStrikeGame.audioManager.PlayBattleOST();
+
         player.StartCoreGame();
 
         mainGrid = new Grid()
