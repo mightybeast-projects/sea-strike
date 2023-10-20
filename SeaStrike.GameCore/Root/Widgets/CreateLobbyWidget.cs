@@ -12,9 +12,10 @@ public class CreateLobbyWidget : VerticalStackPanel
     {
         this.player = player;
 
-        Spacing = 20;
+        Spacing = 5;
 
         Widgets.Add(CreateLobbyButton);
+        Widgets.Add(WaitForLobbyCreationLabel);
     }
 
     private GameButton CreateLobbyButton => new GameButton(CreateNewLobby)
@@ -25,6 +26,12 @@ public class CreateLobbyWidget : VerticalStackPanel
     private Label CreatedNewLobbyLabel => new Label()
     {
         Text = SeaStrikeGame.stringStorage.createdLobbyLabel,
+        TextAlign = TextHorizontalAlignment.Center
+    };
+
+    private Label WaitForLobbyCreationLabel => new Label()
+    {
+        Text = SeaStrikeGame.stringStorage.waitForLobbyCreationLabel,
         TextAlign = TextHorizontalAlignment.Center
     };
 

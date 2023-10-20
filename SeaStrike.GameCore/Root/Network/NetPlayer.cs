@@ -12,6 +12,7 @@ public class NetPlayer : SeaStrikePlayer
 {
     public bool canShoot => game.currentPlayer.board == board;
     public bool isHost => server is not null;
+    public bool canCreateServer = true;
 
     protected override Action onGameOverScreenExitButtonClicked => Disconnect;
 
@@ -43,8 +44,6 @@ public class NetPlayer : SeaStrikePlayer
         client = new SeaStrikeClient(new SeaStrikeClientListener(this));
 
         client.Start();
-
-        DiscoverServer();
     }
 
     public void DiscoverServer() => client.SendBroadcast(

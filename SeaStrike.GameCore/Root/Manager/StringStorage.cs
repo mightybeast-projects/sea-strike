@@ -64,6 +64,7 @@ public class StringStorage
     //Lobby screen strings
     public string lobbyScreenLabel = "Lobby screen";
     public string createLobbyButtonLabel = "Create new lobby";
+    public string waitForLobbyCreationLabel = "OR\nWait for another player to create one.\nClient will automatically connect to any available lobby in your local network.";
     public string createdLobbyLabel = "Created new lobby.\nWaiting for another player to connect...";
 
     //Multiplayer deployment phase screen
