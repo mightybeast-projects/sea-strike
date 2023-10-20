@@ -14,7 +14,10 @@ namespace SeaStrike.Android;
     AlwaysRetainTaskState = true,
     LaunchMode = LaunchMode.SingleInstance,
     ScreenOrientation = ScreenOrientation.Landscape,
-    ConfigurationChanges = ConfigChanges.Orientation | ConfigChanges.Keyboard | ConfigChanges.KeyboardHidden | ConfigChanges.ScreenSize
+    ConfigurationChanges = ConfigChanges.Orientation |
+                            ConfigChanges.Keyboard |
+                            ConfigChanges.KeyboardHidden |
+                            ConfigChanges.ScreenSize
 )]
 public class SeaStrikeActivity : AndroidGameActivity
 {

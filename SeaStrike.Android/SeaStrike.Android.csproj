@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFramework>net7.0-android</TargetFramework>
     <OutputType>Exe</OutputType>
-    <ApplicationId>com.companyname.SeaStrike.Android</ApplicationId>
+    <ApplicationId>com.companyname.SeaStrike</ApplicationId>
     <ApplicationVersion>1</ApplicationVersion>
     <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
   </PropertyGroup>
