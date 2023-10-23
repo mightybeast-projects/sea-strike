@@ -35,9 +35,11 @@ This project contains core library for game logic, tests project, library for ga
     - ✅ Android port (And I am ~~not~~ proud of it)
 
 ## 🎮 **How to play**
-Visit [Releases page](https://github.com/mightybeast-projects/sea-strike/releases).
+Visit [Releases page](https://github.com/mightybeast-projects/sea-strike/releases) and download appropriate package for your platform.
 
-To play in local multiplayer mode, both players must be connected to the same local network. This feature is cross-platform, meaning desktop player could play with antoher android player or Linux player etc.
+For more specific game help, refer to in-game help button in top right corner of the screen.
+
+To play in local multiplayer mode, both players must be connected to the same local network. This feature is cross-platform, meaning desktop player could play with android player.
 
 ## ✏️ **Potential improvements**
 - [ ] Improve ship placement UX
