@@ -1,5 +1,7 @@
 # 🚢 **Sea Strike**
 
+<img src="SeaStrike.PC\demo.gif" height="500">
+
 ## 📃 Description
 Strategy game based on classic "Battleships" pen and paper game.
 This project contains core library for game logic, tests project, library for game core and two versions of the game itself - for desktop and for Android.
